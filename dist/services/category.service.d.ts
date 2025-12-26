@@ -1,5 +1,5 @@
 import type { ICategoryRepository } from "../repository/category.repository.js";
-import type { Category } from "../generated/index.js";
+import type { Category } from "../generated";
 export interface FindAllCategoryParams {
     page: number;
     limit: number;

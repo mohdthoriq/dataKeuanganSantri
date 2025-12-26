@@ -1,5 +1,4 @@
 node_modules
 .env.prooduction
 .env.development 
-.dist
 public/uploads/*

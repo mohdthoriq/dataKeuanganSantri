@@ -1,5 +1,7 @@
 import { errorResponse } from "../utils/response.js";
-import { Prisma } from "../generated/index.js";
+import { Prisma } from "../generated";
+
+
 export const errorHandler = (err, req, res, next) => {
     console.error("ERROR:", err.message);
     const statusCode = err.statusCode ||
