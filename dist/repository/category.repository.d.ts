@@ -1,5 +1,5 @@
-import type { Prisma, Category, PrismaClient } from "../generated/index.js";
-import type { Decimal } from "../generated/runtime/client.js";
+import type { Prisma, Category, PrismaClient } from "../generated";
+import type { Decimal } from "../generated/runtime/client";
 export interface ICategoryRepository {
     list(skip: number, take: number, where: Prisma.CategoryWhereInput, orderBy: Prisma.CategoryOrderByWithRelationInput): Promise<Category[]>;
     countAll(where: Prisma.CategoryWhereInput): Promise<number>;

@@ -1,4 +1,4 @@
-import { successResponse } from "../utils/response.js";
+import { successResponse } from "../utils/response";
 export class OrderItemController {
     orderItemService;
     constructor(orderItemService) {

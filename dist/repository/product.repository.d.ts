@@ -1,5 +1,5 @@
-import type { Decimal } from "@prisma/client/runtime/client";
-import type { Prisma, PrismaClient, Product } from "../generated/index.js";
+import type { Prisma, PrismaClient, Product } from "../generated";
+import type { Decimal } from "../generated/runtime/client";
 export interface IProductRepository {
     list(skip: number, take: number, where: Prisma.ProductWhereInput, orderBy: Prisma.ProductOrderByWithRelationInput): Promise<Product[]>;
     countAll(where: Prisma.ProductWhereInput): Promise<number>;
@@ -129,7 +129,7 @@ export declare class ProductRepository implements IProductRepository {
             id: number;
         };
         _avg: {
-            price: Decimal | null;
+            price: Prisma.Decimal | null;
         };
     })[]>;
 }

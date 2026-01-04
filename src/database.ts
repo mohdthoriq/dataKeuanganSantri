@@ -17,5 +17,5 @@ const getPrisma = () => {
 
 export const PrismaInstance = getPrisma();
 
-export default getPrisma;
+export default PrismaInstance;
 

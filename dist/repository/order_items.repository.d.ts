@@ -1,4 +1,4 @@
-import type { Prisma, PrismaClient, OrderItem } from "../generated/index.js";
+import type { Prisma, PrismaClient, OrderItem } from "../generated";
 export interface IOrderItemRepository {
     findAll(params: {
         skip: number;

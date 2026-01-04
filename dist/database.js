@@ -1,8 +1,8 @@
 // src/prisma.ts
 import { Pool } from "pg";
-import config from "./utils/env.js";
+import config from "./utils/env";
 import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "./generated/index.js";
+import { PrismaClient } from "./generated";
 let prisma;
 const getPrisma = () => {
     if (!prisma) {
@@ -13,5 +13,5 @@ const getPrisma = () => {
     return prisma;
 };
 export const PrismaInstance = getPrisma();
-export default getPrisma;
+export default PrismaInstance;
 //# sourceMappingURL=database.js.map

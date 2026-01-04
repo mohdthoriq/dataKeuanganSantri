@@ -1,4 +1,4 @@
-import type { ICategoryRepository } from "../repository/category.repository.js";
+import type { ICategoryRepository } from "../repository/category.repository";
 import type { Category } from "../generated";
 export interface FindAllCategoryParams {
     page: number;

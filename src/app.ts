@@ -6,12 +6,6 @@ import { successResponse } from "./utils/response";
 import { errorHandler } from "./middlewares/error.handler";
 import { requestLogger } from "./middlewares/logging.middleware";
 import { authenticate } from "./middlewares/auth.middlleware";
-import productRouter from "./routes/product.routes";
-import userRouter from "./routes/user.router";
-import categoryRouter from "./routes/category.routes";
-import orderRouter from "./routes/orders.routes";
-import orderItemRouter from "./routes/order_items.routes";
-import profileRouter from "./routes/profile.routes";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./utils/swagger";
 
@@ -34,7 +28,6 @@ app.use(requestLogger)
 
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
-app.use('/auth', userRouter)
 
 app.get('/', (_req: Request, res: Response) => {
     successResponse(
@@ -47,11 +40,6 @@ app.get('/', (_req: Request, res: Response) => {
     )
 })
 
-app.use('/api/products', productRouter)
-app.use('/api/categories',  categoryRouter)
-app.use('/api/orders', authenticate, orderRouter)
-app.use('/api/order-items', orderItemRouter);
-app.use('/api/profile', profileRouter)
 
 app.get(/.*/, (req: Request, res: Response) => {
     throw new Error(`Route ${req.originalUrl} tidak ada di API E-Commerce`);

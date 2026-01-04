@@ -1,5 +1,5 @@
-import type { IProfileRepository } from "../repository/profile.repository.js";
-import type { Profile } from "../generated/index.js";
+import type { IProfileRepository } from "../repository/profile.repository";
+import type { Profile } from "../generated";
 export interface IProfileService {
     create(data: {
         name: string;
