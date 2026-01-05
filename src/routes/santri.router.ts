@@ -1,0 +1,16 @@
+import { Router } from "express";
+
+const router = Router();
+
+router.post("/", (req, res) => {})
+router.get("/", (req, res) => {})
+router.get("/:id", (req, res) => {})
+router.put("/:id", (req, res) => {})
+router.patch("/:id/status", (req, res) => {})
+router.delete("/:id", (req, res) => {})
+
+// ===== wali =====
+router.get("/wali/my", (req, res) => {})
+router.get("/wali/:id", (req, res) => {})
+
+export default router

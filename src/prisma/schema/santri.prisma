@@ -1,0 +1,18 @@
+model Santri {
+  id            Int      @id @default(autoincrement())
+  nis           String
+  fullname      String
+  kelas         String
+  waliId        Int
+  institutionId Int
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+
+  // relations
+  wali          User        @relation(fields: [waliId], references: [id])
+  institution   Institution @relation(fields: [institutionId], references: [id])
+  authAccounts  AuthAccount[]
+  transactions  Transaction[]
+
+  @@unique([nis, institutionId])
+}

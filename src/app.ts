@@ -8,6 +8,12 @@ import { requestLogger } from "./middlewares/logging.middleware";
 import { authenticate } from "./middlewares/auth.middlleware";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./utils/swagger";
+import authRouter from "./routes/auth.router";
+import institutionRouter from "./routes/institution.router";
+import santriRouter from "./routes/santri.router";
+import transactionRouter from "./routes/transaction.router";
+import categoryRouter from "./routes/category.router";
+import notificationRouter from "./routes/notification.router";
 
 const app: Application = express()
 
@@ -39,6 +45,13 @@ app.get('/', (_req: Request, res: Response) => {
         ,}
     )
 })
+
+app.use('/api/auth',authRouter)
+app.use('/api/institution', authenticate, institutionRouter)
+app.use('/api/santri', authenticate, santriRouter)
+app.use('/api/transaction', authenticate, transactionRouter)
+app.use('/api/category', authenticate, categoryRouter)
+app.use('/api/notification', authenticate, notificationRouter)
 
 
 app.get(/.*/, (req: Request, res: Response) => {

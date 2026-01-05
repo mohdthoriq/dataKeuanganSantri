@@ -1,0 +1,15 @@
+model Institution {
+  id         Int      @id @default(autoincrement())
+  name       String
+  createdBy  Int
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+
+  // relations
+  admin User @relation("InstitutionAdmin", fields: [createdBy], references: [id])
+
+  users User[] @relation("InstitutionUsers")
+
+  santri     Santri[]
+  categories Category[]
+}

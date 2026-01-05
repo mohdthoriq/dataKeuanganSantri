@@ -1,0 +1,17 @@
+model Transaction {
+  id              Int      @id @default(autoincrement())
+  santriId        Int
+  categoryId      Int
+  type            CategoryType
+  amount          Decimal
+  description     String?
+  transactionDate DateTime
+  createdBy       Int
+  isDeleted       Boolean  @default(false)
+  createdAt       DateTime @default(now())
+
+  // relations
+  santri   Santri   @relation(fields: [santriId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id])
+  admin    User     @relation("AdminTransactions", fields: [createdBy], references: [id])
+}

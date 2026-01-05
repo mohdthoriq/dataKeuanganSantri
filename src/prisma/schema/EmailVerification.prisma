@@ -1,0 +1,10 @@
+model EmailVerification {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  otpCode    String
+  expiredAt  DateTime
+  isUsed     Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
