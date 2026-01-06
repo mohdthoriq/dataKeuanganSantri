@@ -1,10 +1,16 @@
 import { randomInt } from "crypto";
-import nodemailer from "nodemailer";
 import PrismaInstance from "../database";
 
 const prisma = PrismaInstance;
 
 export const generateOtp = async(userId: number) => {
+    await prisma.emailVerification.deleteMany({
+        where: {
+            userId,
+            isUsed: false,
+        },
+    });
+
     const otpCode = randomInt(100000, 999999).toString();
     const expiredAt = new Date(Date.now() + 10 * 60 * 1000); // 10 menit kadaluarsa
 
@@ -52,25 +58,4 @@ export const verifyOtp = async(userId: number, otpCode: string) => {
     })
 
     return true;
-}
-
-export const sendEmail = async(to: string, subject: string, text: string) => {
-    const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: Number(process.env.SMTP_PORT),
-        secure: process.env.SMTP_SECURE === "true",
-        auth: {
-            user: process.env.SMTP_USER,
-            pass: process.env.SMTP_PASS,
-        },
-    });
-    
-    const info = await transporter.sendMail({
-        from: process.env.SMTP_USER,
-        to,
-        subject,
-        text,
-    })
-
-    return info;
 }

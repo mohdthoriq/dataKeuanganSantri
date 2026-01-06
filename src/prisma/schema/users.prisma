@@ -19,4 +19,5 @@ model User {
   authAccounts       AuthAccount[]
   transactions       Transaction[] @relation("AdminTransactions")
   notifications      Notification[]
+  passwordResets     PasswordReset[]
 }

@@ -165,6 +165,15 @@ exports.Prisma.NotificationScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.PasswordResetScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  otpCode: 'otpCode',
+  expiredAt: 'expiredAt',
+  isUsed: 'isUsed',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SantriScalarFieldEnum = {
   id: 'id',
   nis: 'nis',
@@ -231,6 +240,7 @@ exports.Prisma.ModelName = {
   Category: 'Category',
   Institution: 'Institution',
   Notification: 'Notification',
+  PasswordReset: 'PasswordReset',
   Santri: 'Santri',
   Transaction: 'Transaction',
   User: 'User'

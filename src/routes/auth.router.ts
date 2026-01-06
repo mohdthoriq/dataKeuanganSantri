@@ -4,11 +4,10 @@ import * as authController from "../controllers/auth.controller";
 const router = Router();
 
 router.post("/register-admin",authController.registerAdmin );
-router.post("/login", (req, res) =>{});
-router.post("/logout", (req, res) =>{});
+router.post("/login", authController.userLogin);
 
-router.post("/request-reset", (req, res) =>{});
-router.post("/reset-password", (req, res) =>{});
+router.post("/request-reset", authController.requestReset);
+router.post("/reset-password", authController.resetPassword);
 
 
 export default router;

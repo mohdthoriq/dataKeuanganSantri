@@ -1,10 +1,14 @@
+// src\routes\users.router.ts
 import { Router } from "express";
+import * as usersController from "../controllers/users.controller";
 
 const router = Router();
 
-router.get("/", (req, res) => {})
-router.get("/:id", (req, res) => {})
-router.put("/:id", (req, res) => {})
-router.patch("/:id/status", (req, res) => {})
+router.get("/", usersController.getAllUsers)
+router.get("/:id", usersController.getUserById)
+router.post("/", usersController.createUser)
+router.put("/:id", usersController.updateUser)
+router.patch("/:id/status", usersController.updateUserStatus)
+router.delete("/:id", usersController.deleteUser)
 
 export default router

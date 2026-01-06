@@ -8,6 +8,7 @@ declare global{
             user? : {
                 id: number;
                 role: string;
+                institutionId?: number
             }
         }
         

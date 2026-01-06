@@ -9,6 +9,8 @@ import { authenticate } from "./middlewares/auth.middlleware";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./utils/swagger";
 import authRouter from "./routes/auth.router";
+import usersRouter from "./routes/users.router";
+import emailVerificationRouter from "./routes/emailVerification.router";
 import institutionRouter from "./routes/institution.router";
 import santriRouter from "./routes/santri.router";
 import transactionRouter from "./routes/transaction.router";
@@ -47,6 +49,8 @@ app.get('/', (_req: Request, res: Response) => {
 })
 
 app.use('/api/auth',authRouter)
+app.use('/api/users', authenticate, usersRouter)
+app.use('/api/email-verification', emailVerificationRouter)
 app.use('/api/institution', authenticate, institutionRouter)
 app.use('/api/santri', authenticate, santriRouter)
 app.use('/api/transaction', authenticate, transactionRouter)
