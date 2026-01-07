@@ -1,62 +1,65 @@
+// src/controllers/category.controller.ts
 import type { Request, Response } from "express";
-import * as categoryService from "../services/category.service";
 import { successResponse } from "../utils/response";
+import type { CategoryService, ICreateCategoryPayload, IUpdateCategoryPayload } from "../services/category.service";
 import { CategoryType } from "../generated";
 
-export const create = async (req: Request, res: Response) => {
-  const { name, type } = req.body;
-  const institutionId = req.user?.institutionId; // dari auth middleware
+export class CategoryController {
+  constructor(private categoryService: CategoryService) { }
 
-  if (!name || !type) {
-    throw new Error("Bad Request");
-  }
+  createCategory = async (req: Request, res: Response) => {
+    const payload: ICreateCategoryPayload = req.body;
+    if (!payload.name || !payload.type || !payload.institutionId) throw new Error("name, type, and institutionId are required");
 
-  if (!institutionId) {
-    throw new Error("Unauthorized");
-  }
+    const category = await this.categoryService.createCategory(payload);
+    successResponse(res, "Category created successfully", category);
+  };
 
-  const category = await categoryService.create({
-    name,
-    type,
-    institutionId
-  });
+  getCategories = async (req: Request, res: Response) => {
+    const { institutionId, type, isActive, search } = req.query;
 
-  successResponse(
-    res,
-    "Create category success",
-    category
-  );
-};
+    const params: {
+      institutionId: number;
+      type?: CategoryType;
+      isActive?: boolean;
+      search?: string;
+    } = {
+      institutionId: Number(institutionId),
+      ...(type && { type: type as CategoryType }),
+      ...(isActive !== undefined && { isActive: isActive === "true" }),
+      ...(search && { search: search as string }),
+    };
 
-export const getList = async (req: Request, res: Response) => {
-  const institutionId = req.user?.institutionId;
+    const categories = await this.categoryService.getCategories(params);
+    successResponse(res, "Get categories success", categories);
+  };
 
-  if (!institutionId) {
-    throw new Error("Institution not found");
-  }
 
-  const filters: {
-    institutionId: number;
-    type?: CategoryType;
-    isActive?: boolean;
-    search?: string;
-  } = { institutionId };
+  getCategoryById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const category = await this.categoryService.getCategoryById(Number(id));
+    successResponse(res, "Get category detail success", category);
+  };
 
-  if (typeof req.query.type === "string") {
-    if (Object.values(CategoryType).includes(req.query.type as CategoryType)) {
-      filters.type = req.query.type as CategoryType;
-    }
-  }
+  updateCategory = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const payload: IUpdateCategoryPayload = req.body;
+    const category = await this.categoryService.updateCategory(Number(id), payload);
+    successResponse(res, "Category updated successfully", category);
+  };
 
-  if (typeof req.query.isActive === "string") {
-    filters.isActive = req.query.isActive === "true";
-  }
+  updateCategoryStatus = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { isActive } = req.body;
+    if (typeof isActive !== "boolean") throw new Error("Bad Request");
 
-  if (typeof req.query.search === "string" && req.query.search.trim()) {
-    filters.search = req.query.search.trim();
-  }
+    const category = await this.categoryService.updateCategoryStatus(Number(id), isActive);
+    successResponse(res, "Category status updated successfully", category);
+  };
 
-  const categories = await categoryService.getList(filters);
-
-  successResponse(res, "Get categories success", categories);
-};
+  deleteCategory = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    await this.categoryService.deleteCategory(Number(id));
+    successResponse(res, "Category deleted successfully", 200);
+  };
+}

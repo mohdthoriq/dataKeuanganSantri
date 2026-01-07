@@ -1,10 +1,19 @@
 import { Router } from "express";
 import { authenticate } from "../middlewares/auth.middlleware";
-import * as verificationController from "../controllers/emailVerification.controller";
+import { EmailVerificationRepository } from "../repository/emailVerification.repository";
+import PrismaInstance from "../database";
+import { EmailVerificationService } from "../services/emailVerification.service";
+import { EmailVerificationController } from "../controllers/emailVerification.controller";
+import { validate } from "../utils/validator";
+import { requestOtpValidation, verifyOtpValidation } from "../validations/emailVerification.validation";
 
 const router = Router();
 
-router.post("/request-otp", verificationController.requestOtp);
-router.post("/verify-otp", verificationController.verifyOtp);
+const repo = new EmailVerificationRepository(PrismaInstance)
+const service = new EmailVerificationService(repo)
+const controller = new EmailVerificationController(service)
+
+router.post("/request-otp", validate(requestOtpValidation), controller.requestOtp);
+router.post("/verify-otp", validate(verifyOtpValidation), controller.verifyOtp);
 
 export default router;

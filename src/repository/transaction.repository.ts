@@ -1,0 +1,100 @@
+// src/repository/transaction.repository.ts
+import type { PrismaClient, Transaction, CategoryType } from "../generated";
+import { Decimal } from "../generated/runtime/client";
+
+export interface ICreateTransactionPayload {
+    santriId: number;
+    categoryId: number;
+    type: CategoryType;
+    amount: Decimal | number;
+    description?: string;
+    transactionDate: Date;
+    createdBy: number;
+}
+
+export interface ITransactionFilters {
+    santriId?: number;
+    categoryId?: number;
+    type?: CategoryType;
+    createdBy?: number;
+    skip?: number;
+    take?: number;
+}
+
+export interface ITransactionRepository {
+    create(payload: ICreateTransactionPayload): Promise<Transaction>;
+    getList(filters: ITransactionFilters): Promise<{ data: Transaction[]; meta: { page: number; limit: number; total: number; totalPages: number } }>;
+    getById(id: number): Promise<Transaction | null>;
+    update(id: number, data: Partial<ICreateTransactionPayload>): Promise<Transaction>;
+    delete(id: number): Promise<Transaction>;
+}
+
+export class TransactionRepository implements ITransactionRepository {
+    constructor(private prisma: PrismaClient) { }
+
+    async create(payload: ICreateTransactionPayload): Promise<Transaction> {
+        const { santriId, categoryId, type, amount, transactionDate, createdBy, description } = payload;
+
+        return this.prisma.transaction.create({
+            data: {
+                santriId,
+                categoryId,
+                type,
+                amount: new Decimal(amount),
+                transactionDate,
+                createdBy,
+                ...(description !== undefined && { description }),
+            },
+        });
+    }
+
+    async getList(filters: ITransactionFilters): Promise<{ data: Transaction[], meta: { page: number, limit: number, total: number, totalPages: number } }> {
+        const skip = filters.skip ?? 0;
+        const take = filters.take ?? 10;
+
+        const where: any = {
+            ...(filters.santriId !== undefined && { santriId: filters.santriId }),
+            ...(filters.categoryId !== undefined && { categoryId: filters.categoryId }),
+            ...(filters.type !== undefined && { type: filters.type }),
+            ...(filters.createdBy !== undefined && { createdBy: filters.createdBy }),
+            isDeleted: false,
+        };
+
+        const [data, total] = await this.prisma.$transaction([
+            this.prisma.transaction.findMany({
+                where,
+                skip,
+                take,
+                orderBy: { transactionDate: "desc" },
+                include: { santri: true, category: true, admin: true },
+            }),
+            this.prisma.transaction.count({ where }),
+        ]);
+
+        return {
+            data,
+            meta: {
+                page: Math.floor(skip / take) + 1,
+                limit: take,
+                total,
+                totalPages: Math.ceil(total / take),
+            }
+        };
+    }
+
+    async getById(id: number): Promise<Transaction | null> {
+        return this.prisma.transaction.findFirst({
+            where: { id, isDeleted: false },
+            include: { santri: true, category: true, admin: true },
+        });
+    }
+
+    async update(id: number, data: Partial<ICreateTransactionPayload>): Promise<Transaction> {
+        if (data.amount !== undefined) data.amount = new Decimal(data.amount);
+        return this.prisma.transaction.update({ where: { id }, data });
+    }
+
+    async delete(id: number): Promise<Transaction> {
+        return this.prisma.transaction.update({ where: { id }, data: { isDeleted: true } });
+    }
+}

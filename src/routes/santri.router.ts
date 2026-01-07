@@ -1,16 +1,23 @@
 import { Router } from "express";
+import PrismaInstance from "../database";
+import { SantriRepository } from "../repository/santri.repository";
+import { SantriService } from "../services/santri.service";
+import { SantriController } from "../controllers/santri.controller";
+import { validate } from "../utils/validator";
+import { createSantriValidation, santriIdValidation, updateSantriValidation, waliIdValidation } from "../validations/santri.validation";
 
 const router = Router();
 
-router.post("/", (req, res) => {})
-router.get("/", (req, res) => {})
-router.get("/:id", (req, res) => {})
-router.put("/:id", (req, res) => {})
-router.patch("/:id/status", (req, res) => {})
-router.delete("/:id", (req, res) => {})
+const repo = new SantriRepository(PrismaInstance)
+const service = new SantriService(repo)
+const controller = new SantriController(service)
 
+router.post("/", validate(createSantriValidation), controller.createSantri)
+router.get("/", controller.getSantriList)
+router.get("/:id", validate(santriIdValidation), controller.getSantriById)
+router.put("/:id", validate(updateSantriValidation), controller.updateSantri)
+router.delete("/:id", validate(santriIdValidation), controller.deleteSantri)
 // ===== wali =====
-router.get("/wali/my", (req, res) => {})
-router.get("/wali/:id", (req, res) => {})
+router.get("/wali/:id", validate(waliIdValidation), controller.getSantriByWali)
 
 export default router

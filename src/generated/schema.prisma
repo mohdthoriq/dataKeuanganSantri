@@ -55,13 +55,11 @@ model Institution {
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
 
-  // relations
-  admin User @relation("InstitutionAdmin", fields: [createdBy], references: [id])
-
   users User[] @relation("InstitutionUsers")
 
   santri     Santri[]
   categories Category[]
+  admin      User       @relation("InstitutionAdmin", fields: [createdBy], references: [id])
 }
 
 model Notification {
@@ -86,6 +84,16 @@ model PasswordReset {
   user User @relation(fields: [userId], references: [id])
 
   @@map("password_reset")
+}
+
+model Profile {
+  id                  Int     @id @default(autoincrement())
+  name                String
+  gender              String
+  address             String
+  profile_picture_url String?
+  userId              Int     @unique
+  user                User    @relation(fields: [userId], references: [id])
 }
 
 model Santri {
@@ -135,6 +143,7 @@ model User {
   isEmailVerified Boolean  @default(false)
   isActive        Boolean  @default(true)
   createdAt       DateTime @default(now())
+  profile         Profile?
 
   // relations
   institution Institution? @relation("InstitutionUsers", fields: [institutionId], references: [id])

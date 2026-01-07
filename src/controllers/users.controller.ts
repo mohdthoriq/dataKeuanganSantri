@@ -1,137 +1,89 @@
 import type { Request, Response } from "express";
-import * as usersService from "../services/users.service";
+import type { UserService } from "../services/users.service";
 import { successResponse } from "../utils/response";
+import type { IGetAllUsersParams } from "../repository/users.repository";
 
-export const getAllUsers = async (req: Request, res: Response) => {
-  const {
-    page = "1",
-    limit = "10",
-    search,
-    isActive
-  } = req.query;
+export interface IUsersController {
+  getAllUsers(req: Request, res: Response): Promise<void>;
+  getUserById(req: Request, res: Response): Promise<void>;
+  createUser(req: Request, res: Response): Promise<void>;
+  updateUser(req: Request, res: Response): Promise<void>;
+  updateUserStatus(req: Request, res: Response): Promise<void>;
+  deleteUser(req: Request, res: Response): Promise<void>;
+}
 
-  const result = await usersService.getAll({
-    page: Number(page),
-    limit: Number(limit),
-    search: search as string | undefined,
-    isActive: isActive !== undefined ? isActive === "true" : undefined
-  });
+export class UsersController implements IUsersController {
+  constructor(private usersService: UserService) { }
 
-  successResponse(
-    res,
-    "Get users success",
-    result
-  );
-};
+  getAllUsers = async (req: Request, res: Response) => {
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
 
-export const getUserById = async (req: Request, res: Response) => {
-  const { id } = req.params;
+    const params: IGetAllUsersParams = { page, limit };
 
-  if (isNaN(Number(id))) {
-    throw new Error("Invalid user id");
-  }
+    if (typeof req.query.search === "string") {
+      params.search = req.query.search;
+    }
 
-  const user = await usersService.getById(Number(id));
+    if (req.query.isActive !== undefined) {
+      params.isActive = req.query.isActive === "true";
+    }
 
-  successResponse(
-    res,
-    "Get user detail success",
-    user
-  );
-};
+    const result = await this.usersService.getAll(params);
 
-export const updateUser = async (req: Request, res: Response) => {
-  const { id } = req.params;
+    successResponse(res, "Get users success", result.data, result.meta);
+  };
 
-  if (isNaN(Number(id))) {
-    throw new Error("Invalid user id");
-  }
 
-  const {
-    username,
-    email,
-    role,
-    institutionId
-  } = req.body;
+  getUserById = async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    if (!id) throw new Error("Invalid user id");
 
-  const user = await usersService.update(Number(id), {
-    username,
-    email,
-    role,
-    institutionId
-  });
+    const user = await this.usersService.getById(id);
+    successResponse(res, "Get user detail success", user.data);
+  };
 
-  successResponse(
-    res,
-    "Update user success",
-    user
-  );
-};
+  createUser = async (req: Request, res: Response) => {
+    const admin = req.user;
+    if (!admin?.institutionId) throw new Error("Unauthorized");
 
-export const createUser = async (req: Request, res: Response) => {
-  const {
-    username,
-    email,
-    password,
-    role,
-    institutionId
-  } = req.body;
+    const { username, email, password, role } = req.body;
+    if (!username || !email || !password || !role) throw new Error("username, email, password, and role are required");
 
-  if (!username || !email || !password || !role) {
-    throw new Error("Bad Request");
-  }
+    const user = await this.usersService.create(
+      { username, email, password, role },
+      { institutionId: admin.institutionId }
+    );
 
-  const user = await usersService.create({
-    username,
-    email,
-    password,
-    role,
-    institutionId
-  });
+    successResponse(res, "Create user success", user);
+  };
 
-  successResponse(
-    res,
-    "Create user success",
-    user
-  );
-};
+  updateUser = async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    if (!id) throw new Error("Invalid user id");
 
-export const updateUserStatus = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const { isActive } = req.body;
+    const { username, email, role, institutionId } = req.body;
+    const user = await this.usersService.update(id, { username, email, role, institutionId });
 
-  if (isNaN(Number(id))) {
-    throw new Error("Invalid user id");
-  }
+    successResponse(res, "Update user success", user);
+  };
 
-  if (typeof isActive !== "boolean") {
-    throw new Error("Bad Request");
-  }
+  updateUserStatus = async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    const { isActive } = req.body;
 
-  const user = await usersService.updateStatus(
-    Number(id),
-    isActive
-  );
+    if (!id) throw new Error("Invalid user id");
+    if (typeof isActive !== "boolean") throw new Error("Bad Request");
 
-  successResponse(
-    res,
-    "Update user status success",
-    user
-  );
-};
+    const user = await this.usersService.updateStatus(id, isActive);
+    successResponse(res, "Update user status success", user);
+  };
 
-export const deleteUser = async (req: Request, res: Response) => {
-  const { id } = req.params;
+  deleteUser = async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    if (!id) throw new Error("Invalid user id");
 
-  if (isNaN(Number(id))) {
-    throw new Error("Invalid user id");
-  }
-
-  await usersService.deleteUser(Number(id));
-
-  successResponse(
-    res,
-    "User deleted successfully",
-    200
-  );
-};
+    await this.usersService.deleteUser(id);
+    successResponse(res, "User deleted successfully", true);
+  };
+}

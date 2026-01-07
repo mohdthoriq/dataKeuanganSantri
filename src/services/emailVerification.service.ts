@@ -1,61 +1,34 @@
-import { randomInt } from "crypto";
-import PrismaInstance from "../database";
+import { EmailVerificationRepository } from "../repository/emailVerification.repository";
+import type { PrismaClient } from "../generated";
 
-const prisma = PrismaInstance;
+export class EmailVerificationService {
+  constructor(private repo: EmailVerificationRepository) {}
 
-export const generateOtp = async(userId: number) => {
-    await prisma.emailVerification.deleteMany({
-        where: {
-            userId,
-            isUsed: false,
-        },
-    });
+  async requestOtp(userId: number) {
+    const otp = await this.repo.generateOtp(userId);
+    // Bisa disini tambahin logika kirim email
+    return {
+      otpCode: otp.otpCode,
+      expiredAt: otp.expiredAt,
+    };
+  }
 
-    const otpCode = randomInt(100000, 999999).toString();
-    const expiredAt = new Date(Date.now() + 10 * 60 * 1000); // 10 menit kadaluarsa
+  async verifyOtp(userId: number, otpCode: string) {
+    const verified = await this.repo.verifyOtp(userId, otpCode);
+    return { verified };
+  }
 
-    const otp = await prisma.emailVerification.create({
-        data: {
-            userId,
-            otpCode,
-            expiredAt,
-        },
-    });
+  async resendOtp(userId: number) {
+    // invalidate OTP lama
+    await this.repo.invalidateOtps(userId);
+    const otp = await this.repo.generateOtp(userId);
+    return {
+      otpCode: otp.otpCode,
+      expiredAt: otp.expiredAt,
+    };
+  }
 
-    return otp;
-}
-
-export const verifyOtp = async(userId: number, otpCode: string) => {
-    const record = await prisma.emailVerification.findFirst({
-        where: {
-            userId,
-            otpCode,
-            isUsed: false,
-            expiredAt: {
-                gte: new Date(),
-            },
-        },
-    })
-
-    if (!record) throw new Error("Invalid OTP");
-
-    await prisma.emailVerification.update({
-        where: {
-            id: record.id,
-        },
-        data: {
-            isUsed: true,
-        },
-    })
-
-    await prisma.user.update({
-        where: {
-            id: userId,
-        },
-        data: {
-            isEmailVerified: true,
-        },
-    })
-
-    return true;
+  async getActiveOtp(userId: number) {
+    return this.repo.findActiveOtp(userId);
+  }
 }

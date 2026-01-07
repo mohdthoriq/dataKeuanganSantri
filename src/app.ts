@@ -51,10 +51,10 @@ app.get('/', (_req: Request, res: Response) => {
 app.use('/api/auth',authRouter)
 app.use('/api/users', authenticate, usersRouter)
 app.use('/api/email-verification', emailVerificationRouter)
-app.use('/api/institution', authenticate, institutionRouter)
-app.use('/api/santri', authenticate, santriRouter)
-app.use('/api/transaction', authenticate, transactionRouter)
-app.use('/api/category', authenticate, categoryRouter)
+app.use('/api/institution', institutionRouter)
+app.use('/api/santri', santriRouter)
+app.use('/api/transaction', transactionRouter)
+app.use('/api/category', categoryRouter)
 app.use('/api/notification', authenticate, notificationRouter)
 
 

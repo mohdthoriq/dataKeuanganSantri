@@ -1,56 +1,43 @@
+// src/services/category.service.ts
 import type { CategoryType } from "../generated";
-import PrismaInstance from "../database";
+import type { ICategoryRepository } from "../repository/category.repository";
 
-const prisma = PrismaInstance;
-
-export const create = async (data: {
+export interface ICreateCategoryPayload {
   name: string;
   type: CategoryType;
   institutionId: number;
-}) => {
-  const exist = await prisma.category.findFirst({
-    where: {
-      name: data.name,
-      institutionId: data.institutionId
-    }
-  });
+}
 
-  if (exist) {
-    throw new Error("Category already exists");
-  }
-
-  return prisma.category.create({
-    data
-  });
-};
-
-export const getList = async (params: {
-  institutionId: number;
+export interface IUpdateCategoryPayload {
+  name?: string;
   type?: CategoryType;
   isActive?: boolean;
-  search?: string;
-}) => {
-  const where: any = {
-    institutionId: params.institutionId
-  };
+}
 
-  if (params.type) {
-    where.type = params.type;
+export class CategoryService {
+  constructor(private categoryRepo: ICategoryRepository) {}
+
+  async createCategory(payload: ICreateCategoryPayload) {
+    return this.categoryRepo.create(payload);
   }
 
-  if (params.isActive !== undefined) {
-    where.isActive = params.isActive;
+  async getCategories(params: { institutionId: number; type?: CategoryType; isActive?: boolean; search?: string }) {
+    return this.categoryRepo.getList(params);
   }
 
-  if (params.search) {
-    where.name = {
-      contains: params.search,
-      mode: "insensitive"
-    };
+  async getCategoryById(id: number) {
+    return this.categoryRepo.getById(id);
   }
 
-  return prisma.category.findMany({
-    where,
-    orderBy: { createdAt: "desc" }
-  });
-};
+  async updateCategory(id: number, payload: IUpdateCategoryPayload) {
+    return this.categoryRepo.updateById(id, payload);
+  }
+
+  async updateCategoryStatus(id: number, isActive: boolean) {
+    return this.categoryRepo.updateStatusById(id, isActive);
+  }
+
+  async deleteCategory(id: number) {
+    return this.categoryRepo.deleteById(id);
+  }
+}

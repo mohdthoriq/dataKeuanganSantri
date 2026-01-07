@@ -1,53 +1,46 @@
-import { successResponse } from "../utils/response";
-import * as authServices from "../services/auth.service";
+// src/controllers/auth.controller.ts
 import type { Request, Response } from "express";
+import { successResponse } from "../utils/response";
+import type { AuthService } from "../services/auth.service";
 
-export const registerAdmin = async (req: Request, res: Response) => {
-    await authServices.registerAdmin(req.body);
-    
-    successResponse(
-        res,
-        "Register admin successfully",
-        201
-    );
+export interface IAuthController {
+  registerAdmin(req: Request, res: Response): Promise<void>;
+  login(req: Request, res: Response): Promise<void>;
+  requestReset(req: Request, res: Response): Promise<void>;
+  resetPassword(req: Request, res: Response): Promise<void>;
 }
 
-export const userLogin = async (req: Request, res: Response) => {
+export class AuthController implements IAuthController {
+  constructor(private authService: AuthService) {}
+
+  registerAdmin = async (req: Request, res: Response) => {
+    const result = await this.authService.registerAdmin(req.body);
+
+    successResponse(res, "Register admin successfully", result);
+  };
+
+  login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
+    const result = await this.authService.login({email,password});
 
-    const result = await authServices.login(email, password);
+    successResponse(res, "Login successfully", result);
+  };
 
-    successResponse(
-        res,
-        "Login successfully",
-        result
-    );
-}
-
-export const requestReset = async(req: Request, res: Response) => {
+  requestReset = async (req: Request, res: Response) => {
     const { email } = req.body;
+    if (!email) throw new Error("Email is required");
 
-    if (!email) throw new Error("Bad Request")
+    await this.authService.requestReset(email);
 
-    await authServices.requestReset(email);
+    successResponse(res, "Request reset successfully", null);
+  };
 
-    successResponse(
-        res,
-        "Request reset successfully",
-        200
-    );
-}
-
-export const resetPassword = async(req: Request, res: Response) => {
+  resetPassword = async (req: Request, res: Response) => {
     const { userId, otpCode, newPassword } = req.body;
+    if (!userId || !otpCode || !newPassword) throw new Error("Missing parameters");
 
-    if (!userId || !otpCode || !newPassword) throw new Error("Bad Request")
+    await this.authService.resetPassword(userId, otpCode, newPassword);
 
-    await authServices.resetPassword(userId, otpCode, newPassword);
-
-    successResponse(
-        res,
-        "Reset password successfully",
-        200
-    );
+    successResponse(res, "Reset password successfully", null);
+  };
 }
