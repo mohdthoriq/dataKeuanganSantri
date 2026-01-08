@@ -11,10 +11,14 @@ export const registerAdminValidation = [
     .notEmpty().withMessage("Password wajib diisi")
     .isLength({ min: 8 }).withMessage("Password minimal 8 karakter"),
 
-  body("name")
+  body("username")
     .trim()
-    .notEmpty().withMessage("Name wajib diisi")
-    .isLength({ min: 3 }).withMessage("Name minimal 3 karakter"),
+    .notEmpty().withMessage("Username wajib diisi")
+    .isLength({ min: 3 }).withMessage("Username minimal 3 karakter"),
+  
+  body("institution")
+    .trim()
+    .notEmpty().withMessage("Institusi wajib diisi")
 ];
 
 /* ================= LOGIN ================= */

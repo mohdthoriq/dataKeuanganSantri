@@ -15,7 +15,7 @@ export const verifyOtpValidation = [
     .notEmpty().withMessage("Email wajib diisi")
     .isEmail().withMessage("Format email tidak valid"),
 
-  body("otp")
+  body("otpCode")
     .notEmpty().withMessage("OTP wajib diisi")
     .isLength({ min: 4, max: 6 }).withMessage("OTP tidak valid")
     .isNumeric().withMessage("OTP harus angka"),

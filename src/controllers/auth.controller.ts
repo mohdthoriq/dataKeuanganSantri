@@ -2,6 +2,7 @@
 import type { Request, Response } from "express";
 import { successResponse } from "../utils/response";
 import type { AuthService } from "../services/auth.service";
+import { EmailVerificationService } from "../services/emailVerification.service";
 
 export interface IAuthController {
   registerAdmin(req: Request, res: Response): Promise<void>;
@@ -11,17 +12,21 @@ export interface IAuthController {
 }
 
 export class AuthController implements IAuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   registerAdmin = async (req: Request, res: Response) => {
     const result = await this.authService.registerAdmin(req.body);
+
+    if (result?.data?.otpCode) {
+      console.log("OTP REQUEST:", result.data.otpCode);
+    }
 
     successResponse(res, "Register admin successfully", result);
   };
 
   login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
-    const result = await this.authService.login({email,password});
+    const result = await this.authService.login({ email, password });
 
     successResponse(res, "Login successfully", result);
   };

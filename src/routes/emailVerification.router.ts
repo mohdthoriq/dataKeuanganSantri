@@ -10,7 +10,7 @@ import { requestOtpValidation, verifyOtpValidation } from "../validations/emailV
 const router = Router();
 
 const repo = new EmailVerificationRepository(PrismaInstance)
-const service = new EmailVerificationService(repo)
+const service = new EmailVerificationService(repo, PrismaInstance)
 const controller = new EmailVerificationController(service)
 
 router.post("/request-otp", validate(requestOtpValidation), controller.requestOtp);
