@@ -3,28 +3,35 @@ import { EmailVerificationService } from "../services/emailVerification.service"
 import { successResponse } from "../utils/response";
 
 export class EmailVerificationController {
-    constructor(private emailVerificationService: EmailVerificationService) {}
+  constructor(private emailVerificationService: EmailVerificationService) { }
 
-  async requestOtp(req: Request, res: Response) {
-    const userId = req.user?.id;
-    if (!userId) throw new Error("Unauthorized");
+  requestOtp = async (req: Request, res: Response) => {
+    const { email } = req.body;
+    if (!email) throw new Error("Email required");
 
-    const otp = await this.emailVerificationService.requestOtp(userId);
-    successResponse(res, "OTP generated successfully", otp);
+    const otp = await this.emailVerificationService.requestOtpByEmail(email);
+    successResponse(res, "OTP generated", otp);
   }
 
-  async verifyOtp(req: Request, res: Response) {
-    const userId = req.user?.id;
-    const { otpCode } = req.body;
 
-    if (!userId) throw new Error("Unauthorized");
-    if (!otpCode) throw new Error("OTP code is required");
+  verifyOtp = async (req: Request, res: Response) => {
+    const { email, otpCode } = req.body;
 
-    const result = await this.emailVerificationService.verifyOtp(userId, otpCode);
+    if (!email || !otpCode) {
+      throw new Error("Email & OTP required");
+    }
+
+    const result =
+      await this.emailVerificationService.verifyOtpByEmail(
+        email,
+        otpCode
+      );
+
     successResponse(res, "OTP verified successfully", result);
-  }
+  };
 
-  async resendOtp(req: Request, res: Response) {
+
+  resendOtp = async (req: Request, res: Response) => {
     const userId = req.user?.id;
     if (!userId) throw new Error("Unauthorized");
 
@@ -32,7 +39,7 @@ export class EmailVerificationController {
     successResponse(res, "OTP resent successfully", otp);
   }
 
-  async getActiveOtp(req: Request, res: Response) {
+  getActiveOtp = async (req: Request, res: Response) => {
     const userId = req.user?.id;
     if (!userId) throw new Error("Unauthorized");
 

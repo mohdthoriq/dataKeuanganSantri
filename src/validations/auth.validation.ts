@@ -17,7 +17,9 @@ export const registerAdminValidation = [
     .isLength({ min: 3 }).withMessage("Username minimal 3 karakter"),
 
   body("institution")
-    .notEmpty().withMessage("Institution wajib diisi"),
+    .trim()
+    .notEmpty().withMessage("Institusi wajib diisi")
+
 ];
 
 /* ================= LOGIN ================= */
