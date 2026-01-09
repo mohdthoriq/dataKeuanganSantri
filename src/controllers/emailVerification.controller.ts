@@ -40,10 +40,14 @@ export class EmailVerificationController {
   }
 
   getActiveOtp = async (req: Request, res: Response) => {
+    if (process.env.NODE_ENV !== "development") {
+      throw new Error("Not allowed");
+    }
+
     const userId = req.user?.id;
     if (!userId) throw new Error("Unauthorized");
 
     const otp = await this.emailVerificationService.getActiveOtp(userId);
     successResponse(res, "Active OTP retrieved", otp);
-  }
+  };
 }

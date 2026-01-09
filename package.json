@@ -8,8 +8,8 @@
     "prisma:migrate": "prisma generate && prisma migrate dev",
     "prisma:reset": "prisma migrate reset",
     "seed": "tsx src/prisma/seeder.ts",
-    "dev": "tsx watch  --env-file=.env.development src/index.ts",
-    "start": "node --env-file=.env.production dist/index.js ",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js ",
     "build": "prisma generate && tsc && cp -rf src/generated /dist && ts-add-js-extension --dir=dist",
     "test": "jest"
   },
@@ -18,6 +18,7 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@getbrevo/brevo": "^3.0.1",
     "@prisma/adapter-pg": "^7.1.0",
     "@prisma/client": "^7.1.0",
     "@types/swagger-jsdoc": "^6.0.4",
@@ -33,6 +34,7 @@
     "multer": "^2.0.2",
     "nodemailer": "^7.0.12",
     "pg": "^8.16.3",
+    "sib-api-v3-sdk": "^8.5.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   },
