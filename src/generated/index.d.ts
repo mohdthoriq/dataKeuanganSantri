@@ -9853,6 +9853,7 @@ export namespace Prisma {
     nis: string | null
     fullname: string | null
     kelas: string | null
+    gender: string | null
     waliId: number | null
     institutionId: number | null
     isActive: boolean | null
@@ -9864,6 +9865,7 @@ export namespace Prisma {
     nis: string | null
     fullname: string | null
     kelas: string | null
+    gender: string | null
     waliId: number | null
     institutionId: number | null
     isActive: boolean | null
@@ -9875,6 +9877,7 @@ export namespace Prisma {
     nis: number
     fullname: number
     kelas: number
+    gender: number
     waliId: number
     institutionId: number
     isActive: number
@@ -9900,6 +9903,7 @@ export namespace Prisma {
     nis?: true
     fullname?: true
     kelas?: true
+    gender?: true
     waliId?: true
     institutionId?: true
     isActive?: true
@@ -9911,6 +9915,7 @@ export namespace Prisma {
     nis?: true
     fullname?: true
     kelas?: true
+    gender?: true
     waliId?: true
     institutionId?: true
     isActive?: true
@@ -9922,6 +9927,7 @@ export namespace Prisma {
     nis?: true
     fullname?: true
     kelas?: true
+    gender?: true
     waliId?: true
     institutionId?: true
     isActive?: true
@@ -10020,6 +10026,7 @@ export namespace Prisma {
     nis: string
     fullname: string
     kelas: string
+    gender: string
     waliId: number
     institutionId: number
     isActive: boolean
@@ -10050,6 +10057,7 @@ export namespace Prisma {
     nis?: boolean
     fullname?: boolean
     kelas?: boolean
+    gender?: boolean
     waliId?: boolean
     institutionId?: boolean
     isActive?: boolean
@@ -10066,6 +10074,7 @@ export namespace Prisma {
     nis?: boolean
     fullname?: boolean
     kelas?: boolean
+    gender?: boolean
     waliId?: boolean
     institutionId?: boolean
     isActive?: boolean
@@ -10079,6 +10088,7 @@ export namespace Prisma {
     nis?: boolean
     fullname?: boolean
     kelas?: boolean
+    gender?: boolean
     waliId?: boolean
     institutionId?: boolean
     isActive?: boolean
@@ -10092,13 +10102,14 @@ export namespace Prisma {
     nis?: boolean
     fullname?: boolean
     kelas?: boolean
+    gender?: boolean
     waliId?: boolean
     institutionId?: boolean
     isActive?: boolean
     createdAt?: boolean
   }
 
-  export type SantriOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nis" | "fullname" | "kelas" | "waliId" | "institutionId" | "isActive" | "createdAt", ExtArgs["result"]["santri"]>
+  export type SantriOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nis" | "fullname" | "kelas" | "gender" | "waliId" | "institutionId" | "isActive" | "createdAt", ExtArgs["result"]["santri"]>
   export type SantriInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     wali?: boolean | UserDefaultArgs<ExtArgs>
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
@@ -10128,6 +10139,7 @@ export namespace Prisma {
       nis: string
       fullname: string
       kelas: string
+      gender: string
       waliId: number
       institutionId: number
       isActive: boolean
@@ -10563,6 +10575,7 @@ export namespace Prisma {
     readonly nis: FieldRef<"Santri", 'String'>
     readonly fullname: FieldRef<"Santri", 'String'>
     readonly kelas: FieldRef<"Santri", 'String'>
+    readonly gender: FieldRef<"Santri", 'String'>
     readonly waliId: FieldRef<"Santri", 'Int'>
     readonly institutionId: FieldRef<"Santri", 'Int'>
     readonly isActive: FieldRef<"Santri", 'Boolean'>
@@ -13709,6 +13722,7 @@ export namespace Prisma {
     nis: 'nis',
     fullname: 'fullname',
     kelas: 'kelas',
+    gender: 'gender',
     waliId: 'waliId',
     institutionId: 'institutionId',
     isActive: 'isActive',
@@ -14112,10 +14126,10 @@ export namespace Prisma {
 
   export type InstitutionWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    name?: string
     AND?: InstitutionWhereInput | InstitutionWhereInput[]
     OR?: InstitutionWhereInput[]
     NOT?: InstitutionWhereInput | InstitutionWhereInput[]
-    name?: StringFilter<"Institution"> | string
     createdBy?: IntFilter<"Institution"> | number
     isActive?: BoolFilter<"Institution"> | boolean
     createdAt?: DateTimeFilter<"Institution"> | Date | string
@@ -14123,7 +14137,7 @@ export namespace Prisma {
     santri?: SantriListRelationFilter
     categories?: CategoryListRelationFilter
     admin?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
+  }, "id" | "name">
 
   export type InstitutionOrderByWithAggregationInput = {
     id?: SortOrder
@@ -14343,6 +14357,7 @@ export namespace Prisma {
     nis?: StringFilter<"Santri"> | string
     fullname?: StringFilter<"Santri"> | string
     kelas?: StringFilter<"Santri"> | string
+    gender?: StringFilter<"Santri"> | string
     waliId?: IntFilter<"Santri"> | number
     institutionId?: IntFilter<"Santri"> | number
     isActive?: BoolFilter<"Santri"> | boolean
@@ -14358,6 +14373,7 @@ export namespace Prisma {
     nis?: SortOrder
     fullname?: SortOrder
     kelas?: SortOrder
+    gender?: SortOrder
     waliId?: SortOrder
     institutionId?: SortOrder
     isActive?: SortOrder
@@ -14377,6 +14393,7 @@ export namespace Prisma {
     nis?: StringFilter<"Santri"> | string
     fullname?: StringFilter<"Santri"> | string
     kelas?: StringFilter<"Santri"> | string
+    gender?: StringFilter<"Santri"> | string
     waliId?: IntFilter<"Santri"> | number
     institutionId?: IntFilter<"Santri"> | number
     isActive?: BoolFilter<"Santri"> | boolean
@@ -14392,6 +14409,7 @@ export namespace Prisma {
     nis?: SortOrder
     fullname?: SortOrder
     kelas?: SortOrder
+    gender?: SortOrder
     waliId?: SortOrder
     institutionId?: SortOrder
     isActive?: SortOrder
@@ -14411,6 +14429,7 @@ export namespace Prisma {
     nis?: StringWithAggregatesFilter<"Santri"> | string
     fullname?: StringWithAggregatesFilter<"Santri"> | string
     kelas?: StringWithAggregatesFilter<"Santri"> | string
+    gender?: StringWithAggregatesFilter<"Santri"> | string
     waliId?: IntWithAggregatesFilter<"Santri"> | number
     institutionId?: IntWithAggregatesFilter<"Santri"> | number
     isActive?: BoolWithAggregatesFilter<"Santri"> | boolean
@@ -15038,6 +15057,7 @@ export namespace Prisma {
     nis: string
     fullname: string
     kelas: string
+    gender: string
     isActive?: boolean
     createdAt?: Date | string
     wali: UserCreateNestedOneWithoutSantriAsWaliInput
@@ -15051,6 +15071,7 @@ export namespace Prisma {
     nis: string
     fullname: string
     kelas: string
+    gender: string
     waliId: number
     institutionId: number
     isActive?: boolean
@@ -15063,6 +15084,7 @@ export namespace Prisma {
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wali?: UserUpdateOneRequiredWithoutSantriAsWaliNestedInput
@@ -15076,6 +15098,7 @@ export namespace Prisma {
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
     waliId?: IntFieldUpdateOperationsInput | number
     institutionId?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -15089,6 +15112,7 @@ export namespace Prisma {
     nis: string
     fullname: string
     kelas: string
+    gender: string
     waliId: number
     institutionId: number
     isActive?: boolean
@@ -15099,6 +15123,7 @@ export namespace Prisma {
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15108,6 +15133,7 @@ export namespace Prisma {
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
     waliId?: IntFieldUpdateOperationsInput | number
     institutionId?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -15827,6 +15853,7 @@ export namespace Prisma {
     nis?: SortOrder
     fullname?: SortOrder
     kelas?: SortOrder
+    gender?: SortOrder
     waliId?: SortOrder
     institutionId?: SortOrder
     isActive?: SortOrder
@@ -15844,6 +15871,7 @@ export namespace Prisma {
     nis?: SortOrder
     fullname?: SortOrder
     kelas?: SortOrder
+    gender?: SortOrder
     waliId?: SortOrder
     institutionId?: SortOrder
     isActive?: SortOrder
@@ -15855,6 +15883,7 @@ export namespace Prisma {
     nis?: SortOrder
     fullname?: SortOrder
     kelas?: SortOrder
+    gender?: SortOrder
     waliId?: SortOrder
     institutionId?: SortOrder
     isActive?: SortOrder
@@ -17271,6 +17300,7 @@ export namespace Prisma {
     nis: string
     fullname: string
     kelas: string
+    gender: string
     isActive?: boolean
     createdAt?: Date | string
     wali: UserCreateNestedOneWithoutSantriAsWaliInput
@@ -17283,6 +17313,7 @@ export namespace Prisma {
     nis: string
     fullname: string
     kelas: string
+    gender: string
     waliId: number
     institutionId: number
     isActive?: boolean
@@ -17358,6 +17389,7 @@ export namespace Prisma {
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wali?: UserUpdateOneRequiredWithoutSantriAsWaliNestedInput
@@ -17370,6 +17402,7 @@ export namespace Prisma {
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
     waliId?: IntFieldUpdateOperationsInput | number
     institutionId?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -17547,6 +17580,7 @@ export namespace Prisma {
     nis: string
     fullname: string
     kelas: string
+    gender: string
     isActive?: boolean
     createdAt?: Date | string
     wali: UserCreateNestedOneWithoutSantriAsWaliInput
@@ -17559,6 +17593,7 @@ export namespace Prisma {
     nis: string
     fullname: string
     kelas: string
+    gender: string
     waliId: number
     isActive?: boolean
     createdAt?: Date | string
@@ -17700,6 +17735,7 @@ export namespace Prisma {
     nis?: StringFilter<"Santri"> | string
     fullname?: StringFilter<"Santri"> | string
     kelas?: StringFilter<"Santri"> | string
+    gender?: StringFilter<"Santri"> | string
     waliId?: IntFilter<"Santri"> | number
     institutionId?: IntFilter<"Santri"> | number
     isActive?: BoolFilter<"Santri"> | boolean
@@ -18305,6 +18341,7 @@ export namespace Prisma {
     nis: string
     fullname: string
     kelas: string
+    gender: string
     isActive?: boolean
     createdAt?: Date | string
     wali: UserCreateNestedOneWithoutSantriAsWaliInput
@@ -18317,6 +18354,7 @@ export namespace Prisma {
     nis: string
     fullname: string
     kelas: string
+    gender: string
     waliId: number
     institutionId: number
     isActive?: boolean
@@ -18408,6 +18446,7 @@ export namespace Prisma {
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wali?: UserUpdateOneRequiredWithoutSantriAsWaliNestedInput
@@ -18420,6 +18459,7 @@ export namespace Prisma {
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
     waliId?: IntFieldUpdateOperationsInput | number
     institutionId?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -18605,6 +18645,7 @@ export namespace Prisma {
     nis: string
     fullname: string
     kelas: string
+    gender: string
     isActive?: boolean
     createdAt?: Date | string
     institution: InstitutionCreateNestedOneWithoutSantriInput
@@ -18617,6 +18658,7 @@ export namespace Prisma {
     nis: string
     fullname: string
     kelas: string
+    gender: string
     institutionId: number
     isActive?: boolean
     createdAt?: Date | string
@@ -19022,6 +19064,7 @@ export namespace Prisma {
     nis: string
     fullname: string
     kelas: string
+    gender: string
     waliId: number
     isActive?: boolean
     createdAt?: Date | string
@@ -19087,6 +19130,7 @@ export namespace Prisma {
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wali?: UserUpdateOneRequiredWithoutSantriAsWaliNestedInput
@@ -19099,6 +19143,7 @@ export namespace Prisma {
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
     waliId?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19111,6 +19156,7 @@ export namespace Prisma {
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
     waliId?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19243,6 +19289,7 @@ export namespace Prisma {
     nis: string
     fullname: string
     kelas: string
+    gender: string
     institutionId: number
     isActive?: boolean
     createdAt?: Date | string
@@ -19338,6 +19385,7 @@ export namespace Prisma {
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
@@ -19350,6 +19398,7 @@ export namespace Prisma {
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
     institutionId?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19362,6 +19411,7 @@ export namespace Prisma {
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
     institutionId?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

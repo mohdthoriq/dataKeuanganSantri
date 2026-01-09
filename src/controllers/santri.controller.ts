@@ -7,11 +7,18 @@ export class SantriController {
   constructor(private santriService: SantriService) {}
 
   createSantri = async (req: Request, res: Response) => {
-    const { nis, fullname, kelas, waliId, institutionId } = req.body;
+    const { nis, fullname, kelas, gender, waliId } = req.body;
 
-    if (!nis || !fullname || !kelas || !waliId || !institutionId) throw new Error("Missing required fields");
+    const user = res.locals.user;
+    const institutionId = user?.institutionId;
 
-    const santri = await this.santriService.createSantri({ nis, fullname, kelas, waliId, institutionId });
+    if (!institutionId) {
+      throw new Error("Institution not found in authenticated user");
+    }
+
+    if (!nis || !fullname || !kelas || !gender || !waliId) throw new Error("Missing required fields");
+
+    const santri = await this.santriService.createSantri({ nis, fullname, kelas, gender, waliId: Number(waliId), institutionId });
 
     successResponse(res, "Santri created successfully", santri);
   };
@@ -38,9 +45,9 @@ export class SantriController {
     const id = Number(req.params.id);
     if (isNaN(id)) throw new Error("Invalid santri ID");
 
-    const { nis, fullname, kelas, waliId, institutionId } = req.body;
+    const { nis, fullname, kelas, gender, waliId, institutionId } = req.body;
 
-    const santri = await this.santriService.updateSantri(id, { nis, fullname, kelas, waliId, institutionId });
+    const santri = await this.santriService.updateSantri(id, { nis, fullname, kelas, gender, waliId, institutionId });
 
     successResponse(res, "Santri updated successfully", santri);
   };

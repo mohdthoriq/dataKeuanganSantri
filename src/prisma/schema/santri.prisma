@@ -3,6 +3,7 @@ model Santri {
   nis           String
   fullname      String
   kelas         String
+  gender        String
   waliId        Int
   institutionId Int
   isActive      Boolean  @default(true)

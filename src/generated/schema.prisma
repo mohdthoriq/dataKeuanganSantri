@@ -50,7 +50,7 @@ enum CategoryType {
 
 model Institution {
   id        Int      @id @default(autoincrement())
-  name      String
+  name      String   @unique
   createdBy Int
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
@@ -101,6 +101,7 @@ model Santri {
   nis           String
   fullname      String
   kelas         String
+  gender        String
   waliId        Int
   institutionId Int
   isActive      Boolean  @default(true)
