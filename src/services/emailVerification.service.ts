@@ -1,5 +1,6 @@
 import { EmailVerificationRepository } from "../repository/emailVerification.repository";
 import type { PrismaClient } from "../generated";
+import { sendEmail } from "../utils/apiKey";
 
 export class EmailVerificationService {
   constructor(private repo: EmailVerificationRepository, private prisma: PrismaClient) { }
@@ -34,12 +35,28 @@ export class EmailVerificationService {
   }
 
   async resendOtp(userId: number) {
-    // invalidate OTP lama
-    await this.repo.invalidateOtps(userId);
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) throw new Error("User not found");
     const otp = await this.repo.generateOtp(userId);
+    await sendEmail({
+      to: user.email,
+      subject: "Resend OTP Verification",
+      html: `
+      <h2>OTP Verification</h2>
+      <h1>${otp.otpCode}</h1>
+      <p>Berlaku sampai ${otp.expiredAt.toLocaleString()}</p>
+    `,
+    });
+
     return {
-      otpCode: otp.otpCode,
-      expiredAt: otp.expiredAt,
+      success: true,
+      ...(process.env.NODE_ENV === "development" && {
+        otpCode: otp.otpCode,
+        expiredAt: otp.expiredAt,
+      }),
     };
   }
 

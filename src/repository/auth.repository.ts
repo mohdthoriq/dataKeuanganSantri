@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import { randomInt } from "crypto";
 import jwt from "jsonwebtoken";
 import type { PrismaClient, User } from "../generated";
+import { sendEmail } from "../utils/apiKey";
 
 const prisma = PrismaInstance;
 
@@ -14,28 +15,29 @@ export type RegisterAdminPayload = {
 }
 
 export type RegisterAdminResult = {
-  success: boolean;
-  message: string;
-  data: {
-    userId: number;
-    email: string;
-    otpCode?: string;
-  };
+    success: boolean;
+    message: string;
+    data: {
+        userId: number;
+        email: string;
+        otpCode?: string;
+    };
 };
 
 export type LoginResult = {
-  token: string;
-  user: {
-    id: number;
-    email: string;
-    username: string;
-    role: string;
-  };
+    token: string;
+    user: {
+        id: number;
+        email: string;
+        username: string;
+        role: string;
+    };
 };
 
 export type RequestResetResult = {
-  success: boolean;
-  message?: string;
+    success: boolean;
+    message?: string;
+    otpCode?: string;
 };
 
 
@@ -48,7 +50,7 @@ export interface IAuthRepository {
 }
 
 export class AuthRepository implements IAuthRepository {
-    constructor(private prisma: PrismaClient) {}
+    constructor(private prisma: PrismaClient) { }
 
     async findByEmail(email: string) {
         const user = await this.prisma.user.findUnique({ where: { email } });
@@ -111,13 +113,26 @@ export class AuthRepository implements IAuthRepository {
             return { user: admin, otpCode };
         });
 
+
+        await sendEmail({
+            to: result.user.email,
+            subject: "OTP Verification",
+            html: `
+              <h2>OTP Verification</h2>
+              <h1>${result.otpCode}</h1>
+              <p>Berlaku 10 menit</p>
+            `,
+        });
+
         return {
             success: true,
             message: "Registration successful. Please check your email for OTP.",
             data: {
                 userId: result.user.id,
                 email: result.user.email,
-                ...(process.env.NODE_ENV === 'development' && { otpCode: result.otpCode }),
+                ...(process.env.NODE_ENV === "development" && {
+                    otpCode: result.otpCode,
+                }),
             },
         };
     }
@@ -162,7 +177,7 @@ export class AuthRepository implements IAuthRepository {
             data: { userId: user.id, otpCode, expiredAt, isUsed: false },
         });
 
-        return { success: true, message: "OTP sent successfully" };
+        return { success: true, message: "OTP sent successfully", otpCode };
     }
     async resetPassword(userId: number, otpCode: string, newPassword: string): Promise<RequestResetResult> {
         const record = await prisma.passwordReset.findFirst({

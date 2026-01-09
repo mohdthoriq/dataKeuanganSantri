@@ -12,7 +12,7 @@ export interface IEmailVerificationRepository {
 }
 
 export class EmailVerificationRepository implements IEmailVerificationRepository {
-  constructor(private prisma: PrismaClient) {}
+  constructor(private prisma: PrismaClient) { }
 
   async generateOtp(userId: number): Promise<EmailVerification> {
     // Hapus OTP lama yang belum dipakai
@@ -42,18 +42,17 @@ export class EmailVerificationRepository implements IEmailVerificationRepository
 
     if (!record) throw new Error("Invalid OTP");
 
-    // Tandai OTP dipakai
-    await this.prisma.emailVerification.update({
-      where: { id: record.id },
-      data: { isUsed: true },
-    });
-
-    // Update user email verified
-    await this.prisma.user.update({
-      where: { id: userId },
-      data: { isEmailVerified: true },
-    });
-
+    await this.prisma.$transaction([
+      this.prisma.emailVerification.update({
+        where: { id: record.id },
+        data: { isUsed: true },
+      }),
+      this.prisma.user.update({
+        where: { id: userId },
+        data: { isEmailVerified: true },
+      }),
+    ]);
+    
     return true;
   }
 
