@@ -17,13 +17,21 @@ export class SantriController {
   };
 
   getSantriList = async (req: Request, res: Response) => {
-    const institutionId = Number(req.query.institutionId);
-    if (isNaN(institutionId)) throw new Error("Invalid institution ID");
+  const institutionId = Number(req.query.institutionId);
+  const search = String(req.query.search || "").trim();
 
-    const santriList = await this.santriService.getSantriList(institutionId);
+  if (isNaN(institutionId)) {
+    throw new Error("Invalid institution ID");
+  }
 
-    successResponse(res, "Santri list fetched successfully", santriList);
-  };
+  const santriList = await this.santriService.getSantriList(
+    institutionId,
+    search
+  );
+
+  successResponse(res, "Santri list fetched successfully", santriList);
+};
+
 
   getSantriById = async (req: Request, res: Response) => {
     const id = Number(req.params.id);

@@ -1,5 +1,6 @@
 import type { IProfileRepository } from "../repository/profile.repository";
 import type { Profile } from "../generated";
+import cloudinary from "../utils/cloudinary";
 
 export interface IProfileService {
   create(data: {
@@ -7,6 +8,7 @@ export interface IProfileService {
     gender: string;
     address: string;
     profile_picture_url?: string;
+    public_id?: string;
     userId: number;
   }): Promise<Profile>;
 
@@ -18,6 +20,7 @@ export interface IProfileService {
     gender: string;
     address: string;
     profile_picture_url?: string;
+    public_id?: string;
   }>): Promise<Profile>;
 
   delete(id: number): Promise<void>;
@@ -31,6 +34,7 @@ export class ProfileService implements IProfileService {
     gender: string;
     address: string;
     profile_picture_url?: string;
+    public_id?: string;
     userId: number;
   }): Promise<Profile> {
     const exist = await this.profileRepo.findByUserId(data.userId);
@@ -58,6 +62,7 @@ export class ProfileService implements IProfileService {
       gender: string;
       address: string;
       profile_picture_url?: string;
+      public_id?: string;
     }>
   ): Promise<Profile> {
     await this.getById(id); // pastiin ada
@@ -65,7 +70,12 @@ export class ProfileService implements IProfileService {
   }
 
   async delete(id: number): Promise<void> {
-    await this.getById(id); // pastiin ada
+    const profile = await this.profileRepo.findByUserId(id);
+    if (!profile) throw new Error("Profile tidak ditemukan");
+
+    if (profile.public_id) {
+      await cloudinary.uploader.destroy(profile.public_id);
+    }
     await this.profileRepo.delete(id);
   }
 }

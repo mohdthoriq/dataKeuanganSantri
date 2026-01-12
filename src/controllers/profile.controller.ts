@@ -6,6 +6,7 @@ export class ProfileController {
   constructor(private profileService: IProfileService) {}
 
   // create profile
+  // create profile
   createProfile = async (req: Request, res: Response) => {
     if (!req.user) throw new Error("Unauthorized");
     const file = req.file;
@@ -16,7 +17,8 @@ export class ProfileController {
       name: String(name),
       gender: String(gender),
       address: String(address),
-      profile_picture_url: `/public/uploads/${file.filename}`,
+      profile_picture_url: file.path,
+      public_id: file.filename,
       userId: req.user.id,
     });
 
@@ -43,25 +45,27 @@ export class ProfileController {
   };
 
   // update profile
-  updateProfile = async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
-    if (isNaN(id)) throw new Error("Invalid profile ID");
+updateProfile = async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  if (isNaN(id)) throw new Error("Invalid profile ID");
 
-    const data: Partial<{
-      name: string;
-      gender: string;
-      address: string;
-      profile_picture_url?: string;
-    }> = { ...req.body };
+  const data: Partial<{
+    name: string;
+    gender: string;
+    address: string;
+    profile_picture_url?: string;
+    public_id?: string;
+  }> = { ...req.body };
 
-    if (req.file) {
-      data.profile_picture_url = `/public/uploads/${req.file.filename}`;
-    }
+  if (req.file) {
+    data.profile_picture_url = req.file.path;
+    data.public_id = req.file.filename;
+  }
 
-    const profile = await this.profileService.update(id, data);
+  const profile = await this.profileService.update(id, data);
 
-    successResponse(res, "Profile updated successfully", profile);
-  };
+  successResponse(res, "Profile updated successfully", profile);
+};
 
   // delete profile
   deleteProfile = async (req: Request, res: Response) => {

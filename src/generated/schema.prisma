@@ -57,9 +57,10 @@ model Institution {
 
   users User[] @relation("InstitutionUsers")
 
-  santri     Santri[]
-  categories Category[]
-  admin      User       @relation("InstitutionAdmin", fields: [createdBy], references: [id])
+  santri      Santri[]
+  categories  Category[]
+  admin       User                @relation("InstitutionAdmin", fields: [createdBy], references: [id])
+  institution InstitutionProfile?
 }
 
 model Notification {
@@ -92,8 +93,27 @@ model Profile {
   gender              String
   address             String
   profile_picture_url String?
+  public_id           String?
   userId              Int     @unique
   user                User    @relation(fields: [userId], references: [id])
+}
+
+model InstitutionProfile {
+  id            Int @id @default(autoincrement())
+  institutionId Int @unique
+
+  address     String?
+  phone       String?
+  email       String?
+  website     String?
+  logoUrl     String?
+  description String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // relations
+  institution Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
 }
 
 model Santri {

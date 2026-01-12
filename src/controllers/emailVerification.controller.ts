@@ -5,32 +5,29 @@ import { successResponse } from "../utils/response";
 export class EmailVerificationController {
     constructor(private emailVerificationService: EmailVerificationService) {}
 
-  async requestOtp(req: Request, res: Response) {
-    const userId = req.user?.id;
-    if (!userId) throw new Error("Unauthorized");
-
-    const otp = await this.emailVerificationService.requestOtp(userId);
+  requestOtp = async(req: Request, res: Response) => {
+    const {email} = req.body
+    if (!email) throw new Error("Email is required");
+    const otp = await this.emailVerificationService.requestOtp(email);
     successResponse(res, "OTP generated successfully", otp);
   }
 
-  async verifyOtp(req: Request, res: Response) {
-    const userId = req.user?.id;
-    const { otpCode } = req.body;
+  verifyOtp = async (req: Request, res: Response) => {
+    const { email, otp } = req.body;
 
-    if (!userId) throw new Error("Unauthorized");
-    if (!otpCode) throw new Error("OTP code is required");
+    if (!otp) throw new Error("OTP code is required");
 
-    const result = await this.emailVerificationService.verifyOtp(userId, otpCode);
+    const result = await this.emailVerificationService.verifyOtpByEmail(email, otp);
     successResponse(res, "OTP verified successfully", result);
   }
 
-  async resendOtp(req: Request, res: Response) {
-    const userId = req.user?.id;
-    if (!userId) throw new Error("Unauthorized");
+  // async resendOtp(req: Request, res: Response) {
+  //   const userId = req.user?.id;
+  //   if (!userId) throw new Error("Unauthorized");
 
-    const otp = await this.emailVerificationService.resendOtp(userId);
-    successResponse(res, "OTP resent successfully", otp);
-  }
+  //   const otp = await this.emailVerificationService.resendOtp(userId);
+  //   successResponse(res, "OTP resent successfully", otp);
+  // }
 
   async getActiveOtp(req: Request, res: Response) {
     const userId = req.user?.id;

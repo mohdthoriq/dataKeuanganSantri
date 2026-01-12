@@ -56,71 +56,71 @@ export class AuthRepository implements IAuthRepository {
     }
 
     async registerAdmin(payload: RegisterAdminPayload): Promise<RegisterAdminResult> {
-        const { username, email, password, institution } = payload;
+    const { username, email, password, institution } = payload; // pakai name
 
-        if (!username || !email || !password) {
-            throw new Error("Username, email, and password are required");
-        }
-
-        const existingUser = await this.prisma.user.findUnique({
-            where: { email },
-        });
-
-        if (existingUser) {
-            throw new Error("User already exists");
-        }
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        const result = await this.prisma.$transaction(async (tx) => {
-            const admin = await tx.user.create({
-                data: {
-                    username,
-                    email,
-                    password: hashedPassword,
-                    role: "ADMIN",
-                    isEmailVerified: false,
-                    isActive: true,
-                },
-            });
-
-            const lembaga = await tx.institution.create({
-                data: {
-                    name: institution,
-                    createdBy: admin.id,
-                },
-            });
-
-            await tx.user.update({
-                where: { id: admin.id },
-                data: { institutionId: lembaga.id },
-            });
-
-            const otpCode = randomInt(100000, 999999).toString();
-            const expiredAt = new Date(Date.now() + 10 * 60 * 1000);
-
-            await tx.emailVerification.create({
-                data: {
-                    userId: admin.id,
-                    otpCode,
-                    expiredAt,
-                    isUsed: false,
-                },
-            });
-
-            return { user: admin, otpCode };
-        });
-
-        return {
-            success: true,
-            message: "Registration successful. Please check your email for OTP.",
-            data: {
-                userId: result.user.id,
-                email: result.user.email,
-                ...(process.env.NODE_ENV === 'development' && { otpCode: result.otpCode }),
-            },
-        };
+    if (!username || !email || !password) {
+        throw new Error("Username, email, and password are required");
     }
+
+    const existingUser = await this.prisma.user.findUnique({
+        where: { email },
+    });
+
+    if (existingUser) {
+        throw new Error("User already exists");
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const result = await this.prisma.$transaction(async (tx) => {
+        const admin = await tx.user.create({
+            data: {
+                username,
+                email,
+                password: hashedPassword,
+                role: "ADMIN",
+                isEmailVerified: false,
+                isActive: true,
+            },
+        });
+
+        const lembaga = await tx.institution.create({
+            data: {
+                name: institution,
+                createdBy: admin.id,
+            },
+        });
+
+        await tx.user.update({
+            where: { id: admin.id },
+            data: { institutionId: lembaga.id },
+        });
+
+        const otpCode = randomInt(100000, 999999).toString();
+        const expiredAt = new Date(Date.now() + 10 * 60 * 1000);
+
+        await tx.emailVerification.create({
+            data: {
+                userId: admin.id,
+                otpCode,
+                expiredAt,
+                isUsed: false,
+            },
+        });
+
+        return { user: admin, otpCode };
+    });
+
+    return {
+        success: true,
+        message: "Registration successful. Please check your email for OTP.",
+        data: {
+            userId: result.user.id,
+            email: result.user.email,
+            ...(process.env.NODE_ENV === 'development' && { otpCode: result.otpCode }),
+        },
+    };
+}
 
     async login(email: string, password: string): Promise<LoginResult> {
         const user = await prisma.user.findUnique({ where: { email } });
@@ -147,6 +147,7 @@ export class AuthRepository implements IAuthRepository {
             },
         };
     }
+    
     async requestReset(email: string): Promise<RequestResetResult> {
         const user = await prisma.user.findUnique({ where: { email } });
         if (!user) return { success: false, message: "User not found" };
@@ -164,18 +165,20 @@ export class AuthRepository implements IAuthRepository {
 
         return { success: true, message: "OTP sent successfully" };
     }
+
     async resetPassword(userId: number, otpCode: string, newPassword: string): Promise<RequestResetResult> {
-        const record = await prisma.passwordReset.findFirst({
-            where: { userId, otpCode, isUsed: false, expiredAt: { gte: new Date() } },
-        });
+  const record = await prisma.passwordReset.findFirst({
+    where: { userId, otpCode, isUsed: false, expiredAt: { gte: new Date() } },
+  });
 
-        if (!record) throw new Error("Invalid OTP");
+  if (!record) throw new Error("Invalid OTP");
 
-        await prisma.passwordReset.update({ where: { id: record.id }, data: { isUsed: true } });
+  await prisma.passwordReset.update({ where: { id: record.id }, data: { isUsed: true } });
 
-        const hashedPassword = await bcrypt.hash(newPassword, 10);
-        await prisma.user.update({ where: { id: userId }, data: { password: hashedPassword } });
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+  await prisma.user.update({ where: { id: userId }, data: { password: hashedPassword } });
 
-        return { success: true, message: "Password reset successfully" };
-    }
+  return { success: true, message: "Password reset successfully" };
+}
+
 }

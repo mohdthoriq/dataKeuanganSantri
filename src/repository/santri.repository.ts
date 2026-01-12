@@ -31,12 +31,47 @@ export class SantriRepository implements ISantriRepository {
     return santri;
   }
 
-  async getList(institutionId: number): Promise<Santri[]> {
-    return this.prisma.santri.findMany({
-      where: { institutionId },
-      orderBy: { createdAt: "desc" },
-    });
-  }
+  async getList(
+  institutionId: number,
+  search?: string
+): Promise<Santri[]> {
+  return this.prisma.santri.findMany({
+    where: {
+      institutionId,
+      ...(search && {
+        OR: [
+          {
+            fullname: {
+              contains: search,
+              mode: "insensitive",
+            },
+          },
+          {
+            nis: {
+              contains: search,
+              mode: "insensitive",
+            },
+          },
+          {
+            wali: {
+              username: {
+                contains: search,
+                mode: "insensitive",
+              },
+            },
+          },
+        ],
+      }),
+    },
+    include: {
+      wali: true, // biar data wali ikut ke-return
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+}
+
 
   async getById(id: number): Promise<Santri> {
     const santri = await this.prisma.santri.findUnique({ where: { id } });

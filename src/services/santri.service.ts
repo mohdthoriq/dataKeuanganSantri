@@ -9,9 +9,13 @@ export class SantriService {
     return this.santriRepo.create(payload);
   }
 
-  async getSantriList(institutionId: number): Promise<Santri[]> {
-    return this.santriRepo.getList(institutionId);
-  }
+  async getSantriList(
+  institutionId: number,
+  search?: string
+): Promise<Santri[]> {
+  return this.santriRepo.getList(institutionId, search);
+}
+
 
   async getSantriById(id: number): Promise<Santri> {
     return this.santriRepo.getById(id);

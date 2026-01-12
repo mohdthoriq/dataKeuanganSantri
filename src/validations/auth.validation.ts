@@ -11,10 +11,14 @@ export const registerAdminValidation = [
     .notEmpty().withMessage("Password wajib diisi")
     .isLength({ min: 8 }).withMessage("Password minimal 8 karakter"),
 
-  body("name")
+  body("username")
     .trim()
     .notEmpty().withMessage("Name wajib diisi")
     .isLength({ min: 3 }).withMessage("Name minimal 3 karakter"),
+
+  body("institution")
+    .trim()
+    .notEmpty().withMessage("Institution wajib diisi"),
 ];
 
 /* ================= LOGIN ================= */
@@ -38,19 +42,14 @@ export const requestResetValidation = [
 
 /* ================= RESET PASSWORD ================= */
 export const resetPasswordValidation = [
-  body("token")
-    .notEmpty().withMessage("Token reset wajib diisi"),
+  body("email")
+    .notEmpty().withMessage("Email wajib diisi")
+    .isEmail().withMessage("Email tidak valid"),
 
-  body("newPassword")
+  body("otp")
+    .notEmpty().withMessage("OTP wajib diisi"),
+
+  body("password")
     .notEmpty().withMessage("Password baru wajib diisi")
-    .isLength({ min: 8 }).withMessage("Password baru minimal 8 karakter"),
-
-  body("confirmPassword")
-    .notEmpty().withMessage("Confirm password wajib diisi")
-    .custom((value, { req }) => {
-      if (value !== req.body.newPassword) {
-        throw new Error("Confirm password tidak sama");
-      }
-      return true;
-    }),
+    .isLength({ min: 8 }).withMessage("Password minimal 8 karakter"),
 ];

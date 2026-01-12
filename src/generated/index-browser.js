@@ -180,7 +180,21 @@ exports.Prisma.ProfileScalarFieldEnum = {
   gender: 'gender',
   address: 'address',
   profile_picture_url: 'profile_picture_url',
+  public_id: 'public_id',
   userId: 'userId'
+};
+
+exports.Prisma.InstitutionProfileScalarFieldEnum = {
+  id: 'id',
+  institutionId: 'institutionId',
+  address: 'address',
+  phone: 'phone',
+  email: 'email',
+  website: 'website',
+  logoUrl: 'logoUrl',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SantriScalarFieldEnum = {
@@ -251,6 +265,7 @@ exports.Prisma.ModelName = {
   Notification: 'Notification',
   PasswordReset: 'PasswordReset',
   Profile: 'Profile',
+  InstitutionProfile: 'InstitutionProfile',
   Santri: 'Santri',
   Transaction: 'Transaction',
   User: 'User'

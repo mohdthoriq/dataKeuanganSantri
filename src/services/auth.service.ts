@@ -4,29 +4,30 @@ import jwt from "jsonwebtoken";
 import type { IAuthRepository, RegisterAdminPayload } from "../repository/auth.repository";
 import config from "../utils/env"; 
 
-
 export class AuthService {
   constructor(private authRepo: IAuthRepository) {}
 
+  // =================== REGISTER ===================
   async registerAdmin(payload: RegisterAdminPayload) {
     const { username, email, password, institution } = payload;
 
-    // cek user exist
     const existing = await this.authRepo.findByEmail(email);
     if (existing) throw new Error("User already exists");
 
-    // hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // create admin + institution + OTP
-    return this.authRepo.registerAdmin({
+    const result = await this.authRepo.registerAdmin({
       username,
       email,
-      password: hashedPassword,
+      password,
       institution,
     });
+
+    return {
+    ...result,
+    email,
+  };
   }
 
+  // =================== LOGIN ===================
   async login(data: { email: string; password: string }) {
     const { email, password } = data;
 
@@ -46,11 +47,21 @@ export class AuthService {
     return { user, token };
   }
 
+  // =================== REQUEST RESET ===================
   async requestReset(email: string) {
     return this.authRepo.requestReset(email);
   }
 
+  // =================== RESET PASSWORD ===================
   async resetPassword(userId: number, otpCode: string, newPassword: string) {
     return this.authRepo.resetPassword(userId, otpCode, newPassword);
+  }
+
+  // =================== HELPER UNTUK CONTROLLER ===================
+  // Agar controller bisa ambil user dari email tanpa akses private authRepo
+  async findUserByEmail(email: string) {
+    const user = await this.authRepo.findByEmail(email);
+    if (!user) throw new Error("User not found");
+    return user;
   }
 }

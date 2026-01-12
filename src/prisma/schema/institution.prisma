@@ -11,4 +11,5 @@ model Institution {
   santri     Santri[]
   categories Category[]
   admin User @relation("InstitutionAdmin", fields: [createdBy], references: [id])
+  institution InstitutionProfile?
 }
