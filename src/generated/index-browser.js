@@ -180,6 +180,7 @@ exports.Prisma.ProfileScalarFieldEnum = {
   gender: 'gender',
   address: 'address',
   profile_picture_url: 'profile_picture_url',
+  public_id: 'public_id',
   userId: 'userId'
 };
 

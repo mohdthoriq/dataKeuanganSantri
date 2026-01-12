@@ -8,6 +8,7 @@ export interface IProfileRepository {
     gender: string;
     address: string;
     profile_picture_url?: string;
+    public_id?: string;
     userId: number;
   }): Promise<Profile>;
   update(id: number, data: Partial<{
@@ -15,6 +16,7 @@ export interface IProfileRepository {
     gender: string;
     address: string;
     profile_picture_url?: string;
+    public_id?: string;
   }>): Promise<Profile>;
   delete(id: number): Promise<Profile>;
 }
@@ -39,6 +41,7 @@ export class ProfileRepository implements IProfileRepository {
     gender: string;
     address: string;
     profile_picture_url?: string;
+    public_id?: string;
     userId: number;
   }): Promise<Profile> {
     return this.prisma.profile.create({
@@ -53,6 +56,7 @@ export class ProfileRepository implements IProfileRepository {
       gender: string;
       address: string;
       profile_picture_url?: string;
+      public_id?: string;
     }>
   ): Promise<Profile> {
     return this.prisma.profile.update({

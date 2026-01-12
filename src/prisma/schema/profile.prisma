@@ -4,6 +4,7 @@ model Profile {
   gender              String
   address             String
   profile_picture_url String?
+  public_id           String?
   userId              Int     @unique
   user                User    @relation(fields: [userId], references: [id])
 }

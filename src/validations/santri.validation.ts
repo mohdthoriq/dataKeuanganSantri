@@ -21,6 +21,9 @@ export const createSantriValidation = [
 
   body("waliId")
     .isInt().withMessage("Wali ID harus berupa angka"),
+
+  body("institutionId")
+    .isInt().withMessage("Institution ID harus berupa angka"),
 ];
 
 export const updateSantriValidation = [
