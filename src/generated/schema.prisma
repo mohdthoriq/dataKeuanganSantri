@@ -98,32 +98,28 @@ model Profile {
 }
 
 model Santri {
-  id              Int      @id @default(autoincrement())
-  nis             String
-  fullname        String
-  kelas           String
-  gender          String
-  waliName        String
-  institutionName String
-<<<<<<< HEAD
-  waliId          Int?
-  institutionId   Int?
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
-  isActive        Boolean  @default(true)
-  createdAt       DateTime @default(now())
+  id       Int    @id @default(autoincrement())
+  nis      String
+  fullname String
+  kelas    String
+  gender   String
 
-  // relations
-<<<<<<< HEAD
-  wali         User?         @relation(fields: [waliId], references: [id])
-  institution  Institution?  @relation(fields: [institutionId], references: [id])
-=======
-  institution  Institution   @relation(fields: [institutionName], references: [name])
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
+  waliId        Int
+  institutionId Int
+
+  waliName        String?
+  institutionName String?
+
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  wali        User        @relation(fields: [waliId], references: [id])
+  institution Institution @relation(fields: [institutionId], references: [id])
+
   authAccounts AuthAccount[]
   transactions Transaction[]
 
-  @@unique([nis, institutionName])
+  @@unique([nis, institutionId])
 }
 
 model Transaction {
@@ -161,6 +157,7 @@ model User {
 
   createdInstitutions Institution[] @relation("InstitutionAdmin")
 
+  santri             Santri[]
   emailVerifications EmailVerification[]
   authAccounts       AuthAccount[]
   transactions       Transaction[]       @relation("AdminTransactions")

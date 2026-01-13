@@ -359,8 +359,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 7.1.0
-   * Query Engine version: ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba
+   * Prisma Client JS version: 7.2.0
+   * Query Engine version: 0c8ef2ce45c83248ab3df073180d5eda9e8be7a3
    */
   export type PrismaVersion = {
     client: string
@@ -1831,6 +1831,7 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     createdInstitutions: number
+    santri: number
     emailVerifications: number
     authAccounts: number
     transactions: number
@@ -1840,6 +1841,7 @@ export namespace Prisma {
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     createdInstitutions?: boolean | UserCountOutputTypeCountCreatedInstitutionsArgs
+    santri?: boolean | UserCountOutputTypeCountSantriArgs
     emailVerifications?: boolean | UserCountOutputTypeCountEmailVerificationsArgs
     authAccounts?: boolean | UserCountOutputTypeCountAuthAccountsArgs
     transactions?: boolean | UserCountOutputTypeCountTransactionsArgs
@@ -1863,6 +1865,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountCreatedInstitutionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: InstitutionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSantriArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SantriWhereInput
   }
 
   /**
@@ -9842,10 +9851,14 @@ export namespace Prisma {
 
   export type SantriAvgAggregateOutputType = {
     id: number | null
+    waliId: number | null
+    institutionId: number | null
   }
 
   export type SantriSumAggregateOutputType = {
     id: number | null
+    waliId: number | null
+    institutionId: number | null
   }
 
   export type SantriMinAggregateOutputType = {
@@ -9854,13 +9867,10 @@ export namespace Prisma {
     fullname: string | null
     kelas: string | null
     gender: string | null
-    waliName: string | null
-    institutionName: string | null
-<<<<<<< HEAD
     waliId: number | null
     institutionId: number | null
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
+    waliName: string | null
+    institutionName: string | null
     isActive: boolean | null
     createdAt: Date | null
   }
@@ -9871,13 +9881,10 @@ export namespace Prisma {
     fullname: string | null
     kelas: string | null
     gender: string | null
-    waliName: string | null
-    institutionName: string | null
-<<<<<<< HEAD
     waliId: number | null
     institutionId: number | null
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
+    waliName: string | null
+    institutionName: string | null
     isActive: boolean | null
     createdAt: Date | null
   }
@@ -9888,13 +9895,10 @@ export namespace Prisma {
     fullname: number
     kelas: number
     gender: number
-    waliName: number
-    institutionName: number
-<<<<<<< HEAD
     waliId: number
     institutionId: number
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
+    waliName: number
+    institutionName: number
     isActive: number
     createdAt: number
     _all: number
@@ -9903,10 +9907,14 @@ export namespace Prisma {
 
   export type SantriAvgAggregateInputType = {
     id?: true
+    waliId?: true
+    institutionId?: true
   }
 
   export type SantriSumAggregateInputType = {
     id?: true
+    waliId?: true
+    institutionId?: true
   }
 
   export type SantriMinAggregateInputType = {
@@ -9915,13 +9923,10 @@ export namespace Prisma {
     fullname?: true
     kelas?: true
     gender?: true
-    waliName?: true
-    institutionName?: true
-<<<<<<< HEAD
     waliId?: true
     institutionId?: true
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
+    waliName?: true
+    institutionName?: true
     isActive?: true
     createdAt?: true
   }
@@ -9932,13 +9937,10 @@ export namespace Prisma {
     fullname?: true
     kelas?: true
     gender?: true
-    waliName?: true
-    institutionName?: true
-<<<<<<< HEAD
     waliId?: true
     institutionId?: true
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
+    waliName?: true
+    institutionName?: true
     isActive?: true
     createdAt?: true
   }
@@ -9949,13 +9951,10 @@ export namespace Prisma {
     fullname?: true
     kelas?: true
     gender?: true
-    waliName?: true
-    institutionName?: true
-<<<<<<< HEAD
     waliId?: true
     institutionId?: true
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
+    waliName?: true
+    institutionName?: true
     isActive?: true
     createdAt?: true
     _all?: true
@@ -10053,13 +10052,10 @@ export namespace Prisma {
     fullname: string
     kelas: string
     gender: string
-    waliName: string
-    institutionName: string
-<<<<<<< HEAD
-    waliId: number | null
-    institutionId: number | null
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
+    waliId: number
+    institutionId: number
+    waliName: string | null
+    institutionName: string | null
     isActive: boolean
     createdAt: Date
     _count: SantriCountAggregateOutputType | null
@@ -10089,20 +10085,14 @@ export namespace Prisma {
     fullname?: boolean
     kelas?: boolean
     gender?: boolean
-    waliName?: boolean
-    institutionName?: boolean
-<<<<<<< HEAD
     waliId?: boolean
     institutionId?: boolean
+    waliName?: boolean
+    institutionName?: boolean
     isActive?: boolean
     createdAt?: boolean
-    wali?: boolean | Santri$waliArgs<ExtArgs>
-    institution?: boolean | Santri$institutionArgs<ExtArgs>
-=======
-    isActive?: boolean
-    createdAt?: boolean
+    wali?: boolean | UserDefaultArgs<ExtArgs>
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     authAccounts?: boolean | Santri$authAccountsArgs<ExtArgs>
     transactions?: boolean | Santri$transactionsArgs<ExtArgs>
     _count?: boolean | SantriCountOutputTypeDefaultArgs<ExtArgs>
@@ -10114,20 +10104,14 @@ export namespace Prisma {
     fullname?: boolean
     kelas?: boolean
     gender?: boolean
-    waliName?: boolean
-    institutionName?: boolean
-<<<<<<< HEAD
     waliId?: boolean
     institutionId?: boolean
+    waliName?: boolean
+    institutionName?: boolean
     isActive?: boolean
     createdAt?: boolean
-    wali?: boolean | Santri$waliArgs<ExtArgs>
-    institution?: boolean | Santri$institutionArgs<ExtArgs>
-=======
-    isActive?: boolean
-    createdAt?: boolean
+    wali?: boolean | UserDefaultArgs<ExtArgs>
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
   }, ExtArgs["result"]["santri"]>
 
   export type SantriSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10136,20 +10120,14 @@ export namespace Prisma {
     fullname?: boolean
     kelas?: boolean
     gender?: boolean
-    waliName?: boolean
-    institutionName?: boolean
-<<<<<<< HEAD
     waliId?: boolean
     institutionId?: boolean
+    waliName?: boolean
+    institutionName?: boolean
     isActive?: boolean
     createdAt?: boolean
-    wali?: boolean | Santri$waliArgs<ExtArgs>
-    institution?: boolean | Santri$institutionArgs<ExtArgs>
-=======
-    isActive?: boolean
-    createdAt?: boolean
+    wali?: boolean | UserDefaultArgs<ExtArgs>
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
   }, ExtArgs["result"]["santri"]>
 
   export type SantriSelectScalar = {
@@ -10158,56 +10136,36 @@ export namespace Prisma {
     fullname?: boolean
     kelas?: boolean
     gender?: boolean
-    waliName?: boolean
-    institutionName?: boolean
-<<<<<<< HEAD
     waliId?: boolean
     institutionId?: boolean
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
+    waliName?: boolean
+    institutionName?: boolean
     isActive?: boolean
     createdAt?: boolean
   }
 
-<<<<<<< HEAD
-  export type SantriOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nis" | "fullname" | "kelas" | "gender" | "waliName" | "institutionName" | "waliId" | "institutionId" | "isActive" | "createdAt", ExtArgs["result"]["santri"]>
+  export type SantriOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nis" | "fullname" | "kelas" | "gender" | "waliId" | "institutionId" | "waliName" | "institutionName" | "isActive" | "createdAt", ExtArgs["result"]["santri"]>
   export type SantriInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    wali?: boolean | Santri$waliArgs<ExtArgs>
-    institution?: boolean | Santri$institutionArgs<ExtArgs>
-=======
-  export type SantriOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nis" | "fullname" | "kelas" | "gender" | "waliName" | "institutionName" | "isActive" | "createdAt", ExtArgs["result"]["santri"]>
-  export type SantriInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    wali?: boolean | UserDefaultArgs<ExtArgs>
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     authAccounts?: boolean | Santri$authAccountsArgs<ExtArgs>
     transactions?: boolean | Santri$transactionsArgs<ExtArgs>
     _count?: boolean | SantriCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SantriIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-<<<<<<< HEAD
-    wali?: boolean | Santri$waliArgs<ExtArgs>
-    institution?: boolean | Santri$institutionArgs<ExtArgs>
-  }
-  export type SantriIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    wali?: boolean | Santri$waliArgs<ExtArgs>
-    institution?: boolean | Santri$institutionArgs<ExtArgs>
-=======
+    wali?: boolean | UserDefaultArgs<ExtArgs>
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
   }
   export type SantriIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    wali?: boolean | UserDefaultArgs<ExtArgs>
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
   }
 
   export type $SantriPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Santri"
     objects: {
-<<<<<<< HEAD
-      wali: Prisma.$UserPayload<ExtArgs> | null
-      institution: Prisma.$InstitutionPayload<ExtArgs> | null
-=======
+      wali: Prisma.$UserPayload<ExtArgs>
       institution: Prisma.$InstitutionPayload<ExtArgs>
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
       authAccounts: Prisma.$AuthAccountPayload<ExtArgs>[]
       transactions: Prisma.$TransactionPayload<ExtArgs>[]
     }
@@ -10217,13 +10175,10 @@ export namespace Prisma {
       fullname: string
       kelas: string
       gender: string
-      waliName: string
-      institutionName: string
-<<<<<<< HEAD
-      waliId: number | null
-      institutionId: number | null
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
+      waliId: number
+      institutionId: number
+      waliName: string | null
+      institutionName: string | null
       isActive: boolean
       createdAt: Date
     }, ExtArgs["result"]["santri"]>
@@ -10620,12 +10575,8 @@ export namespace Prisma {
    */
   export interface Prisma__SantriClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-<<<<<<< HEAD
-    wali<T extends Santri$waliArgs<ExtArgs> = {}>(args?: Subset<T, Santri$waliArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    institution<T extends Santri$institutionArgs<ExtArgs> = {}>(args?: Subset<T, Santri$institutionArgs<ExtArgs>>): Prisma__InstitutionClient<$Result.GetResult<Prisma.$InstitutionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-=======
+    wali<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     institution<T extends InstitutionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InstitutionDefaultArgs<ExtArgs>>): Prisma__InstitutionClient<$Result.GetResult<Prisma.$InstitutionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     authAccounts<T extends Santri$authAccountsArgs<ExtArgs> = {}>(args?: Subset<T, Santri$authAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuthAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     transactions<T extends Santri$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Santri$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -10662,13 +10613,10 @@ export namespace Prisma {
     readonly fullname: FieldRef<"Santri", 'String'>
     readonly kelas: FieldRef<"Santri", 'String'>
     readonly gender: FieldRef<"Santri", 'String'>
-    readonly waliName: FieldRef<"Santri", 'String'>
-    readonly institutionName: FieldRef<"Santri", 'String'>
-<<<<<<< HEAD
     readonly waliId: FieldRef<"Santri", 'Int'>
     readonly institutionId: FieldRef<"Santri", 'Int'>
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
+    readonly waliName: FieldRef<"Santri", 'String'>
+    readonly institutionName: FieldRef<"Santri", 'String'>
     readonly isActive: FieldRef<"Santri", 'Boolean'>
     readonly createdAt: FieldRef<"Santri", 'DateTime'>
   }
@@ -11064,44 +11012,6 @@ export namespace Prisma {
      * Limit how many Santris to delete.
      */
     limit?: number
-  }
-
-  /**
-   * Santri.wali
-   */
-  export type Santri$waliArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
-  }
-
-  /**
-   * Santri.institution
-   */
-  export type Santri$institutionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Institution
-     */
-    select?: InstitutionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Institution
-     */
-    omit?: InstitutionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: InstitutionInclude<ExtArgs> | null
-    where?: InstitutionWhereInput
   }
 
   /**
@@ -12597,6 +12507,7 @@ export namespace Prisma {
     profile?: boolean | User$profileArgs<ExtArgs>
     institution?: boolean | User$institutionArgs<ExtArgs>
     createdInstitutions?: boolean | User$createdInstitutionsArgs<ExtArgs>
+    santri?: boolean | User$santriArgs<ExtArgs>
     emailVerifications?: boolean | User$emailVerificationsArgs<ExtArgs>
     authAccounts?: boolean | User$authAccountsArgs<ExtArgs>
     transactions?: boolean | User$transactionsArgs<ExtArgs>
@@ -12648,6 +12559,7 @@ export namespace Prisma {
     profile?: boolean | User$profileArgs<ExtArgs>
     institution?: boolean | User$institutionArgs<ExtArgs>
     createdInstitutions?: boolean | User$createdInstitutionsArgs<ExtArgs>
+    santri?: boolean | User$santriArgs<ExtArgs>
     emailVerifications?: boolean | User$emailVerificationsArgs<ExtArgs>
     authAccounts?: boolean | User$authAccountsArgs<ExtArgs>
     transactions?: boolean | User$transactionsArgs<ExtArgs>
@@ -12668,6 +12580,7 @@ export namespace Prisma {
       profile: Prisma.$ProfilePayload<ExtArgs> | null
       institution: Prisma.$InstitutionPayload<ExtArgs> | null
       createdInstitutions: Prisma.$InstitutionPayload<ExtArgs>[]
+      santri: Prisma.$SantriPayload<ExtArgs>[]
       emailVerifications: Prisma.$EmailVerificationPayload<ExtArgs>[]
       authAccounts: Prisma.$AuthAccountPayload<ExtArgs>[]
       transactions: Prisma.$TransactionPayload<ExtArgs>[]
@@ -13081,6 +12994,7 @@ export namespace Prisma {
     profile<T extends User$profileArgs<ExtArgs> = {}>(args?: Subset<T, User$profileArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     institution<T extends User$institutionArgs<ExtArgs> = {}>(args?: Subset<T, User$institutionArgs<ExtArgs>>): Prisma__InstitutionClient<$Result.GetResult<Prisma.$InstitutionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     createdInstitutions<T extends User$createdInstitutionsArgs<ExtArgs> = {}>(args?: Subset<T, User$createdInstitutionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InstitutionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    santri<T extends User$santriArgs<ExtArgs> = {}>(args?: Subset<T, User$santriArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SantriPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     emailVerifications<T extends User$emailVerificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$emailVerificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailVerificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     authAccounts<T extends User$authAccountsArgs<ExtArgs> = {}>(args?: Subset<T, User$authAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuthAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     transactions<T extends User$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -13582,6 +13496,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.santri
+   */
+  export type User$santriArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Santri
+     */
+    select?: SantriSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Santri
+     */
+    omit?: SantriOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SantriInclude<ExtArgs> | null
+    where?: SantriWhereInput
+    orderBy?: SantriOrderByWithRelationInput | SantriOrderByWithRelationInput[]
+    cursor?: SantriWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SantriScalarFieldEnum | SantriScalarFieldEnum[]
+  }
+
+  /**
    * User.emailVerifications
    */
   export type User$emailVerificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13825,10 +13763,10 @@ export namespace Prisma {
     fullname: 'fullname',
     kelas: 'kelas',
     gender: 'gender',
-    waliName: 'waliName',
-    institutionName: 'institutionName',
     waliId: 'waliId',
     institutionId: 'institutionId',
+    waliName: 'waliName',
+    institutionName: 'institutionName',
     isActive: 'isActive',
     createdAt: 'createdAt'
   };
@@ -14467,16 +14405,13 @@ export namespace Prisma {
     fullname?: StringFilter<"Santri"> | string
     kelas?: StringFilter<"Santri"> | string
     gender?: StringFilter<"Santri"> | string
-    waliName?: StringFilter<"Santri"> | string
-    institutionName?: StringFilter<"Santri"> | string
-    waliId?: IntNullableFilter<"Santri"> | number | null
-    institutionId?: IntNullableFilter<"Santri"> | number | null
+    waliId?: IntFilter<"Santri"> | number
+    institutionId?: IntFilter<"Santri"> | number
+    waliName?: StringNullableFilter<"Santri"> | string | null
+    institutionName?: StringNullableFilter<"Santri"> | string | null
     isActive?: BoolFilter<"Santri"> | boolean
     createdAt?: DateTimeFilter<"Santri"> | Date | string
-    wali?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    institution?: XOR<InstitutionNullableScalarRelationFilter, InstitutionWhereInput> | null
-    isActive?: BoolFilter<"Santri"> | boolean
-    createdAt?: DateTimeFilter<"Santri"> | Date | string
+    wali?: XOR<UserScalarRelationFilter, UserWhereInput>
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
     authAccounts?: AuthAccountListRelationFilter
     transactions?: TransactionListRelationFilter
@@ -14488,12 +14423,13 @@ export namespace Prisma {
     fullname?: SortOrder
     kelas?: SortOrder
     gender?: SortOrder
-    waliName?: SortOrder
-    institutionName?: SortOrder
-    waliId?: SortOrderInput | SortOrder
-    institutionId?: SortOrderInput | SortOrder
+    waliId?: SortOrder
+    institutionId?: SortOrder
+    waliName?: SortOrderInput | SortOrder
+    institutionName?: SortOrderInput | SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
+    wali?: UserOrderByWithRelationInput
     institution?: InstitutionOrderByWithRelationInput
     authAccounts?: AuthAccountOrderByRelationAggregateInput
     transactions?: TransactionOrderByRelationAggregateInput
@@ -14501,7 +14437,7 @@ export namespace Prisma {
 
   export type SantriWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    nis_institutionName?: SantriNisInstitutionNameCompoundUniqueInput
+    nis_institutionId?: SantriNisInstitutionIdCompoundUniqueInput
     AND?: SantriWhereInput | SantriWhereInput[]
     OR?: SantriWhereInput[]
     NOT?: SantriWhereInput | SantriWhereInput[]
@@ -14509,20 +14445,17 @@ export namespace Prisma {
     fullname?: StringFilter<"Santri"> | string
     kelas?: StringFilter<"Santri"> | string
     gender?: StringFilter<"Santri"> | string
-    waliName?: StringFilter<"Santri"> | string
-    institutionName?: StringFilter<"Santri"> | string
-    waliId?: IntNullableFilter<"Santri"> | number | null
-    institutionId?: IntNullableFilter<"Santri"> | number | null
+    waliId?: IntFilter<"Santri"> | number
+    institutionId?: IntFilter<"Santri"> | number
+    waliName?: StringNullableFilter<"Santri"> | string | null
+    institutionName?: StringNullableFilter<"Santri"> | string | null
     isActive?: BoolFilter<"Santri"> | boolean
     createdAt?: DateTimeFilter<"Santri"> | Date | string
-    wali?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    institution?: XOR<InstitutionNullableScalarRelationFilter, InstitutionWhereInput> | null
-    isActive?: BoolFilter<"Santri"> | boolean
-    createdAt?: DateTimeFilter<"Santri"> | Date | string
+    wali?: XOR<UserScalarRelationFilter, UserWhereInput>
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
     authAccounts?: AuthAccountListRelationFilter
     transactions?: TransactionListRelationFilter
-  }, "id" | "nis_institutionName">
+  }, "id" | "nis_institutionId">
 
   export type SantriOrderByWithAggregationInput = {
     id?: SortOrder
@@ -14530,10 +14463,10 @@ export namespace Prisma {
     fullname?: SortOrder
     kelas?: SortOrder
     gender?: SortOrder
-    waliName?: SortOrder
-    institutionName?: SortOrder
-    waliId?: SortOrderInput | SortOrder
-    institutionId?: SortOrderInput | SortOrder
+    waliId?: SortOrder
+    institutionId?: SortOrder
+    waliName?: SortOrderInput | SortOrder
+    institutionName?: SortOrderInput | SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     _count?: SantriCountOrderByAggregateInput
@@ -14552,10 +14485,10 @@ export namespace Prisma {
     fullname?: StringWithAggregatesFilter<"Santri"> | string
     kelas?: StringWithAggregatesFilter<"Santri"> | string
     gender?: StringWithAggregatesFilter<"Santri"> | string
-    waliName?: StringWithAggregatesFilter<"Santri"> | string
-    institutionName?: StringWithAggregatesFilter<"Santri"> | string
-    waliId?: IntNullableWithAggregatesFilter<"Santri"> | number | null
-    institutionId?: IntNullableWithAggregatesFilter<"Santri"> | number | null
+    waliId?: IntWithAggregatesFilter<"Santri"> | number
+    institutionId?: IntWithAggregatesFilter<"Santri"> | number
+    waliName?: StringNullableWithAggregatesFilter<"Santri"> | string | null
+    institutionName?: StringNullableWithAggregatesFilter<"Santri"> | string | null
     isActive?: BoolWithAggregatesFilter<"Santri"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Santri"> | Date | string
   }
@@ -14664,6 +14597,7 @@ export namespace Prisma {
     profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
     institution?: XOR<InstitutionNullableScalarRelationFilter, InstitutionWhereInput> | null
     createdInstitutions?: InstitutionListRelationFilter
+    santri?: SantriListRelationFilter
     emailVerifications?: EmailVerificationListRelationFilter
     authAccounts?: AuthAccountListRelationFilter
     transactions?: TransactionListRelationFilter
@@ -14684,6 +14618,7 @@ export namespace Prisma {
     profile?: ProfileOrderByWithRelationInput
     institution?: InstitutionOrderByWithRelationInput
     createdInstitutions?: InstitutionOrderByRelationAggregateInput
+    santri?: SantriOrderByRelationAggregateInput
     emailVerifications?: EmailVerificationOrderByRelationAggregateInput
     authAccounts?: AuthAccountOrderByRelationAggregateInput
     transactions?: TransactionOrderByRelationAggregateInput
@@ -14707,6 +14642,7 @@ export namespace Prisma {
     profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
     institution?: XOR<InstitutionNullableScalarRelationFilter, InstitutionWhereInput> | null
     createdInstitutions?: InstitutionListRelationFilter
+    santri?: SantriListRelationFilter
     emailVerifications?: EmailVerificationListRelationFilter
     authAccounts?: AuthAccountListRelationFilter
     transactions?: TransactionListRelationFilter
@@ -15186,14 +15122,11 @@ export namespace Prisma {
     fullname: string
     kelas: string
     gender: string
-    waliName: string
-    institutionName: string
+    waliName?: string | null
+    institutionName?: string | null
     isActive?: boolean
     createdAt?: Date | string
-    wali?: UserCreateNestedOneWithoutSantriAsWaliInput
-    institution?: InstitutionCreateNestedOneWithoutSantriInput
-    isActive?: boolean
-    createdAt?: Date | string
+    wali: UserCreateNestedOneWithoutSantriInput
     institution: InstitutionCreateNestedOneWithoutSantriInput
     authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
     transactions?: TransactionCreateNestedManyWithoutSantriInput
@@ -15205,10 +15138,10 @@ export namespace Prisma {
     fullname: string
     kelas: string
     gender: string
-    waliName: string
-    institutionName: string
-    waliId?: number | null
-    institutionId?: number | null
+    waliId: number
+    institutionId: number
+    waliName?: string | null
+    institutionName?: string | null
     isActive?: boolean
     createdAt?: Date | string
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutSantriInput
@@ -15220,14 +15153,11 @@ export namespace Prisma {
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    waliName?: StringFieldUpdateOperationsInput | string
-    institutionName?: StringFieldUpdateOperationsInput | string
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    wali?: UserUpdateOneWithoutSantriAsWaliNestedInput
-    institution?: InstitutionUpdateOneWithoutSantriNestedInput
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wali?: UserUpdateOneRequiredWithoutSantriNestedInput
     institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
     authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
     transactions?: TransactionUpdateManyWithoutSantriNestedInput
@@ -15239,10 +15169,10 @@ export namespace Prisma {
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    waliName?: StringFieldUpdateOperationsInput | string
-    institutionName?: StringFieldUpdateOperationsInput | string
-    waliId?: NullableIntFieldUpdateOperationsInput | number | null
-    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
+    waliId?: IntFieldUpdateOperationsInput | number
+    institutionId?: IntFieldUpdateOperationsInput | number
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutSantriNestedInput
@@ -15255,10 +15185,10 @@ export namespace Prisma {
     fullname: string
     kelas: string
     gender: string
-    waliName: string
-    institutionName: string
-    waliId?: number | null
-    institutionId?: number | null
+    waliId: number
+    institutionId: number
+    waliName?: string | null
+    institutionName?: string | null
     isActive?: boolean
     createdAt?: Date | string
   }
@@ -15268,8 +15198,8 @@ export namespace Prisma {
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    waliName?: StringFieldUpdateOperationsInput | string
-    institutionName?: StringFieldUpdateOperationsInput | string
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15280,10 +15210,10 @@ export namespace Prisma {
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    waliName?: StringFieldUpdateOperationsInput | string
-    institutionName?: StringFieldUpdateOperationsInput | string
-    waliId?: NullableIntFieldUpdateOperationsInput | number | null
-    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
+    waliId?: IntFieldUpdateOperationsInput | number
+    institutionId?: IntFieldUpdateOperationsInput | number
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15384,6 +15314,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     institution?: InstitutionCreateNestedOneWithoutUsersInput
     createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
+    santri?: SantriCreateNestedManyWithoutWaliInput
     emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutAdminInput
@@ -15403,6 +15334,7 @@ export namespace Prisma {
     createdAt?: Date | string
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
+    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
     emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
@@ -15421,6 +15353,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     institution?: InstitutionUpdateOneWithoutUsersNestedInput
     createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
+    santri?: SantriUpdateManyWithoutWaliNestedInput
     emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutAdminNestedInput
@@ -15440,6 +15373,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
     emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
@@ -15980,16 +15914,6 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type UserNullableScalarRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
-  }
-
-  export type InstitutionNullableScalarRelationFilter = {
-    is?: InstitutionWhereInput | null
-    isNot?: InstitutionWhereInput | null
-  }
-
   export type AuthAccountListRelationFilter = {
     every?: AuthAccountWhereInput
     some?: AuthAccountWhereInput
@@ -16000,9 +15924,9 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type SantriNisInstitutionNameCompoundUniqueInput = {
+  export type SantriNisInstitutionIdCompoundUniqueInput = {
     nis: string
-    institutionName: string
+    institutionId: number
   }
 
   export type SantriCountOrderByAggregateInput = {
@@ -16011,16 +15935,18 @@ export namespace Prisma {
     fullname?: SortOrder
     kelas?: SortOrder
     gender?: SortOrder
-    waliName?: SortOrder
-    institutionName?: SortOrder
     waliId?: SortOrder
     institutionId?: SortOrder
+    waliName?: SortOrder
+    institutionName?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
   }
 
   export type SantriAvgOrderByAggregateInput = {
     id?: SortOrder
+    waliId?: SortOrder
+    institutionId?: SortOrder
   }
 
   export type SantriMaxOrderByAggregateInput = {
@@ -16029,10 +15955,10 @@ export namespace Prisma {
     fullname?: SortOrder
     kelas?: SortOrder
     gender?: SortOrder
-    waliName?: SortOrder
-    institutionName?: SortOrder
     waliId?: SortOrder
     institutionId?: SortOrder
+    waliName?: SortOrder
+    institutionName?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
   }
@@ -16043,16 +15969,18 @@ export namespace Prisma {
     fullname?: SortOrder
     kelas?: SortOrder
     gender?: SortOrder
-    waliName?: SortOrder
-    institutionName?: SortOrder
     waliId?: SortOrder
     institutionId?: SortOrder
+    waliName?: SortOrder
+    institutionName?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
   }
 
   export type SantriSumOrderByAggregateInput = {
     id?: SortOrder
+    waliId?: SortOrder
+    institutionId?: SortOrder
   }
 
   export type DecimalFilter<$PrismaModel = never> = {
@@ -16157,6 +16085,11 @@ export namespace Prisma {
   export type ProfileNullableScalarRelationFilter = {
     is?: ProfileWhereInput | null
     isNot?: ProfileWhereInput | null
+  }
+
+  export type InstitutionNullableScalarRelationFilter = {
+    is?: InstitutionWhereInput | null
+    isNot?: InstitutionWhereInput | null
   }
 
   export type InstitutionListRelationFilter = {
@@ -16573,6 +16506,12 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProfileInput, UserUpdateWithoutProfileInput>, UserUncheckedUpdateWithoutProfileInput>
   }
 
+  export type UserCreateNestedOneWithoutSantriInput = {
+    create?: XOR<UserCreateWithoutSantriInput, UserUncheckedCreateWithoutSantriInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSantriInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type InstitutionCreateNestedOneWithoutSantriInput = {
     create?: XOR<InstitutionCreateWithoutSantriInput, InstitutionUncheckedCreateWithoutSantriInput>
     connectOrCreate?: InstitutionCreateOrConnectWithoutSantriInput
@@ -16607,23 +16546,18 @@ export namespace Prisma {
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
-
-  export type UserUpdateOneWithoutSantriAsWaliNestedInput = {
-    create?: XOR<UserCreateWithoutSantriAsWaliInput, UserUncheckedCreateWithoutSantriAsWaliInput>
-    connectOrCreate?: UserCreateOrConnectWithoutSantriAsWaliInput
-    upsert?: UserUpsertWithoutSantriAsWaliInput
-    disconnect?: UserWhereInput | boolean
-    delete?: UserWhereInput | boolean
+  export type UserUpdateOneRequiredWithoutSantriNestedInput = {
+    create?: XOR<UserCreateWithoutSantriInput, UserUncheckedCreateWithoutSantriInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSantriInput
+    upsert?: UserUpsertWithoutSantriInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSantriAsWaliInput, UserUpdateWithoutSantriAsWaliInput>, UserUncheckedUpdateWithoutSantriAsWaliInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSantriInput, UserUpdateWithoutSantriInput>, UserUncheckedUpdateWithoutSantriInput>
   }
 
-  export type InstitutionUpdateOneWithoutSantriNestedInput = {
+  export type InstitutionUpdateOneRequiredWithoutSantriNestedInput = {
     create?: XOR<InstitutionCreateWithoutSantriInput, InstitutionUncheckedCreateWithoutSantriInput>
     connectOrCreate?: InstitutionCreateOrConnectWithoutSantriInput
     upsert?: InstitutionUpsertWithoutSantriInput
-    disconnect?: InstitutionWhereInput | boolean
-    delete?: InstitutionWhereInput | boolean
     connect?: InstitutionWhereUniqueInput
     update?: XOR<XOR<InstitutionUpdateToOneWithWhereWithoutSantriInput, InstitutionUpdateWithoutSantriInput>, InstitutionUncheckedUpdateWithoutSantriInput>
   }
@@ -16753,6 +16687,13 @@ export namespace Prisma {
     connect?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
   }
 
+  export type SantriCreateNestedManyWithoutWaliInput = {
+    create?: XOR<SantriCreateWithoutWaliInput, SantriUncheckedCreateWithoutWaliInput> | SantriCreateWithoutWaliInput[] | SantriUncheckedCreateWithoutWaliInput[]
+    connectOrCreate?: SantriCreateOrConnectWithoutWaliInput | SantriCreateOrConnectWithoutWaliInput[]
+    createMany?: SantriCreateManyWaliInputEnvelope
+    connect?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
+  }
+
   export type EmailVerificationCreateNestedManyWithoutUserInput = {
     create?: XOR<EmailVerificationCreateWithoutUserInput, EmailVerificationUncheckedCreateWithoutUserInput> | EmailVerificationCreateWithoutUserInput[] | EmailVerificationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: EmailVerificationCreateOrConnectWithoutUserInput | EmailVerificationCreateOrConnectWithoutUserInput[]
@@ -16799,6 +16740,13 @@ export namespace Prisma {
     connectOrCreate?: InstitutionCreateOrConnectWithoutAdminInput | InstitutionCreateOrConnectWithoutAdminInput[]
     createMany?: InstitutionCreateManyAdminInputEnvelope
     connect?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
+  }
+
+  export type SantriUncheckedCreateNestedManyWithoutWaliInput = {
+    create?: XOR<SantriCreateWithoutWaliInput, SantriUncheckedCreateWithoutWaliInput> | SantriCreateWithoutWaliInput[] | SantriUncheckedCreateWithoutWaliInput[]
+    connectOrCreate?: SantriCreateOrConnectWithoutWaliInput | SantriCreateOrConnectWithoutWaliInput[]
+    createMany?: SantriCreateManyWaliInputEnvelope
+    connect?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
   }
 
   export type EmailVerificationUncheckedCreateNestedManyWithoutUserInput = {
@@ -16872,6 +16820,20 @@ export namespace Prisma {
     update?: InstitutionUpdateWithWhereUniqueWithoutAdminInput | InstitutionUpdateWithWhereUniqueWithoutAdminInput[]
     updateMany?: InstitutionUpdateManyWithWhereWithoutAdminInput | InstitutionUpdateManyWithWhereWithoutAdminInput[]
     deleteMany?: InstitutionScalarWhereInput | InstitutionScalarWhereInput[]
+  }
+
+  export type SantriUpdateManyWithoutWaliNestedInput = {
+    create?: XOR<SantriCreateWithoutWaliInput, SantriUncheckedCreateWithoutWaliInput> | SantriCreateWithoutWaliInput[] | SantriUncheckedCreateWithoutWaliInput[]
+    connectOrCreate?: SantriCreateOrConnectWithoutWaliInput | SantriCreateOrConnectWithoutWaliInput[]
+    upsert?: SantriUpsertWithWhereUniqueWithoutWaliInput | SantriUpsertWithWhereUniqueWithoutWaliInput[]
+    createMany?: SantriCreateManyWaliInputEnvelope
+    set?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
+    disconnect?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
+    delete?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
+    connect?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
+    update?: SantriUpdateWithWhereUniqueWithoutWaliInput | SantriUpdateWithWhereUniqueWithoutWaliInput[]
+    updateMany?: SantriUpdateManyWithWhereWithoutWaliInput | SantriUpdateManyWithWhereWithoutWaliInput[]
+    deleteMany?: SantriScalarWhereInput | SantriScalarWhereInput[]
   }
 
   export type EmailVerificationUpdateManyWithoutUserNestedInput = {
@@ -16966,6 +16928,20 @@ export namespace Prisma {
     update?: InstitutionUpdateWithWhereUniqueWithoutAdminInput | InstitutionUpdateWithWhereUniqueWithoutAdminInput[]
     updateMany?: InstitutionUpdateManyWithWhereWithoutAdminInput | InstitutionUpdateManyWithWhereWithoutAdminInput[]
     deleteMany?: InstitutionScalarWhereInput | InstitutionScalarWhereInput[]
+  }
+
+  export type SantriUncheckedUpdateManyWithoutWaliNestedInput = {
+    create?: XOR<SantriCreateWithoutWaliInput, SantriUncheckedCreateWithoutWaliInput> | SantriCreateWithoutWaliInput[] | SantriUncheckedCreateWithoutWaliInput[]
+    connectOrCreate?: SantriCreateOrConnectWithoutWaliInput | SantriCreateOrConnectWithoutWaliInput[]
+    upsert?: SantriUpsertWithWhereUniqueWithoutWaliInput | SantriUpsertWithWhereUniqueWithoutWaliInput[]
+    createMany?: SantriCreateManyWaliInputEnvelope
+    set?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
+    disconnect?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
+    delete?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
+    connect?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
+    update?: SantriUpdateWithWhereUniqueWithoutWaliInput | SantriUpdateWithWhereUniqueWithoutWaliInput[]
+    updateMany?: SantriUpdateManyWithWhereWithoutWaliInput | SantriUpdateManyWithWhereWithoutWaliInput[]
+    deleteMany?: SantriScalarWhereInput | SantriScalarWhereInput[]
   }
 
   export type EmailVerificationUncheckedUpdateManyWithoutUserNestedInput = {
@@ -17286,6 +17262,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     institution?: InstitutionCreateNestedOneWithoutUsersInput
     createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
+    santri?: SantriCreateNestedManyWithoutWaliInput
     authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutAdminInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -17304,6 +17281,7 @@ export namespace Prisma {
     createdAt?: Date | string
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
+    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -17337,6 +17315,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     institution?: InstitutionUpdateOneWithoutUsersNestedInput
     createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
+    santri?: SantriUpdateManyWithoutWaliNestedInput
     authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutAdminNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -17355,6 +17334,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -17372,6 +17352,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     institution?: InstitutionCreateNestedOneWithoutUsersInput
     createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
+    santri?: SantriCreateNestedManyWithoutWaliInput
     emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutAdminInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -17390,6 +17371,7 @@ export namespace Prisma {
     createdAt?: Date | string
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
+    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
     emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -17406,14 +17388,11 @@ export namespace Prisma {
     fullname: string
     kelas: string
     gender: string
-    waliName: string
-    institutionName: string
+    waliName?: string | null
+    institutionName?: string | null
     isActive?: boolean
     createdAt?: Date | string
-    wali?: UserCreateNestedOneWithoutSantriAsWaliInput
-    institution?: InstitutionCreateNestedOneWithoutSantriInput
-    isActive?: boolean
-    createdAt?: Date | string
+    wali: UserCreateNestedOneWithoutSantriInput
     institution: InstitutionCreateNestedOneWithoutSantriInput
     transactions?: TransactionCreateNestedManyWithoutSantriInput
   }
@@ -17424,10 +17403,10 @@ export namespace Prisma {
     fullname: string
     kelas: string
     gender: string
-    waliName: string
-    institutionName: string
-    waliId?: number | null
-    institutionId?: number | null
+    waliId: number
+    institutionId: number
+    waliName?: string | null
+    institutionName?: string | null
     isActive?: boolean
     createdAt?: Date | string
     transactions?: TransactionUncheckedCreateNestedManyWithoutSantriInput
@@ -17460,6 +17439,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     institution?: InstitutionUpdateOneWithoutUsersNestedInput
     createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
+    santri?: SantriUpdateManyWithoutWaliNestedInput
     emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutAdminNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -17478,6 +17458,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
     emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -17500,14 +17481,11 @@ export namespace Prisma {
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    waliName?: StringFieldUpdateOperationsInput | string
-    institutionName?: StringFieldUpdateOperationsInput | string
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    wali?: UserUpdateOneWithoutSantriAsWaliNestedInput
-    institution?: InstitutionUpdateOneWithoutSantriNestedInput
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wali?: UserUpdateOneRequiredWithoutSantriNestedInput
     institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
     transactions?: TransactionUpdateManyWithoutSantriNestedInput
   }
@@ -17518,10 +17496,10 @@ export namespace Prisma {
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    waliName?: StringFieldUpdateOperationsInput | string
-    institutionName?: StringFieldUpdateOperationsInput | string
-    waliId?: NullableIntFieldUpdateOperationsInput | number | null
-    institutionId?: NullableIntFieldUpdateOperationsInput | number | null8
+    waliId?: IntFieldUpdateOperationsInput | number
+    institutionId?: IntFieldUpdateOperationsInput | number
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: TransactionUncheckedUpdateManyWithoutSantriNestedInput
@@ -17656,6 +17634,7 @@ export namespace Prisma {
     createdAt?: Date | string
     profile?: ProfileCreateNestedOneWithoutUserInput
     createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
+    santri?: SantriCreateNestedManyWithoutWaliInput
     emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutAdminInput
@@ -17674,6 +17653,7 @@ export namespace Prisma {
     createdAt?: Date | string
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
+    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
     emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
@@ -17696,13 +17676,11 @@ export namespace Prisma {
     fullname: string
     kelas: string
     gender: string
-    waliName: string
-    institutionName: string
+    waliName?: string | null
+    institutionName?: string | null
     isActive?: boolean
     createdAt?: Date | string
-    wali?: UserCreateNestedOneWithoutSantriAsWaliInput
-    isActive?: boolean
-    createdAt?: Date | string
+    wali: UserCreateNestedOneWithoutSantriInput
     authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
     transactions?: TransactionCreateNestedManyWithoutSantriInput
   }
@@ -17713,9 +17691,9 @@ export namespace Prisma {
     fullname: string
     kelas: string
     gender: string
-    waliName: string
-    institutionName: string
-    waliId?: number | null
+    waliId: number
+    waliName?: string | null
+    institutionName?: string | null
     isActive?: boolean
     createdAt?: Date | string
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutSantriInput
@@ -17769,6 +17747,7 @@ export namespace Prisma {
     createdAt?: Date | string
     profile?: ProfileCreateNestedOneWithoutUserInput
     institution?: InstitutionCreateNestedOneWithoutUsersInput
+    santri?: SantriCreateNestedManyWithoutWaliInput
     emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutAdminInput
@@ -17787,6 +17766,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
     emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
@@ -17855,10 +17835,10 @@ export namespace Prisma {
     fullname?: StringFilter<"Santri"> | string
     kelas?: StringFilter<"Santri"> | string
     gender?: StringFilter<"Santri"> | string
-    waliName?: StringFilter<"Santri"> | string
-    institutionName?: StringFilter<"Santri"> | string
-    waliId?: IntNullableFilter<"Santri"> | number | null
-    institutionId?: IntNullableFilter<"Santri"> | number | null
+    waliId?: IntFilter<"Santri"> | number
+    institutionId?: IntFilter<"Santri"> | number
+    waliName?: StringNullableFilter<"Santri"> | string | null
+    institutionName?: StringNullableFilter<"Santri"> | string | null
     isActive?: BoolFilter<"Santri"> | boolean
     createdAt?: DateTimeFilter<"Santri"> | Date | string
   }
@@ -17912,6 +17892,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     profile?: ProfileUpdateOneWithoutUserNestedInput
     institution?: InstitutionUpdateOneWithoutUsersNestedInput
+    santri?: SantriUpdateManyWithoutWaliNestedInput
     emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutAdminNestedInput
@@ -17930,6 +17911,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
     emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
@@ -17948,6 +17930,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     institution?: InstitutionCreateNestedOneWithoutUsersInput
     createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
+    santri?: SantriCreateNestedManyWithoutWaliInput
     emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutAdminInput
@@ -17966,6 +17949,7 @@ export namespace Prisma {
     createdAt?: Date | string
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
+    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
     emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
@@ -17999,6 +17983,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     institution?: InstitutionUpdateOneWithoutUsersNestedInput
     createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
+    santri?: SantriUpdateManyWithoutWaliNestedInput
     emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutAdminNestedInput
@@ -18017,6 +18002,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
     emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
@@ -18034,6 +18020,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     institution?: InstitutionCreateNestedOneWithoutUsersInput
     createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
+    santri?: SantriCreateNestedManyWithoutWaliInput
     emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutAdminInput
@@ -18052,6 +18039,7 @@ export namespace Prisma {
     createdAt?: Date | string
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
+    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
     emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
@@ -18085,6 +18073,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     institution?: InstitutionUpdateOneWithoutUsersNestedInput
     createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
+    santri?: SantriUpdateManyWithoutWaliNestedInput
     emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutAdminNestedInput
@@ -18103,6 +18092,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
     emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
@@ -18119,6 +18109,7 @@ export namespace Prisma {
     createdAt?: Date | string
     institution?: InstitutionCreateNestedOneWithoutUsersInput
     createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
+    santri?: SantriCreateNestedManyWithoutWaliInput
     emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutAdminInput
@@ -18137,6 +18128,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
+    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
     emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
@@ -18170,6 +18162,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     institution?: InstitutionUpdateOneWithoutUsersNestedInput
     createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
+    santri?: SantriUpdateManyWithoutWaliNestedInput
     emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutAdminNestedInput
@@ -18188,11 +18181,54 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
     emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     passwordResets?: PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutSantriInput = {
+    username: string
+    email: string
+    password: string
+    role: $Enums.UserRole
+    isEmailVerified?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    institution?: InstitutionCreateNestedOneWithoutUsersInput
+    createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
+    emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
+    authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
+    transactions?: TransactionCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    passwordResets?: PasswordResetCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSantriInput = {
+    id?: number
+    username: string
+    email: string
+    password: string
+    role: $Enums.UserRole
+    institutionId?: number | null
+    isEmailVerified?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
+    emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
+    authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    passwordResets?: PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSantriInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSantriInput, UserUncheckedCreateWithoutSantriInput>
   }
 
   export type InstitutionCreateWithoutSantriInput = {
@@ -18279,6 +18315,54 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserUpsertWithoutSantriInput = {
+    update: XOR<UserUpdateWithoutSantriInput, UserUncheckedUpdateWithoutSantriInput>
+    create: XOR<UserCreateWithoutSantriInput, UserUncheckedCreateWithoutSantriInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSantriInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSantriInput, UserUncheckedUpdateWithoutSantriInput>
+  }
+
+  export type UserUpdateWithoutSantriInput = {
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    institution?: InstitutionUpdateOneWithoutUsersNestedInput
+    createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
+    emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
+    authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    passwordResets?: PasswordResetUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSantriInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
+    emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
+    authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    passwordResets?: PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type InstitutionUpsertWithoutSantriInput = {
     update: XOR<InstitutionUpdateWithoutSantriInput, InstitutionUncheckedUpdateWithoutSantriInput>
     create: XOR<InstitutionCreateWithoutSantriInput, InstitutionUncheckedCreateWithoutSantriInput>
@@ -18359,14 +18443,11 @@ export namespace Prisma {
     fullname: string
     kelas: string
     gender: string
-    waliName: string
-    institutionName: string
+    waliName?: string | null
+    institutionName?: string | null
     isActive?: boolean
     createdAt?: Date | string
-    wali?: UserCreateNestedOneWithoutSantriAsWaliInput
-    institution?: InstitutionCreateNestedOneWithoutSantriInput
-    isActive?: boolean
-    createdAt?: Date | string
+    wali: UserCreateNestedOneWithoutSantriInput
     institution: InstitutionCreateNestedOneWithoutSantriInput
     authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
   }
@@ -18377,10 +18458,10 @@ export namespace Prisma {
     fullname: string
     kelas: string
     gender: string
-    waliName: string
-    institutionName: string
-    waliId?: number | null
-    institutionId?: number | null
+    waliId: number
+    institutionId: number
+    waliName?: string | null
+    institutionName?: string | null
     isActive?: boolean
     createdAt?: Date | string
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutSantriInput
@@ -18424,6 +18505,7 @@ export namespace Prisma {
     profile?: ProfileCreateNestedOneWithoutUserInput
     institution?: InstitutionCreateNestedOneWithoutUsersInput
     createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
+    santri?: SantriCreateNestedManyWithoutWaliInput
     emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -18442,6 +18524,7 @@ export namespace Prisma {
     createdAt?: Date | string
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
+    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
     emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -18469,14 +18552,11 @@ export namespace Prisma {
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    waliName?: StringFieldUpdateOperationsInput | string
-    institutionName?: StringFieldUpdateOperationsInput | string
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    wali?: UserUpdateOneWithoutSantriAsWaliNestedInput
-    institution?: InstitutionUpdateOneWithoutSantriNestedInput
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wali?: UserUpdateOneRequiredWithoutSantriNestedInput
     institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
     authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
   }
@@ -18487,10 +18567,10 @@ export namespace Prisma {
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    waliName?: StringFieldUpdateOperationsInput | string
-    institutionName?: StringFieldUpdateOperationsInput | string
-    waliId?: NullableIntFieldUpdateOperationsInput | number | null
-    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
+    waliId?: IntFieldUpdateOperationsInput | number
+    institutionId?: IntFieldUpdateOperationsInput | number
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutSantriNestedInput
@@ -18546,6 +18626,7 @@ export namespace Prisma {
     profile?: ProfileUpdateOneWithoutUserNestedInput
     institution?: InstitutionUpdateOneWithoutUsersNestedInput
     createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
+    santri?: SantriUpdateManyWithoutWaliNestedInput
     emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -18564,6 +18645,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
     emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -18645,6 +18727,45 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SantriCreateWithoutWaliInput = {
+    nis: string
+    fullname: string
+    kelas: string
+    gender: string
+    waliName?: string | null
+    institutionName?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    institution: InstitutionCreateNestedOneWithoutSantriInput
+    authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
+    transactions?: TransactionCreateNestedManyWithoutSantriInput
+  }
+
+  export type SantriUncheckedCreateWithoutWaliInput = {
+    id?: number
+    nis: string
+    fullname: string
+    kelas: string
+    gender: string
+    institutionId: number
+    waliName?: string | null
+    institutionName?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutSantriInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutSantriInput
+  }
+
+  export type SantriCreateOrConnectWithoutWaliInput = {
+    where: SantriWhereUniqueInput
+    create: XOR<SantriCreateWithoutWaliInput, SantriUncheckedCreateWithoutWaliInput>
+  }
+
+  export type SantriCreateManyWaliInputEnvelope = {
+    data: SantriCreateManyWaliInput | SantriCreateManyWaliInput[]
+    skipDuplicates?: boolean
+  }
+
   export type EmailVerificationCreateWithoutUserInput = {
     otpCode: string
     expiredAt: Date | string
@@ -18669,46 +18790,6 @@ export namespace Prisma {
     data: EmailVerificationCreateManyUserInput | EmailVerificationCreateManyUserInput[]
     skipDuplicates?: boolean
   }
-
-  export type SantriCreateWithoutWaliInput = {
-    nis: string
-    fullname: string
-    kelas: string
-    gender: string
-    waliName: string
-    institutionName: string
-    isActive?: boolean
-    createdAt?: Date | string
-    institution?: InstitutionCreateNestedOneWithoutSantriInput
-    authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
-    transactions?: TransactionCreateNestedManyWithoutSantriInput
-  }
-
-  export type SantriUncheckedCreateWithoutWaliInput = {
-    id?: number
-    nis: string
-    fullname: string
-    kelas: string
-    gender: string
-    waliName: string
-    institutionName: string
-    institutionId?: number | null
-    isActive?: boolean
-    createdAt?: Date | string
-    authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutSantriInput
-    transactions?: TransactionUncheckedCreateNestedManyWithoutSantriInput
-  }
-
-  export type SantriCreateOrConnectWithoutWaliInput = {
-    where: SantriWhereUniqueInput
-    create: XOR<SantriCreateWithoutWaliInput, SantriUncheckedCreateWithoutWaliInput>
-  }
-
-  export type SantriCreateManyWaliInputEnvelope = {
-    data: SantriCreateManyWaliInput | SantriCreateManyWaliInput[]
-    skipDuplicates?: boolean
-  }
-
 
   export type AuthAccountCreateWithoutUserInput = {
     username: string
@@ -18905,6 +18986,22 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Institution"> | Date | string
   }
 
+  export type SantriUpsertWithWhereUniqueWithoutWaliInput = {
+    where: SantriWhereUniqueInput
+    update: XOR<SantriUpdateWithoutWaliInput, SantriUncheckedUpdateWithoutWaliInput>
+    create: XOR<SantriCreateWithoutWaliInput, SantriUncheckedCreateWithoutWaliInput>
+  }
+
+  export type SantriUpdateWithWhereUniqueWithoutWaliInput = {
+    where: SantriWhereUniqueInput
+    data: XOR<SantriUpdateWithoutWaliInput, SantriUncheckedUpdateWithoutWaliInput>
+  }
+
+  export type SantriUpdateManyWithWhereWithoutWaliInput = {
+    where: SantriScalarWhereInput
+    data: XOR<SantriUpdateManyMutationInput, SantriUncheckedUpdateManyWithoutWaliInput>
+  }
+
   export type EmailVerificationUpsertWithWhereUniqueWithoutUserInput = {
     where: EmailVerificationWhereUniqueInput
     update: XOR<EmailVerificationUpdateWithoutUserInput, EmailVerificationUncheckedUpdateWithoutUserInput>
@@ -19085,9 +19182,9 @@ export namespace Prisma {
     fullname: string
     kelas: string
     gender: string
-    waliName: string
-    institutionName: string
-    waliId?: number | null
+    waliId: number
+    waliName?: string | null
+    institutionName?: string | null
     isActive?: boolean
     createdAt?: Date | string
   }
@@ -19110,6 +19207,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     profile?: ProfileUpdateOneWithoutUserNestedInput
     createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
+    santri?: SantriUpdateManyWithoutWaliNestedInput
     emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutAdminNestedInput
@@ -19128,6 +19226,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
     emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
@@ -19151,13 +19250,11 @@ export namespace Prisma {
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    waliName?: StringFieldUpdateOperationsInput | string
-    institutionName?: StringFieldUpdateOperationsInput | string
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    wali?: UserUpdateOneWithoutSantriAsWaliNestedInput
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wali?: UserUpdateOneRequiredWithoutSantriNestedInput
     authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
     transactions?: TransactionUpdateManyWithoutSantriNestedInput
   }
@@ -19168,9 +19265,9 @@ export namespace Prisma {
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    waliName?: StringFieldUpdateOperationsInput | string
-    institutionName?: StringFieldUpdateOperationsInput | string
-    waliId?: NullableIntFieldUpdateOperationsInput | number | null
+    waliId?: IntFieldUpdateOperationsInput | number
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutSantriNestedInput
@@ -19183,9 +19280,9 @@ export namespace Prisma {
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    waliName?: StringFieldUpdateOperationsInput | string
-    institutionName?: StringFieldUpdateOperationsInput | string
-    waliId?: NullableIntFieldUpdateOperationsInput | number | null
+    waliId?: IntFieldUpdateOperationsInput | number
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19304,24 +19401,24 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type EmailVerificationCreateManyUserInput = {
-    id?: number
-    otpCode: string
-    expiredAt: Date | string
-    isUsed?: boolean
-    createdAt?: Date | string
-  }
-
   export type SantriCreateManyWaliInput = {
     id?: number
     nis: string
     fullname: string
     kelas: string
     gender: string
-    waliName: string
-    institutionName: string
-    institutionId?: number | null
+    institutionId: number
+    waliName?: string | null
+    institutionName?: string | null
     isActive?: boolean
+    createdAt?: Date | string
+  }
+
+  export type EmailVerificationCreateManyUserInput = {
+    id?: number
+    otpCode: string
+    expiredAt: Date | string
+    isUsed?: boolean
     createdAt?: Date | string
   }
 
@@ -19388,6 +19485,48 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SantriUpdateWithoutWaliInput = {
+    nis?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
+    authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
+    transactions?: TransactionUpdateManyWithoutSantriNestedInput
+  }
+
+  export type SantriUncheckedUpdateWithoutWaliInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nis?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    institutionId?: IntFieldUpdateOperationsInput | number
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authAccounts?: AuthAccountUncheckedUpdateManyWithoutSantriNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutSantriNestedInput
+  }
+
+  export type SantriUncheckedUpdateManyWithoutWaliInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nis?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    institutionId?: IntFieldUpdateOperationsInput | number
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type EmailVerificationUpdateWithoutUserInput = {
     otpCode?: StringFieldUpdateOperationsInput | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19408,48 +19547,6 @@ export namespace Prisma {
     otpCode?: StringFieldUpdateOperationsInput | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isUsed?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SantriUpdateWithoutWaliInput = {
-    nis?: StringFieldUpdateOperationsInput | string
-    fullname?: StringFieldUpdateOperationsInput | string
-    kelas?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
-    waliName?: StringFieldUpdateOperationsInput | string
-    institutionName?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    institution?: InstitutionUpdateOneWithoutSantriNestedInput
-    authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
-    transactions?: TransactionUpdateManyWithoutSantriNestedInput
-  }
-
-  export type SantriUncheckedUpdateWithoutWaliInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    nis?: StringFieldUpdateOperationsInput | string
-    fullname?: StringFieldUpdateOperationsInput | string
-    kelas?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
-    waliName?: StringFieldUpdateOperationsInput | string
-    institutionName?: StringFieldUpdateOperationsInput | string
-    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    authAccounts?: AuthAccountUncheckedUpdateManyWithoutSantriNestedInput
-    transactions?: TransactionUncheckedUpdateManyWithoutSantriNestedInput
-  }
-
-  export type SantriUncheckedUpdateManyWithoutWaliInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    nis?: StringFieldUpdateOperationsInput | string
-    fullname?: StringFieldUpdateOperationsInput | string
-    kelas?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
-    waliName?: StringFieldUpdateOperationsInput | string
-    institutionName?: StringFieldUpdateOperationsInput | string
-    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

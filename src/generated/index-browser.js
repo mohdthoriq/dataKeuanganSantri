@@ -24,12 +24,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 7.1.0
- * Query Engine version: ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba
+ * Prisma Client JS version: 7.2.0
+ * Query Engine version: 0c8ef2ce45c83248ab3df073180d5eda9e8be7a3
  */
 Prisma.prismaVersion = {
-  client: "7.1.0",
-  engine: "ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba"
+  client: "7.2.0",
+  engine: "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -190,13 +190,10 @@ exports.Prisma.SantriScalarFieldEnum = {
   fullname: 'fullname',
   kelas: 'kelas',
   gender: 'gender',
-  waliName: 'waliName',
-  institutionName: 'institutionName',
-<<<<<<< HEAD
   waliId: 'waliId',
   institutionId: 'institutionId',
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
+  waliName: 'waliName',
+  institutionName: 'institutionName',
   isActive: 'isActive',
   createdAt: 'createdAt'
 };

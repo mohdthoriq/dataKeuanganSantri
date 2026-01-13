@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.ts",
   "prisma": {
-    "schema": "src/prisma/schema.prisma"
+    "schema": "./prisma"
   },
   "scripts": {
-    "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma generate && prisma migrate dev",
-    "prisma:reset": "prisma migrate reset",
+    "prisma:generate": "prisma generate --schema=src/prisma",
+    "prisma:migrate": "prisma generate --schema=src/prisma && prisma migrate dev --schema=src/prisma",
+    "prisma:reset": "prisma migrate reset --schema=src/prisma",
     "seed": "tsx src/prisma/seeder.ts",
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.js",
