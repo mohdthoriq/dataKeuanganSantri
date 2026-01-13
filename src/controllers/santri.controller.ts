@@ -4,7 +4,7 @@ import { successResponse } from "../utils/response";
 import type { SantriService } from "../services/santri.service";
 
 export class SantriController {
-  constructor(private santriService: SantriService) {}
+  constructor(private santriService: SantriService) { }
 
   createSantri = async (req: Request, res: Response) => {
     const { nis, fullname, kelas, gender, waliId } = req.body;
@@ -18,16 +18,28 @@ export class SantriController {
 
     if (!nis || !fullname || !kelas || !gender || !waliId) throw new Error("Missing required fields");
 
-    const santri = await this.santriService.createSantri({ nis, fullname, kelas, gender, waliId: Number(waliId), institutionId });
+    const santri = await this.santriService.createSantri({ nis, fullname, kelas, gender, waliId: Number(waliId), institutionId, waliName: "", institutionName: "" });
 
     successResponse(res, "Santri created successfully", santri);
   };
 
   getSantriList = async (req: Request, res: Response) => {
-    const institutionId = Number(req.query.institutionId);
-    if (isNaN(institutionId)) throw new Error("Invalid institution ID");
+    const user = res.locals.user;
+    const institutionId = user?.institutionId;
+    if (!institutionId) {
+      throw new Error("Institution not found in authenticated user");
+    }
 
-    const santriList = await this.santriService.getSantriList(institutionId);
+    const search = req.query.search as string | undefined;
+    const sortBy = req.query.sortBy as "nis" | "fullname" | "wali" | undefined;
+    const order = (req.query.order as "asc" | "desc") ?? "desc";
+
+    const santriList = await this.santriService.getSantriList(
+      institutionId,
+      search,
+      sortBy,
+      order
+    );
 
     successResponse(res, "Santri list fetched successfully", santriList);
   };

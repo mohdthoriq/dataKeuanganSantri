@@ -4,14 +4,16 @@ model Santri {
   fullname      String
   kelas         String
   gender        String
-  waliId        Int
-  institutionId Int
+  waliName      String
+  institutionName String
+  waliId        Int?
+  institutionId Int?
   isActive      Boolean  @default(true)
   createdAt     DateTime @default(now())
 
   // relations
-  wali          User        @relation(fields: [waliId], references: [id])
-  institution   Institution @relation(fields: [institutionId], references: [id])
+  wali          User?        @relation(fields: [waliId], references: [id])
+  institution   Institution? @relation(fields: [institutionId], references: [id])
   authAccounts  AuthAccount[]
   transactions  Transaction[]
 

@@ -3,14 +3,24 @@ import type { Santri } from "../generated";
 import type { SantriRepository, ICreateSantriPayload } from "../repository/santri.repository";
 
 export class SantriService {
-  constructor(private santriRepo: SantriRepository) {}
+  constructor(private santriRepo: SantriRepository) { }
 
   async createSantri(payload: ICreateSantriPayload): Promise<Santri> {
     return this.santriRepo.create(payload);
   }
 
-  async getSantriList(institutionId: number): Promise<Santri[]> {
-    return this.santriRepo.getList(institutionId);
+  async getSantriList(
+    institutionId: number,
+    search?: string,
+    sortBy?: "nis" | "fullname" | "wali",
+    order?: "asc" | "desc"
+  ): Promise<Santri[]> {
+    return this.santriRepo.getList(
+      institutionId,
+      search,
+      sortBy,
+      order
+    );
   }
 
   async getSantriById(id: number): Promise<Santri> {
