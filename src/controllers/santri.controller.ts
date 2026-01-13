@@ -2,32 +2,49 @@
 import type { Request, Response } from "express";
 import { successResponse } from "../utils/response";
 import type { SantriService } from "../services/santri.service";
+import type { InstitutionService } from "../services/institution.service";
 
 export class SantriController {
-  constructor(private santriService: SantriService) {}
+  constructor(
+    private santriService: SantriService,
+    private institutionService: InstitutionService
+  ) {}
 
   createSantri = async (req: Request, res: Response) => {
-    const { nis, fullname, kelas, gender, waliId } = req.body;
+    const { nis, fullname, kelas, gender, waliName, institutionName } = req.body;
 
-    const user = res.locals.user;
-    const institutionId = user?.institutionId;
-
-    if (!institutionId) {
-      throw new Error("Institution not found in authenticated user");
+    if (!nis || !fullname || !kelas || !gender || !waliName || !institutionName) {
+      throw new Error("Missing required fields");
     }
 
-    if (!nis || !fullname || !kelas || !gender || !waliId) throw new Error("Missing required fields");
+    // Auto-create institution if it doesn't exist
+    let institution = await this.institutionService.getInstitutionByName(institutionName);
+    if (!institution) {
+      console.log(`Institution '${institutionName}' not found, creating new one...`);
+      
+      // Use a default admin ID (1) for auto-created institutions
+      institution = await this.institutionService.createInstitution({
+        name: institutionName,
+        createdBy: 1
+      });
+    }
 
-    const santri = await this.santriService.createSantri({ nis, fullname, kelas, gender, waliId: Number(waliId), institutionId });
+    const santri = await this.santriService.createSantri({
+      nis,
+      fullname,
+      kelas,
+      gender,
+      waliName,
+      institutionName
+    });
 
     successResponse(res, "Santri created successfully", santri);
   };
 
   getSantriList = async (req: Request, res: Response) => {
-    const institutionId = Number(req.query.institutionId);
-    if (isNaN(institutionId)) throw new Error("Invalid institution ID");
+    const institutionName = req.query.institutionName as string | undefined;
 
-    const santriList = await this.santriService.getSantriList(institutionId);
+    const santriList = await this.santriService.getSantriList(institutionName);
 
     successResponse(res, "Santri list fetched successfully", santriList);
   };
@@ -45,9 +62,27 @@ export class SantriController {
     const id = Number(req.params.id);
     if (isNaN(id)) throw new Error("Invalid santri ID");
 
-    const { nis, fullname, kelas, gender, waliId, institutionId } = req.body;
+    const { nis, fullname, kelas, gender, waliName, institutionName } = req.body;
 
-    const santri = await this.santriService.updateSantri(id, { nis, fullname, kelas, gender, waliId, institutionId });
+    // If updating institutionName, ensure it exists
+    if (institutionName) {
+      let institution = await this.institutionService.getInstitutionByName(institutionName);
+      if (!institution) {
+        institution = await this.institutionService.createInstitution({
+          name: institutionName,
+          createdBy: 1
+        });
+      }
+    }
+
+    const santri = await this.santriService.updateSantri(id, {
+      nis,
+      fullname,
+      kelas,
+      gender,
+      waliName,
+      institutionName
+    });
 
     successResponse(res, "Santri updated successfully", santri);
   };
@@ -59,14 +94,5 @@ export class SantriController {
     await this.santriService.deleteSantri(id);
 
     successResponse(res, "Santri deleted successfully");
-  };
-
-  getSantriByWali = async (req: Request, res: Response) => {
-    const waliId = Number(req.params.waliId);
-    if (isNaN(waliId)) throw new Error("Invalid wali ID");
-
-    const santriList = await this.santriService.getSantriByWali(waliId);
-
-    successResponse(res, "Santri list by wali fetched successfully", santriList);
   };
 }

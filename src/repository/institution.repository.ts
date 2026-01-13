@@ -51,4 +51,10 @@ export class InstitutionRepository implements IInstitutionRepository {
     await this.prisma.institution.delete({ where: { id } });
     return true;
   }
+
+  async getByName(name: string): Promise<Institution | null> {
+    return this.prisma.institution.findUnique({
+      where: { name },
+    });
+  }
 }

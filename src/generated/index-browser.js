@@ -190,8 +190,8 @@ exports.Prisma.SantriScalarFieldEnum = {
   fullname: 'fullname',
   kelas: 'kelas',
   gender: 'gender',
-  waliId: 'waliId',
-  institutionId: 'institutionId',
+  waliName: 'waliName',
+  institutionName: 'institutionName',
   isActive: 'isActive',
   createdAt: 'createdAt'
 };

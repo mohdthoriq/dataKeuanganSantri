@@ -22,4 +22,8 @@ export class InstitutionService {
   async deleteInstitution(id: number) {
     return this.institutionRepo.delete(id);
   }
+
+  async getInstitutionByName(name: string) {
+    return this.institutionRepo.getByName(name);
+  }
 }

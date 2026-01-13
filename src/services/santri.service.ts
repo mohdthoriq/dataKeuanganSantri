@@ -9,8 +9,8 @@ export class SantriService {
     return this.santriRepo.create(payload);
   }
 
-  async getSantriList(institutionId: number): Promise<Santri[]> {
-    return this.santriRepo.getList(institutionId);
+  async getSantriList(institutionName?: string): Promise<Santri[]> {
+    return this.santriRepo.getList(institutionName);
   }
 
   async getSantriById(id: number): Promise<Santri> {
@@ -23,9 +23,5 @@ export class SantriService {
 
   async deleteSantri(id: number): Promise<boolean> {
     return this.santriRepo.delete(id);
-  }
-
-  async getSantriByWali(waliId: number): Promise<Santri[]> {
-    return this.santriRepo.getByWali(waliId);
   }
 }
