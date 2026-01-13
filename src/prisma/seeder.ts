@@ -61,7 +61,7 @@ async function main() {
   for (let i = 0; i < pesantrenNames.length; i++) {
     const admin = admins[i];
     const name = pesantrenNames[i];
-    
+
     if (!admin || !name) continue;
 
     const institution = await prisma.institution.create({
@@ -172,19 +172,25 @@ async function main() {
 
     if (wali) {
       const nis = `${institution.id}${String(i).padStart(4, '0')}`;
-      
+
       const santri = await prisma.santri.create({
         data: {
           nis,
           fullname: faker.person.fullName(),
           kelas: faker.helpers.arrayElement(kelasOptions),
           gender: faker.person.gender(),
-          waliName: wali.username,
-          institutionName: institution.name,
-          waliId: wali.id,
-          institutionId: institution.id,
+
+          wali: {
+            connect: { id: wali.id },
+          },
+
+          institution: {
+            connect: { id: institution.id },
+          },
           isActive: faker.datatype.boolean(0.95),
           createdAt: faker.date.past({ years: 1 }),
+          waliName: wali.username,
+          institutionName: institution.name,
         },
       });
       santriList.push(santri);
@@ -237,8 +243,8 @@ async function main() {
           categoryId: category.id,
           type: category.type,
           amount,
-          description: faker.datatype.boolean(0.7) 
-            ? faker.lorem.sentence() 
+          description: faker.datatype.boolean(0.7)
+            ? faker.lorem.sentence()
             : null,
           transactionDate: faker.date.past({ years: 1 }),
           createdBy: admin.id,

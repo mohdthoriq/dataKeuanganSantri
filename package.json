@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
+  "prisma": {
+    "schema": "src/prisma/schema.prisma"
+  },
   "scripts": {
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma generate && prisma migrate dev",
     "prisma:reset": "prisma migrate reset",
     "seed": "tsx src/prisma/seeder.ts",
     "dev": "tsx watch src/index.ts",
-    "start": "node dist/index.js ",
+    "start": "node dist/index.js",
     "build": "tsc && ts-add-js-extension --dir=dist",
     "test": "jest"
   },
@@ -20,7 +23,7 @@
   "dependencies": {
     "@getbrevo/brevo": "^3.0.1",
     "@prisma/adapter-pg": "^7.1.0",
-    "@prisma/client": "^7.1.0",
+    "@prisma/client": "^7.2.0",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
     "bcrypt": "^6.0.0",
@@ -56,7 +59,7 @@
     "@types/pg": "^8.15.6",
     "@types/supertest": "^6.0.3",
     "jest": "^30.2.0",
-    "prisma": "^7.1.0",
+    "prisma": "^7.2.0",
     "supertest": "^7.1.4",
     "ts-add-js-extension": "^1.6.6",
     "ts-jest": "^29.4.6",
