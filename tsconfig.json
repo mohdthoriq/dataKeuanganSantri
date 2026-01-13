@@ -23,7 +23,10 @@
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
-
+    "baseUrl": "./src",
+    "paths": {
+      "@prisma": ["prisma.ts"]
+    },
     // Style Options
     // "noImplicitReturns": true,
     // "noImplicitOverride": true,
