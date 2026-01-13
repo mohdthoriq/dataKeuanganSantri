@@ -1,5 +1,5 @@
 // prisma/seed.ts
-import { PrismaClient, UserRole, CategoryType } from '@prisma/client';
+import { PrismaClient, UserRole, CategoryType } from '../generated';
 import { faker } from '@faker-js/faker';
 import bcrypt from 'bcrypt';
 import PrismaInstance from '../database';

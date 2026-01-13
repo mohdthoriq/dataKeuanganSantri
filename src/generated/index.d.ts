@@ -13827,11 +13827,8 @@ export namespace Prisma {
     gender: 'gender',
     waliName: 'waliName',
     institutionName: 'institutionName',
-<<<<<<< HEAD
     waliId: 'waliId',
     institutionId: 'institutionId',
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     isActive: 'isActive',
     createdAt: 'createdAt'
   };
@@ -14472,18 +14469,15 @@ export namespace Prisma {
     gender?: StringFilter<"Santri"> | string
     waliName?: StringFilter<"Santri"> | string
     institutionName?: StringFilter<"Santri"> | string
-<<<<<<< HEAD
     waliId?: IntNullableFilter<"Santri"> | number | null
     institutionId?: IntNullableFilter<"Santri"> | number | null
     isActive?: BoolFilter<"Santri"> | boolean
     createdAt?: DateTimeFilter<"Santri"> | Date | string
     wali?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     institution?: XOR<InstitutionNullableScalarRelationFilter, InstitutionWhereInput> | null
-=======
     isActive?: BoolFilter<"Santri"> | boolean
     createdAt?: DateTimeFilter<"Santri"> | Date | string
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     authAccounts?: AuthAccountListRelationFilter
     transactions?: TransactionListRelationFilter
   }
@@ -14496,11 +14490,8 @@ export namespace Prisma {
     gender?: SortOrder
     waliName?: SortOrder
     institutionName?: SortOrder
-<<<<<<< HEAD
     waliId?: SortOrderInput | SortOrder
     institutionId?: SortOrderInput | SortOrder
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     isActive?: SortOrder
     createdAt?: SortOrder
     institution?: InstitutionOrderByWithRelationInput
@@ -14520,18 +14511,15 @@ export namespace Prisma {
     gender?: StringFilter<"Santri"> | string
     waliName?: StringFilter<"Santri"> | string
     institutionName?: StringFilter<"Santri"> | string
-<<<<<<< HEAD
     waliId?: IntNullableFilter<"Santri"> | number | null
     institutionId?: IntNullableFilter<"Santri"> | number | null
     isActive?: BoolFilter<"Santri"> | boolean
     createdAt?: DateTimeFilter<"Santri"> | Date | string
     wali?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     institution?: XOR<InstitutionNullableScalarRelationFilter, InstitutionWhereInput> | null
-=======
     isActive?: BoolFilter<"Santri"> | boolean
     createdAt?: DateTimeFilter<"Santri"> | Date | string
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     authAccounts?: AuthAccountListRelationFilter
     transactions?: TransactionListRelationFilter
   }, "id" | "nis_institutionName">
@@ -14544,11 +14532,8 @@ export namespace Prisma {
     gender?: SortOrder
     waliName?: SortOrder
     institutionName?: SortOrder
-<<<<<<< HEAD
     waliId?: SortOrderInput | SortOrder
     institutionId?: SortOrderInput | SortOrder
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     isActive?: SortOrder
     createdAt?: SortOrder
     _count?: SantriCountOrderByAggregateInput
@@ -14569,11 +14554,8 @@ export namespace Prisma {
     gender?: StringWithAggregatesFilter<"Santri"> | string
     waliName?: StringWithAggregatesFilter<"Santri"> | string
     institutionName?: StringWithAggregatesFilter<"Santri"> | string
-<<<<<<< HEAD
     waliId?: IntNullableWithAggregatesFilter<"Santri"> | number | null
     institutionId?: IntNullableWithAggregatesFilter<"Santri"> | number | null
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     isActive?: BoolWithAggregatesFilter<"Santri"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Santri"> | Date | string
   }
@@ -15205,17 +15187,14 @@ export namespace Prisma {
     kelas: string
     gender: string
     waliName: string
-<<<<<<< HEAD
     institutionName: string
     isActive?: boolean
     createdAt?: Date | string
     wali?: UserCreateNestedOneWithoutSantriAsWaliInput
     institution?: InstitutionCreateNestedOneWithoutSantriInput
-=======
     isActive?: boolean
     createdAt?: Date | string
     institution: InstitutionCreateNestedOneWithoutSantriInput
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
     transactions?: TransactionCreateNestedManyWithoutSantriInput
   }
@@ -15228,11 +15207,8 @@ export namespace Prisma {
     gender: string
     waliName: string
     institutionName: string
-<<<<<<< HEAD
     waliId?: number | null
     institutionId?: number | null
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     isActive?: boolean
     createdAt?: Date | string
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutSantriInput
@@ -15245,17 +15221,14 @@ export namespace Prisma {
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
     waliName?: StringFieldUpdateOperationsInput | string
-<<<<<<< HEAD
     institutionName?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wali?: UserUpdateOneWithoutSantriAsWaliNestedInput
     institution?: InstitutionUpdateOneWithoutSantriNestedInput
-=======
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
     transactions?: TransactionUpdateManyWithoutSantriNestedInput
   }
@@ -15268,11 +15241,8 @@ export namespace Prisma {
     gender?: StringFieldUpdateOperationsInput | string
     waliName?: StringFieldUpdateOperationsInput | string
     institutionName?: StringFieldUpdateOperationsInput | string
-<<<<<<< HEAD
     waliId?: NullableIntFieldUpdateOperationsInput | number | null
     institutionId?: NullableIntFieldUpdateOperationsInput | number | null
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutSantriNestedInput
@@ -15287,11 +15257,8 @@ export namespace Prisma {
     gender: string
     waliName: string
     institutionName: string
-<<<<<<< HEAD
     waliId?: number | null
     institutionId?: number | null
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     isActive?: boolean
     createdAt?: Date | string
   }
@@ -15302,10 +15269,7 @@ export namespace Prisma {
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
     waliName?: StringFieldUpdateOperationsInput | string
-<<<<<<< HEAD
     institutionName?: StringFieldUpdateOperationsInput | string
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15318,11 +15282,8 @@ export namespace Prisma {
     gender?: StringFieldUpdateOperationsInput | string
     waliName?: StringFieldUpdateOperationsInput | string
     institutionName?: StringFieldUpdateOperationsInput | string
-<<<<<<< HEAD
     waliId?: NullableIntFieldUpdateOperationsInput | number | null
     institutionId?: NullableIntFieldUpdateOperationsInput | number | null
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16052,11 +16013,8 @@ export namespace Prisma {
     gender?: SortOrder
     waliName?: SortOrder
     institutionName?: SortOrder
-<<<<<<< HEAD
     waliId?: SortOrder
     institutionId?: SortOrder
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     isActive?: SortOrder
     createdAt?: SortOrder
   }
@@ -16073,11 +16031,8 @@ export namespace Prisma {
     gender?: SortOrder
     waliName?: SortOrder
     institutionName?: SortOrder
-<<<<<<< HEAD
     waliId?: SortOrder
     institutionId?: SortOrder
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     isActive?: SortOrder
     createdAt?: SortOrder
   }
@@ -16090,11 +16045,8 @@ export namespace Prisma {
     gender?: SortOrder
     waliName?: SortOrder
     institutionName?: SortOrder
-<<<<<<< HEAD
     waliId?: SortOrder
     institutionId?: SortOrder
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     isActive?: SortOrder
     createdAt?: SortOrder
   }
@@ -16655,7 +16607,7 @@ export namespace Prisma {
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
-<<<<<<< HEAD
+
   export type UserUpdateOneWithoutSantriAsWaliNestedInput = {
     create?: XOR<UserCreateWithoutSantriAsWaliInput, UserUncheckedCreateWithoutSantriAsWaliInput>
     connectOrCreate?: UserCreateOrConnectWithoutSantriAsWaliInput
@@ -16667,9 +16619,6 @@ export namespace Prisma {
   }
 
   export type InstitutionUpdateOneWithoutSantriNestedInput = {
-=======
-  export type InstitutionUpdateOneRequiredWithoutSantriNestedInput = {
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     create?: XOR<InstitutionCreateWithoutSantriInput, InstitutionUncheckedCreateWithoutSantriInput>
     connectOrCreate?: InstitutionCreateOrConnectWithoutSantriInput
     upsert?: InstitutionUpsertWithoutSantriInput
@@ -17458,17 +17407,14 @@ export namespace Prisma {
     kelas: string
     gender: string
     waliName: string
-<<<<<<< HEAD
     institutionName: string
     isActive?: boolean
     createdAt?: Date | string
     wali?: UserCreateNestedOneWithoutSantriAsWaliInput
     institution?: InstitutionCreateNestedOneWithoutSantriInput
-=======
     isActive?: boolean
     createdAt?: Date | string
     institution: InstitutionCreateNestedOneWithoutSantriInput
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     transactions?: TransactionCreateNestedManyWithoutSantriInput
   }
 
@@ -17480,11 +17426,8 @@ export namespace Prisma {
     gender: string
     waliName: string
     institutionName: string
-<<<<<<< HEAD
     waliId?: number | null
     institutionId?: number | null
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     isActive?: boolean
     createdAt?: Date | string
     transactions?: TransactionUncheckedCreateNestedManyWithoutSantriInput
@@ -17558,17 +17501,14 @@ export namespace Prisma {
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
     waliName?: StringFieldUpdateOperationsInput | string
-<<<<<<< HEAD
     institutionName?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wali?: UserUpdateOneWithoutSantriAsWaliNestedInput
     institution?: InstitutionUpdateOneWithoutSantriNestedInput
-=======
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     transactions?: TransactionUpdateManyWithoutSantriNestedInput
   }
 
@@ -17580,11 +17520,8 @@ export namespace Prisma {
     gender?: StringFieldUpdateOperationsInput | string
     waliName?: StringFieldUpdateOperationsInput | string
     institutionName?: StringFieldUpdateOperationsInput | string
-<<<<<<< HEAD
     waliId?: NullableIntFieldUpdateOperationsInput | number | null
-    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
+    institutionId?: NullableIntFieldUpdateOperationsInput | number | null8
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: TransactionUncheckedUpdateManyWithoutSantriNestedInput
@@ -17760,15 +17697,12 @@ export namespace Prisma {
     kelas: string
     gender: string
     waliName: string
-<<<<<<< HEAD
     institutionName: string
     isActive?: boolean
     createdAt?: Date | string
     wali?: UserCreateNestedOneWithoutSantriAsWaliInput
-=======
     isActive?: boolean
     createdAt?: Date | string
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
     transactions?: TransactionCreateNestedManyWithoutSantriInput
   }
@@ -17780,11 +17714,8 @@ export namespace Prisma {
     kelas: string
     gender: string
     waliName: string
-<<<<<<< HEAD
     institutionName: string
     waliId?: number | null
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     isActive?: boolean
     createdAt?: Date | string
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutSantriInput
@@ -17926,11 +17857,8 @@ export namespace Prisma {
     gender?: StringFilter<"Santri"> | string
     waliName?: StringFilter<"Santri"> | string
     institutionName?: StringFilter<"Santri"> | string
-<<<<<<< HEAD
     waliId?: IntNullableFilter<"Santri"> | number | null
     institutionId?: IntNullableFilter<"Santri"> | number | null
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     isActive?: BoolFilter<"Santri"> | boolean
     createdAt?: DateTimeFilter<"Santri"> | Date | string
   }
@@ -18432,17 +18360,14 @@ export namespace Prisma {
     kelas: string
     gender: string
     waliName: string
-<<<<<<< HEAD
     institutionName: string
     isActive?: boolean
     createdAt?: Date | string
     wali?: UserCreateNestedOneWithoutSantriAsWaliInput
     institution?: InstitutionCreateNestedOneWithoutSantriInput
-=======
     isActive?: boolean
     createdAt?: Date | string
     institution: InstitutionCreateNestedOneWithoutSantriInput
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
   }
 
@@ -18454,11 +18379,8 @@ export namespace Prisma {
     gender: string
     waliName: string
     institutionName: string
-<<<<<<< HEAD
     waliId?: number | null
     institutionId?: number | null
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     isActive?: boolean
     createdAt?: Date | string
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutSantriInput
@@ -18548,17 +18470,14 @@ export namespace Prisma {
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
     waliName?: StringFieldUpdateOperationsInput | string
-<<<<<<< HEAD
     institutionName?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wali?: UserUpdateOneWithoutSantriAsWaliNestedInput
     institution?: InstitutionUpdateOneWithoutSantriNestedInput
-=======
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
   }
 
@@ -18570,11 +18489,8 @@ export namespace Prisma {
     gender?: StringFieldUpdateOperationsInput | string
     waliName?: StringFieldUpdateOperationsInput | string
     institutionName?: StringFieldUpdateOperationsInput | string
-<<<<<<< HEAD
     waliId?: NullableIntFieldUpdateOperationsInput | number | null
     institutionId?: NullableIntFieldUpdateOperationsInput | number | null
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutSantriNestedInput
@@ -18754,7 +18670,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-<<<<<<< HEAD
   export type SantriCreateWithoutWaliInput = {
     nis: string
     fullname: string
@@ -18794,8 +18709,7 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
+
   export type AuthAccountCreateWithoutUserInput = {
     username: string
     password: string
@@ -19172,11 +19086,8 @@ export namespace Prisma {
     kelas: string
     gender: string
     waliName: string
-<<<<<<< HEAD
     institutionName: string
     waliId?: number | null
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     isActive?: boolean
     createdAt?: Date | string
   }
@@ -19241,15 +19152,12 @@ export namespace Prisma {
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
     waliName?: StringFieldUpdateOperationsInput | string
-<<<<<<< HEAD
     institutionName?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wali?: UserUpdateOneWithoutSantriAsWaliNestedInput
-=======
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
     transactions?: TransactionUpdateManyWithoutSantriNestedInput
   }
@@ -19261,11 +19169,8 @@ export namespace Prisma {
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
     waliName?: StringFieldUpdateOperationsInput | string
-<<<<<<< HEAD
     institutionName?: StringFieldUpdateOperationsInput | string
     waliId?: NullableIntFieldUpdateOperationsInput | number | null
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutSantriNestedInput
@@ -19279,11 +19184,8 @@ export namespace Prisma {
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
     waliName?: StringFieldUpdateOperationsInput | string
-<<<<<<< HEAD
     institutionName?: StringFieldUpdateOperationsInput | string
     waliId?: NullableIntFieldUpdateOperationsInput | number | null
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19410,7 +19312,6 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-<<<<<<< HEAD
   export type SantriCreateManyWaliInput = {
     id?: number
     nis: string
@@ -19424,8 +19325,6 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
   export type AuthAccountCreateManyUserInput = {
     id?: number
     username: string
@@ -19512,7 +19411,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-<<<<<<< HEAD
   export type SantriUpdateWithoutWaliInput = {
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
@@ -19555,8 +19453,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-=======
->>>>>>> 1eff304de9630a20c20b6f6bdc8056f2512e50f8
   export type AuthAccountUpdateWithoutUserInput = {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
