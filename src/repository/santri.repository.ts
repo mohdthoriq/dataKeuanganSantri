@@ -179,7 +179,7 @@ export class SantriRepository implements ISantriRepository {
       throw new Error("Santri not found");
     }
 
-    const updateData: any = { ...data };
+    const updateData: Prisma.SantriUpdateInput = { ...data };
 
     if (data.waliId && data.waliId !== santri.waliId) {
       const wali = await this.prisma.user.findUnique({
@@ -194,7 +194,9 @@ export class SantriRepository implements ISantriRepository {
         select: { id: true },
       });
       if (!wali) throw new Error("Wali not found");
-      updateData.waliId = wali.id;
+      updateData.wali = {
+        connect: { id: wali.id },
+      };
     }
 
     if (data.institutionId && data.institutionId !== santri.institutionId) {
@@ -210,7 +212,9 @@ export class SantriRepository implements ISantriRepository {
         select: { id: true },
       });
       if (!institution) throw new Error("Institution not found");
-      updateData.institutionId = institution.id;
+      updateData.institution = {
+        connect: { id: institution.id },
+      };
     }
 
     return this.prisma.santri.update({

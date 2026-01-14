@@ -52,7 +52,7 @@ export class TransactionRepository implements ITransactionRepository {
         const skip = filters.skip ?? 0;
         const take = filters.take ?? 10;
 
-        const where: any = {
+        const where: Prisma.TransactionWhereInput = {
             ...(filters.santriId !== undefined && { santriId: filters.santriId }),
             ...(filters.categoryId !== undefined && { categoryId: filters.categoryId }),
             ...(filters.type !== undefined && { type: filters.type }),
