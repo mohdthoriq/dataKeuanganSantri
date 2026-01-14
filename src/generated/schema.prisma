@@ -1,3 +1,170 @@
+model EmailVerification {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  otpCode   String
+  expiredAt DateTime
+  isUsed    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model AuthAccount {
+  id        Int      @id @default(autoincrement())
+  username  String
+  password  String
+  userId    Int
+  santriId  Int?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  // relations
+  user   User    @relation(fields: [userId], references: [id])
+  santri Santri? @relation(fields: [santriId], references: [id])
+
+  @@map("auth_account")
+}
+
+model Category {
+  id            Int          @id @default(autoincrement())
+  name          String
+  type          CategoryType
+  institutionId Int
+  isActive      Boolean      @default(true)
+  createdAt     DateTime     @default(now())
+
+  // relations
+  institution  Institution   @relation(fields: [institutionId], references: [id])
+  transactions Transaction[]
+}
+
+enum UserRole {
+  ADMIN
+  WALI_SANTRI
+}
+
+enum CategoryType {
+  PEMASUKAN
+  PENGELUARAN
+}
+
+model Institution {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdBy Int
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  users User[] @relation("InstitutionUsers")
+
+  santri     Santri[]
+  categories Category[]
+  admin      User       @relation("InstitutionAdmin", fields: [createdBy], references: [id])
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  title     String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model PasswordReset {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  otpCode   String
+  expiredAt DateTime
+  isUsed    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("password_reset")
+}
+
+model Profile {
+  id                  Int     @id @default(autoincrement())
+  name                String
+  gender              String
+  address             String
+  profile_picture_url String?
+  public_id           String?
+  userId              Int     @unique
+  user                User    @relation(fields: [userId], references: [id])
+}
+
+model Santri {
+  id       Int    @id @default(autoincrement())
+  nis      String
+  fullname String
+  kelas    String
+  gender   String
+
+  waliId        Int
+  institutionId Int
+
+  waliName        String?
+  institutionName String?
+
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  wali        User        @relation(fields: [waliId], references: [id])
+  institution Institution @relation(fields: [institutionId], references: [id])
+
+  authAccounts AuthAccount[]
+  transactions Transaction[]
+
+  @@unique([nis, institutionId])
+}
+
+model Transaction {
+  id              Int          @id @default(autoincrement())
+  santriId        Int
+  categoryId      Int
+  type            CategoryType
+  amount          Decimal
+  description     String?
+  transactionDate DateTime
+  createdBy       Int
+  isDeleted       Boolean      @default(false)
+  createdAt       DateTime     @default(now())
+
+  // relations
+  santri   Santri   @relation(fields: [santriId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id])
+  admin    User     @relation("AdminTransactions", fields: [createdBy], references: [id])
+}
+
+model User {
+  id              Int      @id @default(autoincrement())
+  username        String
+  email           String   @unique
+  password        String
+  role            UserRole
+  institutionId   Int?
+  isEmailVerified Boolean  @default(false)
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  profile         Profile?
+
+  // relations
+  institution Institution? @relation("InstitutionUsers", fields: [institutionId], references: [id])
+
+  createdInstitutions Institution[] @relation("InstitutionAdmin")
+
+  santri             Santri[]
+  emailVerifications EmailVerification[]
+  authAccounts       AuthAccount[]
+  transactions       Transaction[]       @relation("AdminTransactions")
+  notifications      Notification[]
+  passwordResets     PasswordReset[]
+}
+
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -5,8 +172,9 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated"
+  provider        = "prisma-client-js"
+  output          = "../generated"
+  previewFeatures = ["prismaSchemaFolder"]
 }
 
 datasource db {
