@@ -93,144 +93,9 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.EmailVerificationScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  otpCode: 'otpCode',
-  expiredAt: 'expiredAt',
-  isUsed: 'isUsed',
-  createdAt: 'createdAt'
-};
-
-exports.Prisma.AuthAccountScalarFieldEnum = {
-  id: 'id',
-  username: 'username',
-  password: 'password',
-  userId: 'userId',
-  santriId: 'santriId',
-  isActive: 'isActive',
-  createdAt: 'createdAt'
-};
-
-exports.Prisma.CategoryScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  type: 'type',
-  institutionId: 'institutionId',
-  isActive: 'isActive',
-  createdAt: 'createdAt'
-};
-
-exports.Prisma.InstitutionScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  createdBy: 'createdBy',
-  isActive: 'isActive',
-  createdAt: 'createdAt'
-};
-
-exports.Prisma.NotificationScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  title: 'title',
-  message: 'message',
-  isRead: 'isRead',
-  createdAt: 'createdAt'
-};
-
-exports.Prisma.PasswordResetScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  otpCode: 'otpCode',
-  expiredAt: 'expiredAt',
-  isUsed: 'isUsed',
-  createdAt: 'createdAt'
-};
-
-exports.Prisma.ProfileScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  gender: 'gender',
-  address: 'address',
-  profile_picture_url: 'profile_picture_url',
-  public_id: 'public_id',
-  userId: 'userId'
-};
-
-exports.Prisma.SantriScalarFieldEnum = {
-  id: 'id',
-  nis: 'nis',
-  fullname: 'fullname',
-  kelas: 'kelas',
-  gender: 'gender',
-  waliId: 'waliId',
-  institutionId: 'institutionId',
-  waliName: 'waliName',
-  institutionName: 'institutionName',
-  isActive: 'isActive',
-  createdAt: 'createdAt'
-};
-
-exports.Prisma.TransactionScalarFieldEnum = {
-  id: 'id',
-  santriId: 'santriId',
-  categoryId: 'categoryId',
-  type: 'type',
-  amount: 'amount',
-  description: 'description',
-  transactionDate: 'transactionDate',
-  createdBy: 'createdBy',
-  isDeleted: 'isDeleted',
-  createdAt: 'createdAt'
-};
-
-exports.Prisma.UserScalarFieldEnum = {
-  id: 'id',
-  username: 'username',
-  email: 'email',
-  password: 'password',
-  role: 'role',
-  institutionId: 'institutionId',
-  isEmailVerified: 'isEmailVerified',
-  isActive: 'isActive',
-  createdAt: 'createdAt'
-};
-
-exports.Prisma.SortOrder = {
-  asc: 'asc',
-  desc: 'desc'
-};
-
-exports.Prisma.QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
-};
-
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
-};
-exports.UserRole = exports.$Enums.UserRole = {
-  ADMIN: 'ADMIN',
-  WALI_SANTRI: 'WALI_SANTRI'
-};
-
-exports.CategoryType = exports.$Enums.CategoryType = {
-  PEMASUKAN: 'PEMASUKAN',
-  PENGELUARAN: 'PENGELUARAN'
-};
 
 exports.Prisma.ModelName = {
-  EmailVerification: 'EmailVerification',
-  AuthAccount: 'AuthAccount',
-  Category: 'Category',
-  Institution: 'Institution',
-  Notification: 'Notification',
-  PasswordReset: 'PasswordReset',
-  Profile: 'Profile',
-  Santri: 'Santri',
-  Transaction: 'Transaction',
-  User: 'User'
+
 };
 /**
  * Create the Client
@@ -240,10 +105,10 @@ const config = {
   "clientVersion": "7.2.0",
   "engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
   "activeProvider": "postgresql",
-  "inlineSchema": "model EmailVerification {\n  id        Int      @id @default(autoincrement())\n  userId    Int\n  otpCode   String\n  expiredAt DateTime\n  isUsed    Boolean  @default(false)\n  createdAt DateTime @default(now())\n\n  user User @relation(fields: [userId], references: [id])\n}\n\nmodel AuthAccount {\n  id        Int      @id @default(autoincrement())\n  username  String\n  password  String\n  userId    Int\n  santriId  Int?\n  isActive  Boolean  @default(true)\n  createdAt DateTime @default(now())\n\n  // relations\n  user   User    @relation(fields: [userId], references: [id])\n  santri Santri? @relation(fields: [santriId], references: [id])\n\n  @@map(\"auth_account\")\n}\n\nmodel Category {\n  id            Int          @id @default(autoincrement())\n  name          String\n  type          CategoryType\n  institutionId Int\n  isActive      Boolean      @default(true)\n  createdAt     DateTime     @default(now())\n\n  // relations\n  institution  Institution   @relation(fields: [institutionId], references: [id])\n  transactions Transaction[]\n}\n\nenum UserRole {\n  ADMIN\n  WALI_SANTRI\n}\n\nenum CategoryType {\n  PEMASUKAN\n  PENGELUARAN\n}\n\nmodel Institution {\n  id        Int      @id @default(autoincrement())\n  name      String   @unique\n  createdBy Int\n  isActive  Boolean  @default(true)\n  createdAt DateTime @default(now())\n\n  users User[] @relation(\"InstitutionUsers\")\n\n  santri     Santri[]\n  categories Category[]\n  admin      User       @relation(\"InstitutionAdmin\", fields: [createdBy], references: [id])\n}\n\nmodel Notification {\n  id        Int      @id @default(autoincrement())\n  userId    Int\n  title     String\n  message   String\n  isRead    Boolean  @default(false)\n  createdAt DateTime @default(now())\n\n  user User @relation(fields: [userId], references: [id])\n}\n\nmodel PasswordReset {\n  id        Int      @id @default(autoincrement())\n  userId    Int\n  otpCode   String\n  expiredAt DateTime\n  isUsed    Boolean  @default(false)\n  createdAt DateTime @default(now())\n\n  user User @relation(fields: [userId], references: [id])\n\n  @@map(\"password_reset\")\n}\n\nmodel Profile {\n  id                  Int     @id @default(autoincrement())\n  name                String\n  gender              String\n  address             String\n  profile_picture_url String?\n  public_id           String?\n  userId              Int     @unique\n  user                User    @relation(fields: [userId], references: [id])\n}\n\nmodel Santri {\n  id       Int    @id @default(autoincrement())\n  nis      String\n  fullname String\n  kelas    String\n  gender   String\n\n  waliId        Int\n  institutionId Int\n\n  waliName        String?\n  institutionName String?\n\n  isActive  Boolean  @default(true)\n  createdAt DateTime @default(now())\n\n  wali        User        @relation(fields: [waliId], references: [id])\n  institution Institution @relation(fields: [institutionId], references: [id])\n\n  authAccounts AuthAccount[]\n  transactions Transaction[]\n\n  @@unique([nis, institutionId])\n}\n\nmodel Transaction {\n  id              Int          @id @default(autoincrement())\n  santriId        Int\n  categoryId      Int\n  type            CategoryType\n  amount          Decimal\n  description     String?\n  transactionDate DateTime\n  createdBy       Int\n  isDeleted       Boolean      @default(false)\n  createdAt       DateTime     @default(now())\n\n  // relations\n  santri   Santri   @relation(fields: [santriId], references: [id])\n  category Category @relation(fields: [categoryId], references: [id])\n  admin    User     @relation(\"AdminTransactions\", fields: [createdBy], references: [id])\n}\n\nmodel User {\n  id              Int      @id @default(autoincrement())\n  username        String\n  email           String   @unique\n  password        String\n  role            UserRole\n  institutionId   Int?\n  isEmailVerified Boolean  @default(false)\n  isActive        Boolean  @default(true)\n  createdAt       DateTime @default(now())\n  profile         Profile?\n\n  // relations\n  institution Institution? @relation(\"InstitutionUsers\", fields: [institutionId], references: [id])\n\n  createdInstitutions Institution[] @relation(\"InstitutionAdmin\")\n\n  santri             Santri[]\n  emailVerifications EmailVerification[]\n  authAccounts       AuthAccount[]\n  transactions       Transaction[]       @relation(\"AdminTransactions\")\n  notifications      Notification[]\n  passwordResets     PasswordReset[]\n}\n\n// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n"
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n"
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"EmailVerification\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"otpCode\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expiredAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"isUsed\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"EmailVerificationToUser\"}],\"dbName\":null},\"AuthAccount\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"santriId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AuthAccountToUser\"},{\"name\":\"santri\",\"kind\":\"object\",\"type\":\"Santri\",\"relationName\":\"AuthAccountToSantri\"}],\"dbName\":\"auth_account\"},\"Category\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"enum\",\"type\":\"CategoryType\"},{\"name\":\"institutionId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"institution\",\"kind\":\"object\",\"type\":\"Institution\",\"relationName\":\"CategoryToInstitution\"},{\"name\":\"transactions\",\"kind\":\"object\",\"type\":\"Transaction\",\"relationName\":\"CategoryToTransaction\"}],\"dbName\":null},\"Institution\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdBy\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"InstitutionUsers\"},{\"name\":\"santri\",\"kind\":\"object\",\"type\":\"Santri\",\"relationName\":\"InstitutionToSantri\"},{\"name\":\"categories\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"CategoryToInstitution\"},{\"name\":\"admin\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"InstitutionAdmin\"}],\"dbName\":null},\"Notification\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"message\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isRead\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"NotificationToUser\"}],\"dbName\":null},\"PasswordReset\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"otpCode\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expiredAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"isUsed\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PasswordResetToUser\"}],\"dbName\":\"password_reset\"},\"Profile\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"gender\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"address\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"profile_picture_url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"public_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ProfileToUser\"}],\"dbName\":null},\"Santri\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"nis\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fullname\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"kelas\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"gender\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"waliId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"institutionId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"waliName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"institutionName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"wali\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SantriToUser\"},{\"name\":\"institution\",\"kind\":\"object\",\"type\":\"Institution\",\"relationName\":\"InstitutionToSantri\"},{\"name\":\"authAccounts\",\"kind\":\"object\",\"type\":\"AuthAccount\",\"relationName\":\"AuthAccountToSantri\"},{\"name\":\"transactions\",\"kind\":\"object\",\"type\":\"Transaction\",\"relationName\":\"SantriToTransaction\"}],\"dbName\":null},\"Transaction\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"santriId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"categoryId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"type\",\"kind\":\"enum\",\"type\":\"CategoryType\"},{\"name\":\"amount\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"transactionDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdBy\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"isDeleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"santri\",\"kind\":\"object\",\"type\":\"Santri\",\"relationName\":\"SantriToTransaction\"},{\"name\":\"category\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"CategoryToTransaction\"},{\"name\":\"admin\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AdminTransactions\"}],\"dbName\":null},\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"UserRole\"},{\"name\":\"institutionId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"isEmailVerified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"profile\",\"kind\":\"object\",\"type\":\"Profile\",\"relationName\":\"ProfileToUser\"},{\"name\":\"institution\",\"kind\":\"object\",\"type\":\"Institution\",\"relationName\":\"InstitutionUsers\"},{\"name\":\"createdInstitutions\",\"kind\":\"object\",\"type\":\"Institution\",\"relationName\":\"InstitutionAdmin\"},{\"name\":\"santri\",\"kind\":\"object\",\"type\":\"Santri\",\"relationName\":\"SantriToUser\"},{\"name\":\"emailVerifications\",\"kind\":\"object\",\"type\":\"EmailVerification\",\"relationName\":\"EmailVerificationToUser\"},{\"name\":\"authAccounts\",\"kind\":\"object\",\"type\":\"AuthAccount\",\"relationName\":\"AuthAccountToUser\"},{\"name\":\"transactions\",\"kind\":\"object\",\"type\":\"Transaction\",\"relationName\":\"AdminTransactions\"},{\"name\":\"notifications\",\"kind\":\"object\",\"type\":\"Notification\",\"relationName\":\"NotificationToUser\"},{\"name\":\"passwordResets\",\"kind\":\"object\",\"type\":\"PasswordReset\",\"relationName\":\"PasswordResetToUser\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.compilerWasm = {
       getRuntime: async () => require('./query_compiler_bg.js'),
