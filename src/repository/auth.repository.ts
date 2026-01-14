@@ -93,11 +93,10 @@ export class AuthRepository implements IAuthRepository {
                 },
             });
 
-            await tx.user.update({
+            const updatedAdmin = await tx.user.update({
                 where: { id: admin.id },
                 data: { institutionId: lembaga.id },
             });
-
             const otpCode = randomInt(100000, 999999).toString();
             const expiredAt = new Date(Date.now() + 10 * 60 * 1000);
 
@@ -110,7 +109,7 @@ export class AuthRepository implements IAuthRepository {
                 },
             });
 
-            return { user: admin, otpCode };
+            return { user: updatedAdmin, otpCode };
         });
 
 
