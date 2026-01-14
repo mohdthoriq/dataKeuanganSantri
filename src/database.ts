@@ -2,7 +2,7 @@
 import { Pool } from "pg";
 import config from "./utils/env";
 import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "./generated";
+import { PrismaClient } from "../dist/generated";
 import type { User, Institution, AuthAccount, Category, EmailVerification, $Enums, Notification, PasswordReset, Profile, Santri, Transaction, Prisma } from "./generated";
 
 let prisma: PrismaClient;
