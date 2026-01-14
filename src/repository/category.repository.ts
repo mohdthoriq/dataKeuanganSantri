@@ -1,18 +1,18 @@
 // src/repository/category.repository.ts
-import type { PrismaClient, Category, CategoryType } from "../generated";
+import type { PrismaClient, Category, $Enums } from "../database";
 
 export interface ICategoryRepository {
-  create(data: { name: string; type: CategoryType; institutionId: number }): Promise<Category>;
+  create(data: { name: string; type: $Enums.CategoryType; institutionId: number }): Promise<Category>;
   getList(params: {
     institutionId: number;
-    type?: CategoryType;
+    type?: $Enums.CategoryType;
     isActive?: boolean;
     search?: string;
   }): Promise<Category[]>;
   getById(id: number): Promise<Category>;
   updateById(
     id: number,
-    payload: { name?: string; type?: CategoryType; isActive?: boolean }
+    payload: { name?: string; type?: $Enums.CategoryType; isActive?: boolean }
   ): Promise<Category>;
   updateStatusById(id: number, isActive: boolean): Promise<Category>;
   deleteById(id: number): Promise<Category>;
@@ -21,7 +21,7 @@ export interface ICategoryRepository {
 export class CategoryRepository implements ICategoryRepository {
   constructor(private prisma: PrismaClient) {}
 
-  async create(data: { name: string; type: CategoryType; institutionId: number }) {
+  async create(data: { name: string; type: $Enums.CategoryType; institutionId: number }) {
     const exist = await this.prisma.category.findFirst({
       where: { name: data.name, institutionId: data.institutionId },
     });
@@ -30,7 +30,7 @@ export class CategoryRepository implements ICategoryRepository {
     return this.prisma.category.create({ data });
   }
 
-  async getList(params: { institutionId: number; type?: CategoryType; isActive?: boolean; search?: string }) {
+  async getList(params: { institutionId: number; type?: $Enums.CategoryType; isActive?: boolean; search?: string }) {
     const where: Record<string, any> = { institutionId: params.institutionId };
 
     if (params.type) where.type = params.type;
@@ -52,11 +52,11 @@ export class CategoryRepository implements ICategoryRepository {
     return category;
   }
 
-  async updateById(id: number, payload: { name?: string; type?: CategoryType; isActive?: boolean }) {
+  async updateById(id: number, payload: { name?: string; type?: $Enums.CategoryType; isActive?: boolean }) {
     const exists = await this.prisma.category.findUnique({ where: { id } });
     if (!exists) throw new Error("Category not found");
 
-    const data: Partial<{ name: string; type: CategoryType; isActive: boolean }> = {};
+    const data: Partial<{ name: string; type: $Enums.CategoryType; isActive: boolean }> = {};
     if (payload.name !== undefined) data.name = payload.name;
     if (payload.type !== undefined) data.type = payload.type;
     if (payload.isActive !== undefined) data.isActive = payload.isActive;

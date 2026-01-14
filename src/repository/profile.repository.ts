@@ -1,4 +1,4 @@
-import type { PrismaClient, Profile, Prisma } from "../generated";
+import type { PrismaClient, Profile } from "../database";
 
 export interface IProfileRepository {
   findByUserId(userId: number): Promise<Profile | null>;

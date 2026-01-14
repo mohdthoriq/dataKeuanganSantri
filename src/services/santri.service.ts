@@ -1,5 +1,5 @@
 // src/services/santri.service.ts
-import type { Santri } from "../generated";
+import type { Santri } from "../database";
 import type { SantriRepository, ICreateSantriPayload } from "../repository/santri.repository";
 
 export class SantriService {

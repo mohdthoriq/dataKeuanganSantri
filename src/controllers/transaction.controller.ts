@@ -2,14 +2,14 @@
 import type { Request, Response } from "express";
 import { successResponse } from "../utils/response";
 import type { TransactionService } from "../services/transaction.service";
-import { CategoryType } from "../generated";
+import type { $Enums } from "../database";
 import type { ITransactionFilters } from "../repository/transaction.repository";
 import type { Decimal } from "../generated/runtime/client";
 
 export interface ICreateTransactionPayload {
     santriId?: number;
     categoryId?: number;
-    type?: CategoryType;
+    type?: $Enums.CategoryType;
     amount?: number | Decimal;
     description?: string;
     transactionDate?: Date; // ⚡ sekarang bisa undefined
@@ -26,7 +26,7 @@ export class TransactionController {
         const transaction = await this.transactionService.createTransaction({
             santriId,
             categoryId,
-            type: type as CategoryType,
+            type: type as $Enums.CategoryType,
             amount,
             description,
             transactionDate: new Date(transactionDate),
@@ -42,7 +42,7 @@ export class TransactionController {
         const filters: Partial<ITransactionFilters> = {};
         if (santriId) filters.santriId = Number(santriId);
         if (categoryId) filters.categoryId = Number(categoryId);
-        if (type) filters.type = type as CategoryType;
+        if (type) filters.type = type as $Enums.CategoryType;
         if (createdBy) filters.createdBy = Number(createdBy);
         if (skip) filters.skip = Number(skip);
         if (take) filters.take = Number(take);
@@ -73,7 +73,7 @@ export class TransactionController {
         const updatedTransaction = await this.transactionService.updateTransaction(id, {
             santriId,
             categoryId,
-            ...(type && { type: type as CategoryType }),
+            ...(type && { type: type as $Enums.CategoryType }),
             amount,
             description,
             ...(transactionDate && { transactionDate: new Date(transactionDate) }),

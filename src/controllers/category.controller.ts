@@ -2,7 +2,7 @@
 import type { Request, Response } from "express";
 import { successResponse } from "../utils/response";
 import type { CategoryService, ICreateCategoryPayload, IUpdateCategoryPayload } from "../services/category.service";
-import { CategoryType } from "../generated";
+import type { $Enums } from "../database";
 
 export class CategoryController {
   constructor(private categoryService: CategoryService) { }
@@ -20,12 +20,12 @@ export class CategoryController {
 
     const params: {
       institutionId: number;
-      type?: CategoryType;
+      type?: $Enums.CategoryType;
       isActive?: boolean;
       search?: string;
     } = {
       institutionId: Number(institutionId),
-      ...(type && { type: type as CategoryType }),
+      ...(type && { type: type as $Enums.CategoryType }),
       ...(isActive !== undefined && { isActive: isActive === "true" }),
       ...(search && { search: search as string }),
     };

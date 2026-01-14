@@ -2,7 +2,7 @@ import PrismaInstance from "../database";
 import bcrypt from "bcrypt";
 import { randomInt } from "crypto";
 import jwt from "jsonwebtoken";
-import type { PrismaClient, User } from "../generated";
+import type { PrismaClient, User } from "../database";
 import { sendEmail } from "../utils/apiKey";
 
 const prisma = PrismaInstance;

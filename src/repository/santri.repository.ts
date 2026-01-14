@@ -1,5 +1,5 @@
 // src/repository/santri.repository.ts
-import type { Prisma, PrismaClient, Santri } from "../generated";
+import type { PrismaClient, Santri, Prisma } from "../database";
 
 export interface ICreateSantriPayload {
   nis: string;

@@ -1,5 +1,5 @@
 import { randomInt } from "crypto";
-import type { PrismaClient, EmailVerification } from "../generated";
+import type { PrismaClient, EmailVerification } from "../database";
 import PrismaInstance from "../database";
 
 const prisma = PrismaInstance;

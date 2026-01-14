@@ -1,4 +1,4 @@
-import type { PrismaClient, Institution } from "../generated";
+import type { PrismaClient, Institution } from "../database";
 
 export interface ICreateInstitutionPayload {
   name: string;

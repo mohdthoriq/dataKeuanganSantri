@@ -1,4 +1,4 @@
-import type { PrismaClient, Notification } from "../generated";
+import type { PrismaClient, Notification } from "../database";
 import PrismaInstance from "../database";
 
 const prisma = PrismaInstance;

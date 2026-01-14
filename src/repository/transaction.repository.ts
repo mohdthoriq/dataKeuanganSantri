@@ -1,11 +1,11 @@
 // src/repository/transaction.repository.ts
-import type { PrismaClient, Transaction, CategoryType } from "../generated";
+import type { PrismaClient, Transaction, $Enums, Prisma } from "../database";
 import { Decimal } from "../generated/runtime/client";
 
 export interface ICreateTransactionPayload {
     santriId: number;
     categoryId: number;
-    type: CategoryType;
+    type: $Enums.CategoryType;
     amount: Decimal | number;
     description?: string;
     transactionDate: Date;
@@ -15,7 +15,7 @@ export interface ICreateTransactionPayload {
 export interface ITransactionFilters {
     santriId?: number;
     categoryId?: number;
-    type?: CategoryType;
+    type?: $Enums.CategoryType;
     createdBy?: number;
     skip?: number;
     take?: number;

@@ -1,5 +1,5 @@
 // src/services/transaction.service.ts
-import type { Transaction, CategoryType } from "../generated";
+import type { Transaction } from "../database";
 import type { ITransactionRepository, ICreateTransactionPayload, ITransactionFilters } from "../repository/transaction.repository";
 
 export class TransactionService {

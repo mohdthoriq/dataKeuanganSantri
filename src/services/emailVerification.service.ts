@@ -1,5 +1,5 @@
 import { EmailVerificationRepository } from "../repository/emailVerification.repository";
-import type { PrismaClient } from "../generated";
+import type { PrismaClient } from "../database";
 import { sendEmail } from "../utils/apiKey";
 
 export class EmailVerificationService {

@@ -1,5 +1,5 @@
 import type { IProfileRepository } from "../repository/profile.repository";
-import type { Profile } from "../generated";
+import type { Profile } from "../database";
 import cloudinary from "../utils/cloudinary";
 
 export interface IProfileService {

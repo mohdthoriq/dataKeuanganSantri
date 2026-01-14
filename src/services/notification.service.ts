@@ -1,4 +1,4 @@
-import type { Notification } from "../generated";
+import type { Notification } from "../database";
 import type { INotificationRepository } from "../repository/notification.repository";
 
 export class NotificationService {
