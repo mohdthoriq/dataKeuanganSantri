@@ -120,21 +120,31 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.CategoryScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  type: 'type',
-  institutionId: 'institutionId',
-  isActive: 'isActive',
-  createdAt: 'createdAt'
-};
-
 exports.Prisma.EmailVerificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   otpCode: 'otpCode',
   expiredAt: 'expiredAt',
   isUsed: 'isUsed',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.AuthAccountScalarFieldEnum = {
+  id: 'id',
+  username: 'username',
+  password: 'password',
+  userId: 'userId',
+  santriId: 'santriId',
+  isActive: 'isActive',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  institutionId: 'institutionId',
+  isActive: 'isActive',
   createdAt: 'createdAt'
 };
 
@@ -152,6 +162,15 @@ exports.Prisma.NotificationScalarFieldEnum = {
   title: 'title',
   message: 'message',
   isRead: 'isRead',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PasswordResetScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  otpCode: 'otpCode',
+  expiredAt: 'expiredAt',
+  isUsed: 'isUsed',
   createdAt: 'createdAt'
 };
 
@@ -204,25 +223,6 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.Auth_accountScalarFieldEnum = {
-  id: 'id',
-  username: 'username',
-  password: 'password',
-  userId: 'userId',
-  santriId: 'santriId',
-  isActive: 'isActive',
-  createdAt: 'createdAt'
-};
-
-exports.Prisma.Password_resetScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  otpCode: 'otpCode',
-  expiredAt: 'expiredAt',
-  isUsed: 'isUsed',
-  createdAt: 'createdAt'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -248,16 +248,16 @@ exports.UserRole = exports.$Enums.UserRole = {
 };
 
 exports.Prisma.ModelName = {
-  Category: 'Category',
   EmailVerification: 'EmailVerification',
+  AuthAccount: 'AuthAccount',
+  Category: 'Category',
   Institution: 'Institution',
   Notification: 'Notification',
+  PasswordReset: 'PasswordReset',
   Profile: 'Profile',
   Santri: 'Santri',
   Transaction: 'Transaction',
-  User: 'User',
-  auth_account: 'auth_account',
-  password_reset: 'password_reset'
+  User: 'User'
 };
 
 /**

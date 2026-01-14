@@ -109,7 +109,6 @@ export class SantriRepository implements ISantriRepository {
       where.OR = [
         { nis: { contains: search, mode: "insensitive" } },
         { fullname: { contains: search, mode: "insensitive" } },
-
         // ✅ RELATION FILTER (INI YANG BENAR)
         {
           wali: {

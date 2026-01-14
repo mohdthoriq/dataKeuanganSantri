@@ -14,7 +14,7 @@ model Santri {
   isActive      Boolean  @default(true)
   createdAt     DateTime @default(now())
 
-  wali          User        @relation(fields: [waliId], references: [id])
+  wali          User        @relation("WaliSantri", fields: [waliId], references: [id])
   institution   Institution @relation(fields: [institutionId], references: [id])
 
   authAccounts  AuthAccount[]

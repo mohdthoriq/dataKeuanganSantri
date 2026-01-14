@@ -65,7 +65,7 @@ export class TransactionRepository implements ITransactionRepository {
                 skip,
                 take,
                 orderBy: { transactionDate: "desc" },
-                include: { Santri: true, Category: true, User: true },
+                include: { santri: true, category: true, admin: true },
             }),
             this.prisma.transaction.count({ where }),
         ]);
@@ -84,7 +84,7 @@ export class TransactionRepository implements ITransactionRepository {
     async getById(id: number): Promise<Transaction | null> {
         return this.prisma.transaction.findFirst({
             where: { id, isDeleted: false },
-            include: { Santri: true, Category: true, User: true },
+            include: { santri: true, category: true, admin: true },
         });
     }
 

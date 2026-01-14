@@ -1,24 +1,3 @@
-generator client {
-  provider        = "prisma-client-js"
-  output          = "../generated"
-  previewFeatures = ["prismaSchemaFolder"]
-}
-
-datasource db {
-  provider = "postgresql"
-}
-
-model Category {
-  id            Int           @id @default(autoincrement())
-  name          String
-  type          CategoryType
-  institutionId Int
-  isActive      Boolean       @default(true)
-  createdAt     DateTime      @default(now())
-  Institution   Institution   @relation(fields: [institutionId], references: [id])
-  Transaction   Transaction[]
-}
-
 model EmailVerification {
   id        Int      @id @default(autoincrement())
   userId    Int
@@ -26,19 +5,61 @@ model EmailVerification {
   expiredAt DateTime
   isUsed    Boolean  @default(false)
   createdAt DateTime @default(now())
-  User      User     @relation(fields: [userId], references: [id])
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model AuthAccount {
+  id        Int      @id @default(autoincrement())
+  username  String
+  password  String
+  userId    Int
+  santriId  Int?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  // relations
+  user   User    @relation(fields: [userId], references: [id])
+  santri Santri? @relation(fields: [santriId], references: [id])
+
+  @@map("auth_account")
+}
+
+model Category {
+  id            Int          @id @default(autoincrement())
+  name          String
+  type          CategoryType
+  institutionId Int
+  isActive      Boolean      @default(true)
+  createdAt     DateTime     @default(now())
+
+  // relations
+  institution  Institution   @relation(fields: [institutionId], references: [id])
+  transactions Transaction[]
+}
+
+enum UserRole {
+  ADMIN
+  WALI_SANTRI
+}
+
+enum CategoryType {
+  PEMASUKAN
+  PENGELUARAN
 }
 
 model Institution {
-  id                                   Int        @id @default(autoincrement())
-  name                                 String     @unique
-  createdBy                            Int
-  isActive                             Boolean    @default(true)
-  createdAt                            DateTime   @default(now())
-  Category                             Category[]
-  User_Institution_createdByToUser     User       @relation("Institution_createdByToUser", fields: [createdBy], references: [id])
-  Santri                               Santri[]
-  User_User_institutionIdToInstitution User[]     @relation("User_institutionIdToInstitution")
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdBy Int
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  users User[] @relation("InstitutionUsers")
+
+  santri     Santri[]
+  categories Category[]
+  admin      User       @relation("InstitutionAdmin", fields: [createdBy], references: [id])
 }
 
 model Notification {
@@ -48,7 +69,21 @@ model Notification {
   message   String
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
-  User      User     @relation(fields: [userId], references: [id])
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model PasswordReset {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  otpCode   String
+  expiredAt DateTime
+  isUsed    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("password_reset")
 }
 
 model Profile {
@@ -59,25 +94,30 @@ model Profile {
   profile_picture_url String?
   public_id           String?
   userId              Int     @unique
-  User                User    @relation(fields: [userId], references: [id])
+  user                User    @relation(fields: [userId], references: [id])
 }
 
 model Santri {
-  id              Int            @id @default(autoincrement())
-  nis             String
-  fullname        String
-  kelas           String
-  gender          String
-  waliId          Int
-  institutionId   Int
+  id       Int    @id @default(autoincrement())
+  nis      String
+  fullname String
+  kelas    String
+  gender   String
+
+  waliId        Int
+  institutionId Int
+
   waliName        String?
   institutionName String?
-  isActive        Boolean        @default(true)
-  createdAt       DateTime       @default(now())
-  Institution     Institution    @relation(fields: [institutionId], references: [id])
-  User            User           @relation(fields: [waliId], references: [id])
-  Transaction     Transaction[]
-  auth_account    auth_account[]
+
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  wali        User        @relation("WaliSantri", fields: [waliId], references: [id])
+  institution Institution @relation(fields: [institutionId], references: [id])
+
+  authAccounts AuthAccount[]
+  transactions Transaction[]
 
   @@unique([nis, institutionId])
 }
@@ -93,60 +133,44 @@ model Transaction {
   createdBy       Int
   isDeleted       Boolean      @default(false)
   createdAt       DateTime     @default(now())
-  Category        Category     @relation(fields: [categoryId], references: [id])
-  User            User         @relation(fields: [createdBy], references: [id])
-  Santri          Santri       @relation(fields: [santriId], references: [id])
+
+  // relations
+  santri   Santri   @relation(fields: [santriId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id])
+  admin    User     @relation("AdminTransactions", fields: [createdBy], references: [id])
 }
 
 model User {
-  id                                          Int                 @id @default(autoincrement())
-  username                                    String
-  email                                       String              @unique
-  password                                    String
-  role                                        UserRole
-  institutionId                               Int?
-  isEmailVerified                             Boolean             @default(false)
-  isActive                                    Boolean             @default(true)
-  createdAt                                   DateTime            @default(now())
-  EmailVerification                           EmailVerification[]
-  Institution_Institution_createdByToUser     Institution[]       @relation("Institution_createdByToUser")
-  Notification                                Notification[]
-  Profile                                     Profile?
-  Santri                                      Santri[]
-  Transaction                                 Transaction[]
-  Institution_User_institutionIdToInstitution Institution?        @relation("User_institutionIdToInstitution", fields: [institutionId], references: [id])
-  auth_account                                auth_account[]
-  password_reset                              password_reset[]
+  id              Int      @id @default(autoincrement())
+  username        String
+  email           String   @unique
+  password        String
+  role            UserRole
+  institutionId   Int?
+  isEmailVerified Boolean  @default(false)
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  profile         Profile?
+
+  // relations
+  institution Institution? @relation("InstitutionUsers", fields: [institutionId], references: [id])
+
+  createdInstitutions Institution[] @relation("InstitutionAdmin")
+
+  santri             Santri[]            @relation("WaliSantri")
+  emailVerifications EmailVerification[]
+  authAccounts       AuthAccount[]
+  transactions       Transaction[]       @relation("AdminTransactions")
+  notifications      Notification[]
+  passwordResets     PasswordReset[]
 }
 
-model auth_account {
-  id        Int      @id @default(autoincrement())
-  username  String
-  password  String
-  userId    Int
-  santriId  Int?
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
-  Santri    Santri?  @relation(fields: [santriId], references: [id])
-  User      User     @relation(fields: [userId], references: [id])
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../generated"
+  previewFeatures = ["prismaSchemaFolder"]
 }
 
-model password_reset {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  otpCode   String
-  expiredAt DateTime
-  isUsed    Boolean  @default(false)
-  createdAt DateTime @default(now())
-  User      User     @relation(fields: [userId], references: [id])
-}
-
-enum CategoryType {
-  PEMASUKAN
-  PENGELUARAN
-}
-
-enum UserRole {
-  ADMIN
-  WALI_SANTRI
+datasource db {
+  provider = "postgresql"
 }
