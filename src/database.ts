@@ -3,7 +3,7 @@ import { Pool } from "pg";
 import config from "./utils/env";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "./generated/index.js";
-import type { User, Institution, AuthAccount, Category, EmailVerification, $Enums, Notification, PasswordReset, Profile, Santri, Transaction, Prisma } from "./generated/index.js";
+import type { User, Institution, auth_account, Category, EmailVerification, $Enums, Notification, password_reset, Profile, Santri, Transaction, Prisma } from "./generated/index.js";
 
 let prisma: PrismaClient;
 
@@ -18,7 +18,7 @@ const getPrisma = () => {
 
 export const PrismaInstance = getPrisma();
 
-export type { PrismaClient, User, Institution, AuthAccount, Category, EmailVerification, $Enums, Notification, PasswordReset, Profile, Santri, Transaction, Prisma }
+export type { PrismaClient, User, Institution, auth_account, Category, EmailVerification, $Enums, Notification, password_reset, Profile, Santri, Transaction, Prisma }
 
 export default PrismaInstance;
 

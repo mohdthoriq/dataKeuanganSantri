@@ -1,0 +1,9 @@
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  override existing env vars with { override: true }
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from src\prisma\schema.prisma.
+Datasource "db": PostgreSQL database "keuangan_santri_db", schema "public" at "localhost:5432"
+
+27 migrations found in prisma/migrations
+
+Database schema is up to date!
