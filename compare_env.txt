@@ -1,0 +1,4 @@
+.env:DATABASE_URL="postgresql://postgres:335240@localhost:5432/keuangan_santri_db?schema=public"
+.env:# DATABASE_URL="postgres://26269eff9857806c9604c134191dce7b51c778efd6fc3cb7eb97ade48b1a91fe:sk_f7DY6HolJoNlMqFZV5SYf@db.prisma.io:5432/postgres?sslmode=require"
+.env.development:DATABASE_URL="postgresql://postgres:335240@localhost:5432/keuangan_santri_db?schema=public"
+.env.development:# DATABASE_URL="postgres://26269eff9857806c9604c134191dce7b51c778efd6fc3cb7eb97ade48b1a91fe:sk_f7DY6HolJoNlMqFZV5SYf@db.prisma.io:5432/postgres?sslmode=require"

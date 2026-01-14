@@ -1,0 +1,92 @@
+/*
+  Warnings:
+
+  - You are about to drop the `Category` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `EmailVerification` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `Institution` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `Notification` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `Profile` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `Santri` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `Transaction` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `User` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `auth_account` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `password_reset` table. If the table is not empty, all the data it contains will be lost.
+
+*/
+-- DropForeignKey
+ALTER TABLE "Category" DROP CONSTRAINT "Category_institutionId_fkey";
+
+-- DropForeignKey
+ALTER TABLE "EmailVerification" DROP CONSTRAINT "EmailVerification_userId_fkey";
+
+-- DropForeignKey
+ALTER TABLE "Institution" DROP CONSTRAINT "Institution_createdBy_fkey";
+
+-- DropForeignKey
+ALTER TABLE "Notification" DROP CONSTRAINT "Notification_userId_fkey";
+
+-- DropForeignKey
+ALTER TABLE "Profile" DROP CONSTRAINT "Profile_userId_fkey";
+
+-- DropForeignKey
+ALTER TABLE "Santri" DROP CONSTRAINT "Santri_institutionId_fkey";
+
+-- DropForeignKey
+ALTER TABLE "Santri" DROP CONSTRAINT "Santri_waliId_fkey";
+
+-- DropForeignKey
+ALTER TABLE "Transaction" DROP CONSTRAINT "Transaction_categoryId_fkey";
+
+-- DropForeignKey
+ALTER TABLE "Transaction" DROP CONSTRAINT "Transaction_createdBy_fkey";
+
+-- DropForeignKey
+ALTER TABLE "Transaction" DROP CONSTRAINT "Transaction_santriId_fkey";
+
+-- DropForeignKey
+ALTER TABLE "User" DROP CONSTRAINT "User_institutionId_fkey";
+
+-- DropForeignKey
+ALTER TABLE "auth_account" DROP CONSTRAINT "auth_account_santriId_fkey";
+
+-- DropForeignKey
+ALTER TABLE "auth_account" DROP CONSTRAINT "auth_account_userId_fkey";
+
+-- DropForeignKey
+ALTER TABLE "password_reset" DROP CONSTRAINT "password_reset_userId_fkey";
+
+-- DropTable
+DROP TABLE "Category";
+
+-- DropTable
+DROP TABLE "EmailVerification";
+
+-- DropTable
+DROP TABLE "Institution";
+
+-- DropTable
+DROP TABLE "Notification";
+
+-- DropTable
+DROP TABLE "Profile";
+
+-- DropTable
+DROP TABLE "Santri";
+
+-- DropTable
+DROP TABLE "Transaction";
+
+-- DropTable
+DROP TABLE "User";
+
+-- DropTable
+DROP TABLE "auth_account";
+
+-- DropTable
+DROP TABLE "password_reset";
+
+-- DropEnum
+DROP TYPE "CategoryType";
+
+-- DropEnum
+DROP TYPE "UserRole";

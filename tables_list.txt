@@ -1,0 +1,15 @@
+[dotenv@17.2.3] injecting env (12) from .env.development -- tip: 🗂️ backup and recover secrets: https://dotenvx.com/ops
+Using DATABASE_URL: postgresql://postgres:335240@localhost:5432/keuangan_santri_db?schema=public
+Tables found: [
+  '_prisma_migrations',
+  'User',
+  'EmailVerification',
+  'auth_account',
+  'Santri',
+  'Institution',
+  'Category',
+  'Notification',
+  'password_reset',
+  'Profile',
+  'Transaction'
+]
