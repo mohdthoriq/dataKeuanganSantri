@@ -1,12 +1,11 @@
 // src/repository/transaction.repository.ts
 import type { PrismaClient, Transaction, $Enums, Prisma } from "../database";
-import { Decimal } from "../generated/runtime/client";
 
 export interface ICreateTransactionPayload {
     santriId: number;
     categoryId: number;
     type: $Enums.CategoryType;
-    amount: Decimal | number;
+    amount: Prisma.Decimal | number;
     description?: string;
     transactionDate: Date;
     createdBy: number;
@@ -40,7 +39,7 @@ export class TransactionRepository implements ITransactionRepository {
                 santriId,
                 categoryId,
                 type,
-                amount: new Decimal(amount),
+                amount,
                 transactionDate,
                 createdBy,
                 ...(description !== undefined && { description }),
@@ -89,9 +88,24 @@ export class TransactionRepository implements ITransactionRepository {
         });
     }
 
-    async update(id: number, data: Partial<ICreateTransactionPayload>): Promise<Transaction> {
-        if (data.amount !== undefined) data.amount = new Decimal(data.amount);
-        return this.prisma.transaction.update({ where: { id }, data });
+    async update(
+        id: number,
+        payload: Partial<ICreateTransactionPayload>
+    ): Promise<Transaction> {
+        const data: Prisma.TransactionUpdateInput = {
+            ...(payload.santriId !== undefined && { santriId: payload.santriId }),
+            ...(payload.categoryId !== undefined && { categoryId: payload.categoryId }),
+            ...(payload.type !== undefined && { type: payload.type }),
+            ...(payload.amount !== undefined && { amount: payload.amount }),
+            ...(payload.transactionDate !== undefined && { transactionDate: payload.transactionDate }),
+            ...(payload.createdBy !== undefined && { createdBy: payload.createdBy }),
+            ...(payload.description !== undefined && { description: payload.description }),
+        };
+
+        return this.prisma.transaction.update({
+            where: { id },
+            data,
+        });
     }
 
     async delete(id: number): Promise<Transaction> {
