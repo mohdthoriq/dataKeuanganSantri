@@ -11,7 +11,7 @@
     "prisma:migrate": "prisma generate --schema=src/prisma && prisma migrate dev --schema=src/prisma",
     "prisma:reset": "prisma migrate reset --schema=src/prisma",
     "seed": "tsx src/prisma/seeder.ts",
-    "dev": "tsx watch --env-file=.env.development src/index.ts",
+    "dev": "tsx watch src/index.ts",
     "start": "npx prisma migrate deploy && node dist/index.js",
     "build": "prisma generate --schema=src/prisma && tsc && ts-add-js-extension --dir=dist && cp -r src/generated dist/generated",
     "test": "jest"
