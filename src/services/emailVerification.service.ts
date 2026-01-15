@@ -28,7 +28,7 @@ export class EmailVerificationService {
     return {
       success: true,
       message: "OTP sent successfully",
-      ...(process.env.NODE_ENV === "development" && {
+      ...(process.env.NODE_ENV === "production" && {
         otpCode: otp.otpCode,
         expiredAt: otp.expiredAt,
       }),
@@ -66,7 +66,7 @@ export class EmailVerificationService {
 
     return {
       success: true,
-      ...(process.env.NODE_ENV === "development" && {
+      ...(process.env.NODE_ENV === "production" && {
         otpCode: otp.otpCode,
         expiredAt: otp.expiredAt,
       }),
