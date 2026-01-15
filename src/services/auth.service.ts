@@ -24,9 +24,10 @@ export class AuthService {
       institution,
     });
 
+    const otpCode = result.data.otpCode;
+
+    // Selalu kirim email jika ada otpCode
     if (result.data.otpCode) {
-
-
       await sendEmail({
         to: result.data.email,
         subject: "OTP Verification",
@@ -36,6 +37,11 @@ export class AuthService {
           <p>Berlaku 10 menit</p>
         `,
       });
+    }
+
+    // Hide otpCode in production
+    if (config.NODE_ENV === "production") {
+      delete result.data.otpCode;
     }
 
     return result;

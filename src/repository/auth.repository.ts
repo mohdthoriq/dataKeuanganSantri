@@ -112,26 +112,13 @@ export class AuthRepository implements IAuthRepository {
             return { user: updatedAdmin, otpCode };
         });
 
-
-        await sendEmail({
-            to: result.user.email,
-            subject: "OTP Verification",
-            html: `
-              <h2>OTP Verification</h2>
-              <h1>${result.otpCode}</h1>
-              <p>Berlaku 10 menit</p>
-            `,
-        });
-
         return {
             success: true,
             message: "Registration successful. Please check your email for OTP.",
             data: {
                 userId: result.user.id,
                 email: result.user.email,
-                ...(process.env.NODE_ENV === "development" && {
-                    otpCode: result.otpCode,
-                }),
+                otpCode: result.otpCode,
             },
         };
     }

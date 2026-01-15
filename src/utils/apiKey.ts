@@ -27,7 +27,7 @@ export const sendEmail = async ({
   const email = new SendSmtpEmail();
 
   if (!config.SENDER_EMAIL) {
-      throw new Error("SENDER_EMAIL is not defined in .env");
+    throw new Error("SENDER_EMAIL is not defined in .env");
   }
 
   email.subject = subject;
@@ -43,5 +43,13 @@ export const sendEmail = async ({
   if (html) email.htmlContent = html;
   if (text) email.textContent = text;
 
-  return emailApi.sendTransacEmail(email);
+  console.log(`📧 Attempting to send email to: ${to} (Subject: ${subject})`);
+  try {
+    const result = await emailApi.sendTransacEmail(email);
+    console.log(`✅ Email sent successfully to ${to}. MessageId: ${result.body?.messageId || 'N/A'}`);
+    return result;
+  } catch (error: any) {
+    console.error(`❌ Failed to send email to ${to}:`, error.response?.body || error.message);
+    throw error;
+  }
 };
