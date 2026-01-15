@@ -47,10 +47,12 @@ export class SantriRepository implements ISantriRepository {
       throw new Error("Institution ID or Name is required");
     }
 
-    const exists = await this.prisma.santri.findFirst({
+    const exists = await this.prisma.santri.findUnique({
       where: {
-        nis: payload.nis,
-        institutionId: institutionId,
+        nis_institutionId: {
+          nis: payload.nis,
+          institutionId: institutionId!,
+        },
       },
     });
 
@@ -109,12 +111,9 @@ export class SantriRepository implements ISantriRepository {
       where.OR = [
         { nis: { contains: search, mode: "insensitive" } },
         { fullname: { contains: search, mode: "insensitive" } },
-        // ✅ RELATION FILTER (INI YANG BENAR)
         {
           wali: {
-            is: {
-              username: { contains: search, mode: "insensitive" },
-            },
+            username: { contains: search, mode: "insensitive" },
           },
         },
       ];
@@ -178,11 +177,13 @@ export class SantriRepository implements ISantriRepository {
       throw new Error("Santri not found");
     }
 
-    const updateData: Prisma.SantriUpdateInput = { ...data };
+    const { waliId, institutionId, ...otherData } = data;
+    const updateData: Prisma.SantriUpdateInput = { ...otherData };
 
-    if (data.waliId && data.waliId !== santri.waliId) {
+    if (waliId && waliId !== santri.waliId) {
+      updateData.wali = { connect: { id: waliId } };
       const wali = await this.prisma.user.findUnique({
-        where: { id: data.waliId },
+        where: { id: waliId },
         select: { username: true },
       });
       if (!wali) throw new Error("Wali not found");
@@ -198,9 +199,10 @@ export class SantriRepository implements ISantriRepository {
       };
     }
 
-    if (data.institutionId && data.institutionId !== santri.institutionId) {
+    if (institutionId && institutionId !== santri.institutionId) {
+      updateData.institution = { connect: { id: institutionId } };
       const institution = await this.prisma.institution.findUnique({
-        where: { id: data.institutionId },
+        where: { id: institutionId },
         select: { name: true },
       });
       if (!institution) throw new Error("Institution not found");

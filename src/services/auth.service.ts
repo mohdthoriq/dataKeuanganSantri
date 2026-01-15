@@ -40,7 +40,7 @@ export class AuthService {
     }
 
     // Hide otpCode in production
-    if (config.NODE_ENV === "production") {
+    if (config.NODE_ENV === "development") {
       delete result.data.otpCode;
     }
 
@@ -50,21 +50,38 @@ export class AuthService {
   async login(data: { email: string; password: string }) {
     const { email, password } = data;
 
-    const user = await this.authRepo.findByEmail(email);
-    if (!user) throw new Error("User not found");
+    console.log(`🔐 Login attempt for: ${email}`);
+    try {
+      const user = await this.authRepo.findByEmail(email);
+      if (!user) {
+        console.warn(`⚠️ Login failed: User ${email} not found`);
+        throw new Error("User not found");
+      }
 
-    if (!user.isEmailVerified) throw new Error("Email not verified");
+      console.log(`🔍 User found: ${user.email}, isVerified: ${user.isEmailVerified}`);
+      if (!user.isEmailVerified) {
+        console.warn(`⚠️ Login failed: Email ${email} not verified`);
+        throw new Error("Email not verified");
+      }
 
-    const isValid = await bcrypt.compare(password, user.password);
-    if (!isValid) throw new Error("Invalid password");
+      const isValid = await bcrypt.compare(password, user.password);
+      if (!isValid) {
+        console.warn(`⚠️ Login failed: Invalid password for ${email}`);
+        throw new Error("Invalid password");
+      }
 
-    const token = jwt.sign(
-      { id: user.id, role: user.role, institutionId: user.institutionId },
-      config.JWT_SECRET,
-      { expiresIn: "1h" }
-    );
+      console.log(`✅ Login successful for: ${email}`);
+      const token = jwt.sign(
+        { id: user.id, role: user.role, institutionId: user.institutionId },
+        config.JWT_SECRET,
+        { expiresIn: "1h" }
+      );
 
-    return { user, token };
+      return { user, token };
+    } catch (error: any) {
+      console.error(`❌ Login error for ${email}:`, error.message);
+      throw error;
+    }
   }
 
   async requestReset(email: string) {
