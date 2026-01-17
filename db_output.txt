@@ -1,6 +1,0 @@
-[dotenv@17.2.3] injecting env (12) from .env.development -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
-Using DATABASE_URL: postgresql://postgres:335240@localhost:5432/keuangan_santri_db?schema=public
-DATABASES: postgres, ecommerce_db, toko_laptop_db, perpustakaan_db, am_database_db, AM_database_db, keuangan_santri_db
-CURRENT_DB: keuangan_santri_db
-SCHEMAS: pg_toast, pg_catalog, information_schema, public
-ALL_TABLES_BY_SCHEMA: public.Category, public.EmailVerification, public.Institution, public.Notification, public.Profile, public.Santri, public.Transaction, public.User, public._prisma_migrations, public.auth_account, public.password_reset
