@@ -21,8 +21,6 @@ model AuthAccount {
   // relations
   user   User    @relation(fields: [userId], references: [id])
   santri Santri? @relation(fields: [santriId], references: [id])
-
-  @@map("auth_account")
 }
 
 model Category {
@@ -82,8 +80,6 @@ model PasswordReset {
   createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id])
-
-  @@map("password_reset")
 }
 
 model Profile {

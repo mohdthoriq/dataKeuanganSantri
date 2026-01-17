@@ -10,6 +10,4 @@ model AuthAccount {
   // relations
   user   User   @relation(fields: [userId], references: [id])
   santri Santri? @relation(fields: [santriId], references: [id])
-
-  @@map("auth_account")
 }
