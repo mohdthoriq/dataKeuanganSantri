@@ -1,12 +1,12 @@
 model Santri {
   id            Int      @id @default(autoincrement())
-  nis           String
+  nis           String   @unique
   fullname      String
   kelas         String
   gender        String
 
   waliId        Int
-  institutionId Int
+  institutionId Int       @unique
 
   waliName        String?
   institutionName String?
@@ -19,6 +19,4 @@ model Santri {
 
   authAccounts  AuthAccount[]
   transactions  Transaction[]
-
-  @@unique([nis, institutionId])
 }
