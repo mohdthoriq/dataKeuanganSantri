@@ -5,29 +5,25 @@ dotenv.config();
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
-async function checkTable() {
+async function checkUsers() {
     try {
         const res = await pool.query(`
-            SELECT column_name, data_type 
-            FROM information_schema.columns 
-            WHERE table_name = 'Santri';
+            SELECT id, username, email, role, "institutionId"
+            FROM "User";
         `);
-        console.log('Columns in Santri table:');
+        console.log('Users in database:');
         console.log(JSON.stringify(res.rows, null, 2));
 
-        const indexes = await pool.query(`
-            SELECT indexname, indexdef 
-            FROM pg_indexes 
-            WHERE tablename = 'Santri';
+        const institutions = await pool.query(`
+            SELECT id, name FROM "Institution";
         `);
-        console.log('Indexes in Santri table:');
-        console.log(JSON.stringify(indexes.rows, null, 2));
+        console.log('Institutions in database:');
+        console.log(JSON.stringify(institutions.rows, null, 2));
     } catch (err) {
-        console.error('Error checking table:', err);
+        console.error('Error checking users:', err);
     } finally {
         await pool.end();
     }
 }
 
-
-checkTable();
+checkUsers();

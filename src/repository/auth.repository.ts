@@ -31,6 +31,8 @@ export type LoginResult = {
         email: string;
         username: string;
         role: string;
+        institutionId: number | null;
+        institutionName?: string | null | undefined;
     };
 };
 
@@ -124,7 +126,10 @@ export class AuthRepository implements IAuthRepository {
     }
 
     async login(email: string, password: string): Promise<LoginResult> {
-        const user = await prisma.user.findUnique({ where: { email } });
+        const user = await prisma.user.findUnique({
+            where: { email },
+            include: { institution: { select: { name: true } } }
+        });
         if (!user) throw new Error("User not found");
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -145,6 +150,8 @@ export class AuthRepository implements IAuthRepository {
                 email: user.email,
                 role: user.role,
                 username: user.username,
+                institutionId: user.institutionId,
+                institutionName: user.institution?.name,
             },
         };
     }
