@@ -1,20 +1,25 @@
-import type { PrismaClient, Institution } from "../database";
+import type { PrismaClient, Institution, Prisma } from "../database";
+import type { IPaginatedResult, IPaginationParams } from "../types/common";
 
 export interface ICreateInstitutionPayload {
   name: string;
   createdBy: number;
 }
 
+export interface IInstitutionListParams extends IPaginationParams {
+  userId: number;
+}
+
 export interface IInstitutionRepository {
   create(payload: ICreateInstitutionPayload): Promise<Institution>;
   getById(id: number): Promise<Institution>;
-  getByUser(userId: number): Promise<Institution[]>;
+  getByUser(params: IInstitutionListParams): Promise<IPaginatedResult<Institution>>;
   update(id: number, name: string): Promise<Institution>;
   delete(id: number): Promise<boolean>;
 }
 
 export class InstitutionRepository implements IInstitutionRepository {
-  constructor(private prisma: PrismaClient) {}
+  constructor(private prisma: PrismaClient) { }
 
   async create(payload: ICreateInstitutionPayload): Promise<Institution> {
     const exists = await this.prisma.institution.findFirst({
@@ -33,11 +38,43 @@ export class InstitutionRepository implements IInstitutionRepository {
     return institution;
   }
 
-  async getByUser(userId: number): Promise<Institution[]> {
-    return this.prisma.institution.findMany({
-      where: { createdBy: userId },
-      orderBy: { createdAt: "desc" },
-    });
+  async getByUser(params: IInstitutionListParams): Promise<IPaginatedResult<Institution>> {
+    const {
+      userId,
+      page = 1,
+      limit = 10,
+      search,
+      sortBy,
+      order = "desc",
+    } = params;
+    const skip = (page - 1) * limit;
+
+    const where: Prisma.InstitutionWhereInput = { createdBy: userId };
+    if (search) {
+      where.name = { contains: search, mode: "insensitive" };
+    }
+
+    const orderBy: Prisma.InstitutionOrderByWithRelationInput = {};
+    if (sortBy === "name") {
+      orderBy.name = order;
+    } else {
+      orderBy.createdAt = order;
+    }
+
+    const [data, total] = await this.prisma.$transaction([
+      this.prisma.institution.findMany({
+        where,
+        orderBy,
+        skip,
+        take: limit,
+      }),
+      this.prisma.institution.count({ where }),
+    ]);
+
+    return {
+      data,
+      meta: { page, limit, total, totalPages: Math.ceil(total / limit) },
+    };
   }
 
   async update(id: number, name: string): Promise<Institution> {

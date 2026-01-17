@@ -1,11 +1,12 @@
 import type { Notification } from "../database";
-import type { INotificationRepository } from "../repository/notification.repository";
+import type { INotificationRepository, INotificationListParams } from "../repository/notification.repository";
+import type { IPaginatedResult } from "../types/common";
 
 export class NotificationService {
-  constructor(private notificationRepo: INotificationRepository) {}
+  constructor(private notificationRepo: INotificationRepository) { }
 
-  getNotifications(userId: number): Promise<Notification[]> {
-    return this.notificationRepo.getAll(userId);
+  getNotifications(params: INotificationListParams): Promise<IPaginatedResult<Notification>> {
+    return this.notificationRepo.getAll(params);
   }
 
   markAsRead(id: number): Promise<Notification> {

@@ -1,6 +1,6 @@
 // src/services/category.service.ts
 import type { $Enums } from "../database";
-import type { ICategoryRepository } from "../repository/category.repository";
+import type { ICategoryRepository, ICategoryListParams } from "../repository/category.repository";
 
 export interface ICreateCategoryPayload {
   name: string;
@@ -15,13 +15,13 @@ export interface IUpdateCategoryPayload {
 }
 
 export class CategoryService {
-  constructor(private categoryRepo: ICategoryRepository) {}
+  constructor(private categoryRepo: ICategoryRepository) { }
 
   async createCategory(payload: ICreateCategoryPayload) {
     return this.categoryRepo.create(payload);
   }
 
-  async getCategories(params: { institutionId: number; type?: $Enums.CategoryType; isActive?: boolean; search?: string }) {
+  async getCategories(params: ICategoryListParams) {
     return this.categoryRepo.getList(params);
   }
 

@@ -3,7 +3,7 @@ import type { Request, Response } from "express";
 import { successResponse } from "../utils/response";
 import type { TransactionService } from "../services/transaction.service";
 import type { $Enums } from "../database";
-import type { ITransactionFilters } from "../repository/transaction.repository";
+import type { ITransactionListParams } from "../repository/transaction.repository";
 import type { Decimal } from "../generated/runtime/client";
 
 export interface ICreateTransactionPayload {
@@ -37,17 +37,21 @@ export class TransactionController {
     };
 
     getTransactions = async (req: Request, res: Response) => {
-        const { santriId, categoryId, type, createdBy, skip, take } = req.query;
+        const { santriId, categoryId, type, createdBy, skip, take, page, limit, search, sortBy, order } = req.query;
 
-        const filters: Partial<ITransactionFilters> = {};
-        if (santriId) filters.santriId = Number(santriId);
-        if (categoryId) filters.categoryId = Number(categoryId);
-        if (type) filters.type = type as $Enums.CategoryType;
-        if (createdBy) filters.createdBy = Number(createdBy);
-        if (skip) filters.skip = Number(skip);
-        if (take) filters.take = Number(take);
+        const params: ITransactionListParams = {
+            ...(santriId && { santriId: Number(santriId) }),
+            ...(categoryId && { categoryId: Number(categoryId) }),
+            ...(type && { type: type as $Enums.CategoryType }),
+            ...(createdBy && { createdBy: Number(createdBy) }),
+            ...(page && { page: Number(page) }),
+            ...(limit && { limit: Number(limit) }),
+            ...(search && { search: search as string }),
+            ...(sortBy && { sortBy: sortBy as string }),
+            ...(order && { order: order as "asc" | "desc" }),
+        };
 
-        const result = await this.transactionService.getTransactions(filters);
+        const result = await this.transactionService.getTransactions(params);
 
         successResponse(res, "Get transactions successfully", result.data, result.meta);
     };

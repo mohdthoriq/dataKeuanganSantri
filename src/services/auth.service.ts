@@ -49,40 +49,14 @@ export class AuthService {
 
   async login(data: { email: string; password: string }) {
     const { email, password } = data;
-
     console.log(`🔐 Login attempt for: ${email}`);
-    try {
-      const user = await this.authRepo.findByEmail(email);
-      if (!user) {
-        console.warn(`⚠️ Login failed: User ${email} not found`);
-        throw new Error("User not found");
-      }
 
-      console.log(`🔍 User found: ${user.email}, isVerified: ${user.isEmailVerified}`);
-      if (!user.isEmailVerified) {
-        console.warn(`⚠️ Login failed: Email ${email} not verified`);
-        throw new Error("Email not verified");
-      }
+    const result = await this.authRepo.login(email, password);
 
-      const isValid = await bcrypt.compare(password, user.password);
-      if (!isValid) {
-        console.warn(`⚠️ Login failed: Invalid password for ${email}`);
-        throw new Error("Invalid password");
-      }
-
-      console.log(`✅ Login successful for: ${email}`);
-      const token = jwt.sign(
-        { id: user.id, role: user.role, institutionId: user.institutionId },
-        config.JWT_SECRET,
-        { expiresIn: "1h" }
-      );
-
-      return { user, token };
-    } catch (error: any) {
-      console.error(`❌ Login error for ${email}:`, error.message);
-      throw error;
-    }
+    console.log(`✅ Login successful for: ${email}`);
+    return result;
   }
+
 
   async requestReset(email: string) {
     const result = await this.authRepo.requestReset(email);

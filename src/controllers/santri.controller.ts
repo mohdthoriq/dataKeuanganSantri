@@ -48,18 +48,22 @@ export class SantriController {
       throw new Error("Institution not found in authenticated user");
     }
 
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
     const search = req.query.search as string | undefined;
-    const sortBy = req.query.sortBy as "nis" | "fullname" | "wali" | undefined;
+    const sortBy = req.query.sortBy as string | undefined;
     const order = (req.query.order as "asc" | "desc") ?? "desc";
 
-    const santriList = await this.santriService.getSantriList(
+    const result = await this.santriService.getSantriList(
       institutionId,
+      page,
+      limit,
       search,
       sortBy,
       order
     );
 
-    successResponse(res, "Santri list fetched successfully", santriList);
+    successResponse(res, "Santri list fetched successfully", result);
   };
 
   getSantriById = async (req: Request, res: Response) => {

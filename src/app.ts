@@ -42,11 +42,7 @@ app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 app.get('/', (_req: Request, res: Response) => {
     successResponse(
         res,
-        "Selamat datang di API E-Commerce!",
-        {
-            hari: 3,
-            status: "Server hidup!"
-        ,}
+        "Selamat datang di API E-Commerce!"
     )
 })
 
@@ -55,9 +51,9 @@ app.use('/api/profile', authenticate, profileRouter)
 app.use('/api/users', authenticate, usersRouter)
 app.use('/api/email-verification', emailVerificationRouter)
 app.use('/api/institution', institutionRouter)
-app.use('/api/santri', santriRouter)
-app.use('/api/transaction', transactionRouter)
-app.use('/api/category', categoryRouter)
+app.use('/api/santri', authenticate, santriRouter)
+app.use('/api/transaction', authenticate, transactionRouter)
+app.use('/api/category', authenticate, categoryRouter)
 app.use('/api/notification', authenticate, notificationRouter)
 
 

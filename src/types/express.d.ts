@@ -1,16 +1,17 @@
 import type { Request } from "express";
 
-declare global{
-    namespace Express{
+declare global {
+    namespace Express {
         interface Request {
             startTime?: number;
             apiKey?: string;
-            user? : {
+            user?: {
                 id: number;
                 role: string;
-                institutionId?: number
+                institutionId?: number;
             }
+
         }
-        
+
     }
 }

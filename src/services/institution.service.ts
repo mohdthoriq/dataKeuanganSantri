@@ -1,7 +1,7 @@
-import { InstitutionRepository, type ICreateInstitutionPayload } from "../repository/institution.repository";
+import { InstitutionRepository, type ICreateInstitutionPayload, type IInstitutionListParams } from "../repository/institution.repository";
 
 export class InstitutionService {
-  constructor(private institutionRepo: InstitutionRepository) {}
+  constructor(private institutionRepo: InstitutionRepository) { }
 
   async createInstitution(payload: ICreateInstitutionPayload) {
     return this.institutionRepo.create(payload);
@@ -11,8 +11,8 @@ export class InstitutionService {
     return this.institutionRepo.getById(id);
   }
 
-  async getInstitutionsByUser(userId: number) {
-    return this.institutionRepo.getByUser(userId);
+  async getInstitutionsByUser(params: IInstitutionListParams) {
+    return this.institutionRepo.getByUser(params);
   }
 
   async updateInstitution(id: number, name: string) {

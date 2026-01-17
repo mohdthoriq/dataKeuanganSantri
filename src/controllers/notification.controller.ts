@@ -1,14 +1,25 @@
 import type { Request, Response } from "express";
 import { successResponse } from "../utils/response";
 import type { NotificationService } from "../services/notification.service";
+import type { INotificationListParams } from "../repository/notification.repository";
 
 export class NotificationController {
-  constructor(private notificationService: NotificationService) {}
+  constructor(private notificationService: NotificationService) { }
 
   getMyNotifications = async (req: Request, res: Response) => {
     const userId = req.user!.id;
-    const notifications = await this.notificationService.getNotifications(userId);
-    successResponse(res, "Notifications fetched", notifications);
+    const { page, limit, sortBy, order } = req.query;
+
+    const params: INotificationListParams = {
+      userId,
+      ...(page && { page: Number(page) }),
+      ...(limit && { limit: Number(limit) }),
+      ...(sortBy && { sortBy: sortBy as string }),
+      ...(order && { order: order as "asc" | "desc" }),
+    };
+
+    const result = await this.notificationService.getNotifications(params);
+    successResponse(res, "Notifications fetched", result.data, result.meta);
   };
 
   readNotification = async (req: Request, res: Response) => {

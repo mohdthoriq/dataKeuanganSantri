@@ -15,9 +15,10 @@ export const authenticate = (req: Request, res: Response, next: NextFunction) =>
     const token = authHeader?.split(' ')[1];
 
     try {
-        const payload = jwt.verify(token!, config.JWT_SECRET) as {id: number, role: string, institutionId: number}
+        const payload = jwt.verify(token!, config.JWT_SECRET) as { id: number, role: string, institutionId: number, institutionName: string }
 
         req.user = payload
+
         next();
     } catch (error) {
         errorResponse(res, "Token tidak valid", 401);

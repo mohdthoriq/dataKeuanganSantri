@@ -2,6 +2,7 @@
 import type { Request, Response } from "express";
 import { successResponse } from "../utils/response";
 import type { InstitutionService } from "../services/institution.service";
+import type { IInstitutionListParams } from "../repository/institution.repository";
 
 export interface IInstitutionController {
   createInstitution(req: Request, res: Response): Promise<void>;
@@ -12,7 +13,7 @@ export interface IInstitutionController {
 }
 
 export class InstitutionController implements IInstitutionController {
-  constructor(private institutionService: InstitutionService) {}
+  constructor(private institutionService: InstitutionService) { }
 
   createInstitution = async (req: Request, res: Response) => {
     const { name } = req.body;
@@ -30,9 +31,20 @@ export class InstitutionController implements IInstitutionController {
   getInstitutionsByUser = async (req: Request, res: Response) => {
     if (!req.user?.id) throw new Error("Unauthorized");
 
-    const institutions = await this.institutionService.getInstitutionsByUser(req.user.id);
+    const { page, limit, search, sortBy, order } = req.query;
 
-    successResponse(res, "Get institutions success", institutions);
+    const params: IInstitutionListParams = {
+      userId: req.user.id,
+      ...(page && { page: Number(page) }),
+      ...(limit && { limit: Number(limit) }),
+      ...(search && { search: search as string }),
+      ...(sortBy && { sortBy: sortBy as string }),
+      ...(order && { order: order as "asc" | "desc" }),
+    };
+
+    const result = await this.institutionService.getInstitutionsByUser(params);
+
+    successResponse(res, "Get institutions success", result.data, result.meta);
   };
 
   getInstitutionById = async (req: Request, res: Response) => {

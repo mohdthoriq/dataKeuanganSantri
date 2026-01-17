@@ -1,6 +1,8 @@
 // src/repository/santri.repository.ts
 import type { PrismaClient, Santri, Prisma } from "../database";
 
+import type { IPaginatedResult, IPaginationParams } from "../types/common";
+
 export interface ICreateSantriPayload {
   nis: string;
   fullname: string;
@@ -12,9 +14,13 @@ export interface ICreateSantriPayload {
   institutionName?: string;
 }
 
+export interface ISantriListParams extends IPaginationParams {
+  institutionId: number;
+}
+
 export interface ISantriRepository {
   create(payload: ICreateSantriPayload): Promise<Santri>;
-  getList(institutionId: number, search?: string, sortBy?: "nis" | "fullname" | "wali", order?: "asc" | "desc"): Promise<Santri[]>;
+  getList(params: ISantriListParams): Promise<IPaginatedResult<Santri>>;
   getById(id: number): Promise<Santri>;
   update(id: number, data: Partial<ICreateSantriPayload>): Promise<Santri>;
   delete(id: number): Promise<boolean>;
@@ -96,11 +102,19 @@ export class SantriRepository implements ISantriRepository {
   }
 
   async getList(
-    institutionId: number,
-    search?: string,
-    sortBy?: "nis" | "fullname" | "wali",
-    order: "asc" | "desc" = "desc"
-  ): Promise<Santri[]> {
+    params: ISantriListParams
+  ): Promise<IPaginatedResult<Santri>> {
+    const {
+      institutionId,
+      page = 1,
+      limit = 10,
+      search,
+      sortBy,
+      order = "desc",
+    } = params;
+
+    const skip = (page - 1) * limit;
+
     const where: Prisma.SantriWhereInput = {
       institutionId,
     };
@@ -129,22 +143,37 @@ export class SantriRepository implements ISantriRepository {
       orderBy.createdAt = order;
     }
 
-    return this.prisma.santri.findMany({
-      where,
-      orderBy,
-      include: {
-        wali: {
-          select: {
-            username: true,
+    const [data, total] = await this.prisma.$transaction([
+      this.prisma.santri.findMany({
+        where,
+        orderBy,
+        skip,
+        take: limit,
+        include: {
+          wali: {
+            select: {
+              username: true,
+            },
+          },
+          institution: {
+            select: {
+              name: true,
+            },
           },
         },
-        institution: {
-          select: {
-            name: true,
-          },
-        },
+      }),
+      this.prisma.santri.count({ where }),
+    ]);
+
+    return {
+      data,
+      meta: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
       },
-    });
+    };
   }
 
   async getById(id: number): Promise<Santri> {

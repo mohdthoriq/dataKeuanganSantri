@@ -1,14 +1,16 @@
 // src/repository/category.repository.ts
-import type { PrismaClient, Category, $Enums } from "../database";
+import type { PrismaClient, Category, $Enums, Prisma } from "../database";
+import type { IPaginatedResult, IPaginationParams } from "../types/common";
+
+export interface ICategoryListParams extends IPaginationParams {
+  institutionId: number;
+  type?: $Enums.CategoryType;
+  isActive?: boolean;
+}
 
 export interface ICategoryRepository {
   create(data: { name: string; type: $Enums.CategoryType; institutionId: number }): Promise<Category>;
-  getList(params: {
-    institutionId: number;
-    type?: $Enums.CategoryType;
-    isActive?: boolean;
-    search?: string;
-  }): Promise<Category[]>;
+  getList(params: ICategoryListParams): Promise<IPaginatedResult<Category>>;
   getById(id: number): Promise<Category>;
   updateById(
     id: number,
@@ -19,7 +21,7 @@ export interface ICategoryRepository {
 }
 
 export class CategoryRepository implements ICategoryRepository {
-  constructor(private prisma: PrismaClient) {}
+  constructor(private prisma: PrismaClient) { }
 
   async create(data: { name: string; type: $Enums.CategoryType; institutionId: number }) {
     const exist = await this.prisma.category.findFirst({
@@ -30,17 +32,52 @@ export class CategoryRepository implements ICategoryRepository {
     return this.prisma.category.create({ data });
   }
 
-  async getList(params: { institutionId: number; type?: $Enums.CategoryType; isActive?: boolean; search?: string }) {
-    const where: Record<string, any> = { institutionId: params.institutionId };
+  async getList(params: ICategoryListParams): Promise<IPaginatedResult<Category>> {
+    const {
+      institutionId,
+      type,
+      isActive,
+      page = 1,
+      limit = 10,
+      search,
+      sortBy,
+      order = "desc",
+    } = params;
 
-    if (params.type) where.type = params.type;
-    if (params.isActive !== undefined) where.isActive = params.isActive;
-    if (params.search) where.name = { contains: params.search, mode: "insensitive" };
+    const skip = (page - 1) * limit;
 
-    return this.prisma.category.findMany({
-      where,
-      orderBy: { createdAt: "desc" },
-    });
+    const where: Prisma.CategoryWhereInput = { institutionId };
+
+    if (type) where.type = type;
+    if (isActive !== undefined) where.isActive = isActive;
+    if (search) where.name = { contains: search, mode: "insensitive" };
+
+    const orderBy: Prisma.CategoryOrderByWithRelationInput = {};
+    if (sortBy === "name") {
+      orderBy.name = order;
+    } else {
+      orderBy.createdAt = order;
+    }
+
+    const [data, total] = await this.prisma.$transaction([
+      this.prisma.category.findMany({
+        where,
+        orderBy,
+        skip,
+        take: limit,
+      }),
+      this.prisma.category.count({ where }),
+    ]);
+
+    return {
+      data,
+      meta: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
   }
 
   async getById(id: number) {

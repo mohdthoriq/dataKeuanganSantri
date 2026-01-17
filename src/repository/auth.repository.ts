@@ -27,12 +27,9 @@ export type RegisterAdminResult = {
 export type LoginResult = {
     token: string;
     user: {
-        id: number;
-        email: string;
         username: string;
         role: string;
-        institutionId: number | null;
-        institutionName?: string | null | undefined;
+        institutionName?: string | null;
     };
 };
 
@@ -138,7 +135,7 @@ export class AuthRepository implements IAuthRepository {
         if (!user.isEmailVerified) throw new Error("Email not verified");
 
         const token = jwt.sign(
-            { id: user.id, role: user.role, institutionId: user.institutionId },
+            { id: user.id, role: user.role, institutionId: user.institutionId, institutionName: user.institution?.name },
             process.env.JWT_SECRET!,
             { expiresIn: "1h" }
         );
@@ -146,12 +143,9 @@ export class AuthRepository implements IAuthRepository {
         return {
             token,
             user: {
-                id: user.id,
-                email: user.email,
-                role: user.role,
                 username: user.username,
-                institutionId: user.institutionId,
-                institutionName: user.institution?.name,
+                role: user.role,
+                institutionName: user.institution?.name ?? null,
             },
         };
     }

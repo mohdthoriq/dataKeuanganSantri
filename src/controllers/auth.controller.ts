@@ -28,7 +28,7 @@ export class AuthController implements IAuthController {
     const { email, password } = req.body;
     const result = await this.authService.login({ email, password });
 
-    successResponse(res, "Login successfully", result);
+    successResponse(res, "Login successfully", result); 
   };
 
   requestReset = async (req: Request, res: Response) => {
