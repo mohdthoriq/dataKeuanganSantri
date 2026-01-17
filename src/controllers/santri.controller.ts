@@ -8,7 +8,7 @@ export class SantriController {
   constructor(
     private santriService: SantriService,
     private institutionService: InstitutionService
-  ) {}
+  ) { }
 
   createSantri = async (req: Request, res: Response) => {
     const { nis, fullname, kelas, gender, waliName, institutionName } = req.body;
@@ -21,7 +21,7 @@ export class SantriController {
     let institution = await this.institutionService.getInstitutionByName(institutionName);
     if (!institution) {
       console.log(`Institution '${institutionName}' not found, creating new one...`);
-      
+
       // Use a default admin ID (1) for auto-created institutions
       institution = await this.institutionService.createInstitution({
         name: institutionName,
@@ -42,7 +42,7 @@ export class SantriController {
   };
 
   getSantriList = async (req: Request, res: Response) => {
-    const user = res.locals.user;
+    const user = req.user;
     const institutionId = user?.institutionId;
     if (!institutionId) {
       throw new Error("Institution not found in authenticated user");
