@@ -1,0 +1,59 @@
+[dotenv@17.2.3] injecting env (12) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+Columns in Santri table:
+[
+  {
+    "column_name": "id",
+    "data_type": "integer"
+  },
+  {
+    "column_name": "nis",
+    "data_type": "text"
+  },
+  {
+    "column_name": "fullname",
+    "data_type": "text"
+  },
+  {
+    "column_name": "kelas",
+    "data_type": "text"
+  },
+  {
+    "column_name": "gender",
+    "data_type": "text"
+  },
+  {
+    "column_name": "waliId",
+    "data_type": "integer"
+  },
+  {
+    "column_name": "institutionId",
+    "data_type": "integer"
+  },
+  {
+    "column_name": "waliName",
+    "data_type": "text"
+  },
+  {
+    "column_name": "institutionName",
+    "data_type": "text"
+  },
+  {
+    "column_name": "isActive",
+    "data_type": "boolean"
+  },
+  {
+    "column_name": "createdAt",
+    "data_type": "timestamp without time zone"
+  }
+]
+Indexes in Santri table:
+[
+  {
+    "indexname": "Santri_pkey",
+    "indexdef": "CREATE UNIQUE INDEX \"Santri_pkey\" ON public.\"Santri\" USING btree (id)"
+  },
+  {
+    "indexname": "Santri_nis_institutionId_key",
+    "indexdef": "CREATE UNIQUE INDEX \"Santri_nis_institutionId_key\" ON public.\"Santri\" USING btree (nis, \"institutionId\")"
+  }
+]

@@ -47,12 +47,10 @@ export class SantriRepository implements ISantriRepository {
       throw new Error("Institution ID or Name is required");
     }
 
-    const exists = await this.prisma.santri.findUnique({
+    const exists = await this.prisma.santri.findFirst({
       where: {
-        nis_institutionId: {
-          nis: payload.nis,
-          institutionId: institutionId!,
-        },
+        nis: payload.nis,
+        institutionId: institutionId!,
       },
     });
 
