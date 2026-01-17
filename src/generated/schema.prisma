@@ -114,6 +114,8 @@ model Santri {
 
   authAccounts AuthAccount[]
   transactions Transaction[]
+
+  @@map("Santri")
 }
 
 model Transaction {
