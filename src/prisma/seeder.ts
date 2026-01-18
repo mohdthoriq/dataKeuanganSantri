@@ -16,6 +16,7 @@ async function main() {
   await prisma.category.deleteMany();
   await prisma.emailVerification.deleteMany();
   await prisma.notification.deleteMany();
+  await prisma.users.updateMany({ data: { institutionId: null } }); // Putuskan relasi circular sebelum delete
   await prisma.institution.deleteMany();
   await prisma.users.deleteMany();
 
@@ -75,10 +76,11 @@ async function main() {
     institutions.push(institution);
 
     // Update admin dengan institutionId
-    await prisma.users.update({
+    const updatedAdmin = await prisma.users.update({
       where: { id: admin.id },
       data: { institutionId: institution.id },
     });
+    admins[i] = updatedAdmin; // Update data di memory agar bisa dipakai di step selanjutnya (Langkah 7)
   }
   console.log(`✅ ${institutions.length} institutions dibuat`);
 
