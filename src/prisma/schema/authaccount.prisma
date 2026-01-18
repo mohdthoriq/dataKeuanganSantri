@@ -1,4 +1,4 @@
-model AuthAccount {
+model auth_account {
   id        Int      @id @default(autoincrement())
   username  String
   password  String
@@ -6,8 +6,6 @@ model AuthAccount {
   santriId  Int?
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
-
-  // relations
-  user   User   @relation(fields: [userId], references: [id])
-  santri Santri? @relation(fields: [santriId], references: [id])
+  santri    santri?  @relation(fields: [santriId], references: [id])
+  user      user     @relation(fields: [userId], references: [id])
 }

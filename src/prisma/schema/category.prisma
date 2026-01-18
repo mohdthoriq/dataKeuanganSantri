@@ -1,12 +1,10 @@
-model Category {
-  id            Int          @id @default(autoincrement())
+model category {
+  id            Int           @id @default(autoincrement())
   name          String
-  type          CategoryType
+  type          category_type
   institutionId Int
-  isActive      Boolean      @default(true)
-  createdAt     DateTime     @default(now())
-
-  // relations
-  institution Institution  @relation(fields: [institutionId], references: [id])
-  transactions Transaction[]
+  isActive      Boolean       @default(true)
+  createdAt     DateTime      @default(now())
+  institution   institution   @relation(fields: [institutionId], references: [id])
+  transactions  transaction[]
 }

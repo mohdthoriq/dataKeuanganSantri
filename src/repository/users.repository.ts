@@ -11,14 +11,14 @@ export interface ICreateUserPayload {
   username: string;
   email: string;
   password: string;
-  role: $Enums.UserRole;
+  role: $Enums.user_role;
   institutionId?: number;
 }
 
 export interface IUpdateUserPayload {
   username?: string;
   email?: string;
-  role?: $Enums.UserRole;
+  role?: $Enums.user_role;
   institutionId?: number | null;
 }
 
@@ -54,7 +54,7 @@ export class UserRepository implements IUserRepository {
     } = params;
     const skip = (page - 1) * limit;
 
-    const where: Prisma.UserWhereInput = {};
+    const where: Prisma.userWhereInput = {};
     if (search) {
       where.OR = [
         { username: { contains: search, mode: "insensitive" } },
@@ -63,7 +63,7 @@ export class UserRepository implements IUserRepository {
     }
     if (isActive !== undefined) where.isActive = isActive;
 
-    const orderBy: Prisma.UserOrderByWithRelationInput = {};
+    const orderBy: Prisma.userOrderByWithRelationInput = {};
     if (sortBy === "username") orderBy.username = order;
     else if (sortBy === "email") orderBy.email = order;
     else orderBy.createdAt = order;

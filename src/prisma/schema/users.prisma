@@ -1,24 +1,20 @@
-model User {
-  id               Int       @id @default(autoincrement())
-  username         String
-  email            String    @unique
-  password         String
-  role             UserRole
-  institutionId    Int?
-  isEmailVerified  Boolean   @default(false)
-  isActive         Boolean   @default(true)
-  createdAt        DateTime  @default(now())
-  profile          Profile?
-
-  // relations
-  institution Institution? @relation("InstitutionUsers", fields: [institutionId], references: [id])
-
-  createdInstitutions Institution[] @relation("InstitutionAdmin")
-
-  santri             Santri[] @relation("WaliSantri")
-  emailVerifications EmailVerification[]
-  authAccounts       AuthAccount[]
-  transactions       Transaction[] @relation("AdminTransactions")
-  notifications      Notification[]
-  passwordResets     PasswordReset[]
+model user {
+  id                  Int                 @id @default(autoincrement())
+  username            String
+  email               String              @unique
+  password            String
+  role                user_role
+  institutionId       Int?
+  isEmailVerified     Boolean             @default(false)
+  isActive            Boolean             @default(true)
+  createdAt           DateTime            @default(now())
+  authAccounts        auth_account[]
+  emailVerifications  email_verification[]
+  createdInstitutions institution[]       @relation("InstitutionAdmin")
+  notifications       notification[]
+  passwordResets      password_reset[]
+  profile             profile?
+  santri              santri[]            @relation("WaliSantri")
+  transactions        transaction[]       @relation("AdminTransactions")
+  institution         institution?        @relation("InstitutionUsers", fields: [institutionId], references: [id])
 }

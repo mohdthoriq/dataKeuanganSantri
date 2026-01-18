@@ -115,7 +115,7 @@ export class SantriRepository implements ISantriRepository {
 
     const skip = (page - 1) * limit;
 
-    const where: Prisma.SantriWhereInput = {
+    const where: Prisma.santriWhereInput = {
       institutionId,
     };
 
@@ -131,7 +131,7 @@ export class SantriRepository implements ISantriRepository {
       ];
     }
 
-    const orderBy: Prisma.SantriOrderByWithRelationInput = {};
+    const orderBy: Prisma.santriOrderByWithRelationInput = {};
     if (sortBy === "nis") {
       orderBy.nis = order;
     } else if (sortBy === "fullname") {
@@ -210,7 +210,7 @@ export class SantriRepository implements ISantriRepository {
     }
 
     const { waliId, institutionId, ...otherData } = data;
-    const updateData: Prisma.SantriUpdateInput = { ...otherData };
+    const updateData: Prisma.santriUpdateInput = { ...otherData };
 
     if (waliId && waliId !== santri.waliId) {
       updateData.wali = { connect: { id: waliId } };

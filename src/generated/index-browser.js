@@ -120,7 +120,7 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.EmailVerificationScalarFieldEnum = {
+exports.Prisma.Email_verificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   otpCode: 'otpCode',
@@ -129,7 +129,7 @@ exports.Prisma.EmailVerificationScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.AuthAccountScalarFieldEnum = {
+exports.Prisma.Auth_accountScalarFieldEnum = {
   id: 'id',
   username: 'username',
   password: 'password',
@@ -165,7 +165,7 @@ exports.Prisma.NotificationScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.PasswordResetScalarFieldEnum = {
+exports.Prisma.Password_resetScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   otpCode: 'otpCode',
@@ -179,11 +179,11 @@ exports.Prisma.ProfileScalarFieldEnum = {
   name: 'name',
   gender: 'gender',
   address: 'address',
-  phone: 'phone',
-  occupation: 'occupation',
   profile_picture_url: 'profile_picture_url',
   public_id: 'public_id',
-  userId: 'userId'
+  userId: 'userId',
+  occupation: 'occupation',
+  phone: 'phone'
 };
 
 exports.Prisma.SantriScalarFieldEnum = {
@@ -239,27 +239,27 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-exports.CategoryType = exports.$Enums.CategoryType = {
+exports.category_type = exports.$Enums.category_type = {
   PEMASUKAN: 'PEMASUKAN',
   PENGELUARAN: 'PENGELUARAN'
 };
 
-exports.UserRole = exports.$Enums.UserRole = {
+exports.user_role = exports.$Enums.user_role = {
   ADMIN: 'ADMIN',
   WALI_SANTRI: 'WALI_SANTRI'
 };
 
 exports.Prisma.ModelName = {
-  EmailVerification: 'EmailVerification',
-  AuthAccount: 'AuthAccount',
-  Category: 'Category',
-  Institution: 'Institution',
-  Notification: 'Notification',
-  PasswordReset: 'PasswordReset',
-  Profile: 'Profile',
-  Santri: 'Santri',
-  Transaction: 'Transaction',
-  User: 'User'
+  email_verification: 'email_verification',
+  auth_account: 'auth_account',
+  category: 'category',
+  institution: 'institution',
+  notification: 'notification',
+  password_reset: 'password_reset',
+  profile: 'profile',
+  santri: 'santri',
+  transaction: 'transaction',
+  user: 'user'
 };
 
 /**
