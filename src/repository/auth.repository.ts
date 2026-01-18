@@ -52,8 +52,7 @@ export class AuthRepository implements IAuthRepository {
     constructor(private prisma: PrismaClient) { }
 
     async findByEmail(email: string) {
-        const user = await this.prisma.users.findUnique({ where: { email } });
-        return user;
+        return await this.prisma.users.findUnique({ where: { email } });
     }
 
     async registerAdmin(payload: RegisterAdminPayload): Promise<RegisterAdminResult> {
@@ -63,9 +62,7 @@ export class AuthRepository implements IAuthRepository {
             throw new Error("Username, email, and password are required");
         }
 
-        const existingUser = await this.prisma.users.findUnique({
-            where: { email },
-        });
+        const existingUser = await this.findByEmail(email);
 
         if (existingUser) {
             throw new Error("User already exists");
