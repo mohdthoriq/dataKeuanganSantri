@@ -62,12 +62,6 @@ export class AuthRepository implements IAuthRepository {
             throw new Error("Username, email, and password are required");
         }
 
-        const existingUser = await this.findByEmail(email);
-
-        if (existingUser) {
-            throw new Error("User already exists");
-        }
-
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const result = await this.prisma.$transaction(async (tx) => {
@@ -120,7 +114,7 @@ export class AuthRepository implements IAuthRepository {
     }
 
     async login(email: string, password: string): Promise<LoginResult> {
-        const user = await this.prisma.users.findFirst({
+        const user = await this.prisma.users.findUnique({
             where: { email },
             include: { institution: { select: { name: true } } }
         });
