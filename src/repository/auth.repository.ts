@@ -120,7 +120,7 @@ export class AuthRepository implements IAuthRepository {
     }
 
     async login(email: string, password: string): Promise<LoginResult> {
-        const user = await this.prisma.users.findUnique({
+        const user = await this.prisma.users.findFirst({
             where: { email },
             include: { institution: { select: { name: true } } }
         });
