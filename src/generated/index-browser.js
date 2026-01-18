@@ -179,11 +179,11 @@ exports.Prisma.ProfileScalarFieldEnum = {
   name: 'name',
   gender: 'gender',
   address: 'address',
-  phone: 'phone',
-  occupation: 'occupation',
   profile_picture_url: 'profile_picture_url',
   public_id: 'public_id',
-  userId: 'userId'
+  userId: 'userId',
+  occupation: 'occupation',
+  phone: 'phone'
 };
 
 exports.Prisma.SantriScalarFieldEnum = {
@@ -239,12 +239,12 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-exports.CategoryType = exports.$Enums.CategoryType = {
+exports.category_type = exports.$Enums.category_type = {
   PEMASUKAN: 'PEMASUKAN',
   PENGELUARAN: 'PENGELUARAN'
 };
 
-exports.UserRole = exports.$Enums.UserRole = {
+exports.user_role = exports.$Enums.user_role = {
   ADMIN: 'ADMIN',
   WALI_SANTRI: 'WALI_SANTRI'
 };

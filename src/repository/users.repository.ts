@@ -11,14 +11,14 @@ export interface ICreateUserPayload {
   username: string;
   email: string;
   password: string;
-  role: $Enums.UserRole;
+  role: $Enums.user_role;
   institutionId?: number;
 }
 
 export interface IUpdateUserPayload {
   username?: string;
   email?: string;
-  role?: $Enums.UserRole;
+  role?: $Enums.user_role;
   institutionId?: number | null;
 }
 

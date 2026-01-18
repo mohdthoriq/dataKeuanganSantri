@@ -1,15 +1,16 @@
-model EmailVerification {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  otpCode   String
-  expiredAt DateTime
-  isUsed    Boolean  @default(false)
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-
-  @@map("email_verification")
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
+// src\prisma\schema.prisma
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../generated"
+  previewFeatures = ["prismaSchemaFolder"]
 }
 
+datasource db {
+  provider = "postgresql"
+}
+
+// src\prisma\schema\authaccount.prisma
 model AuthAccount {
   id        Int      @id @default(autoincrement())
   username  String
@@ -20,33 +21,43 @@ model AuthAccount {
   createdAt DateTime @default(now())
   santri    Santri?  @relation(fields: [santriId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
-
-  @@map("auth_account")
 }
 
+// src\prisma\schema\category.prisma
 model Category {
   id            Int           @id @default(autoincrement())
   name          String
-  type          category_type
+  type          CategoryType
   institutionId Int
   isActive      Boolean       @default(true)
   createdAt     DateTime      @default(now())
   institution   Institution   @relation(fields: [institutionId], references: [id])
   transactions  Transaction[]
-
-  @@map("category")
 }
 
-enum user_role {
+// src\prisma\schema\EmailVerification.prisma
+model EmailVerification {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  otpCode   String
+  expiredAt DateTime
+  isUsed    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+// src\prisma\schema\enum.prisma
+enum UserRole {
   ADMIN
   WALI_SANTRI
 }
 
-enum category_type {
+enum CategoryType {
   PEMASUKAN
   PENGELUARAN
 }
 
+// src\prisma\schema\institution.prisma
 model Institution {
   id         Int        @id @default(autoincrement())
   name       String     @unique
@@ -57,10 +68,9 @@ model Institution {
   admin      User       @relation("InstitutionAdmin", fields: [createdBy], references: [id])
   santri     Santri[]
   users      User[]     @relation("InstitutionUsers")
-
-  @@map("institution")
 }
 
+// src\prisma\schema\notification.prisma
 model Notification {
   id        Int      @id @default(autoincrement())
   userId    Int
@@ -69,10 +79,9 @@ model Notification {
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id])
-
-  @@map("notification")
 }
 
+// src\prisma\schema\passwordReset.prisma
 model PasswordReset {
   id        Int      @id @default(autoincrement())
   userId    Int
@@ -81,10 +90,9 @@ model PasswordReset {
   isUsed    Boolean  @default(false)
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id])
-
-  @@map("password_reset")
 }
 
+// src\prisma\schema\profile.prisma
 model Profile {
   id                  Int     @id @default(autoincrement())
   name                String
@@ -96,10 +104,9 @@ model Profile {
   occupation          String?
   phone               String?
   user                User    @relation(fields: [userId], references: [id])
-
-  @@map("profile")
 }
 
+// src\prisma\schema\santri.prisma
 model Santri {
   id              Int           @id @default(autoincrement())
   nis             String        @unique
@@ -117,33 +124,33 @@ model Santri {
   wali            User          @relation("WaliSantri", fields: [waliId], references: [id])
   transactions    Transaction[]
 
-  @@map("santri")
+  @@map("Santri")
 }
 
+// src\prisma\schema\transaction.prisma
 model Transaction {
-  id              Int           @id @default(autoincrement())
+  id              Int          @id @default(autoincrement())
   santriId        Int
   categoryId      Int
-  type            category_type
+  type            CategoryType
   amount          Decimal
   description     String?
   transactionDate DateTime
   createdBy       Int
-  isDeleted       Boolean       @default(false)
-  createdAt       DateTime      @default(now())
-  category        Category      @relation(fields: [categoryId], references: [id])
-  admin           User          @relation("AdminTransactions", fields: [createdBy], references: [id])
-  santri          Santri        @relation(fields: [santriId], references: [id])
-
-  @@map("transaction")
+  isDeleted       Boolean      @default(false)
+  createdAt       DateTime     @default(now())
+  category        Category     @relation(fields: [categoryId], references: [id])
+  admin           User         @relation("AdminTransactions", fields: [createdBy], references: [id])
+  santri          Santri       @relation(fields: [santriId], references: [id])
 }
 
+// src\prisma\schema\users.prisma
 model User {
   id                  Int                 @id @default(autoincrement())
   username            String
   email               String              @unique
   password            String
-  role                user_role
+  role                UserRole
   institutionId       Int?
   isEmailVerified     Boolean             @default(false)
   isActive            Boolean             @default(true)
@@ -157,15 +164,6 @@ model User {
   santri              Santri[]            @relation("WaliSantri")
   transactions        Transaction[]       @relation("AdminTransactions")
   institution         Institution?        @relation("InstitutionUsers", fields: [institutionId], references: [id])
-
-  @@map("user")
 }
 
-generator client {
-  provider = "prisma-client-js"
-  output   = "../generated"
-}
 
-datasource db {
-  provider = "postgresql"
-}

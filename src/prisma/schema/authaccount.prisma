@@ -6,8 +6,8 @@ model AuthAccount {
   santriId  Int?
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
+  santri    Santri?  @relation(fields: [santriId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 
-  // relations
-  user   User   @relation(fields: [userId], references: [id])
-  santri Santri? @relation(fields: [santriId], references: [id])
+  @@map("auth_account")
 }

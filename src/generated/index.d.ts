@@ -68,30 +68,30 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * Enums
  */
 export namespace $Enums {
-  export const UserRole: {
+  export const user_role: {
   ADMIN: 'ADMIN',
   WALI_SANTRI: 'WALI_SANTRI'
 };
 
-export type UserRole = (typeof UserRole)[keyof typeof UserRole]
+export type user_role = (typeof user_role)[keyof typeof user_role]
 
 
-export const CategoryType: {
+export const category_type: {
   PEMASUKAN: 'PEMASUKAN',
   PENGELUARAN: 'PENGELUARAN'
 };
 
-export type CategoryType = (typeof CategoryType)[keyof typeof CategoryType]
+export type category_type = (typeof category_type)[keyof typeof category_type]
 
 }
 
-export type UserRole = $Enums.UserRole
+export type user_role = $Enums.user_role
 
-export const UserRole: typeof $Enums.UserRole
+export const user_role: typeof $Enums.user_role
 
-export type CategoryType = $Enums.CategoryType
+export type category_type = $Enums.category_type
 
-export const CategoryType: typeof $Enums.CategoryType
+export const category_type: typeof $Enums.category_type
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1741,15 +1741,15 @@ export namespace Prisma {
    */
 
   export type InstitutionCountOutputType = {
-    users: number
-    santri: number
     categories: number
+    santri: number
+    users: number
   }
 
   export type InstitutionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    users?: boolean | InstitutionCountOutputTypeCountUsersArgs
-    santri?: boolean | InstitutionCountOutputTypeCountSantriArgs
     categories?: boolean | InstitutionCountOutputTypeCountCategoriesArgs
+    santri?: boolean | InstitutionCountOutputTypeCountSantriArgs
+    users?: boolean | InstitutionCountOutputTypeCountUsersArgs
   }
 
   // Custom InputTypes
@@ -1766,8 +1766,8 @@ export namespace Prisma {
   /**
    * InstitutionCountOutputType without action
    */
-  export type InstitutionCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UserWhereInput
+  export type InstitutionCountOutputTypeCountCategoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CategoryWhereInput
   }
 
   /**
@@ -1780,8 +1780,8 @@ export namespace Prisma {
   /**
    * InstitutionCountOutputType without action
    */
-  export type InstitutionCountOutputTypeCountCategoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CategoryWhereInput
+  export type InstitutionCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
   }
 
 
@@ -1830,23 +1830,23 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    createdInstitutions: number
-    santri: number
-    emailVerifications: number
     authAccounts: number
-    transactions: number
+    emailVerifications: number
+    createdInstitutions: number
     notifications: number
     passwordResets: number
+    santri: number
+    transactions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    createdInstitutions?: boolean | UserCountOutputTypeCountCreatedInstitutionsArgs
-    santri?: boolean | UserCountOutputTypeCountSantriArgs
-    emailVerifications?: boolean | UserCountOutputTypeCountEmailVerificationsArgs
     authAccounts?: boolean | UserCountOutputTypeCountAuthAccountsArgs
-    transactions?: boolean | UserCountOutputTypeCountTransactionsArgs
+    emailVerifications?: boolean | UserCountOutputTypeCountEmailVerificationsArgs
+    createdInstitutions?: boolean | UserCountOutputTypeCountCreatedInstitutionsArgs
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
     passwordResets?: boolean | UserCountOutputTypeCountPasswordResetsArgs
+    santri?: boolean | UserCountOutputTypeCountSantriArgs
+    transactions?: boolean | UserCountOutputTypeCountTransactionsArgs
   }
 
   // Custom InputTypes
@@ -1863,15 +1863,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountCreatedInstitutionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: InstitutionWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountSantriArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SantriWhereInput
+  export type UserCountOutputTypeCountAuthAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuthAccountWhereInput
   }
 
   /**
@@ -1884,15 +1877,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountAuthAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AuthAccountWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TransactionWhereInput
+  export type UserCountOutputTypeCountCreatedInstitutionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InstitutionWhereInput
   }
 
   /**
@@ -1907,6 +1893,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountPasswordResetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PasswordResetWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSantriArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SantriWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionWhereInput
   }
 
 
@@ -3245,8 +3245,8 @@ export namespace Prisma {
     santriId?: boolean
     isActive?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     santri?: boolean | AuthAccount$santriArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["authAccount"]>
 
   export type AuthAccountSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3257,8 +3257,8 @@ export namespace Prisma {
     santriId?: boolean
     isActive?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     santri?: boolean | AuthAccount$santriArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["authAccount"]>
 
   export type AuthAccountSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3269,8 +3269,8 @@ export namespace Prisma {
     santriId?: boolean
     isActive?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     santri?: boolean | AuthAccount$santriArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["authAccount"]>
 
   export type AuthAccountSelectScalar = {
@@ -3285,23 +3285,23 @@ export namespace Prisma {
 
   export type AuthAccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "password" | "userId" | "santriId" | "isActive" | "createdAt", ExtArgs["result"]["authAccount"]>
   export type AuthAccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     santri?: boolean | AuthAccount$santriArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type AuthAccountIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     santri?: boolean | AuthAccount$santriArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type AuthAccountIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     santri?: boolean | AuthAccount$santriArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $AuthAccountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "AuthAccount"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       santri: Prisma.$SantriPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -3705,8 +3705,8 @@ export namespace Prisma {
    */
   export interface Prisma__AuthAccountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     santri<T extends AuthAccount$santriArgs<ExtArgs> = {}>(args?: Subset<T, AuthAccount$santriArgs<ExtArgs>>): Prisma__SantriClient<$Result.GetResult<Prisma.$SantriPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4201,7 +4201,7 @@ export namespace Prisma {
   export type CategoryMinAggregateOutputType = {
     id: number | null
     name: string | null
-    type: $Enums.CategoryType | null
+    type: $Enums.category_type | null
     institutionId: number | null
     isActive: boolean | null
     createdAt: Date | null
@@ -4210,7 +4210,7 @@ export namespace Prisma {
   export type CategoryMaxAggregateOutputType = {
     id: number | null
     name: string | null
-    type: $Enums.CategoryType | null
+    type: $Enums.category_type | null
     institutionId: number | null
     isActive: boolean | null
     createdAt: Date | null
@@ -4354,7 +4354,7 @@ export namespace Prisma {
   export type CategoryGroupByOutputType = {
     id: number
     name: string
-    type: $Enums.CategoryType
+    type: $Enums.category_type
     institutionId: number
     isActive: boolean
     createdAt: Date
@@ -4442,7 +4442,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
-      type: $Enums.CategoryType
+      type: $Enums.category_type
       institutionId: number
       isActive: boolean
       createdAt: Date
@@ -4873,7 +4873,7 @@ export namespace Prisma {
   interface CategoryFieldRefs {
     readonly id: FieldRef<"Category", 'Int'>
     readonly name: FieldRef<"Category", 'String'>
-    readonly type: FieldRef<"Category", 'CategoryType'>
+    readonly type: FieldRef<"Category", 'category_type'>
     readonly institutionId: FieldRef<"Category", 'Int'>
     readonly isActive: FieldRef<"Category", 'Boolean'>
     readonly createdAt: FieldRef<"Category", 'DateTime'>
@@ -5517,10 +5517,10 @@ export namespace Prisma {
     createdBy?: boolean
     isActive?: boolean
     createdAt?: boolean
-    users?: boolean | Institution$usersArgs<ExtArgs>
-    santri?: boolean | Institution$santriArgs<ExtArgs>
     categories?: boolean | Institution$categoriesArgs<ExtArgs>
     admin?: boolean | UserDefaultArgs<ExtArgs>
+    santri?: boolean | Institution$santriArgs<ExtArgs>
+    users?: boolean | Institution$usersArgs<ExtArgs>
     _count?: boolean | InstitutionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["institution"]>
 
@@ -5552,10 +5552,10 @@ export namespace Prisma {
 
   export type InstitutionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdBy" | "isActive" | "createdAt", ExtArgs["result"]["institution"]>
   export type InstitutionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    users?: boolean | Institution$usersArgs<ExtArgs>
-    santri?: boolean | Institution$santriArgs<ExtArgs>
     categories?: boolean | Institution$categoriesArgs<ExtArgs>
     admin?: boolean | UserDefaultArgs<ExtArgs>
+    santri?: boolean | Institution$santriArgs<ExtArgs>
+    users?: boolean | Institution$usersArgs<ExtArgs>
     _count?: boolean | InstitutionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type InstitutionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5568,10 +5568,10 @@ export namespace Prisma {
   export type $InstitutionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Institution"
     objects: {
-      users: Prisma.$UserPayload<ExtArgs>[]
-      santri: Prisma.$SantriPayload<ExtArgs>[]
       categories: Prisma.$CategoryPayload<ExtArgs>[]
       admin: Prisma.$UserPayload<ExtArgs>
+      santri: Prisma.$SantriPayload<ExtArgs>[]
+      users: Prisma.$UserPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -5973,10 +5973,10 @@ export namespace Prisma {
    */
   export interface Prisma__InstitutionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    users<T extends Institution$usersArgs<ExtArgs> = {}>(args?: Subset<T, Institution$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    santri<T extends Institution$santriArgs<ExtArgs> = {}>(args?: Subset<T, Institution$santriArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SantriPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     categories<T extends Institution$categoriesArgs<ExtArgs> = {}>(args?: Subset<T, Institution$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     admin<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    santri<T extends Institution$santriArgs<ExtArgs> = {}>(args?: Subset<T, Institution$santriArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SantriPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    users<T extends Institution$usersArgs<ExtArgs> = {}>(args?: Subset<T, Institution$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6407,27 +6407,27 @@ export namespace Prisma {
   }
 
   /**
-   * Institution.users
+   * Institution.categories
    */
-  export type Institution$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Institution$categoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the User
+     * Select specific fields to fetch from the Category
      */
-    select?: UserSelect<ExtArgs> | null
+    select?: CategorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the User
+     * Omit specific fields from the Category
      */
-    omit?: UserOmit<ExtArgs> | null
+    omit?: CategoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
-    cursor?: UserWhereUniqueInput
+    include?: CategoryInclude<ExtArgs> | null
+    where?: CategoryWhereInput
+    orderBy?: CategoryOrderByWithRelationInput | CategoryOrderByWithRelationInput[]
+    cursor?: CategoryWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+    distinct?: CategoryScalarFieldEnum | CategoryScalarFieldEnum[]
   }
 
   /**
@@ -6455,27 +6455,27 @@ export namespace Prisma {
   }
 
   /**
-   * Institution.categories
+   * Institution.users
    */
-  export type Institution$categoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Institution$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Category
+     * Select specific fields to fetch from the User
      */
-    select?: CategorySelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Category
+     * Omit specific fields from the User
      */
-    omit?: CategoryOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CategoryInclude<ExtArgs> | null
-    where?: CategoryWhereInput
-    orderBy?: CategoryOrderByWithRelationInput | CategoryOrderByWithRelationInput[]
-    cursor?: CategoryWhereUniqueInput
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: CategoryScalarFieldEnum | CategoryScalarFieldEnum[]
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
   /**
@@ -8742,11 +8742,11 @@ export namespace Prisma {
     name: string | null
     gender: string | null
     address: string | null
-    phone: string | null
-    occupation: string | null
     profile_picture_url: string | null
     public_id: string | null
     userId: number | null
+    occupation: string | null
+    phone: string | null
   }
 
   export type ProfileMaxAggregateOutputType = {
@@ -8754,11 +8754,11 @@ export namespace Prisma {
     name: string | null
     gender: string | null
     address: string | null
-    phone: string | null
-    occupation: string | null
     profile_picture_url: string | null
     public_id: string | null
     userId: number | null
+    occupation: string | null
+    phone: string | null
   }
 
   export type ProfileCountAggregateOutputType = {
@@ -8766,11 +8766,11 @@ export namespace Prisma {
     name: number
     gender: number
     address: number
-    phone: number
-    occupation: number
     profile_picture_url: number
     public_id: number
     userId: number
+    occupation: number
+    phone: number
     _all: number
   }
 
@@ -8790,11 +8790,11 @@ export namespace Prisma {
     name?: true
     gender?: true
     address?: true
-    phone?: true
-    occupation?: true
     profile_picture_url?: true
     public_id?: true
     userId?: true
+    occupation?: true
+    phone?: true
   }
 
   export type ProfileMaxAggregateInputType = {
@@ -8802,11 +8802,11 @@ export namespace Prisma {
     name?: true
     gender?: true
     address?: true
-    phone?: true
-    occupation?: true
     profile_picture_url?: true
     public_id?: true
     userId?: true
+    occupation?: true
+    phone?: true
   }
 
   export type ProfileCountAggregateInputType = {
@@ -8814,11 +8814,11 @@ export namespace Prisma {
     name?: true
     gender?: true
     address?: true
-    phone?: true
-    occupation?: true
     profile_picture_url?: true
     public_id?: true
     userId?: true
+    occupation?: true
+    phone?: true
     _all?: true
   }
 
@@ -8913,11 +8913,11 @@ export namespace Prisma {
     name: string
     gender: string | null
     address: string
-    phone: string | null
-    occupation: string | null
     profile_picture_url: string | null
     public_id: string | null
     userId: number
+    occupation: string | null
+    phone: string | null
     _count: ProfileCountAggregateOutputType | null
     _avg: ProfileAvgAggregateOutputType | null
     _sum: ProfileSumAggregateOutputType | null
@@ -8944,11 +8944,11 @@ export namespace Prisma {
     name?: boolean
     gender?: boolean
     address?: boolean
-    phone?: boolean
-    occupation?: boolean
     profile_picture_url?: boolean
     public_id?: boolean
     userId?: boolean
+    occupation?: boolean
+    phone?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
@@ -8957,11 +8957,11 @@ export namespace Prisma {
     name?: boolean
     gender?: boolean
     address?: boolean
-    phone?: boolean
-    occupation?: boolean
     profile_picture_url?: boolean
     public_id?: boolean
     userId?: boolean
+    occupation?: boolean
+    phone?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
@@ -8970,11 +8970,11 @@ export namespace Prisma {
     name?: boolean
     gender?: boolean
     address?: boolean
-    phone?: boolean
-    occupation?: boolean
     profile_picture_url?: boolean
     public_id?: boolean
     userId?: boolean
+    occupation?: boolean
+    phone?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
@@ -8983,14 +8983,14 @@ export namespace Prisma {
     name?: boolean
     gender?: boolean
     address?: boolean
-    phone?: boolean
-    occupation?: boolean
     profile_picture_url?: boolean
     public_id?: boolean
     userId?: boolean
+    occupation?: boolean
+    phone?: boolean
   }
 
-  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "gender" | "address" | "phone" | "occupation" | "profile_picture_url" | "public_id" | "userId", ExtArgs["result"]["profile"]>
+  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "gender" | "address" | "profile_picture_url" | "public_id" | "userId" | "occupation" | "phone", ExtArgs["result"]["profile"]>
   export type ProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -9011,11 +9011,11 @@ export namespace Prisma {
       name: string
       gender: string | null
       address: string
-      phone: string | null
-      occupation: string | null
       profile_picture_url: string | null
       public_id: string | null
       userId: number
+      occupation: string | null
+      phone: string | null
     }, ExtArgs["result"]["profile"]>
     composites: {}
   }
@@ -9444,11 +9444,11 @@ export namespace Prisma {
     readonly name: FieldRef<"Profile", 'String'>
     readonly gender: FieldRef<"Profile", 'String'>
     readonly address: FieldRef<"Profile", 'String'>
-    readonly phone: FieldRef<"Profile", 'String'>
-    readonly occupation: FieldRef<"Profile", 'String'>
     readonly profile_picture_url: FieldRef<"Profile", 'String'>
     readonly public_id: FieldRef<"Profile", 'String'>
     readonly userId: FieldRef<"Profile", 'Int'>
+    readonly occupation: FieldRef<"Profile", 'String'>
+    readonly phone: FieldRef<"Profile", 'String'>
   }
     
 
@@ -10117,9 +10117,9 @@ export namespace Prisma {
     institutionName?: boolean
     isActive?: boolean
     createdAt?: boolean
-    wali?: boolean | UserDefaultArgs<ExtArgs>
-    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
     authAccounts?: boolean | Santri$authAccountsArgs<ExtArgs>
+    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
+    wali?: boolean | UserDefaultArgs<ExtArgs>
     transactions?: boolean | Santri$transactionsArgs<ExtArgs>
     _count?: boolean | SantriCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["santri"]>
@@ -10136,8 +10136,8 @@ export namespace Prisma {
     institutionName?: boolean
     isActive?: boolean
     createdAt?: boolean
-    wali?: boolean | UserDefaultArgs<ExtArgs>
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
+    wali?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["santri"]>
 
   export type SantriSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10152,8 +10152,8 @@ export namespace Prisma {
     institutionName?: boolean
     isActive?: boolean
     createdAt?: boolean
-    wali?: boolean | UserDefaultArgs<ExtArgs>
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
+    wali?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["santri"]>
 
   export type SantriSelectScalar = {
@@ -10172,27 +10172,27 @@ export namespace Prisma {
 
   export type SantriOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nis" | "fullname" | "kelas" | "gender" | "waliId" | "institutionId" | "waliName" | "institutionName" | "isActive" | "createdAt", ExtArgs["result"]["santri"]>
   export type SantriInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    wali?: boolean | UserDefaultArgs<ExtArgs>
-    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
     authAccounts?: boolean | Santri$authAccountsArgs<ExtArgs>
+    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
+    wali?: boolean | UserDefaultArgs<ExtArgs>
     transactions?: boolean | Santri$transactionsArgs<ExtArgs>
     _count?: boolean | SantriCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SantriIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    wali?: boolean | UserDefaultArgs<ExtArgs>
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
+    wali?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type SantriIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    wali?: boolean | UserDefaultArgs<ExtArgs>
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
+    wali?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $SantriPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Santri"
     objects: {
-      wali: Prisma.$UserPayload<ExtArgs>
-      institution: Prisma.$InstitutionPayload<ExtArgs>
       authAccounts: Prisma.$AuthAccountPayload<ExtArgs>[]
+      institution: Prisma.$InstitutionPayload<ExtArgs>
+      wali: Prisma.$UserPayload<ExtArgs>
       transactions: Prisma.$TransactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -10601,9 +10601,9 @@ export namespace Prisma {
    */
   export interface Prisma__SantriClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    wali<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    institution<T extends InstitutionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InstitutionDefaultArgs<ExtArgs>>): Prisma__InstitutionClient<$Result.GetResult<Prisma.$InstitutionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     authAccounts<T extends Santri$authAccountsArgs<ExtArgs> = {}>(args?: Subset<T, Santri$authAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuthAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    institution<T extends InstitutionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InstitutionDefaultArgs<ExtArgs>>): Prisma__InstitutionClient<$Result.GetResult<Prisma.$InstitutionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    wali<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     transactions<T extends Santri$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Santri$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -11139,7 +11139,7 @@ export namespace Prisma {
     id: number | null
     santriId: number | null
     categoryId: number | null
-    type: $Enums.CategoryType | null
+    type: $Enums.category_type | null
     amount: Decimal | null
     description: string | null
     transactionDate: Date | null
@@ -11152,7 +11152,7 @@ export namespace Prisma {
     id: number | null
     santriId: number | null
     categoryId: number | null
-    type: $Enums.CategoryType | null
+    type: $Enums.category_type | null
     amount: Decimal | null
     description: string | null
     transactionDate: Date | null
@@ -11322,7 +11322,7 @@ export namespace Prisma {
     id: number
     santriId: number
     categoryId: number
-    type: $Enums.CategoryType
+    type: $Enums.category_type
     amount: Decimal
     description: string | null
     transactionDate: Date
@@ -11361,9 +11361,9 @@ export namespace Prisma {
     createdBy?: boolean
     isDeleted?: boolean
     createdAt?: boolean
-    santri?: boolean | SantriDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     admin?: boolean | UserDefaultArgs<ExtArgs>
+    santri?: boolean | SantriDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
   export type TransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -11377,9 +11377,9 @@ export namespace Prisma {
     createdBy?: boolean
     isDeleted?: boolean
     createdAt?: boolean
-    santri?: boolean | SantriDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     admin?: boolean | UserDefaultArgs<ExtArgs>
+    santri?: boolean | SantriDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
   export type TransactionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -11393,9 +11393,9 @@ export namespace Prisma {
     createdBy?: boolean
     isDeleted?: boolean
     createdAt?: boolean
-    santri?: boolean | SantriDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     admin?: boolean | UserDefaultArgs<ExtArgs>
+    santri?: boolean | SantriDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
   export type TransactionSelectScalar = {
@@ -11413,33 +11413,33 @@ export namespace Prisma {
 
   export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "santriId" | "categoryId" | "type" | "amount" | "description" | "transactionDate" | "createdBy" | "isDeleted" | "createdAt", ExtArgs["result"]["transaction"]>
   export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    santri?: boolean | SantriDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     admin?: boolean | UserDefaultArgs<ExtArgs>
+    santri?: boolean | SantriDefaultArgs<ExtArgs>
   }
   export type TransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    santri?: boolean | SantriDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     admin?: boolean | UserDefaultArgs<ExtArgs>
+    santri?: boolean | SantriDefaultArgs<ExtArgs>
   }
   export type TransactionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    santri?: boolean | SantriDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     admin?: boolean | UserDefaultArgs<ExtArgs>
+    santri?: boolean | SantriDefaultArgs<ExtArgs>
   }
 
   export type $TransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Transaction"
     objects: {
-      santri: Prisma.$SantriPayload<ExtArgs>
       category: Prisma.$CategoryPayload<ExtArgs>
       admin: Prisma.$UserPayload<ExtArgs>
+      santri: Prisma.$SantriPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       santriId: number
       categoryId: number
-      type: $Enums.CategoryType
+      type: $Enums.category_type
       amount: Prisma.Decimal
       description: string | null
       transactionDate: Date
@@ -11840,9 +11840,9 @@ export namespace Prisma {
    */
   export interface Prisma__TransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    santri<T extends SantriDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SantriDefaultArgs<ExtArgs>>): Prisma__SantriClient<$Result.GetResult<Prisma.$SantriPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     category<T extends CategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoryDefaultArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     admin<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    santri<T extends SantriDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SantriDefaultArgs<ExtArgs>>): Prisma__SantriClient<$Result.GetResult<Prisma.$SantriPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11875,7 +11875,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Transaction", 'Int'>
     readonly santriId: FieldRef<"Transaction", 'Int'>
     readonly categoryId: FieldRef<"Transaction", 'Int'>
-    readonly type: FieldRef<"Transaction", 'CategoryType'>
+    readonly type: FieldRef<"Transaction", 'category_type'>
     readonly amount: FieldRef<"Transaction", 'Decimal'>
     readonly description: FieldRef<"Transaction", 'String'>
     readonly transactionDate: FieldRef<"Transaction", 'DateTime'>
@@ -12323,7 +12323,7 @@ export namespace Prisma {
     username: string | null
     email: string | null
     password: string | null
-    role: $Enums.UserRole | null
+    role: $Enums.user_role | null
     institutionId: number | null
     isEmailVerified: boolean | null
     isActive: boolean | null
@@ -12335,7 +12335,7 @@ export namespace Prisma {
     username: string | null
     email: string | null
     password: string | null
-    role: $Enums.UserRole | null
+    role: $Enums.user_role | null
     institutionId: number | null
     isEmailVerified: boolean | null
     isActive: boolean | null
@@ -12494,7 +12494,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.UserRole
+    role: $Enums.user_role
     institutionId: number | null
     isEmailVerified: boolean
     isActive: boolean
@@ -12530,15 +12530,15 @@ export namespace Prisma {
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: boolean
-    profile?: boolean | User$profileArgs<ExtArgs>
-    institution?: boolean | User$institutionArgs<ExtArgs>
-    createdInstitutions?: boolean | User$createdInstitutionsArgs<ExtArgs>
-    santri?: boolean | User$santriArgs<ExtArgs>
-    emailVerifications?: boolean | User$emailVerificationsArgs<ExtArgs>
     authAccounts?: boolean | User$authAccountsArgs<ExtArgs>
-    transactions?: boolean | User$transactionsArgs<ExtArgs>
+    emailVerifications?: boolean | User$emailVerificationsArgs<ExtArgs>
+    createdInstitutions?: boolean | User$createdInstitutionsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     passwordResets?: boolean | User$passwordResetsArgs<ExtArgs>
+    profile?: boolean | User$profileArgs<ExtArgs>
+    santri?: boolean | User$santriArgs<ExtArgs>
+    transactions?: boolean | User$transactionsArgs<ExtArgs>
+    institution?: boolean | User$institutionArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -12582,15 +12582,15 @@ export namespace Prisma {
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "password" | "role" | "institutionId" | "isEmailVerified" | "isActive" | "createdAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    profile?: boolean | User$profileArgs<ExtArgs>
-    institution?: boolean | User$institutionArgs<ExtArgs>
-    createdInstitutions?: boolean | User$createdInstitutionsArgs<ExtArgs>
-    santri?: boolean | User$santriArgs<ExtArgs>
-    emailVerifications?: boolean | User$emailVerificationsArgs<ExtArgs>
     authAccounts?: boolean | User$authAccountsArgs<ExtArgs>
-    transactions?: boolean | User$transactionsArgs<ExtArgs>
+    emailVerifications?: boolean | User$emailVerificationsArgs<ExtArgs>
+    createdInstitutions?: boolean | User$createdInstitutionsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     passwordResets?: boolean | User$passwordResetsArgs<ExtArgs>
+    profile?: boolean | User$profileArgs<ExtArgs>
+    santri?: boolean | User$santriArgs<ExtArgs>
+    transactions?: boolean | User$transactionsArgs<ExtArgs>
+    institution?: boolean | User$institutionArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12603,22 +12603,22 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      profile: Prisma.$ProfilePayload<ExtArgs> | null
-      institution: Prisma.$InstitutionPayload<ExtArgs> | null
-      createdInstitutions: Prisma.$InstitutionPayload<ExtArgs>[]
-      santri: Prisma.$SantriPayload<ExtArgs>[]
-      emailVerifications: Prisma.$EmailVerificationPayload<ExtArgs>[]
       authAccounts: Prisma.$AuthAccountPayload<ExtArgs>[]
-      transactions: Prisma.$TransactionPayload<ExtArgs>[]
+      emailVerifications: Prisma.$EmailVerificationPayload<ExtArgs>[]
+      createdInstitutions: Prisma.$InstitutionPayload<ExtArgs>[]
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
       passwordResets: Prisma.$PasswordResetPayload<ExtArgs>[]
+      profile: Prisma.$ProfilePayload<ExtArgs> | null
+      santri: Prisma.$SantriPayload<ExtArgs>[]
+      transactions: Prisma.$TransactionPayload<ExtArgs>[]
+      institution: Prisma.$InstitutionPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       username: string
       email: string
       password: string
-      role: $Enums.UserRole
+      role: $Enums.user_role
       institutionId: number | null
       isEmailVerified: boolean
       isActive: boolean
@@ -13017,15 +13017,15 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    profile<T extends User$profileArgs<ExtArgs> = {}>(args?: Subset<T, User$profileArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    institution<T extends User$institutionArgs<ExtArgs> = {}>(args?: Subset<T, User$institutionArgs<ExtArgs>>): Prisma__InstitutionClient<$Result.GetResult<Prisma.$InstitutionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    createdInstitutions<T extends User$createdInstitutionsArgs<ExtArgs> = {}>(args?: Subset<T, User$createdInstitutionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InstitutionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    santri<T extends User$santriArgs<ExtArgs> = {}>(args?: Subset<T, User$santriArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SantriPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    emailVerifications<T extends User$emailVerificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$emailVerificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailVerificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     authAccounts<T extends User$authAccountsArgs<ExtArgs> = {}>(args?: Subset<T, User$authAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuthAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    transactions<T extends User$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    emailVerifications<T extends User$emailVerificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$emailVerificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailVerificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    createdInstitutions<T extends User$createdInstitutionsArgs<ExtArgs> = {}>(args?: Subset<T, User$createdInstitutionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InstitutionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     passwordResets<T extends User$passwordResetsArgs<ExtArgs> = {}>(args?: Subset<T, User$passwordResetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    profile<T extends User$profileArgs<ExtArgs> = {}>(args?: Subset<T, User$profileArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    santri<T extends User$santriArgs<ExtArgs> = {}>(args?: Subset<T, User$santriArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SantriPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    transactions<T extends User$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    institution<T extends User$institutionArgs<ExtArgs> = {}>(args?: Subset<T, User$institutionArgs<ExtArgs>>): Prisma__InstitutionClient<$Result.GetResult<Prisma.$InstitutionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13059,7 +13059,7 @@ export namespace Prisma {
     readonly username: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
-    readonly role: FieldRef<"User", 'UserRole'>
+    readonly role: FieldRef<"User", 'user_role'>
     readonly institutionId: FieldRef<"User", 'Int'>
     readonly isEmailVerified: FieldRef<"User", 'Boolean'>
     readonly isActive: FieldRef<"User", 'Boolean'>
@@ -13460,89 +13460,27 @@ export namespace Prisma {
   }
 
   /**
-   * User.profile
+   * User.authAccounts
    */
-  export type User$profileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$authAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Profile
+     * Select specific fields to fetch from the AuthAccount
      */
-    select?: ProfileSelect<ExtArgs> | null
+    select?: AuthAccountSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Profile
+     * Omit specific fields from the AuthAccount
      */
-    omit?: ProfileOmit<ExtArgs> | null
+    omit?: AuthAccountOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ProfileInclude<ExtArgs> | null
-    where?: ProfileWhereInput
-  }
-
-  /**
-   * User.institution
-   */
-  export type User$institutionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Institution
-     */
-    select?: InstitutionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Institution
-     */
-    omit?: InstitutionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: InstitutionInclude<ExtArgs> | null
-    where?: InstitutionWhereInput
-  }
-
-  /**
-   * User.createdInstitutions
-   */
-  export type User$createdInstitutionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Institution
-     */
-    select?: InstitutionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Institution
-     */
-    omit?: InstitutionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: InstitutionInclude<ExtArgs> | null
-    where?: InstitutionWhereInput
-    orderBy?: InstitutionOrderByWithRelationInput | InstitutionOrderByWithRelationInput[]
-    cursor?: InstitutionWhereUniqueInput
+    include?: AuthAccountInclude<ExtArgs> | null
+    where?: AuthAccountWhereInput
+    orderBy?: AuthAccountOrderByWithRelationInput | AuthAccountOrderByWithRelationInput[]
+    cursor?: AuthAccountWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: InstitutionScalarFieldEnum | InstitutionScalarFieldEnum[]
-  }
-
-  /**
-   * User.santri
-   */
-  export type User$santriArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Santri
-     */
-    select?: SantriSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Santri
-     */
-    omit?: SantriOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SantriInclude<ExtArgs> | null
-    where?: SantriWhereInput
-    orderBy?: SantriOrderByWithRelationInput | SantriOrderByWithRelationInput[]
-    cursor?: SantriWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: SantriScalarFieldEnum | SantriScalarFieldEnum[]
+    distinct?: AuthAccountScalarFieldEnum | AuthAccountScalarFieldEnum[]
   }
 
   /**
@@ -13570,51 +13508,27 @@ export namespace Prisma {
   }
 
   /**
-   * User.authAccounts
+   * User.createdInstitutions
    */
-  export type User$authAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$createdInstitutionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the AuthAccount
+     * Select specific fields to fetch from the Institution
      */
-    select?: AuthAccountSelect<ExtArgs> | null
+    select?: InstitutionSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the AuthAccount
+     * Omit specific fields from the Institution
      */
-    omit?: AuthAccountOmit<ExtArgs> | null
+    omit?: InstitutionOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AuthAccountInclude<ExtArgs> | null
-    where?: AuthAccountWhereInput
-    orderBy?: AuthAccountOrderByWithRelationInput | AuthAccountOrderByWithRelationInput[]
-    cursor?: AuthAccountWhereUniqueInput
+    include?: InstitutionInclude<ExtArgs> | null
+    where?: InstitutionWhereInput
+    orderBy?: InstitutionOrderByWithRelationInput | InstitutionOrderByWithRelationInput[]
+    cursor?: InstitutionWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: AuthAccountScalarFieldEnum | AuthAccountScalarFieldEnum[]
-  }
-
-  /**
-   * User.transactions
-   */
-  export type User$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Transaction
-     */
-    select?: TransactionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Transaction
-     */
-    omit?: TransactionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TransactionInclude<ExtArgs> | null
-    where?: TransactionWhereInput
-    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
-    cursor?: TransactionWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+    distinct?: InstitutionScalarFieldEnum | InstitutionScalarFieldEnum[]
   }
 
   /**
@@ -13663,6 +13577,92 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PasswordResetScalarFieldEnum | PasswordResetScalarFieldEnum[]
+  }
+
+  /**
+   * User.profile
+   */
+  export type User$profileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Profile
+     */
+    select?: ProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Profile
+     */
+    omit?: ProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfileInclude<ExtArgs> | null
+    where?: ProfileWhereInput
+  }
+
+  /**
+   * User.santri
+   */
+  export type User$santriArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Santri
+     */
+    select?: SantriSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Santri
+     */
+    omit?: SantriOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SantriInclude<ExtArgs> | null
+    where?: SantriWhereInput
+    orderBy?: SantriOrderByWithRelationInput | SantriOrderByWithRelationInput[]
+    cursor?: SantriWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SantriScalarFieldEnum | SantriScalarFieldEnum[]
+  }
+
+  /**
+   * User.transactions
+   */
+  export type User$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    where?: TransactionWhereInput
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    cursor?: TransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+  }
+
+  /**
+   * User.institution
+   */
+  export type User$institutionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Institution
+     */
+    select?: InstitutionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Institution
+     */
+    omit?: InstitutionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstitutionInclude<ExtArgs> | null
+    where?: InstitutionWhereInput
   }
 
   /**
@@ -13775,11 +13775,11 @@ export namespace Prisma {
     name: 'name',
     gender: 'gender',
     address: 'address',
-    phone: 'phone',
-    occupation: 'occupation',
     profile_picture_url: 'profile_picture_url',
     public_id: 'public_id',
-    userId: 'userId'
+    userId: 'userId',
+    occupation: 'occupation',
+    phone: 'phone'
   };
 
   export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
@@ -13912,16 +13912,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'CategoryType'
+   * Reference to a field of type 'category_type'
    */
-  export type EnumCategoryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategoryType'>
+  export type Enumcategory_typeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'category_type'>
     
 
 
   /**
-   * Reference to a field of type 'CategoryType[]'
+   * Reference to a field of type 'category_type[]'
    */
-  export type ListEnumCategoryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategoryType[]'>
+  export type ListEnumcategory_typeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'category_type[]'>
     
 
 
@@ -13940,16 +13940,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'UserRole'
+   * Reference to a field of type 'user_role'
    */
-  export type EnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole'>
+  export type Enumuser_roleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'user_role'>
     
 
 
   /**
-   * Reference to a field of type 'UserRole[]'
+   * Reference to a field of type 'user_role[]'
    */
-  export type ListEnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole[]'>
+  export type ListEnumuser_roleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'user_role[]'>
     
 
 
@@ -14043,8 +14043,8 @@ export namespace Prisma {
     santriId?: IntNullableFilter<"AuthAccount"> | number | null
     isActive?: BoolFilter<"AuthAccount"> | boolean
     createdAt?: DateTimeFilter<"AuthAccount"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     santri?: XOR<SantriNullableScalarRelationFilter, SantriWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type AuthAccountOrderByWithRelationInput = {
@@ -14055,8 +14055,8 @@ export namespace Prisma {
     santriId?: SortOrderInput | SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
-    user?: UserOrderByWithRelationInput
     santri?: SantriOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type AuthAccountWhereUniqueInput = Prisma.AtLeast<{
@@ -14070,8 +14070,8 @@ export namespace Prisma {
     santriId?: IntNullableFilter<"AuthAccount"> | number | null
     isActive?: BoolFilter<"AuthAccount"> | boolean
     createdAt?: DateTimeFilter<"AuthAccount"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     santri?: XOR<SantriNullableScalarRelationFilter, SantriWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type AuthAccountOrderByWithAggregationInput = {
@@ -14108,7 +14108,7 @@ export namespace Prisma {
     NOT?: CategoryWhereInput | CategoryWhereInput[]
     id?: IntFilter<"Category"> | number
     name?: StringFilter<"Category"> | string
-    type?: EnumCategoryTypeFilter<"Category"> | $Enums.CategoryType
+    type?: Enumcategory_typeFilter<"Category"> | $Enums.category_type
     institutionId?: IntFilter<"Category"> | number
     isActive?: BoolFilter<"Category"> | boolean
     createdAt?: DateTimeFilter<"Category"> | Date | string
@@ -14133,7 +14133,7 @@ export namespace Prisma {
     OR?: CategoryWhereInput[]
     NOT?: CategoryWhereInput | CategoryWhereInput[]
     name?: StringFilter<"Category"> | string
-    type?: EnumCategoryTypeFilter<"Category"> | $Enums.CategoryType
+    type?: Enumcategory_typeFilter<"Category"> | $Enums.category_type
     institutionId?: IntFilter<"Category"> | number
     isActive?: BoolFilter<"Category"> | boolean
     createdAt?: DateTimeFilter<"Category"> | Date | string
@@ -14161,7 +14161,7 @@ export namespace Prisma {
     NOT?: CategoryScalarWhereWithAggregatesInput | CategoryScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Category"> | number
     name?: StringWithAggregatesFilter<"Category"> | string
-    type?: EnumCategoryTypeWithAggregatesFilter<"Category"> | $Enums.CategoryType
+    type?: Enumcategory_typeWithAggregatesFilter<"Category"> | $Enums.category_type
     institutionId?: IntWithAggregatesFilter<"Category"> | number
     isActive?: BoolWithAggregatesFilter<"Category"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Category"> | Date | string
@@ -14176,10 +14176,10 @@ export namespace Prisma {
     createdBy?: IntFilter<"Institution"> | number
     isActive?: BoolFilter<"Institution"> | boolean
     createdAt?: DateTimeFilter<"Institution"> | Date | string
-    users?: UserListRelationFilter
-    santri?: SantriListRelationFilter
     categories?: CategoryListRelationFilter
     admin?: XOR<UserScalarRelationFilter, UserWhereInput>
+    santri?: SantriListRelationFilter
+    users?: UserListRelationFilter
   }
 
   export type InstitutionOrderByWithRelationInput = {
@@ -14188,10 +14188,10 @@ export namespace Prisma {
     createdBy?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
-    users?: UserOrderByRelationAggregateInput
-    santri?: SantriOrderByRelationAggregateInput
     categories?: CategoryOrderByRelationAggregateInput
     admin?: UserOrderByWithRelationInput
+    santri?: SantriOrderByRelationAggregateInput
+    users?: UserOrderByRelationAggregateInput
   }
 
   export type InstitutionWhereUniqueInput = Prisma.AtLeast<{
@@ -14203,10 +14203,10 @@ export namespace Prisma {
     createdBy?: IntFilter<"Institution"> | number
     isActive?: BoolFilter<"Institution"> | boolean
     createdAt?: DateTimeFilter<"Institution"> | Date | string
-    users?: UserListRelationFilter
-    santri?: SantriListRelationFilter
     categories?: CategoryListRelationFilter
     admin?: XOR<UserScalarRelationFilter, UserWhereInput>
+    santri?: SantriListRelationFilter
+    users?: UserListRelationFilter
   }, "id" | "name">
 
   export type InstitutionOrderByWithAggregationInput = {
@@ -14365,11 +14365,11 @@ export namespace Prisma {
     name?: StringFilter<"Profile"> | string
     gender?: StringNullableFilter<"Profile"> | string | null
     address?: StringFilter<"Profile"> | string
-    phone?: StringNullableFilter<"Profile"> | string | null
-    occupation?: StringNullableFilter<"Profile"> | string | null
     profile_picture_url?: StringNullableFilter<"Profile"> | string | null
     public_id?: StringNullableFilter<"Profile"> | string | null
     userId?: IntFilter<"Profile"> | number
+    occupation?: StringNullableFilter<"Profile"> | string | null
+    phone?: StringNullableFilter<"Profile"> | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
@@ -14378,11 +14378,11 @@ export namespace Prisma {
     name?: SortOrder
     gender?: SortOrderInput | SortOrder
     address?: SortOrder
-    phone?: SortOrderInput | SortOrder
-    occupation?: SortOrderInput | SortOrder
     profile_picture_url?: SortOrderInput | SortOrder
     public_id?: SortOrderInput | SortOrder
     userId?: SortOrder
+    occupation?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
   }
 
@@ -14395,10 +14395,10 @@ export namespace Prisma {
     name?: StringFilter<"Profile"> | string
     gender?: StringNullableFilter<"Profile"> | string | null
     address?: StringFilter<"Profile"> | string
-    phone?: StringNullableFilter<"Profile"> | string | null
-    occupation?: StringNullableFilter<"Profile"> | string | null
     profile_picture_url?: StringNullableFilter<"Profile"> | string | null
     public_id?: StringNullableFilter<"Profile"> | string | null
+    occupation?: StringNullableFilter<"Profile"> | string | null
+    phone?: StringNullableFilter<"Profile"> | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "userId">
 
@@ -14407,11 +14407,11 @@ export namespace Prisma {
     name?: SortOrder
     gender?: SortOrderInput | SortOrder
     address?: SortOrder
-    phone?: SortOrderInput | SortOrder
-    occupation?: SortOrderInput | SortOrder
     profile_picture_url?: SortOrderInput | SortOrder
     public_id?: SortOrderInput | SortOrder
     userId?: SortOrder
+    occupation?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
     _count?: ProfileCountOrderByAggregateInput
     _avg?: ProfileAvgOrderByAggregateInput
     _max?: ProfileMaxOrderByAggregateInput
@@ -14427,11 +14427,11 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Profile"> | string
     gender?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     address?: StringWithAggregatesFilter<"Profile"> | string
-    phone?: StringNullableWithAggregatesFilter<"Profile"> | string | null
-    occupation?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     profile_picture_url?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     public_id?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     userId?: IntWithAggregatesFilter<"Profile"> | number
+    occupation?: StringNullableWithAggregatesFilter<"Profile"> | string | null
+    phone?: StringNullableWithAggregatesFilter<"Profile"> | string | null
   }
 
   export type SantriWhereInput = {
@@ -14449,9 +14449,9 @@ export namespace Prisma {
     institutionName?: StringNullableFilter<"Santri"> | string | null
     isActive?: BoolFilter<"Santri"> | boolean
     createdAt?: DateTimeFilter<"Santri"> | Date | string
-    wali?: XOR<UserScalarRelationFilter, UserWhereInput>
-    institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
     authAccounts?: AuthAccountListRelationFilter
+    institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
+    wali?: XOR<UserScalarRelationFilter, UserWhereInput>
     transactions?: TransactionListRelationFilter
   }
 
@@ -14467,9 +14467,9 @@ export namespace Prisma {
     institutionName?: SortOrderInput | SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
-    wali?: UserOrderByWithRelationInput
-    institution?: InstitutionOrderByWithRelationInput
     authAccounts?: AuthAccountOrderByRelationAggregateInput
+    institution?: InstitutionOrderByWithRelationInput
+    wali?: UserOrderByWithRelationInput
     transactions?: TransactionOrderByRelationAggregateInput
   }
 
@@ -14488,9 +14488,9 @@ export namespace Prisma {
     institutionName?: StringNullableFilter<"Santri"> | string | null
     isActive?: BoolFilter<"Santri"> | boolean
     createdAt?: DateTimeFilter<"Santri"> | Date | string
-    wali?: XOR<UserScalarRelationFilter, UserWhereInput>
-    institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
     authAccounts?: AuthAccountListRelationFilter
+    institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
+    wali?: XOR<UserScalarRelationFilter, UserWhereInput>
     transactions?: TransactionListRelationFilter
   }, "id" | "nis">
 
@@ -14537,16 +14537,16 @@ export namespace Prisma {
     id?: IntFilter<"Transaction"> | number
     santriId?: IntFilter<"Transaction"> | number
     categoryId?: IntFilter<"Transaction"> | number
-    type?: EnumCategoryTypeFilter<"Transaction"> | $Enums.CategoryType
+    type?: Enumcategory_typeFilter<"Transaction"> | $Enums.category_type
     amount?: DecimalFilter<"Transaction"> | Decimal | DecimalJsLike | number | string
     description?: StringNullableFilter<"Transaction"> | string | null
     transactionDate?: DateTimeFilter<"Transaction"> | Date | string
     createdBy?: IntFilter<"Transaction"> | number
     isDeleted?: BoolFilter<"Transaction"> | boolean
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
-    santri?: XOR<SantriScalarRelationFilter, SantriWhereInput>
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     admin?: XOR<UserScalarRelationFilter, UserWhereInput>
+    santri?: XOR<SantriScalarRelationFilter, SantriWhereInput>
   }
 
   export type TransactionOrderByWithRelationInput = {
@@ -14560,9 +14560,9 @@ export namespace Prisma {
     createdBy?: SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
-    santri?: SantriOrderByWithRelationInput
     category?: CategoryOrderByWithRelationInput
     admin?: UserOrderByWithRelationInput
+    santri?: SantriOrderByWithRelationInput
   }
 
   export type TransactionWhereUniqueInput = Prisma.AtLeast<{
@@ -14572,16 +14572,16 @@ export namespace Prisma {
     NOT?: TransactionWhereInput | TransactionWhereInput[]
     santriId?: IntFilter<"Transaction"> | number
     categoryId?: IntFilter<"Transaction"> | number
-    type?: EnumCategoryTypeFilter<"Transaction"> | $Enums.CategoryType
+    type?: Enumcategory_typeFilter<"Transaction"> | $Enums.category_type
     amount?: DecimalFilter<"Transaction"> | Decimal | DecimalJsLike | number | string
     description?: StringNullableFilter<"Transaction"> | string | null
     transactionDate?: DateTimeFilter<"Transaction"> | Date | string
     createdBy?: IntFilter<"Transaction"> | number
     isDeleted?: BoolFilter<"Transaction"> | boolean
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
-    santri?: XOR<SantriScalarRelationFilter, SantriWhereInput>
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     admin?: XOR<UserScalarRelationFilter, UserWhereInput>
+    santri?: XOR<SantriScalarRelationFilter, SantriWhereInput>
   }, "id">
 
   export type TransactionOrderByWithAggregationInput = {
@@ -14609,7 +14609,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Transaction"> | number
     santriId?: IntWithAggregatesFilter<"Transaction"> | number
     categoryId?: IntWithAggregatesFilter<"Transaction"> | number
-    type?: EnumCategoryTypeWithAggregatesFilter<"Transaction"> | $Enums.CategoryType
+    type?: Enumcategory_typeWithAggregatesFilter<"Transaction"> | $Enums.category_type
     amount?: DecimalWithAggregatesFilter<"Transaction"> | Decimal | DecimalJsLike | number | string
     description?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     transactionDate?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
@@ -14626,20 +14626,20 @@ export namespace Prisma {
     username?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
-    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    role?: Enumuser_roleFilter<"User"> | $Enums.user_role
     institutionId?: IntNullableFilter<"User"> | number | null
     isEmailVerified?: BoolFilter<"User"> | boolean
     isActive?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
-    profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
-    institution?: XOR<InstitutionNullableScalarRelationFilter, InstitutionWhereInput> | null
-    createdInstitutions?: InstitutionListRelationFilter
-    santri?: SantriListRelationFilter
-    emailVerifications?: EmailVerificationListRelationFilter
     authAccounts?: AuthAccountListRelationFilter
-    transactions?: TransactionListRelationFilter
+    emailVerifications?: EmailVerificationListRelationFilter
+    createdInstitutions?: InstitutionListRelationFilter
     notifications?: NotificationListRelationFilter
     passwordResets?: PasswordResetListRelationFilter
+    profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
+    santri?: SantriListRelationFilter
+    transactions?: TransactionListRelationFilter
+    institution?: XOR<InstitutionNullableScalarRelationFilter, InstitutionWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -14652,15 +14652,15 @@ export namespace Prisma {
     isEmailVerified?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
-    profile?: ProfileOrderByWithRelationInput
-    institution?: InstitutionOrderByWithRelationInput
-    createdInstitutions?: InstitutionOrderByRelationAggregateInput
-    santri?: SantriOrderByRelationAggregateInput
-    emailVerifications?: EmailVerificationOrderByRelationAggregateInput
     authAccounts?: AuthAccountOrderByRelationAggregateInput
-    transactions?: TransactionOrderByRelationAggregateInput
+    emailVerifications?: EmailVerificationOrderByRelationAggregateInput
+    createdInstitutions?: InstitutionOrderByRelationAggregateInput
     notifications?: NotificationOrderByRelationAggregateInput
     passwordResets?: PasswordResetOrderByRelationAggregateInput
+    profile?: ProfileOrderByWithRelationInput
+    santri?: SantriOrderByRelationAggregateInput
+    transactions?: TransactionOrderByRelationAggregateInput
+    institution?: InstitutionOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -14671,20 +14671,20 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     username?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
-    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    role?: Enumuser_roleFilter<"User"> | $Enums.user_role
     institutionId?: IntNullableFilter<"User"> | number | null
     isEmailVerified?: BoolFilter<"User"> | boolean
     isActive?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
-    profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
-    institution?: XOR<InstitutionNullableScalarRelationFilter, InstitutionWhereInput> | null
-    createdInstitutions?: InstitutionListRelationFilter
-    santri?: SantriListRelationFilter
-    emailVerifications?: EmailVerificationListRelationFilter
     authAccounts?: AuthAccountListRelationFilter
-    transactions?: TransactionListRelationFilter
+    emailVerifications?: EmailVerificationListRelationFilter
+    createdInstitutions?: InstitutionListRelationFilter
     notifications?: NotificationListRelationFilter
     passwordResets?: PasswordResetListRelationFilter
+    profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
+    santri?: SantriListRelationFilter
+    transactions?: TransactionListRelationFilter
+    institution?: XOR<InstitutionNullableScalarRelationFilter, InstitutionWhereInput> | null
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -14712,7 +14712,7 @@ export namespace Prisma {
     username?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
-    role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
+    role?: Enumuser_roleWithAggregatesFilter<"User"> | $Enums.user_role
     institutionId?: IntNullableWithAggregatesFilter<"User"> | number | null
     isEmailVerified?: BoolWithAggregatesFilter<"User"> | boolean
     isActive?: BoolWithAggregatesFilter<"User"> | boolean
@@ -14783,8 +14783,8 @@ export namespace Prisma {
     password: string
     isActive?: boolean
     createdAt?: Date | string
-    user: UserCreateNestedOneWithoutAuthAccountsInput
     santri?: SantriCreateNestedOneWithoutAuthAccountsInput
+    user: UserCreateNestedOneWithoutAuthAccountsInput
   }
 
   export type AuthAccountUncheckedCreateInput = {
@@ -14802,8 +14802,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutAuthAccountsNestedInput
     santri?: SantriUpdateOneWithoutAuthAccountsNestedInput
+    user?: UserUpdateOneRequiredWithoutAuthAccountsNestedInput
   }
 
   export type AuthAccountUncheckedUpdateInput = {
@@ -14845,7 +14845,7 @@ export namespace Prisma {
 
   export type CategoryCreateInput = {
     name: string
-    type: $Enums.CategoryType
+    type: $Enums.category_type
     isActive?: boolean
     createdAt?: Date | string
     institution: InstitutionCreateNestedOneWithoutCategoriesInput
@@ -14855,7 +14855,7 @@ export namespace Prisma {
   export type CategoryUncheckedCreateInput = {
     id?: number
     name: string
-    type: $Enums.CategoryType
+    type: $Enums.category_type
     institutionId: number
     isActive?: boolean
     createdAt?: Date | string
@@ -14864,7 +14864,7 @@ export namespace Prisma {
 
   export type CategoryUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     institution?: InstitutionUpdateOneRequiredWithoutCategoriesNestedInput
@@ -14874,7 +14874,7 @@ export namespace Prisma {
   export type CategoryUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     institutionId?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14884,7 +14884,7 @@ export namespace Prisma {
   export type CategoryCreateManyInput = {
     id?: number
     name: string
-    type: $Enums.CategoryType
+    type: $Enums.category_type
     institutionId: number
     isActive?: boolean
     createdAt?: Date | string
@@ -14892,7 +14892,7 @@ export namespace Prisma {
 
   export type CategoryUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14900,7 +14900,7 @@ export namespace Prisma {
   export type CategoryUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     institutionId?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14910,10 +14910,10 @@ export namespace Prisma {
     name: string
     isActive?: boolean
     createdAt?: Date | string
-    users?: UserCreateNestedManyWithoutInstitutionInput
-    santri?: SantriCreateNestedManyWithoutInstitutionInput
     categories?: CategoryCreateNestedManyWithoutInstitutionInput
     admin: UserCreateNestedOneWithoutCreatedInstitutionsInput
+    santri?: SantriCreateNestedManyWithoutInstitutionInput
+    users?: UserCreateNestedManyWithoutInstitutionInput
   }
 
   export type InstitutionUncheckedCreateInput = {
@@ -14922,19 +14922,19 @@ export namespace Prisma {
     createdBy: number
     isActive?: boolean
     createdAt?: Date | string
-    users?: UserUncheckedCreateNestedManyWithoutInstitutionInput
-    santri?: SantriUncheckedCreateNestedManyWithoutInstitutionInput
     categories?: CategoryUncheckedCreateNestedManyWithoutInstitutionInput
+    santri?: SantriUncheckedCreateNestedManyWithoutInstitutionInput
+    users?: UserUncheckedCreateNestedManyWithoutInstitutionInput
   }
 
   export type InstitutionUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUpdateManyWithoutInstitutionNestedInput
-    santri?: SantriUpdateManyWithoutInstitutionNestedInput
     categories?: CategoryUpdateManyWithoutInstitutionNestedInput
     admin?: UserUpdateOneRequiredWithoutCreatedInstitutionsNestedInput
+    santri?: SantriUpdateManyWithoutInstitutionNestedInput
+    users?: UserUpdateManyWithoutInstitutionNestedInput
   }
 
   export type InstitutionUncheckedUpdateInput = {
@@ -14943,9 +14943,9 @@ export namespace Prisma {
     createdBy?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUncheckedUpdateManyWithoutInstitutionNestedInput
-    santri?: SantriUncheckedUpdateManyWithoutInstitutionNestedInput
     categories?: CategoryUncheckedUpdateManyWithoutInstitutionNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutInstitutionNestedInput
+    users?: UserUncheckedUpdateManyWithoutInstitutionNestedInput
   }
 
   export type InstitutionCreateManyInput = {
@@ -15092,10 +15092,10 @@ export namespace Prisma {
     name: string
     gender?: string | null
     address: string
-    phone?: string | null
-    occupation?: string | null
     profile_picture_url?: string | null
     public_id?: string | null
+    occupation?: string | null
+    phone?: string | null
     user: UserCreateNestedOneWithoutProfileInput
   }
 
@@ -15104,21 +15104,21 @@ export namespace Prisma {
     name: string
     gender?: string | null
     address: string
-    phone?: string | null
-    occupation?: string | null
     profile_picture_url?: string | null
     public_id?: string | null
     userId: number
+    occupation?: string | null
+    phone?: string | null
   }
 
   export type ProfileUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    occupation?: NullableStringFieldUpdateOperationsInput | string | null
     profile_picture_url?: NullableStringFieldUpdateOperationsInput | string | null
     public_id?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutProfileNestedInput
   }
 
@@ -15127,11 +15127,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    occupation?: NullableStringFieldUpdateOperationsInput | string | null
     profile_picture_url?: NullableStringFieldUpdateOperationsInput | string | null
     public_id?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: IntFieldUpdateOperationsInput | number
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProfileCreateManyInput = {
@@ -15139,21 +15139,21 @@ export namespace Prisma {
     name: string
     gender?: string | null
     address: string
-    phone?: string | null
-    occupation?: string | null
     profile_picture_url?: string | null
     public_id?: string | null
     userId: number
+    occupation?: string | null
+    phone?: string | null
   }
 
   export type ProfileUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    occupation?: NullableStringFieldUpdateOperationsInput | string | null
     profile_picture_url?: NullableStringFieldUpdateOperationsInput | string | null
     public_id?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProfileUncheckedUpdateManyInput = {
@@ -15161,11 +15161,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    occupation?: NullableStringFieldUpdateOperationsInput | string | null
     profile_picture_url?: NullableStringFieldUpdateOperationsInput | string | null
     public_id?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: IntFieldUpdateOperationsInput | number
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SantriCreateInput = {
@@ -15177,9 +15177,9 @@ export namespace Prisma {
     institutionName?: string | null
     isActive?: boolean
     createdAt?: Date | string
-    wali: UserCreateNestedOneWithoutSantriInput
-    institution: InstitutionCreateNestedOneWithoutSantriInput
     authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
+    institution: InstitutionCreateNestedOneWithoutSantriInput
+    wali: UserCreateNestedOneWithoutSantriInput
     transactions?: TransactionCreateNestedManyWithoutSantriInput
   }
 
@@ -15208,9 +15208,9 @@ export namespace Prisma {
     institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    wali?: UserUpdateOneRequiredWithoutSantriNestedInput
-    institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
     authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
+    institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
+    wali?: UserUpdateOneRequiredWithoutSantriNestedInput
     transactions?: TransactionUpdateManyWithoutSantriNestedInput
   }
 
@@ -15270,22 +15270,22 @@ export namespace Prisma {
   }
 
   export type TransactionCreateInput = {
-    type: $Enums.CategoryType
+    type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
     description?: string | null
     transactionDate: Date | string
     isDeleted?: boolean
     createdAt?: Date | string
-    santri: SantriCreateNestedOneWithoutTransactionsInput
     category: CategoryCreateNestedOneWithoutTransactionsInput
     admin: UserCreateNestedOneWithoutTransactionsInput
+    santri: SantriCreateNestedOneWithoutTransactionsInput
   }
 
   export type TransactionUncheckedCreateInput = {
     id?: number
     santriId: number
     categoryId: number
-    type: $Enums.CategoryType
+    type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
     description?: string | null
     transactionDate: Date | string
@@ -15295,22 +15295,22 @@ export namespace Prisma {
   }
 
   export type TransactionUpdateInput = {
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    santri?: SantriUpdateOneRequiredWithoutTransactionsNestedInput
     category?: CategoryUpdateOneRequiredWithoutTransactionsNestedInput
     admin?: UserUpdateOneRequiredWithoutTransactionsNestedInput
+    santri?: SantriUpdateOneRequiredWithoutTransactionsNestedInput
   }
 
   export type TransactionUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     santriId?: IntFieldUpdateOperationsInput | number
     categoryId?: IntFieldUpdateOperationsInput | number
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15323,7 +15323,7 @@ export namespace Prisma {
     id?: number
     santriId: number
     categoryId: number
-    type: $Enums.CategoryType
+    type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
     description?: string | null
     transactionDate: Date | string
@@ -15333,7 +15333,7 @@ export namespace Prisma {
   }
 
   export type TransactionUpdateManyMutationInput = {
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15345,7 +15345,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     santriId?: IntFieldUpdateOperationsInput | number
     categoryId?: IntFieldUpdateOperationsInput | number
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15358,19 +15358,19 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.UserRole
+    role: $Enums.user_role
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
-    profile?: ProfileCreateNestedOneWithoutUserInput
-    institution?: InstitutionCreateNestedOneWithoutUsersInput
-    createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
-    santri?: SantriCreateNestedManyWithoutWaliInput
-    emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
-    transactions?: TransactionCreateNestedManyWithoutAdminInput
+    emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
+    createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     passwordResets?: PasswordResetCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    santri?: SantriCreateNestedManyWithoutWaliInput
+    transactions?: TransactionCreateNestedManyWithoutAdminInput
+    institution?: InstitutionCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -15378,38 +15378,38 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.UserRole
+    role: $Enums.user_role
     institutionId?: number | null
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
-    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
-    createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
-    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
-    emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
-    transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
+    emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
+    createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     passwordResets?: PasswordResetUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type UserUpdateInput = {
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    profile?: ProfileUpdateOneWithoutUserNestedInput
-    institution?: InstitutionUpdateOneWithoutUsersNestedInput
-    createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
-    santri?: SantriUpdateManyWithoutWaliNestedInput
-    emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
-    transactions?: TransactionUpdateManyWithoutAdminNestedInput
+    emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
+    createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     passwordResets?: PasswordResetUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    santri?: SantriUpdateManyWithoutWaliNestedInput
+    transactions?: TransactionUpdateManyWithoutAdminNestedInput
+    institution?: InstitutionUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -15417,19 +15417,19 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
     institutionId?: NullableIntFieldUpdateOperationsInput | number | null
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
-    createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
-    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
-    emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
-    transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
+    emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
+    createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     passwordResets?: PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -15437,7 +15437,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.UserRole
+    role: $Enums.user_role
     institutionId?: number | null
     isEmailVerified?: boolean
     isActive?: boolean
@@ -15448,7 +15448,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15459,7 +15459,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
     institutionId?: NullableIntFieldUpdateOperationsInput | number | null
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -15685,11 +15685,11 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type EnumCategoryTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.CategoryType | EnumCategoryTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.CategoryType[] | ListEnumCategoryTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.CategoryType[] | ListEnumCategoryTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumCategoryTypeFilter<$PrismaModel> | $Enums.CategoryType
+  export type Enumcategory_typeFilter<$PrismaModel = never> = {
+    equals?: $Enums.category_type | Enumcategory_typeFieldRefInput<$PrismaModel>
+    in?: $Enums.category_type[] | ListEnumcategory_typeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.category_type[] | ListEnumcategory_typeFieldRefInput<$PrismaModel>
+    not?: NestedEnumcategory_typeFilter<$PrismaModel> | $Enums.category_type
   }
 
   export type InstitutionScalarRelationFilter = {
@@ -15744,26 +15744,14 @@ export namespace Prisma {
     institutionId?: SortOrder
   }
 
-  export type EnumCategoryTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.CategoryType | EnumCategoryTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.CategoryType[] | ListEnumCategoryTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.CategoryType[] | ListEnumCategoryTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumCategoryTypeWithAggregatesFilter<$PrismaModel> | $Enums.CategoryType
+  export type Enumcategory_typeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.category_type | Enumcategory_typeFieldRefInput<$PrismaModel>
+    in?: $Enums.category_type[] | ListEnumcategory_typeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.category_type[] | ListEnumcategory_typeFieldRefInput<$PrismaModel>
+    not?: NestedEnumcategory_typeWithAggregatesFilter<$PrismaModel> | $Enums.category_type
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumCategoryTypeFilter<$PrismaModel>
-    _max?: NestedEnumCategoryTypeFilter<$PrismaModel>
-  }
-
-  export type UserListRelationFilter = {
-    every?: UserWhereInput
-    some?: UserWhereInput
-    none?: UserWhereInput
-  }
-
-  export type SantriListRelationFilter = {
-    every?: SantriWhereInput
-    some?: SantriWhereInput
-    none?: SantriWhereInput
+    _min?: NestedEnumcategory_typeFilter<$PrismaModel>
+    _max?: NestedEnumcategory_typeFilter<$PrismaModel>
   }
 
   export type CategoryListRelationFilter = {
@@ -15772,7 +15760,19 @@ export namespace Prisma {
     none?: CategoryWhereInput
   }
 
-  export type UserOrderByRelationAggregateInput = {
+  export type SantriListRelationFilter = {
+    every?: SantriWhereInput
+    some?: SantriWhereInput
+    none?: SantriWhereInput
+  }
+
+  export type UserListRelationFilter = {
+    every?: UserWhereInput
+    some?: UserWhereInput
+    none?: UserWhereInput
+  }
+
+  export type CategoryOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -15780,7 +15780,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type CategoryOrderByRelationAggregateInput = {
+  export type UserOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -15912,11 +15912,11 @@ export namespace Prisma {
     name?: SortOrder
     gender?: SortOrder
     address?: SortOrder
-    phone?: SortOrder
-    occupation?: SortOrder
     profile_picture_url?: SortOrder
     public_id?: SortOrder
     userId?: SortOrder
+    occupation?: SortOrder
+    phone?: SortOrder
   }
 
   export type ProfileAvgOrderByAggregateInput = {
@@ -15929,11 +15929,11 @@ export namespace Prisma {
     name?: SortOrder
     gender?: SortOrder
     address?: SortOrder
-    phone?: SortOrder
-    occupation?: SortOrder
     profile_picture_url?: SortOrder
     public_id?: SortOrder
     userId?: SortOrder
+    occupation?: SortOrder
+    phone?: SortOrder
   }
 
   export type ProfileMinOrderByAggregateInput = {
@@ -15941,11 +15941,11 @@ export namespace Prisma {
     name?: SortOrder
     gender?: SortOrder
     address?: SortOrder
-    phone?: SortOrder
-    occupation?: SortOrder
     profile_picture_url?: SortOrder
     public_id?: SortOrder
     userId?: SortOrder
+    occupation?: SortOrder
+    phone?: SortOrder
   }
 
   export type ProfileSumOrderByAggregateInput = {
@@ -16046,14 +16046,14 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
-  export type SantriScalarRelationFilter = {
-    is?: SantriWhereInput
-    isNot?: SantriWhereInput
-  }
-
   export type CategoryScalarRelationFilter = {
     is?: CategoryWhereInput
     isNot?: CategoryWhereInput
+  }
+
+  export type SantriScalarRelationFilter = {
+    is?: SantriWhereInput
+    isNot?: SantriWhereInput
   }
 
   export type TransactionCountOrderByAggregateInput = {
@@ -16127,33 +16127,23 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type EnumUserRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
-  }
-
-  export type ProfileNullableScalarRelationFilter = {
-    is?: ProfileWhereInput | null
-    isNot?: ProfileWhereInput | null
-  }
-
-  export type InstitutionNullableScalarRelationFilter = {
-    is?: InstitutionWhereInput | null
-    isNot?: InstitutionWhereInput | null
-  }
-
-  export type InstitutionListRelationFilter = {
-    every?: InstitutionWhereInput
-    some?: InstitutionWhereInput
-    none?: InstitutionWhereInput
+  export type Enumuser_roleFilter<$PrismaModel = never> = {
+    equals?: $Enums.user_role | Enumuser_roleFieldRefInput<$PrismaModel>
+    in?: $Enums.user_role[] | ListEnumuser_roleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.user_role[] | ListEnumuser_roleFieldRefInput<$PrismaModel>
+    not?: NestedEnumuser_roleFilter<$PrismaModel> | $Enums.user_role
   }
 
   export type EmailVerificationListRelationFilter = {
     every?: EmailVerificationWhereInput
     some?: EmailVerificationWhereInput
     none?: EmailVerificationWhereInput
+  }
+
+  export type InstitutionListRelationFilter = {
+    every?: InstitutionWhereInput
+    some?: InstitutionWhereInput
+    none?: InstitutionWhereInput
   }
 
   export type NotificationListRelationFilter = {
@@ -16168,11 +16158,21 @@ export namespace Prisma {
     none?: PasswordResetWhereInput
   }
 
-  export type InstitutionOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type ProfileNullableScalarRelationFilter = {
+    is?: ProfileWhereInput | null
+    isNot?: ProfileWhereInput | null
+  }
+
+  export type InstitutionNullableScalarRelationFilter = {
+    is?: InstitutionWhereInput | null
+    isNot?: InstitutionWhereInput | null
   }
 
   export type EmailVerificationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type InstitutionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -16230,14 +16230,14 @@ export namespace Prisma {
     institutionId?: SortOrder
   }
 
-  export type EnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
+  export type Enumuser_roleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.user_role | Enumuser_roleFieldRefInput<$PrismaModel>
+    in?: $Enums.user_role[] | ListEnumuser_roleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.user_role[] | ListEnumuser_roleFieldRefInput<$PrismaModel>
+    not?: NestedEnumuser_roleWithAggregatesFilter<$PrismaModel> | $Enums.user_role
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumUserRoleFilter<$PrismaModel>
-    _max?: NestedEnumUserRoleFilter<$PrismaModel>
+    _min?: NestedEnumuser_roleFilter<$PrismaModel>
+    _max?: NestedEnumuser_roleFilter<$PrismaModel>
   }
 
   export type UserCreateNestedOneWithoutEmailVerificationsInput = {
@@ -16274,24 +16274,16 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type UserCreateNestedOneWithoutAuthAccountsInput = {
-    create?: XOR<UserCreateWithoutAuthAccountsInput, UserUncheckedCreateWithoutAuthAccountsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutAuthAccountsInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type SantriCreateNestedOneWithoutAuthAccountsInput = {
     create?: XOR<SantriCreateWithoutAuthAccountsInput, SantriUncheckedCreateWithoutAuthAccountsInput>
     connectOrCreate?: SantriCreateOrConnectWithoutAuthAccountsInput
     connect?: SantriWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutAuthAccountsNestedInput = {
+  export type UserCreateNestedOneWithoutAuthAccountsInput = {
     create?: XOR<UserCreateWithoutAuthAccountsInput, UserUncheckedCreateWithoutAuthAccountsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAuthAccountsInput
-    upsert?: UserUpsertWithoutAuthAccountsInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAuthAccountsInput, UserUpdateWithoutAuthAccountsInput>, UserUncheckedUpdateWithoutAuthAccountsInput>
   }
 
   export type SantriUpdateOneWithoutAuthAccountsNestedInput = {
@@ -16302,6 +16294,14 @@ export namespace Prisma {
     delete?: SantriWhereInput | boolean
     connect?: SantriWhereUniqueInput
     update?: XOR<XOR<SantriUpdateToOneWithWhereWithoutAuthAccountsInput, SantriUpdateWithoutAuthAccountsInput>, SantriUncheckedUpdateWithoutAuthAccountsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutAuthAccountsNestedInput = {
+    create?: XOR<UserCreateWithoutAuthAccountsInput, UserUncheckedCreateWithoutAuthAccountsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAuthAccountsInput
+    upsert?: UserUpsertWithoutAuthAccountsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAuthAccountsInput, UserUpdateWithoutAuthAccountsInput>, UserUncheckedUpdateWithoutAuthAccountsInput>
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -16332,8 +16332,8 @@ export namespace Prisma {
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
-  export type EnumCategoryTypeFieldUpdateOperationsInput = {
-    set?: $Enums.CategoryType
+  export type Enumcategory_typeFieldUpdateOperationsInput = {
+    set?: $Enums.category_type
   }
 
   export type InstitutionUpdateOneRequiredWithoutCategoriesNestedInput = {
@@ -16372,20 +16372,6 @@ export namespace Prisma {
     deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
-  export type UserCreateNestedManyWithoutInstitutionInput = {
-    create?: XOR<UserCreateWithoutInstitutionInput, UserUncheckedCreateWithoutInstitutionInput> | UserCreateWithoutInstitutionInput[] | UserUncheckedCreateWithoutInstitutionInput[]
-    connectOrCreate?: UserCreateOrConnectWithoutInstitutionInput | UserCreateOrConnectWithoutInstitutionInput[]
-    createMany?: UserCreateManyInstitutionInputEnvelope
-    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-  }
-
-  export type SantriCreateNestedManyWithoutInstitutionInput = {
-    create?: XOR<SantriCreateWithoutInstitutionInput, SantriUncheckedCreateWithoutInstitutionInput> | SantriCreateWithoutInstitutionInput[] | SantriUncheckedCreateWithoutInstitutionInput[]
-    connectOrCreate?: SantriCreateOrConnectWithoutInstitutionInput | SantriCreateOrConnectWithoutInstitutionInput[]
-    createMany?: SantriCreateManyInstitutionInputEnvelope
-    connect?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
-  }
-
   export type CategoryCreateNestedManyWithoutInstitutionInput = {
     create?: XOR<CategoryCreateWithoutInstitutionInput, CategoryUncheckedCreateWithoutInstitutionInput> | CategoryCreateWithoutInstitutionInput[] | CategoryUncheckedCreateWithoutInstitutionInput[]
     connectOrCreate?: CategoryCreateOrConnectWithoutInstitutionInput | CategoryCreateOrConnectWithoutInstitutionInput[]
@@ -16399,18 +16385,18 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type UserUncheckedCreateNestedManyWithoutInstitutionInput = {
-    create?: XOR<UserCreateWithoutInstitutionInput, UserUncheckedCreateWithoutInstitutionInput> | UserCreateWithoutInstitutionInput[] | UserUncheckedCreateWithoutInstitutionInput[]
-    connectOrCreate?: UserCreateOrConnectWithoutInstitutionInput | UserCreateOrConnectWithoutInstitutionInput[]
-    createMany?: UserCreateManyInstitutionInputEnvelope
-    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-  }
-
-  export type SantriUncheckedCreateNestedManyWithoutInstitutionInput = {
+  export type SantriCreateNestedManyWithoutInstitutionInput = {
     create?: XOR<SantriCreateWithoutInstitutionInput, SantriUncheckedCreateWithoutInstitutionInput> | SantriCreateWithoutInstitutionInput[] | SantriUncheckedCreateWithoutInstitutionInput[]
     connectOrCreate?: SantriCreateOrConnectWithoutInstitutionInput | SantriCreateOrConnectWithoutInstitutionInput[]
     createMany?: SantriCreateManyInstitutionInputEnvelope
     connect?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
+  }
+
+  export type UserCreateNestedManyWithoutInstitutionInput = {
+    create?: XOR<UserCreateWithoutInstitutionInput, UserUncheckedCreateWithoutInstitutionInput> | UserCreateWithoutInstitutionInput[] | UserUncheckedCreateWithoutInstitutionInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutInstitutionInput | UserCreateOrConnectWithoutInstitutionInput[]
+    createMany?: UserCreateManyInstitutionInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
   export type CategoryUncheckedCreateNestedManyWithoutInstitutionInput = {
@@ -16420,32 +16406,18 @@ export namespace Prisma {
     connect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
   }
 
-  export type UserUpdateManyWithoutInstitutionNestedInput = {
-    create?: XOR<UserCreateWithoutInstitutionInput, UserUncheckedCreateWithoutInstitutionInput> | UserCreateWithoutInstitutionInput[] | UserUncheckedCreateWithoutInstitutionInput[]
-    connectOrCreate?: UserCreateOrConnectWithoutInstitutionInput | UserCreateOrConnectWithoutInstitutionInput[]
-    upsert?: UserUpsertWithWhereUniqueWithoutInstitutionInput | UserUpsertWithWhereUniqueWithoutInstitutionInput[]
-    createMany?: UserCreateManyInstitutionInputEnvelope
-    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    update?: UserUpdateWithWhereUniqueWithoutInstitutionInput | UserUpdateWithWhereUniqueWithoutInstitutionInput[]
-    updateMany?: UserUpdateManyWithWhereWithoutInstitutionInput | UserUpdateManyWithWhereWithoutInstitutionInput[]
-    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
-  }
-
-  export type SantriUpdateManyWithoutInstitutionNestedInput = {
+  export type SantriUncheckedCreateNestedManyWithoutInstitutionInput = {
     create?: XOR<SantriCreateWithoutInstitutionInput, SantriUncheckedCreateWithoutInstitutionInput> | SantriCreateWithoutInstitutionInput[] | SantriUncheckedCreateWithoutInstitutionInput[]
     connectOrCreate?: SantriCreateOrConnectWithoutInstitutionInput | SantriCreateOrConnectWithoutInstitutionInput[]
-    upsert?: SantriUpsertWithWhereUniqueWithoutInstitutionInput | SantriUpsertWithWhereUniqueWithoutInstitutionInput[]
     createMany?: SantriCreateManyInstitutionInputEnvelope
-    set?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
-    disconnect?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
-    delete?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
     connect?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
-    update?: SantriUpdateWithWhereUniqueWithoutInstitutionInput | SantriUpdateWithWhereUniqueWithoutInstitutionInput[]
-    updateMany?: SantriUpdateManyWithWhereWithoutInstitutionInput | SantriUpdateManyWithWhereWithoutInstitutionInput[]
-    deleteMany?: SantriScalarWhereInput | SantriScalarWhereInput[]
+  }
+
+  export type UserUncheckedCreateNestedManyWithoutInstitutionInput = {
+    create?: XOR<UserCreateWithoutInstitutionInput, UserUncheckedCreateWithoutInstitutionInput> | UserCreateWithoutInstitutionInput[] | UserUncheckedCreateWithoutInstitutionInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutInstitutionInput | UserCreateOrConnectWithoutInstitutionInput[]
+    createMany?: UserCreateManyInstitutionInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
   export type CategoryUpdateManyWithoutInstitutionNestedInput = {
@@ -16470,7 +16442,21 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCreatedInstitutionsInput, UserUpdateWithoutCreatedInstitutionsInput>, UserUncheckedUpdateWithoutCreatedInstitutionsInput>
   }
 
-  export type UserUncheckedUpdateManyWithoutInstitutionNestedInput = {
+  export type SantriUpdateManyWithoutInstitutionNestedInput = {
+    create?: XOR<SantriCreateWithoutInstitutionInput, SantriUncheckedCreateWithoutInstitutionInput> | SantriCreateWithoutInstitutionInput[] | SantriUncheckedCreateWithoutInstitutionInput[]
+    connectOrCreate?: SantriCreateOrConnectWithoutInstitutionInput | SantriCreateOrConnectWithoutInstitutionInput[]
+    upsert?: SantriUpsertWithWhereUniqueWithoutInstitutionInput | SantriUpsertWithWhereUniqueWithoutInstitutionInput[]
+    createMany?: SantriCreateManyInstitutionInputEnvelope
+    set?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
+    disconnect?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
+    delete?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
+    connect?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
+    update?: SantriUpdateWithWhereUniqueWithoutInstitutionInput | SantriUpdateWithWhereUniqueWithoutInstitutionInput[]
+    updateMany?: SantriUpdateManyWithWhereWithoutInstitutionInput | SantriUpdateManyWithWhereWithoutInstitutionInput[]
+    deleteMany?: SantriScalarWhereInput | SantriScalarWhereInput[]
+  }
+
+  export type UserUpdateManyWithoutInstitutionNestedInput = {
     create?: XOR<UserCreateWithoutInstitutionInput, UserUncheckedCreateWithoutInstitutionInput> | UserCreateWithoutInstitutionInput[] | UserUncheckedCreateWithoutInstitutionInput[]
     connectOrCreate?: UserCreateOrConnectWithoutInstitutionInput | UserCreateOrConnectWithoutInstitutionInput[]
     upsert?: UserUpsertWithWhereUniqueWithoutInstitutionInput | UserUpsertWithWhereUniqueWithoutInstitutionInput[]
@@ -16482,6 +16468,20 @@ export namespace Prisma {
     update?: UserUpdateWithWhereUniqueWithoutInstitutionInput | UserUpdateWithWhereUniqueWithoutInstitutionInput[]
     updateMany?: UserUpdateManyWithWhereWithoutInstitutionInput | UserUpdateManyWithWhereWithoutInstitutionInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type CategoryUncheckedUpdateManyWithoutInstitutionNestedInput = {
+    create?: XOR<CategoryCreateWithoutInstitutionInput, CategoryUncheckedCreateWithoutInstitutionInput> | CategoryCreateWithoutInstitutionInput[] | CategoryUncheckedCreateWithoutInstitutionInput[]
+    connectOrCreate?: CategoryCreateOrConnectWithoutInstitutionInput | CategoryCreateOrConnectWithoutInstitutionInput[]
+    upsert?: CategoryUpsertWithWhereUniqueWithoutInstitutionInput | CategoryUpsertWithWhereUniqueWithoutInstitutionInput[]
+    createMany?: CategoryCreateManyInstitutionInputEnvelope
+    set?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+    disconnect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+    delete?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+    connect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+    update?: CategoryUpdateWithWhereUniqueWithoutInstitutionInput | CategoryUpdateWithWhereUniqueWithoutInstitutionInput[]
+    updateMany?: CategoryUpdateManyWithWhereWithoutInstitutionInput | CategoryUpdateManyWithWhereWithoutInstitutionInput[]
+    deleteMany?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
   }
 
   export type SantriUncheckedUpdateManyWithoutInstitutionNestedInput = {
@@ -16498,18 +16498,18 @@ export namespace Prisma {
     deleteMany?: SantriScalarWhereInput | SantriScalarWhereInput[]
   }
 
-  export type CategoryUncheckedUpdateManyWithoutInstitutionNestedInput = {
-    create?: XOR<CategoryCreateWithoutInstitutionInput, CategoryUncheckedCreateWithoutInstitutionInput> | CategoryCreateWithoutInstitutionInput[] | CategoryUncheckedCreateWithoutInstitutionInput[]
-    connectOrCreate?: CategoryCreateOrConnectWithoutInstitutionInput | CategoryCreateOrConnectWithoutInstitutionInput[]
-    upsert?: CategoryUpsertWithWhereUniqueWithoutInstitutionInput | CategoryUpsertWithWhereUniqueWithoutInstitutionInput[]
-    createMany?: CategoryCreateManyInstitutionInputEnvelope
-    set?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
-    disconnect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
-    delete?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
-    connect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
-    update?: CategoryUpdateWithWhereUniqueWithoutInstitutionInput | CategoryUpdateWithWhereUniqueWithoutInstitutionInput[]
-    updateMany?: CategoryUpdateManyWithWhereWithoutInstitutionInput | CategoryUpdateManyWithWhereWithoutInstitutionInput[]
-    deleteMany?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
+  export type UserUncheckedUpdateManyWithoutInstitutionNestedInput = {
+    create?: XOR<UserCreateWithoutInstitutionInput, UserUncheckedCreateWithoutInstitutionInput> | UserCreateWithoutInstitutionInput[] | UserUncheckedCreateWithoutInstitutionInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutInstitutionInput | UserCreateOrConnectWithoutInstitutionInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutInstitutionInput | UserUpsertWithWhereUniqueWithoutInstitutionInput[]
+    createMany?: UserCreateManyInstitutionInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutInstitutionInput | UserUpdateWithWhereUniqueWithoutInstitutionInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutInstitutionInput | UserUpdateManyWithWhereWithoutInstitutionInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutNotificationsInput = {
@@ -16558,10 +16558,11 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProfileInput, UserUpdateWithoutProfileInput>, UserUncheckedUpdateWithoutProfileInput>
   }
 
-  export type UserCreateNestedOneWithoutSantriInput = {
-    create?: XOR<UserCreateWithoutSantriInput, UserUncheckedCreateWithoutSantriInput>
-    connectOrCreate?: UserCreateOrConnectWithoutSantriInput
-    connect?: UserWhereUniqueInput
+  export type AuthAccountCreateNestedManyWithoutSantriInput = {
+    create?: XOR<AuthAccountCreateWithoutSantriInput, AuthAccountUncheckedCreateWithoutSantriInput> | AuthAccountCreateWithoutSantriInput[] | AuthAccountUncheckedCreateWithoutSantriInput[]
+    connectOrCreate?: AuthAccountCreateOrConnectWithoutSantriInput | AuthAccountCreateOrConnectWithoutSantriInput[]
+    createMany?: AuthAccountCreateManySantriInputEnvelope
+    connect?: AuthAccountWhereUniqueInput | AuthAccountWhereUniqueInput[]
   }
 
   export type InstitutionCreateNestedOneWithoutSantriInput = {
@@ -16570,11 +16571,10 @@ export namespace Prisma {
     connect?: InstitutionWhereUniqueInput
   }
 
-  export type AuthAccountCreateNestedManyWithoutSantriInput = {
-    create?: XOR<AuthAccountCreateWithoutSantriInput, AuthAccountUncheckedCreateWithoutSantriInput> | AuthAccountCreateWithoutSantriInput[] | AuthAccountUncheckedCreateWithoutSantriInput[]
-    connectOrCreate?: AuthAccountCreateOrConnectWithoutSantriInput | AuthAccountCreateOrConnectWithoutSantriInput[]
-    createMany?: AuthAccountCreateManySantriInputEnvelope
-    connect?: AuthAccountWhereUniqueInput | AuthAccountWhereUniqueInput[]
+  export type UserCreateNestedOneWithoutSantriInput = {
+    create?: XOR<UserCreateWithoutSantriInput, UserUncheckedCreateWithoutSantriInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSantriInput
+    connect?: UserWhereUniqueInput
   }
 
   export type TransactionCreateNestedManyWithoutSantriInput = {
@@ -16598,22 +16598,6 @@ export namespace Prisma {
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
-  export type UserUpdateOneRequiredWithoutSantriNestedInput = {
-    create?: XOR<UserCreateWithoutSantriInput, UserUncheckedCreateWithoutSantriInput>
-    connectOrCreate?: UserCreateOrConnectWithoutSantriInput
-    upsert?: UserUpsertWithoutSantriInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSantriInput, UserUpdateWithoutSantriInput>, UserUncheckedUpdateWithoutSantriInput>
-  }
-
-  export type InstitutionUpdateOneRequiredWithoutSantriNestedInput = {
-    create?: XOR<InstitutionCreateWithoutSantriInput, InstitutionUncheckedCreateWithoutSantriInput>
-    connectOrCreate?: InstitutionCreateOrConnectWithoutSantriInput
-    upsert?: InstitutionUpsertWithoutSantriInput
-    connect?: InstitutionWhereUniqueInput
-    update?: XOR<XOR<InstitutionUpdateToOneWithWhereWithoutSantriInput, InstitutionUpdateWithoutSantriInput>, InstitutionUncheckedUpdateWithoutSantriInput>
-  }
-
   export type AuthAccountUpdateManyWithoutSantriNestedInput = {
     create?: XOR<AuthAccountCreateWithoutSantriInput, AuthAccountUncheckedCreateWithoutSantriInput> | AuthAccountCreateWithoutSantriInput[] | AuthAccountUncheckedCreateWithoutSantriInput[]
     connectOrCreate?: AuthAccountCreateOrConnectWithoutSantriInput | AuthAccountCreateOrConnectWithoutSantriInput[]
@@ -16626,6 +16610,22 @@ export namespace Prisma {
     update?: AuthAccountUpdateWithWhereUniqueWithoutSantriInput | AuthAccountUpdateWithWhereUniqueWithoutSantriInput[]
     updateMany?: AuthAccountUpdateManyWithWhereWithoutSantriInput | AuthAccountUpdateManyWithWhereWithoutSantriInput[]
     deleteMany?: AuthAccountScalarWhereInput | AuthAccountScalarWhereInput[]
+  }
+
+  export type InstitutionUpdateOneRequiredWithoutSantriNestedInput = {
+    create?: XOR<InstitutionCreateWithoutSantriInput, InstitutionUncheckedCreateWithoutSantriInput>
+    connectOrCreate?: InstitutionCreateOrConnectWithoutSantriInput
+    upsert?: InstitutionUpsertWithoutSantriInput
+    connect?: InstitutionWhereUniqueInput
+    update?: XOR<XOR<InstitutionUpdateToOneWithWhereWithoutSantriInput, InstitutionUpdateWithoutSantriInput>, InstitutionUncheckedUpdateWithoutSantriInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutSantriNestedInput = {
+    create?: XOR<UserCreateWithoutSantriInput, UserUncheckedCreateWithoutSantriInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSantriInput
+    upsert?: UserUpsertWithoutSantriInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSantriInput, UserUpdateWithoutSantriInput>, UserUncheckedUpdateWithoutSantriInput>
   }
 
   export type TransactionUpdateManyWithoutSantriNestedInput = {
@@ -16670,12 +16670,6 @@ export namespace Prisma {
     deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
-  export type SantriCreateNestedOneWithoutTransactionsInput = {
-    create?: XOR<SantriCreateWithoutTransactionsInput, SantriUncheckedCreateWithoutTransactionsInput>
-    connectOrCreate?: SantriCreateOrConnectWithoutTransactionsInput
-    connect?: SantriWhereUniqueInput
-  }
-
   export type CategoryCreateNestedOneWithoutTransactionsInput = {
     create?: XOR<CategoryCreateWithoutTransactionsInput, CategoryUncheckedCreateWithoutTransactionsInput>
     connectOrCreate?: CategoryCreateOrConnectWithoutTransactionsInput
@@ -16688,20 +16682,18 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type SantriCreateNestedOneWithoutTransactionsInput = {
+    create?: XOR<SantriCreateWithoutTransactionsInput, SantriUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: SantriCreateOrConnectWithoutTransactionsInput
+    connect?: SantriWhereUniqueInput
+  }
+
   export type DecimalFieldUpdateOperationsInput = {
     set?: Decimal | DecimalJsLike | number | string
     increment?: Decimal | DecimalJsLike | number | string
     decrement?: Decimal | DecimalJsLike | number | string
     multiply?: Decimal | DecimalJsLike | number | string
     divide?: Decimal | DecimalJsLike | number | string
-  }
-
-  export type SantriUpdateOneRequiredWithoutTransactionsNestedInput = {
-    create?: XOR<SantriCreateWithoutTransactionsInput, SantriUncheckedCreateWithoutTransactionsInput>
-    connectOrCreate?: SantriCreateOrConnectWithoutTransactionsInput
-    upsert?: SantriUpsertWithoutTransactionsInput
-    connect?: SantriWhereUniqueInput
-    update?: XOR<XOR<SantriUpdateToOneWithWhereWithoutTransactionsInput, SantriUpdateWithoutTransactionsInput>, SantriUncheckedUpdateWithoutTransactionsInput>
   }
 
   export type CategoryUpdateOneRequiredWithoutTransactionsNestedInput = {
@@ -16720,37 +16712,12 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTransactionsInput, UserUpdateWithoutTransactionsInput>, UserUncheckedUpdateWithoutTransactionsInput>
   }
 
-  export type ProfileCreateNestedOneWithoutUserInput = {
-    create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
-    connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
-    connect?: ProfileWhereUniqueInput
-  }
-
-  export type InstitutionCreateNestedOneWithoutUsersInput = {
-    create?: XOR<InstitutionCreateWithoutUsersInput, InstitutionUncheckedCreateWithoutUsersInput>
-    connectOrCreate?: InstitutionCreateOrConnectWithoutUsersInput
-    connect?: InstitutionWhereUniqueInput
-  }
-
-  export type InstitutionCreateNestedManyWithoutAdminInput = {
-    create?: XOR<InstitutionCreateWithoutAdminInput, InstitutionUncheckedCreateWithoutAdminInput> | InstitutionCreateWithoutAdminInput[] | InstitutionUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: InstitutionCreateOrConnectWithoutAdminInput | InstitutionCreateOrConnectWithoutAdminInput[]
-    createMany?: InstitutionCreateManyAdminInputEnvelope
-    connect?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
-  }
-
-  export type SantriCreateNestedManyWithoutWaliInput = {
-    create?: XOR<SantriCreateWithoutWaliInput, SantriUncheckedCreateWithoutWaliInput> | SantriCreateWithoutWaliInput[] | SantriUncheckedCreateWithoutWaliInput[]
-    connectOrCreate?: SantriCreateOrConnectWithoutWaliInput | SantriCreateOrConnectWithoutWaliInput[]
-    createMany?: SantriCreateManyWaliInputEnvelope
-    connect?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
-  }
-
-  export type EmailVerificationCreateNestedManyWithoutUserInput = {
-    create?: XOR<EmailVerificationCreateWithoutUserInput, EmailVerificationUncheckedCreateWithoutUserInput> | EmailVerificationCreateWithoutUserInput[] | EmailVerificationUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: EmailVerificationCreateOrConnectWithoutUserInput | EmailVerificationCreateOrConnectWithoutUserInput[]
-    createMany?: EmailVerificationCreateManyUserInputEnvelope
-    connect?: EmailVerificationWhereUniqueInput | EmailVerificationWhereUniqueInput[]
+  export type SantriUpdateOneRequiredWithoutTransactionsNestedInput = {
+    create?: XOR<SantriCreateWithoutTransactionsInput, SantriUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: SantriCreateOrConnectWithoutTransactionsInput
+    upsert?: SantriUpsertWithoutTransactionsInput
+    connect?: SantriWhereUniqueInput
+    update?: XOR<XOR<SantriUpdateToOneWithWhereWithoutTransactionsInput, SantriUpdateWithoutTransactionsInput>, SantriUncheckedUpdateWithoutTransactionsInput>
   }
 
   export type AuthAccountCreateNestedManyWithoutUserInput = {
@@ -16760,11 +16727,18 @@ export namespace Prisma {
     connect?: AuthAccountWhereUniqueInput | AuthAccountWhereUniqueInput[]
   }
 
-  export type TransactionCreateNestedManyWithoutAdminInput = {
-    create?: XOR<TransactionCreateWithoutAdminInput, TransactionUncheckedCreateWithoutAdminInput> | TransactionCreateWithoutAdminInput[] | TransactionUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutAdminInput | TransactionCreateOrConnectWithoutAdminInput[]
-    createMany?: TransactionCreateManyAdminInputEnvelope
-    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  export type EmailVerificationCreateNestedManyWithoutUserInput = {
+    create?: XOR<EmailVerificationCreateWithoutUserInput, EmailVerificationUncheckedCreateWithoutUserInput> | EmailVerificationCreateWithoutUserInput[] | EmailVerificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: EmailVerificationCreateOrConnectWithoutUserInput | EmailVerificationCreateOrConnectWithoutUserInput[]
+    createMany?: EmailVerificationCreateManyUserInputEnvelope
+    connect?: EmailVerificationWhereUniqueInput | EmailVerificationWhereUniqueInput[]
+  }
+
+  export type InstitutionCreateNestedManyWithoutAdminInput = {
+    create?: XOR<InstitutionCreateWithoutAdminInput, InstitutionUncheckedCreateWithoutAdminInput> | InstitutionCreateWithoutAdminInput[] | InstitutionUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: InstitutionCreateOrConnectWithoutAdminInput | InstitutionCreateOrConnectWithoutAdminInput[]
+    createMany?: InstitutionCreateManyAdminInputEnvelope
+    connect?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
   }
 
   export type NotificationCreateNestedManyWithoutUserInput = {
@@ -16781,31 +16755,30 @@ export namespace Prisma {
     connect?: PasswordResetWhereUniqueInput | PasswordResetWhereUniqueInput[]
   }
 
-  export type ProfileUncheckedCreateNestedOneWithoutUserInput = {
+  export type ProfileCreateNestedOneWithoutUserInput = {
     create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
     connect?: ProfileWhereUniqueInput
   }
 
-  export type InstitutionUncheckedCreateNestedManyWithoutAdminInput = {
-    create?: XOR<InstitutionCreateWithoutAdminInput, InstitutionUncheckedCreateWithoutAdminInput> | InstitutionCreateWithoutAdminInput[] | InstitutionUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: InstitutionCreateOrConnectWithoutAdminInput | InstitutionCreateOrConnectWithoutAdminInput[]
-    createMany?: InstitutionCreateManyAdminInputEnvelope
-    connect?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
-  }
-
-  export type SantriUncheckedCreateNestedManyWithoutWaliInput = {
+  export type SantriCreateNestedManyWithoutWaliInput = {
     create?: XOR<SantriCreateWithoutWaliInput, SantriUncheckedCreateWithoutWaliInput> | SantriCreateWithoutWaliInput[] | SantriUncheckedCreateWithoutWaliInput[]
     connectOrCreate?: SantriCreateOrConnectWithoutWaliInput | SantriCreateOrConnectWithoutWaliInput[]
     createMany?: SantriCreateManyWaliInputEnvelope
     connect?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
   }
 
-  export type EmailVerificationUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<EmailVerificationCreateWithoutUserInput, EmailVerificationUncheckedCreateWithoutUserInput> | EmailVerificationCreateWithoutUserInput[] | EmailVerificationUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: EmailVerificationCreateOrConnectWithoutUserInput | EmailVerificationCreateOrConnectWithoutUserInput[]
-    createMany?: EmailVerificationCreateManyUserInputEnvelope
-    connect?: EmailVerificationWhereUniqueInput | EmailVerificationWhereUniqueInput[]
+  export type TransactionCreateNestedManyWithoutAdminInput = {
+    create?: XOR<TransactionCreateWithoutAdminInput, TransactionUncheckedCreateWithoutAdminInput> | TransactionCreateWithoutAdminInput[] | TransactionUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutAdminInput | TransactionCreateOrConnectWithoutAdminInput[]
+    createMany?: TransactionCreateManyAdminInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  }
+
+  export type InstitutionCreateNestedOneWithoutUsersInput = {
+    create?: XOR<InstitutionCreateWithoutUsersInput, InstitutionUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: InstitutionCreateOrConnectWithoutUsersInput
+    connect?: InstitutionWhereUniqueInput
   }
 
   export type AuthAccountUncheckedCreateNestedManyWithoutUserInput = {
@@ -16815,11 +16788,18 @@ export namespace Prisma {
     connect?: AuthAccountWhereUniqueInput | AuthAccountWhereUniqueInput[]
   }
 
-  export type TransactionUncheckedCreateNestedManyWithoutAdminInput = {
-    create?: XOR<TransactionCreateWithoutAdminInput, TransactionUncheckedCreateWithoutAdminInput> | TransactionCreateWithoutAdminInput[] | TransactionUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutAdminInput | TransactionCreateOrConnectWithoutAdminInput[]
-    createMany?: TransactionCreateManyAdminInputEnvelope
-    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  export type EmailVerificationUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<EmailVerificationCreateWithoutUserInput, EmailVerificationUncheckedCreateWithoutUserInput> | EmailVerificationCreateWithoutUserInput[] | EmailVerificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: EmailVerificationCreateOrConnectWithoutUserInput | EmailVerificationCreateOrConnectWithoutUserInput[]
+    createMany?: EmailVerificationCreateManyUserInputEnvelope
+    connect?: EmailVerificationWhereUniqueInput | EmailVerificationWhereUniqueInput[]
+  }
+
+  export type InstitutionUncheckedCreateNestedManyWithoutAdminInput = {
+    create?: XOR<InstitutionCreateWithoutAdminInput, InstitutionUncheckedCreateWithoutAdminInput> | InstitutionCreateWithoutAdminInput[] | InstitutionUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: InstitutionCreateOrConnectWithoutAdminInput | InstitutionCreateOrConnectWithoutAdminInput[]
+    createMany?: InstitutionCreateManyAdminInputEnvelope
+    connect?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
   }
 
   export type NotificationUncheckedCreateNestedManyWithoutUserInput = {
@@ -16836,70 +16816,28 @@ export namespace Prisma {
     connect?: PasswordResetWhereUniqueInput | PasswordResetWhereUniqueInput[]
   }
 
-  export type EnumUserRoleFieldUpdateOperationsInput = {
-    set?: $Enums.UserRole
-  }
-
-  export type ProfileUpdateOneWithoutUserNestedInput = {
+  export type ProfileUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
-    upsert?: ProfileUpsertWithoutUserInput
-    disconnect?: ProfileWhereInput | boolean
-    delete?: ProfileWhereInput | boolean
     connect?: ProfileWhereUniqueInput
-    update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutUserInput, ProfileUpdateWithoutUserInput>, ProfileUncheckedUpdateWithoutUserInput>
   }
 
-  export type InstitutionUpdateOneWithoutUsersNestedInput = {
-    create?: XOR<InstitutionCreateWithoutUsersInput, InstitutionUncheckedCreateWithoutUsersInput>
-    connectOrCreate?: InstitutionCreateOrConnectWithoutUsersInput
-    upsert?: InstitutionUpsertWithoutUsersInput
-    disconnect?: InstitutionWhereInput | boolean
-    delete?: InstitutionWhereInput | boolean
-    connect?: InstitutionWhereUniqueInput
-    update?: XOR<XOR<InstitutionUpdateToOneWithWhereWithoutUsersInput, InstitutionUpdateWithoutUsersInput>, InstitutionUncheckedUpdateWithoutUsersInput>
-  }
-
-  export type InstitutionUpdateManyWithoutAdminNestedInput = {
-    create?: XOR<InstitutionCreateWithoutAdminInput, InstitutionUncheckedCreateWithoutAdminInput> | InstitutionCreateWithoutAdminInput[] | InstitutionUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: InstitutionCreateOrConnectWithoutAdminInput | InstitutionCreateOrConnectWithoutAdminInput[]
-    upsert?: InstitutionUpsertWithWhereUniqueWithoutAdminInput | InstitutionUpsertWithWhereUniqueWithoutAdminInput[]
-    createMany?: InstitutionCreateManyAdminInputEnvelope
-    set?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
-    disconnect?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
-    delete?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
-    connect?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
-    update?: InstitutionUpdateWithWhereUniqueWithoutAdminInput | InstitutionUpdateWithWhereUniqueWithoutAdminInput[]
-    updateMany?: InstitutionUpdateManyWithWhereWithoutAdminInput | InstitutionUpdateManyWithWhereWithoutAdminInput[]
-    deleteMany?: InstitutionScalarWhereInput | InstitutionScalarWhereInput[]
-  }
-
-  export type SantriUpdateManyWithoutWaliNestedInput = {
+  export type SantriUncheckedCreateNestedManyWithoutWaliInput = {
     create?: XOR<SantriCreateWithoutWaliInput, SantriUncheckedCreateWithoutWaliInput> | SantriCreateWithoutWaliInput[] | SantriUncheckedCreateWithoutWaliInput[]
     connectOrCreate?: SantriCreateOrConnectWithoutWaliInput | SantriCreateOrConnectWithoutWaliInput[]
-    upsert?: SantriUpsertWithWhereUniqueWithoutWaliInput | SantriUpsertWithWhereUniqueWithoutWaliInput[]
     createMany?: SantriCreateManyWaliInputEnvelope
-    set?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
-    disconnect?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
-    delete?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
     connect?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
-    update?: SantriUpdateWithWhereUniqueWithoutWaliInput | SantriUpdateWithWhereUniqueWithoutWaliInput[]
-    updateMany?: SantriUpdateManyWithWhereWithoutWaliInput | SantriUpdateManyWithWhereWithoutWaliInput[]
-    deleteMany?: SantriScalarWhereInput | SantriScalarWhereInput[]
   }
 
-  export type EmailVerificationUpdateManyWithoutUserNestedInput = {
-    create?: XOR<EmailVerificationCreateWithoutUserInput, EmailVerificationUncheckedCreateWithoutUserInput> | EmailVerificationCreateWithoutUserInput[] | EmailVerificationUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: EmailVerificationCreateOrConnectWithoutUserInput | EmailVerificationCreateOrConnectWithoutUserInput[]
-    upsert?: EmailVerificationUpsertWithWhereUniqueWithoutUserInput | EmailVerificationUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: EmailVerificationCreateManyUserInputEnvelope
-    set?: EmailVerificationWhereUniqueInput | EmailVerificationWhereUniqueInput[]
-    disconnect?: EmailVerificationWhereUniqueInput | EmailVerificationWhereUniqueInput[]
-    delete?: EmailVerificationWhereUniqueInput | EmailVerificationWhereUniqueInput[]
-    connect?: EmailVerificationWhereUniqueInput | EmailVerificationWhereUniqueInput[]
-    update?: EmailVerificationUpdateWithWhereUniqueWithoutUserInput | EmailVerificationUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: EmailVerificationUpdateManyWithWhereWithoutUserInput | EmailVerificationUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: EmailVerificationScalarWhereInput | EmailVerificationScalarWhereInput[]
+  export type TransactionUncheckedCreateNestedManyWithoutAdminInput = {
+    create?: XOR<TransactionCreateWithoutAdminInput, TransactionUncheckedCreateWithoutAdminInput> | TransactionCreateWithoutAdminInput[] | TransactionUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutAdminInput | TransactionCreateOrConnectWithoutAdminInput[]
+    createMany?: TransactionCreateManyAdminInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  }
+
+  export type Enumuser_roleFieldUpdateOperationsInput = {
+    set?: $Enums.user_role
   }
 
   export type AuthAccountUpdateManyWithoutUserNestedInput = {
@@ -16916,18 +16854,32 @@ export namespace Prisma {
     deleteMany?: AuthAccountScalarWhereInput | AuthAccountScalarWhereInput[]
   }
 
-  export type TransactionUpdateManyWithoutAdminNestedInput = {
-    create?: XOR<TransactionCreateWithoutAdminInput, TransactionUncheckedCreateWithoutAdminInput> | TransactionCreateWithoutAdminInput[] | TransactionUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutAdminInput | TransactionCreateOrConnectWithoutAdminInput[]
-    upsert?: TransactionUpsertWithWhereUniqueWithoutAdminInput | TransactionUpsertWithWhereUniqueWithoutAdminInput[]
-    createMany?: TransactionCreateManyAdminInputEnvelope
-    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    update?: TransactionUpdateWithWhereUniqueWithoutAdminInput | TransactionUpdateWithWhereUniqueWithoutAdminInput[]
-    updateMany?: TransactionUpdateManyWithWhereWithoutAdminInput | TransactionUpdateManyWithWhereWithoutAdminInput[]
-    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  export type EmailVerificationUpdateManyWithoutUserNestedInput = {
+    create?: XOR<EmailVerificationCreateWithoutUserInput, EmailVerificationUncheckedCreateWithoutUserInput> | EmailVerificationCreateWithoutUserInput[] | EmailVerificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: EmailVerificationCreateOrConnectWithoutUserInput | EmailVerificationCreateOrConnectWithoutUserInput[]
+    upsert?: EmailVerificationUpsertWithWhereUniqueWithoutUserInput | EmailVerificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: EmailVerificationCreateManyUserInputEnvelope
+    set?: EmailVerificationWhereUniqueInput | EmailVerificationWhereUniqueInput[]
+    disconnect?: EmailVerificationWhereUniqueInput | EmailVerificationWhereUniqueInput[]
+    delete?: EmailVerificationWhereUniqueInput | EmailVerificationWhereUniqueInput[]
+    connect?: EmailVerificationWhereUniqueInput | EmailVerificationWhereUniqueInput[]
+    update?: EmailVerificationUpdateWithWhereUniqueWithoutUserInput | EmailVerificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: EmailVerificationUpdateManyWithWhereWithoutUserInput | EmailVerificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: EmailVerificationScalarWhereInput | EmailVerificationScalarWhereInput[]
+  }
+
+  export type InstitutionUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<InstitutionCreateWithoutAdminInput, InstitutionUncheckedCreateWithoutAdminInput> | InstitutionCreateWithoutAdminInput[] | InstitutionUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: InstitutionCreateOrConnectWithoutAdminInput | InstitutionCreateOrConnectWithoutAdminInput[]
+    upsert?: InstitutionUpsertWithWhereUniqueWithoutAdminInput | InstitutionUpsertWithWhereUniqueWithoutAdminInput[]
+    createMany?: InstitutionCreateManyAdminInputEnvelope
+    set?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
+    disconnect?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
+    delete?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
+    connect?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
+    update?: InstitutionUpdateWithWhereUniqueWithoutAdminInput | InstitutionUpdateWithWhereUniqueWithoutAdminInput[]
+    updateMany?: InstitutionUpdateManyWithWhereWithoutAdminInput | InstitutionUpdateManyWithWhereWithoutAdminInput[]
+    deleteMany?: InstitutionScalarWhereInput | InstitutionScalarWhereInput[]
   }
 
   export type NotificationUpdateManyWithoutUserNestedInput = {
@@ -16958,7 +16910,7 @@ export namespace Prisma {
     deleteMany?: PasswordResetScalarWhereInput | PasswordResetScalarWhereInput[]
   }
 
-  export type ProfileUncheckedUpdateOneWithoutUserNestedInput = {
+  export type ProfileUpdateOneWithoutUserNestedInput = {
     create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
     upsert?: ProfileUpsertWithoutUserInput
@@ -16968,21 +16920,7 @@ export namespace Prisma {
     update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutUserInput, ProfileUpdateWithoutUserInput>, ProfileUncheckedUpdateWithoutUserInput>
   }
 
-  export type InstitutionUncheckedUpdateManyWithoutAdminNestedInput = {
-    create?: XOR<InstitutionCreateWithoutAdminInput, InstitutionUncheckedCreateWithoutAdminInput> | InstitutionCreateWithoutAdminInput[] | InstitutionUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: InstitutionCreateOrConnectWithoutAdminInput | InstitutionCreateOrConnectWithoutAdminInput[]
-    upsert?: InstitutionUpsertWithWhereUniqueWithoutAdminInput | InstitutionUpsertWithWhereUniqueWithoutAdminInput[]
-    createMany?: InstitutionCreateManyAdminInputEnvelope
-    set?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
-    disconnect?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
-    delete?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
-    connect?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
-    update?: InstitutionUpdateWithWhereUniqueWithoutAdminInput | InstitutionUpdateWithWhereUniqueWithoutAdminInput[]
-    updateMany?: InstitutionUpdateManyWithWhereWithoutAdminInput | InstitutionUpdateManyWithWhereWithoutAdminInput[]
-    deleteMany?: InstitutionScalarWhereInput | InstitutionScalarWhereInput[]
-  }
-
-  export type SantriUncheckedUpdateManyWithoutWaliNestedInput = {
+  export type SantriUpdateManyWithoutWaliNestedInput = {
     create?: XOR<SantriCreateWithoutWaliInput, SantriUncheckedCreateWithoutWaliInput> | SantriCreateWithoutWaliInput[] | SantriUncheckedCreateWithoutWaliInput[]
     connectOrCreate?: SantriCreateOrConnectWithoutWaliInput | SantriCreateOrConnectWithoutWaliInput[]
     upsert?: SantriUpsertWithWhereUniqueWithoutWaliInput | SantriUpsertWithWhereUniqueWithoutWaliInput[]
@@ -16996,18 +16934,28 @@ export namespace Prisma {
     deleteMany?: SantriScalarWhereInput | SantriScalarWhereInput[]
   }
 
-  export type EmailVerificationUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<EmailVerificationCreateWithoutUserInput, EmailVerificationUncheckedCreateWithoutUserInput> | EmailVerificationCreateWithoutUserInput[] | EmailVerificationUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: EmailVerificationCreateOrConnectWithoutUserInput | EmailVerificationCreateOrConnectWithoutUserInput[]
-    upsert?: EmailVerificationUpsertWithWhereUniqueWithoutUserInput | EmailVerificationUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: EmailVerificationCreateManyUserInputEnvelope
-    set?: EmailVerificationWhereUniqueInput | EmailVerificationWhereUniqueInput[]
-    disconnect?: EmailVerificationWhereUniqueInput | EmailVerificationWhereUniqueInput[]
-    delete?: EmailVerificationWhereUniqueInput | EmailVerificationWhereUniqueInput[]
-    connect?: EmailVerificationWhereUniqueInput | EmailVerificationWhereUniqueInput[]
-    update?: EmailVerificationUpdateWithWhereUniqueWithoutUserInput | EmailVerificationUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: EmailVerificationUpdateManyWithWhereWithoutUserInput | EmailVerificationUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: EmailVerificationScalarWhereInput | EmailVerificationScalarWhereInput[]
+  export type TransactionUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<TransactionCreateWithoutAdminInput, TransactionUncheckedCreateWithoutAdminInput> | TransactionCreateWithoutAdminInput[] | TransactionUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutAdminInput | TransactionCreateOrConnectWithoutAdminInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutAdminInput | TransactionUpsertWithWhereUniqueWithoutAdminInput[]
+    createMany?: TransactionCreateManyAdminInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutAdminInput | TransactionUpdateWithWhereUniqueWithoutAdminInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutAdminInput | TransactionUpdateManyWithWhereWithoutAdminInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  }
+
+  export type InstitutionUpdateOneWithoutUsersNestedInput = {
+    create?: XOR<InstitutionCreateWithoutUsersInput, InstitutionUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: InstitutionCreateOrConnectWithoutUsersInput
+    upsert?: InstitutionUpsertWithoutUsersInput
+    disconnect?: InstitutionWhereInput | boolean
+    delete?: InstitutionWhereInput | boolean
+    connect?: InstitutionWhereUniqueInput
+    update?: XOR<XOR<InstitutionUpdateToOneWithWhereWithoutUsersInput, InstitutionUpdateWithoutUsersInput>, InstitutionUncheckedUpdateWithoutUsersInput>
   }
 
   export type AuthAccountUncheckedUpdateManyWithoutUserNestedInput = {
@@ -17024,18 +16972,32 @@ export namespace Prisma {
     deleteMany?: AuthAccountScalarWhereInput | AuthAccountScalarWhereInput[]
   }
 
-  export type TransactionUncheckedUpdateManyWithoutAdminNestedInput = {
-    create?: XOR<TransactionCreateWithoutAdminInput, TransactionUncheckedCreateWithoutAdminInput> | TransactionCreateWithoutAdminInput[] | TransactionUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutAdminInput | TransactionCreateOrConnectWithoutAdminInput[]
-    upsert?: TransactionUpsertWithWhereUniqueWithoutAdminInput | TransactionUpsertWithWhereUniqueWithoutAdminInput[]
-    createMany?: TransactionCreateManyAdminInputEnvelope
-    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    update?: TransactionUpdateWithWhereUniqueWithoutAdminInput | TransactionUpdateWithWhereUniqueWithoutAdminInput[]
-    updateMany?: TransactionUpdateManyWithWhereWithoutAdminInput | TransactionUpdateManyWithWhereWithoutAdminInput[]
-    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  export type EmailVerificationUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<EmailVerificationCreateWithoutUserInput, EmailVerificationUncheckedCreateWithoutUserInput> | EmailVerificationCreateWithoutUserInput[] | EmailVerificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: EmailVerificationCreateOrConnectWithoutUserInput | EmailVerificationCreateOrConnectWithoutUserInput[]
+    upsert?: EmailVerificationUpsertWithWhereUniqueWithoutUserInput | EmailVerificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: EmailVerificationCreateManyUserInputEnvelope
+    set?: EmailVerificationWhereUniqueInput | EmailVerificationWhereUniqueInput[]
+    disconnect?: EmailVerificationWhereUniqueInput | EmailVerificationWhereUniqueInput[]
+    delete?: EmailVerificationWhereUniqueInput | EmailVerificationWhereUniqueInput[]
+    connect?: EmailVerificationWhereUniqueInput | EmailVerificationWhereUniqueInput[]
+    update?: EmailVerificationUpdateWithWhereUniqueWithoutUserInput | EmailVerificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: EmailVerificationUpdateManyWithWhereWithoutUserInput | EmailVerificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: EmailVerificationScalarWhereInput | EmailVerificationScalarWhereInput[]
+  }
+
+  export type InstitutionUncheckedUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<InstitutionCreateWithoutAdminInput, InstitutionUncheckedCreateWithoutAdminInput> | InstitutionCreateWithoutAdminInput[] | InstitutionUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: InstitutionCreateOrConnectWithoutAdminInput | InstitutionCreateOrConnectWithoutAdminInput[]
+    upsert?: InstitutionUpsertWithWhereUniqueWithoutAdminInput | InstitutionUpsertWithWhereUniqueWithoutAdminInput[]
+    createMany?: InstitutionCreateManyAdminInputEnvelope
+    set?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
+    disconnect?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
+    delete?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
+    connect?: InstitutionWhereUniqueInput | InstitutionWhereUniqueInput[]
+    update?: InstitutionUpdateWithWhereUniqueWithoutAdminInput | InstitutionUpdateWithWhereUniqueWithoutAdminInput[]
+    updateMany?: InstitutionUpdateManyWithWhereWithoutAdminInput | InstitutionUpdateManyWithWhereWithoutAdminInput[]
+    deleteMany?: InstitutionScalarWhereInput | InstitutionScalarWhereInput[]
   }
 
   export type NotificationUncheckedUpdateManyWithoutUserNestedInput = {
@@ -17064,6 +17026,44 @@ export namespace Prisma {
     update?: PasswordResetUpdateWithWhereUniqueWithoutUserInput | PasswordResetUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: PasswordResetUpdateManyWithWhereWithoutUserInput | PasswordResetUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: PasswordResetScalarWhereInput | PasswordResetScalarWhereInput[]
+  }
+
+  export type ProfileUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
+    upsert?: ProfileUpsertWithoutUserInput
+    disconnect?: ProfileWhereInput | boolean
+    delete?: ProfileWhereInput | boolean
+    connect?: ProfileWhereUniqueInput
+    update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutUserInput, ProfileUpdateWithoutUserInput>, ProfileUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SantriUncheckedUpdateManyWithoutWaliNestedInput = {
+    create?: XOR<SantriCreateWithoutWaliInput, SantriUncheckedCreateWithoutWaliInput> | SantriCreateWithoutWaliInput[] | SantriUncheckedCreateWithoutWaliInput[]
+    connectOrCreate?: SantriCreateOrConnectWithoutWaliInput | SantriCreateOrConnectWithoutWaliInput[]
+    upsert?: SantriUpsertWithWhereUniqueWithoutWaliInput | SantriUpsertWithWhereUniqueWithoutWaliInput[]
+    createMany?: SantriCreateManyWaliInputEnvelope
+    set?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
+    disconnect?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
+    delete?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
+    connect?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
+    update?: SantriUpdateWithWhereUniqueWithoutWaliInput | SantriUpdateWithWhereUniqueWithoutWaliInput[]
+    updateMany?: SantriUpdateManyWithWhereWithoutWaliInput | SantriUpdateManyWithWhereWithoutWaliInput[]
+    deleteMany?: SantriScalarWhereInput | SantriScalarWhereInput[]
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<TransactionCreateWithoutAdminInput, TransactionUncheckedCreateWithoutAdminInput> | TransactionCreateWithoutAdminInput[] | TransactionUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutAdminInput | TransactionCreateOrConnectWithoutAdminInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutAdminInput | TransactionUpsertWithWhereUniqueWithoutAdminInput[]
+    createMany?: TransactionCreateManyAdminInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutAdminInput | TransactionUpdateWithWhereUniqueWithoutAdminInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutAdminInput | TransactionUpdateManyWithWhereWithoutAdminInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -17211,21 +17211,21 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedEnumCategoryTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.CategoryType | EnumCategoryTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.CategoryType[] | ListEnumCategoryTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.CategoryType[] | ListEnumCategoryTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumCategoryTypeFilter<$PrismaModel> | $Enums.CategoryType
+  export type NestedEnumcategory_typeFilter<$PrismaModel = never> = {
+    equals?: $Enums.category_type | Enumcategory_typeFieldRefInput<$PrismaModel>
+    in?: $Enums.category_type[] | ListEnumcategory_typeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.category_type[] | ListEnumcategory_typeFieldRefInput<$PrismaModel>
+    not?: NestedEnumcategory_typeFilter<$PrismaModel> | $Enums.category_type
   }
 
-  export type NestedEnumCategoryTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.CategoryType | EnumCategoryTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.CategoryType[] | ListEnumCategoryTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.CategoryType[] | ListEnumCategoryTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumCategoryTypeWithAggregatesFilter<$PrismaModel> | $Enums.CategoryType
+  export type NestedEnumcategory_typeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.category_type | Enumcategory_typeFieldRefInput<$PrismaModel>
+    in?: $Enums.category_type[] | ListEnumcategory_typeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.category_type[] | ListEnumcategory_typeFieldRefInput<$PrismaModel>
+    not?: NestedEnumcategory_typeWithAggregatesFilter<$PrismaModel> | $Enums.category_type
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumCategoryTypeFilter<$PrismaModel>
-    _max?: NestedEnumCategoryTypeFilter<$PrismaModel>
+    _min?: NestedEnumcategory_typeFilter<$PrismaModel>
+    _max?: NestedEnumcategory_typeFilter<$PrismaModel>
   }
 
   export type NestedStringNullableFilter<$PrismaModel = never> = {
@@ -17286,39 +17286,39 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type NestedEnumUserRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
+  export type NestedEnumuser_roleFilter<$PrismaModel = never> = {
+    equals?: $Enums.user_role | Enumuser_roleFieldRefInput<$PrismaModel>
+    in?: $Enums.user_role[] | ListEnumuser_roleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.user_role[] | ListEnumuser_roleFieldRefInput<$PrismaModel>
+    not?: NestedEnumuser_roleFilter<$PrismaModel> | $Enums.user_role
   }
 
-  export type NestedEnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
+  export type NestedEnumuser_roleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.user_role | Enumuser_roleFieldRefInput<$PrismaModel>
+    in?: $Enums.user_role[] | ListEnumuser_roleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.user_role[] | ListEnumuser_roleFieldRefInput<$PrismaModel>
+    not?: NestedEnumuser_roleWithAggregatesFilter<$PrismaModel> | $Enums.user_role
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumUserRoleFilter<$PrismaModel>
-    _max?: NestedEnumUserRoleFilter<$PrismaModel>
+    _min?: NestedEnumuser_roleFilter<$PrismaModel>
+    _max?: NestedEnumuser_roleFilter<$PrismaModel>
   }
 
   export type UserCreateWithoutEmailVerificationsInput = {
     username: string
     email: string
     password: string
-    role: $Enums.UserRole
+    role: $Enums.user_role
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
-    profile?: ProfileCreateNestedOneWithoutUserInput
-    institution?: InstitutionCreateNestedOneWithoutUsersInput
-    createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
-    santri?: SantriCreateNestedManyWithoutWaliInput
     authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
-    transactions?: TransactionCreateNestedManyWithoutAdminInput
+    createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     passwordResets?: PasswordResetCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    santri?: SantriCreateNestedManyWithoutWaliInput
+    transactions?: TransactionCreateNestedManyWithoutAdminInput
+    institution?: InstitutionCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutEmailVerificationsInput = {
@@ -17326,18 +17326,18 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.UserRole
+    role: $Enums.user_role
     institutionId?: number | null
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
-    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
-    createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
-    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
-    transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
+    createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     passwordResets?: PasswordResetUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type UserCreateOrConnectWithoutEmailVerificationsInput = {
@@ -17360,18 +17360,18 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    profile?: ProfileUpdateOneWithoutUserNestedInput
-    institution?: InstitutionUpdateOneWithoutUsersNestedInput
-    createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
-    santri?: SantriUpdateManyWithoutWaliNestedInput
     authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
-    transactions?: TransactionUpdateManyWithoutAdminNestedInput
+    createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     passwordResets?: PasswordResetUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    santri?: SantriUpdateManyWithoutWaliNestedInput
+    transactions?: TransactionUpdateManyWithoutAdminNestedInput
+    institution?: InstitutionUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEmailVerificationsInput = {
@@ -17379,60 +17379,18 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
     institutionId?: NullableIntFieldUpdateOperationsInput | number | null
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
-    createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
-    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
-    transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
+    createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     passwordResets?: PasswordResetUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserCreateWithoutAuthAccountsInput = {
-    username: string
-    email: string
-    password: string
-    role: $Enums.UserRole
-    isEmailVerified?: boolean
-    isActive?: boolean
-    createdAt?: Date | string
-    profile?: ProfileCreateNestedOneWithoutUserInput
-    institution?: InstitutionCreateNestedOneWithoutUsersInput
-    createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
-    santri?: SantriCreateNestedManyWithoutWaliInput
-    emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
-    transactions?: TransactionCreateNestedManyWithoutAdminInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    passwordResets?: PasswordResetCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutAuthAccountsInput = {
-    id?: number
-    username: string
-    email: string
-    password: string
-    role: $Enums.UserRole
-    institutionId?: number | null
-    isEmailVerified?: boolean
-    isActive?: boolean
-    createdAt?: Date | string
-    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
-    createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
-    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
-    emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
-    transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    passwordResets?: PasswordResetUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutAuthAccountsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutAuthAccountsInput, UserUncheckedCreateWithoutAuthAccountsInput>
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type SantriCreateWithoutAuthAccountsInput = {
@@ -17444,8 +17402,8 @@ export namespace Prisma {
     institutionName?: string | null
     isActive?: boolean
     createdAt?: Date | string
-    wali: UserCreateNestedOneWithoutSantriInput
     institution: InstitutionCreateNestedOneWithoutSantriInput
+    wali: UserCreateNestedOneWithoutSantriInput
     transactions?: TransactionCreateNestedManyWithoutSantriInput
   }
 
@@ -17469,52 +17427,46 @@ export namespace Prisma {
     create: XOR<SantriCreateWithoutAuthAccountsInput, SantriUncheckedCreateWithoutAuthAccountsInput>
   }
 
-  export type UserUpsertWithoutAuthAccountsInput = {
-    update: XOR<UserUpdateWithoutAuthAccountsInput, UserUncheckedUpdateWithoutAuthAccountsInput>
+  export type UserCreateWithoutAuthAccountsInput = {
+    username: string
+    email: string
+    password: string
+    role: $Enums.user_role
+    isEmailVerified?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
+    createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    passwordResets?: PasswordResetCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    santri?: SantriCreateNestedManyWithoutWaliInput
+    transactions?: TransactionCreateNestedManyWithoutAdminInput
+    institution?: InstitutionCreateNestedOneWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutAuthAccountsInput = {
+    id?: number
+    username: string
+    email: string
+    password: string
+    role: $Enums.user_role
+    institutionId?: number | null
+    isEmailVerified?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
+    createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    passwordResets?: PasswordResetUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
+  }
+
+  export type UserCreateOrConnectWithoutAuthAccountsInput = {
+    where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutAuthAccountsInput, UserUncheckedCreateWithoutAuthAccountsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutAuthAccountsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutAuthAccountsInput, UserUncheckedUpdateWithoutAuthAccountsInput>
-  }
-
-  export type UserUpdateWithoutAuthAccountsInput = {
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    profile?: ProfileUpdateOneWithoutUserNestedInput
-    institution?: InstitutionUpdateOneWithoutUsersNestedInput
-    createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
-    santri?: SantriUpdateManyWithoutWaliNestedInput
-    emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
-    transactions?: TransactionUpdateManyWithoutAdminNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    passwordResets?: PasswordResetUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutAuthAccountsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
-    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
-    createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
-    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
-    emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
-    transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    passwordResets?: PasswordResetUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SantriUpsertWithoutAuthAccountsInput = {
@@ -17537,8 +17489,8 @@ export namespace Prisma {
     institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    wali?: UserUpdateOneRequiredWithoutSantriNestedInput
     institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
+    wali?: UserUpdateOneRequiredWithoutSantriNestedInput
     transactions?: TransactionUpdateManyWithoutSantriNestedInput
   }
 
@@ -17557,13 +17509,61 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutSantriNestedInput
   }
 
+  export type UserUpsertWithoutAuthAccountsInput = {
+    update: XOR<UserUpdateWithoutAuthAccountsInput, UserUncheckedUpdateWithoutAuthAccountsInput>
+    create: XOR<UserCreateWithoutAuthAccountsInput, UserUncheckedCreateWithoutAuthAccountsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAuthAccountsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAuthAccountsInput, UserUncheckedUpdateWithoutAuthAccountsInput>
+  }
+
+  export type UserUpdateWithoutAuthAccountsInput = {
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
+    createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    passwordResets?: PasswordResetUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    santri?: SantriUpdateManyWithoutWaliNestedInput
+    transactions?: TransactionUpdateManyWithoutAdminNestedInput
+    institution?: InstitutionUpdateOneWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAuthAccountsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
+    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
+    createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    passwordResets?: PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
+  }
+
   export type InstitutionCreateWithoutCategoriesInput = {
     name: string
     isActive?: boolean
     createdAt?: Date | string
-    users?: UserCreateNestedManyWithoutInstitutionInput
-    santri?: SantriCreateNestedManyWithoutInstitutionInput
     admin: UserCreateNestedOneWithoutCreatedInstitutionsInput
+    santri?: SantriCreateNestedManyWithoutInstitutionInput
+    users?: UserCreateNestedManyWithoutInstitutionInput
   }
 
   export type InstitutionUncheckedCreateWithoutCategoriesInput = {
@@ -17572,8 +17572,8 @@ export namespace Prisma {
     createdBy: number
     isActive?: boolean
     createdAt?: Date | string
-    users?: UserUncheckedCreateNestedManyWithoutInstitutionInput
     santri?: SantriUncheckedCreateNestedManyWithoutInstitutionInput
+    users?: UserUncheckedCreateNestedManyWithoutInstitutionInput
   }
 
   export type InstitutionCreateOrConnectWithoutCategoriesInput = {
@@ -17582,20 +17582,20 @@ export namespace Prisma {
   }
 
   export type TransactionCreateWithoutCategoryInput = {
-    type: $Enums.CategoryType
+    type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
     description?: string | null
     transactionDate: Date | string
     isDeleted?: boolean
     createdAt?: Date | string
-    santri: SantriCreateNestedOneWithoutTransactionsInput
     admin: UserCreateNestedOneWithoutTransactionsInput
+    santri: SantriCreateNestedOneWithoutTransactionsInput
   }
 
   export type TransactionUncheckedCreateWithoutCategoryInput = {
     id?: number
     santriId: number
-    type: $Enums.CategoryType
+    type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
     description?: string | null
     transactionDate: Date | string
@@ -17629,9 +17629,9 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUpdateManyWithoutInstitutionNestedInput
-    santri?: SantriUpdateManyWithoutInstitutionNestedInput
     admin?: UserUpdateOneRequiredWithoutCreatedInstitutionsNestedInput
+    santri?: SantriUpdateManyWithoutInstitutionNestedInput
+    users?: UserUpdateManyWithoutInstitutionNestedInput
   }
 
   export type InstitutionUncheckedUpdateWithoutCategoriesInput = {
@@ -17640,8 +17640,8 @@ export namespace Prisma {
     createdBy?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUncheckedUpdateManyWithoutInstitutionNestedInput
     santri?: SantriUncheckedUpdateManyWithoutInstitutionNestedInput
+    users?: UserUncheckedUpdateManyWithoutInstitutionNestedInput
   }
 
   export type TransactionUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -17667,7 +17667,7 @@ export namespace Prisma {
     id?: IntFilter<"Transaction"> | number
     santriId?: IntFilter<"Transaction"> | number
     categoryId?: IntFilter<"Transaction"> | number
-    type?: EnumCategoryTypeFilter<"Transaction"> | $Enums.CategoryType
+    type?: Enumcategory_typeFilter<"Transaction"> | $Enums.category_type
     amount?: DecimalFilter<"Transaction"> | Decimal | DecimalJsLike | number | string
     description?: StringNullableFilter<"Transaction"> | string | null
     transactionDate?: DateTimeFilter<"Transaction"> | Date | string
@@ -17676,51 +17676,73 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
   }
 
-  export type UserCreateWithoutInstitutionInput = {
+  export type CategoryCreateWithoutInstitutionInput = {
+    name: string
+    type: $Enums.category_type
+    isActive?: boolean
+    createdAt?: Date | string
+    transactions?: TransactionCreateNestedManyWithoutCategoryInput
+  }
+
+  export type CategoryUncheckedCreateWithoutInstitutionInput = {
+    id?: number
+    name: string
+    type: $Enums.category_type
+    isActive?: boolean
+    createdAt?: Date | string
+    transactions?: TransactionUncheckedCreateNestedManyWithoutCategoryInput
+  }
+
+  export type CategoryCreateOrConnectWithoutInstitutionInput = {
+    where: CategoryWhereUniqueInput
+    create: XOR<CategoryCreateWithoutInstitutionInput, CategoryUncheckedCreateWithoutInstitutionInput>
+  }
+
+  export type CategoryCreateManyInstitutionInputEnvelope = {
+    data: CategoryCreateManyInstitutionInput | CategoryCreateManyInstitutionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserCreateWithoutCreatedInstitutionsInput = {
     username: string
     email: string
     password: string
-    role: $Enums.UserRole
+    role: $Enums.user_role
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
-    profile?: ProfileCreateNestedOneWithoutUserInput
-    createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
-    santri?: SantriCreateNestedManyWithoutWaliInput
-    emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
-    transactions?: TransactionCreateNestedManyWithoutAdminInput
+    emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     passwordResets?: PasswordResetCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    santri?: SantriCreateNestedManyWithoutWaliInput
+    transactions?: TransactionCreateNestedManyWithoutAdminInput
+    institution?: InstitutionCreateNestedOneWithoutUsersInput
   }
 
-  export type UserUncheckedCreateWithoutInstitutionInput = {
+  export type UserUncheckedCreateWithoutCreatedInstitutionsInput = {
     id?: number
     username: string
     email: string
     password: string
-    role: $Enums.UserRole
+    role: $Enums.user_role
+    institutionId?: number | null
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
-    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
-    createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
-    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
-    emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
-    transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
+    emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     passwordResets?: PasswordResetUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
   }
 
-  export type UserCreateOrConnectWithoutInstitutionInput = {
+  export type UserCreateOrConnectWithoutCreatedInstitutionsInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutInstitutionInput, UserUncheckedCreateWithoutInstitutionInput>
-  }
-
-  export type UserCreateManyInstitutionInputEnvelope = {
-    data: UserCreateManyInstitutionInput | UserCreateManyInstitutionInput[]
-    skipDuplicates?: boolean
+    create: XOR<UserCreateWithoutCreatedInstitutionsInput, UserUncheckedCreateWithoutCreatedInstitutionsInput>
   }
 
   export type SantriCreateWithoutInstitutionInput = {
@@ -17732,8 +17754,8 @@ export namespace Prisma {
     institutionName?: string | null
     isActive?: boolean
     createdAt?: Date | string
-    wali: UserCreateNestedOneWithoutSantriInput
     authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
+    wali: UserCreateNestedOneWithoutSantriInput
     transactions?: TransactionCreateNestedManyWithoutSantriInput
   }
 
@@ -17762,104 +17784,127 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type CategoryCreateWithoutInstitutionInput = {
-    name: string
-    type: $Enums.CategoryType
-    isActive?: boolean
-    createdAt?: Date | string
-    transactions?: TransactionCreateNestedManyWithoutCategoryInput
-  }
-
-  export type CategoryUncheckedCreateWithoutInstitutionInput = {
-    id?: number
-    name: string
-    type: $Enums.CategoryType
-    isActive?: boolean
-    createdAt?: Date | string
-    transactions?: TransactionUncheckedCreateNestedManyWithoutCategoryInput
-  }
-
-  export type CategoryCreateOrConnectWithoutInstitutionInput = {
-    where: CategoryWhereUniqueInput
-    create: XOR<CategoryCreateWithoutInstitutionInput, CategoryUncheckedCreateWithoutInstitutionInput>
-  }
-
-  export type CategoryCreateManyInstitutionInputEnvelope = {
-    data: CategoryCreateManyInstitutionInput | CategoryCreateManyInstitutionInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type UserCreateWithoutCreatedInstitutionsInput = {
+  export type UserCreateWithoutInstitutionInput = {
     username: string
     email: string
     password: string
-    role: $Enums.UserRole
+    role: $Enums.user_role
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
-    profile?: ProfileCreateNestedOneWithoutUserInput
-    institution?: InstitutionCreateNestedOneWithoutUsersInput
-    santri?: SantriCreateNestedManyWithoutWaliInput
-    emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
-    transactions?: TransactionCreateNestedManyWithoutAdminInput
+    emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
+    createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     passwordResets?: PasswordResetCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    santri?: SantriCreateNestedManyWithoutWaliInput
+    transactions?: TransactionCreateNestedManyWithoutAdminInput
   }
 
-  export type UserUncheckedCreateWithoutCreatedInstitutionsInput = {
+  export type UserUncheckedCreateWithoutInstitutionInput = {
     id?: number
     username: string
     email: string
     password: string
-    role: $Enums.UserRole
-    institutionId?: number | null
+    role: $Enums.user_role
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
-    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
-    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
-    emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
-    transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
+    emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
+    createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     passwordResets?: PasswordResetUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
   }
 
-  export type UserCreateOrConnectWithoutCreatedInstitutionsInput = {
+  export type UserCreateOrConnectWithoutInstitutionInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutCreatedInstitutionsInput, UserUncheckedCreateWithoutCreatedInstitutionsInput>
-  }
-
-  export type UserUpsertWithWhereUniqueWithoutInstitutionInput = {
-    where: UserWhereUniqueInput
-    update: XOR<UserUpdateWithoutInstitutionInput, UserUncheckedUpdateWithoutInstitutionInput>
     create: XOR<UserCreateWithoutInstitutionInput, UserUncheckedCreateWithoutInstitutionInput>
   }
 
-  export type UserUpdateWithWhereUniqueWithoutInstitutionInput = {
-    where: UserWhereUniqueInput
-    data: XOR<UserUpdateWithoutInstitutionInput, UserUncheckedUpdateWithoutInstitutionInput>
+  export type UserCreateManyInstitutionInputEnvelope = {
+    data: UserCreateManyInstitutionInput | UserCreateManyInstitutionInput[]
+    skipDuplicates?: boolean
   }
 
-  export type UserUpdateManyWithWhereWithoutInstitutionInput = {
-    where: UserScalarWhereInput
-    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutInstitutionInput>
+  export type CategoryUpsertWithWhereUniqueWithoutInstitutionInput = {
+    where: CategoryWhereUniqueInput
+    update: XOR<CategoryUpdateWithoutInstitutionInput, CategoryUncheckedUpdateWithoutInstitutionInput>
+    create: XOR<CategoryCreateWithoutInstitutionInput, CategoryUncheckedCreateWithoutInstitutionInput>
   }
 
-  export type UserScalarWhereInput = {
-    AND?: UserScalarWhereInput | UserScalarWhereInput[]
-    OR?: UserScalarWhereInput[]
-    NOT?: UserScalarWhereInput | UserScalarWhereInput[]
-    id?: IntFilter<"User"> | number
-    username?: StringFilter<"User"> | string
-    email?: StringFilter<"User"> | string
-    password?: StringFilter<"User"> | string
-    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
-    institutionId?: IntNullableFilter<"User"> | number | null
-    isEmailVerified?: BoolFilter<"User"> | boolean
-    isActive?: BoolFilter<"User"> | boolean
-    createdAt?: DateTimeFilter<"User"> | Date | string
+  export type CategoryUpdateWithWhereUniqueWithoutInstitutionInput = {
+    where: CategoryWhereUniqueInput
+    data: XOR<CategoryUpdateWithoutInstitutionInput, CategoryUncheckedUpdateWithoutInstitutionInput>
+  }
+
+  export type CategoryUpdateManyWithWhereWithoutInstitutionInput = {
+    where: CategoryScalarWhereInput
+    data: XOR<CategoryUpdateManyMutationInput, CategoryUncheckedUpdateManyWithoutInstitutionInput>
+  }
+
+  export type CategoryScalarWhereInput = {
+    AND?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
+    OR?: CategoryScalarWhereInput[]
+    NOT?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
+    id?: IntFilter<"Category"> | number
+    name?: StringFilter<"Category"> | string
+    type?: Enumcategory_typeFilter<"Category"> | $Enums.category_type
+    institutionId?: IntFilter<"Category"> | number
+    isActive?: BoolFilter<"Category"> | boolean
+    createdAt?: DateTimeFilter<"Category"> | Date | string
+  }
+
+  export type UserUpsertWithoutCreatedInstitutionsInput = {
+    update: XOR<UserUpdateWithoutCreatedInstitutionsInput, UserUncheckedUpdateWithoutCreatedInstitutionsInput>
+    create: XOR<UserCreateWithoutCreatedInstitutionsInput, UserUncheckedCreateWithoutCreatedInstitutionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCreatedInstitutionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCreatedInstitutionsInput, UserUncheckedUpdateWithoutCreatedInstitutionsInput>
+  }
+
+  export type UserUpdateWithoutCreatedInstitutionsInput = {
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
+    emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    passwordResets?: PasswordResetUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    santri?: SantriUpdateManyWithoutWaliNestedInput
+    transactions?: TransactionUpdateManyWithoutAdminNestedInput
+    institution?: InstitutionUpdateOneWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCreatedInstitutionsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
+    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
+    emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    passwordResets?: PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type SantriUpsertWithWhereUniqueWithoutInstitutionInput = {
@@ -17895,98 +17940,53 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Santri"> | Date | string
   }
 
-  export type CategoryUpsertWithWhereUniqueWithoutInstitutionInput = {
-    where: CategoryWhereUniqueInput
-    update: XOR<CategoryUpdateWithoutInstitutionInput, CategoryUncheckedUpdateWithoutInstitutionInput>
-    create: XOR<CategoryCreateWithoutInstitutionInput, CategoryUncheckedCreateWithoutInstitutionInput>
+  export type UserUpsertWithWhereUniqueWithoutInstitutionInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutInstitutionInput, UserUncheckedUpdateWithoutInstitutionInput>
+    create: XOR<UserCreateWithoutInstitutionInput, UserUncheckedCreateWithoutInstitutionInput>
   }
 
-  export type CategoryUpdateWithWhereUniqueWithoutInstitutionInput = {
-    where: CategoryWhereUniqueInput
-    data: XOR<CategoryUpdateWithoutInstitutionInput, CategoryUncheckedUpdateWithoutInstitutionInput>
+  export type UserUpdateWithWhereUniqueWithoutInstitutionInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutInstitutionInput, UserUncheckedUpdateWithoutInstitutionInput>
   }
 
-  export type CategoryUpdateManyWithWhereWithoutInstitutionInput = {
-    where: CategoryScalarWhereInput
-    data: XOR<CategoryUpdateManyMutationInput, CategoryUncheckedUpdateManyWithoutInstitutionInput>
+  export type UserUpdateManyWithWhereWithoutInstitutionInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutInstitutionInput>
   }
 
-  export type CategoryScalarWhereInput = {
-    AND?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
-    OR?: CategoryScalarWhereInput[]
-    NOT?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
-    id?: IntFilter<"Category"> | number
-    name?: StringFilter<"Category"> | string
-    type?: EnumCategoryTypeFilter<"Category"> | $Enums.CategoryType
-    institutionId?: IntFilter<"Category"> | number
-    isActive?: BoolFilter<"Category"> | boolean
-    createdAt?: DateTimeFilter<"Category"> | Date | string
-  }
-
-  export type UserUpsertWithoutCreatedInstitutionsInput = {
-    update: XOR<UserUpdateWithoutCreatedInstitutionsInput, UserUncheckedUpdateWithoutCreatedInstitutionsInput>
-    create: XOR<UserCreateWithoutCreatedInstitutionsInput, UserUncheckedCreateWithoutCreatedInstitutionsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutCreatedInstitutionsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutCreatedInstitutionsInput, UserUncheckedUpdateWithoutCreatedInstitutionsInput>
-  }
-
-  export type UserUpdateWithoutCreatedInstitutionsInput = {
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    profile?: ProfileUpdateOneWithoutUserNestedInput
-    institution?: InstitutionUpdateOneWithoutUsersNestedInput
-    santri?: SantriUpdateManyWithoutWaliNestedInput
-    emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
-    authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
-    transactions?: TransactionUpdateManyWithoutAdminNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    passwordResets?: PasswordResetUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutCreatedInstitutionsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
-    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
-    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
-    emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
-    authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
-    transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    passwordResets?: PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  export type UserScalarWhereInput = {
+    AND?: UserScalarWhereInput | UserScalarWhereInput[]
+    OR?: UserScalarWhereInput[]
+    NOT?: UserScalarWhereInput | UserScalarWhereInput[]
+    id?: IntFilter<"User"> | number
+    username?: StringFilter<"User"> | string
+    email?: StringFilter<"User"> | string
+    password?: StringFilter<"User"> | string
+    role?: Enumuser_roleFilter<"User"> | $Enums.user_role
+    institutionId?: IntNullableFilter<"User"> | number | null
+    isEmailVerified?: BoolFilter<"User"> | boolean
+    isActive?: BoolFilter<"User"> | boolean
+    createdAt?: DateTimeFilter<"User"> | Date | string
   }
 
   export type UserCreateWithoutNotificationsInput = {
     username: string
     email: string
     password: string
-    role: $Enums.UserRole
+    role: $Enums.user_role
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
-    profile?: ProfileCreateNestedOneWithoutUserInput
-    institution?: InstitutionCreateNestedOneWithoutUsersInput
-    createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
-    santri?: SantriCreateNestedManyWithoutWaliInput
-    emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
-    transactions?: TransactionCreateNestedManyWithoutAdminInput
+    emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
+    createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
     passwordResets?: PasswordResetCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    santri?: SantriCreateNestedManyWithoutWaliInput
+    transactions?: TransactionCreateNestedManyWithoutAdminInput
+    institution?: InstitutionCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -17994,18 +17994,18 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.UserRole
+    role: $Enums.user_role
     institutionId?: number | null
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
-    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
-    createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
-    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
-    emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
-    transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
+    emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
+    createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
     passwordResets?: PasswordResetUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -18028,18 +18028,18 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    profile?: ProfileUpdateOneWithoutUserNestedInput
-    institution?: InstitutionUpdateOneWithoutUsersNestedInput
-    createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
-    santri?: SantriUpdateManyWithoutWaliNestedInput
-    emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
-    transactions?: TransactionUpdateManyWithoutAdminNestedInput
+    emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
+    createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
     passwordResets?: PasswordResetUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    santri?: SantriUpdateManyWithoutWaliNestedInput
+    transactions?: TransactionUpdateManyWithoutAdminNestedInput
+    institution?: InstitutionUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -18047,36 +18047,36 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
     institutionId?: NullableIntFieldUpdateOperationsInput | number | null
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
-    createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
-    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
-    emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
-    transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
+    emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
+    createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
     passwordResets?: PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type UserCreateWithoutPasswordResetsInput = {
     username: string
     email: string
     password: string
-    role: $Enums.UserRole
+    role: $Enums.user_role
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
-    profile?: ProfileCreateNestedOneWithoutUserInput
-    institution?: InstitutionCreateNestedOneWithoutUsersInput
-    createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
-    santri?: SantriCreateNestedManyWithoutWaliInput
-    emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
-    transactions?: TransactionCreateNestedManyWithoutAdminInput
+    emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
+    createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    santri?: SantriCreateNestedManyWithoutWaliInput
+    transactions?: TransactionCreateNestedManyWithoutAdminInput
+    institution?: InstitutionCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutPasswordResetsInput = {
@@ -18084,18 +18084,18 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.UserRole
+    role: $Enums.user_role
     institutionId?: number | null
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
-    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
-    createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
-    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
-    emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
-    transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
+    emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
+    createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type UserCreateOrConnectWithoutPasswordResetsInput = {
@@ -18118,18 +18118,18 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    profile?: ProfileUpdateOneWithoutUserNestedInput
-    institution?: InstitutionUpdateOneWithoutUsersNestedInput
-    createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
-    santri?: SantriUpdateManyWithoutWaliNestedInput
-    emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
-    transactions?: TransactionUpdateManyWithoutAdminNestedInput
+    emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
+    createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    santri?: SantriUpdateManyWithoutWaliNestedInput
+    transactions?: TransactionUpdateManyWithoutAdminNestedInput
+    institution?: InstitutionUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPasswordResetsInput = {
@@ -18137,36 +18137,36 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
     institutionId?: NullableIntFieldUpdateOperationsInput | number | null
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
-    createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
-    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
-    emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
-    transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
+    emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
+    createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type UserCreateWithoutProfileInput = {
     username: string
     email: string
     password: string
-    role: $Enums.UserRole
+    role: $Enums.user_role
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
-    institution?: InstitutionCreateNestedOneWithoutUsersInput
-    createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
-    santri?: SantriCreateNestedManyWithoutWaliInput
-    emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
-    transactions?: TransactionCreateNestedManyWithoutAdminInput
+    emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
+    createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     passwordResets?: PasswordResetCreateNestedManyWithoutUserInput
+    santri?: SantriCreateNestedManyWithoutWaliInput
+    transactions?: TransactionCreateNestedManyWithoutAdminInput
+    institution?: InstitutionCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutProfileInput = {
@@ -18174,18 +18174,18 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.UserRole
+    role: $Enums.user_role
     institutionId?: number | null
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
-    createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
-    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
-    emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
-    transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
+    emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
+    createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     passwordResets?: PasswordResetUncheckedCreateNestedManyWithoutUserInput
+    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type UserCreateOrConnectWithoutProfileInput = {
@@ -18208,18 +18208,18 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    institution?: InstitutionUpdateOneWithoutUsersNestedInput
-    createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
-    santri?: SantriUpdateManyWithoutWaliNestedInput
-    emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
-    transactions?: TransactionUpdateManyWithoutAdminNestedInput
+    emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
+    createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     passwordResets?: PasswordResetUpdateManyWithoutUserNestedInput
+    santri?: SantriUpdateManyWithoutWaliNestedInput
+    transactions?: TransactionUpdateManyWithoutAdminNestedInput
+    institution?: InstitutionUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProfileInput = {
@@ -18227,84 +18227,18 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
     institutionId?: NullableIntFieldUpdateOperationsInput | number | null
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
-    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
-    emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
-    transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
+    emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
+    createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     passwordResets?: PasswordResetUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserCreateWithoutSantriInput = {
-    username: string
-    email: string
-    password: string
-    role: $Enums.UserRole
-    isEmailVerified?: boolean
-    isActive?: boolean
-    createdAt?: Date | string
-    profile?: ProfileCreateNestedOneWithoutUserInput
-    institution?: InstitutionCreateNestedOneWithoutUsersInput
-    createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
-    emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
-    authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
-    transactions?: TransactionCreateNestedManyWithoutAdminInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    passwordResets?: PasswordResetCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutSantriInput = {
-    id?: number
-    username: string
-    email: string
-    password: string
-    role: $Enums.UserRole
-    institutionId?: number | null
-    isEmailVerified?: boolean
-    isActive?: boolean
-    createdAt?: Date | string
-    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
-    createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
-    emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
-    authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
-    transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    passwordResets?: PasswordResetUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutSantriInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutSantriInput, UserUncheckedCreateWithoutSantriInput>
-  }
-
-  export type InstitutionCreateWithoutSantriInput = {
-    name: string
-    isActive?: boolean
-    createdAt?: Date | string
-    users?: UserCreateNestedManyWithoutInstitutionInput
-    categories?: CategoryCreateNestedManyWithoutInstitutionInput
-    admin: UserCreateNestedOneWithoutCreatedInstitutionsInput
-  }
-
-  export type InstitutionUncheckedCreateWithoutSantriInput = {
-    id?: number
-    name: string
-    createdBy: number
-    isActive?: boolean
-    createdAt?: Date | string
-    users?: UserUncheckedCreateNestedManyWithoutInstitutionInput
-    categories?: CategoryUncheckedCreateNestedManyWithoutInstitutionInput
-  }
-
-  export type InstitutionCreateOrConnectWithoutSantriInput = {
-    where: InstitutionWhereUniqueInput
-    create: XOR<InstitutionCreateWithoutSantriInput, InstitutionUncheckedCreateWithoutSantriInput>
+    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type AuthAccountCreateWithoutSantriInput = {
@@ -18334,8 +18268,74 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type InstitutionCreateWithoutSantriInput = {
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    categories?: CategoryCreateNestedManyWithoutInstitutionInput
+    admin: UserCreateNestedOneWithoutCreatedInstitutionsInput
+    users?: UserCreateNestedManyWithoutInstitutionInput
+  }
+
+  export type InstitutionUncheckedCreateWithoutSantriInput = {
+    id?: number
+    name: string
+    createdBy: number
+    isActive?: boolean
+    createdAt?: Date | string
+    categories?: CategoryUncheckedCreateNestedManyWithoutInstitutionInput
+    users?: UserUncheckedCreateNestedManyWithoutInstitutionInput
+  }
+
+  export type InstitutionCreateOrConnectWithoutSantriInput = {
+    where: InstitutionWhereUniqueInput
+    create: XOR<InstitutionCreateWithoutSantriInput, InstitutionUncheckedCreateWithoutSantriInput>
+  }
+
+  export type UserCreateWithoutSantriInput = {
+    username: string
+    email: string
+    password: string
+    role: $Enums.user_role
+    isEmailVerified?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
+    emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
+    createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    passwordResets?: PasswordResetCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    transactions?: TransactionCreateNestedManyWithoutAdminInput
+    institution?: InstitutionCreateNestedOneWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutSantriInput = {
+    id?: number
+    username: string
+    email: string
+    password: string
+    role: $Enums.user_role
+    institutionId?: number | null
+    isEmailVerified?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
+    emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
+    createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    passwordResets?: PasswordResetUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
+  }
+
+  export type UserCreateOrConnectWithoutSantriInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSantriInput, UserUncheckedCreateWithoutSantriInput>
+  }
+
   export type TransactionCreateWithoutSantriInput = {
-    type: $Enums.CategoryType
+    type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
     description?: string | null
     transactionDate: Date | string
@@ -18348,7 +18348,7 @@ export namespace Prisma {
   export type TransactionUncheckedCreateWithoutSantriInput = {
     id?: number
     categoryId: number
-    type: $Enums.CategoryType
+    type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
     description?: string | null
     transactionDate: Date | string
@@ -18365,84 +18365,6 @@ export namespace Prisma {
   export type TransactionCreateManySantriInputEnvelope = {
     data: TransactionCreateManySantriInput | TransactionCreateManySantriInput[]
     skipDuplicates?: boolean
-  }
-
-  export type UserUpsertWithoutSantriInput = {
-    update: XOR<UserUpdateWithoutSantriInput, UserUncheckedUpdateWithoutSantriInput>
-    create: XOR<UserCreateWithoutSantriInput, UserUncheckedCreateWithoutSantriInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutSantriInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutSantriInput, UserUncheckedUpdateWithoutSantriInput>
-  }
-
-  export type UserUpdateWithoutSantriInput = {
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    profile?: ProfileUpdateOneWithoutUserNestedInput
-    institution?: InstitutionUpdateOneWithoutUsersNestedInput
-    createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
-    emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
-    authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
-    transactions?: TransactionUpdateManyWithoutAdminNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    passwordResets?: PasswordResetUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutSantriInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
-    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
-    createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
-    emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
-    authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
-    transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    passwordResets?: PasswordResetUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type InstitutionUpsertWithoutSantriInput = {
-    update: XOR<InstitutionUpdateWithoutSantriInput, InstitutionUncheckedUpdateWithoutSantriInput>
-    create: XOR<InstitutionCreateWithoutSantriInput, InstitutionUncheckedCreateWithoutSantriInput>
-    where?: InstitutionWhereInput
-  }
-
-  export type InstitutionUpdateToOneWithWhereWithoutSantriInput = {
-    where?: InstitutionWhereInput
-    data: XOR<InstitutionUpdateWithoutSantriInput, InstitutionUncheckedUpdateWithoutSantriInput>
-  }
-
-  export type InstitutionUpdateWithoutSantriInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUpdateManyWithoutInstitutionNestedInput
-    categories?: CategoryUpdateManyWithoutInstitutionNestedInput
-    admin?: UserUpdateOneRequiredWithoutCreatedInstitutionsNestedInput
-  }
-
-  export type InstitutionUncheckedUpdateWithoutSantriInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    createdBy?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUncheckedUpdateManyWithoutInstitutionNestedInput
-    categories?: CategoryUncheckedUpdateManyWithoutInstitutionNestedInput
   }
 
   export type AuthAccountUpsertWithWhereUniqueWithoutSantriInput = {
@@ -18474,6 +18396,84 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"AuthAccount"> | Date | string
   }
 
+  export type InstitutionUpsertWithoutSantriInput = {
+    update: XOR<InstitutionUpdateWithoutSantriInput, InstitutionUncheckedUpdateWithoutSantriInput>
+    create: XOR<InstitutionCreateWithoutSantriInput, InstitutionUncheckedCreateWithoutSantriInput>
+    where?: InstitutionWhereInput
+  }
+
+  export type InstitutionUpdateToOneWithWhereWithoutSantriInput = {
+    where?: InstitutionWhereInput
+    data: XOR<InstitutionUpdateWithoutSantriInput, InstitutionUncheckedUpdateWithoutSantriInput>
+  }
+
+  export type InstitutionUpdateWithoutSantriInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categories?: CategoryUpdateManyWithoutInstitutionNestedInput
+    admin?: UserUpdateOneRequiredWithoutCreatedInstitutionsNestedInput
+    users?: UserUpdateManyWithoutInstitutionNestedInput
+  }
+
+  export type InstitutionUncheckedUpdateWithoutSantriInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    createdBy?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categories?: CategoryUncheckedUpdateManyWithoutInstitutionNestedInput
+    users?: UserUncheckedUpdateManyWithoutInstitutionNestedInput
+  }
+
+  export type UserUpsertWithoutSantriInput = {
+    update: XOR<UserUpdateWithoutSantriInput, UserUncheckedUpdateWithoutSantriInput>
+    create: XOR<UserCreateWithoutSantriInput, UserUncheckedCreateWithoutSantriInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSantriInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSantriInput, UserUncheckedUpdateWithoutSantriInput>
+  }
+
+  export type UserUpdateWithoutSantriInput = {
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
+    emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
+    createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    passwordResets?: PasswordResetUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    transactions?: TransactionUpdateManyWithoutAdminNestedInput
+    institution?: InstitutionUpdateOneWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSantriInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
+    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
+    emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
+    createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    passwordResets?: PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
+  }
+
   export type TransactionUpsertWithWhereUniqueWithoutSantriInput = {
     where: TransactionWhereUniqueInput
     update: XOR<TransactionUpdateWithoutSantriInput, TransactionUncheckedUpdateWithoutSantriInput>
@@ -18490,6 +18490,70 @@ export namespace Prisma {
     data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutSantriInput>
   }
 
+  export type CategoryCreateWithoutTransactionsInput = {
+    name: string
+    type: $Enums.category_type
+    isActive?: boolean
+    createdAt?: Date | string
+    institution: InstitutionCreateNestedOneWithoutCategoriesInput
+  }
+
+  export type CategoryUncheckedCreateWithoutTransactionsInput = {
+    id?: number
+    name: string
+    type: $Enums.category_type
+    institutionId: number
+    isActive?: boolean
+    createdAt?: Date | string
+  }
+
+  export type CategoryCreateOrConnectWithoutTransactionsInput = {
+    where: CategoryWhereUniqueInput
+    create: XOR<CategoryCreateWithoutTransactionsInput, CategoryUncheckedCreateWithoutTransactionsInput>
+  }
+
+  export type UserCreateWithoutTransactionsInput = {
+    username: string
+    email: string
+    password: string
+    role: $Enums.user_role
+    isEmailVerified?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
+    emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
+    createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    passwordResets?: PasswordResetCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    santri?: SantriCreateNestedManyWithoutWaliInput
+    institution?: InstitutionCreateNestedOneWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutTransactionsInput = {
+    id?: number
+    username: string
+    email: string
+    password: string
+    role: $Enums.user_role
+    institutionId?: number | null
+    isEmailVerified?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
+    emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
+    createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    passwordResets?: PasswordResetUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
+  }
+
+  export type UserCreateOrConnectWithoutTransactionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTransactionsInput, UserUncheckedCreateWithoutTransactionsInput>
+  }
+
   export type SantriCreateWithoutTransactionsInput = {
     nis: string
     fullname: string
@@ -18499,9 +18563,9 @@ export namespace Prisma {
     institutionName?: string | null
     isActive?: boolean
     createdAt?: Date | string
-    wali: UserCreateNestedOneWithoutSantriInput
-    institution: InstitutionCreateNestedOneWithoutSantriInput
     authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
+    institution: InstitutionCreateNestedOneWithoutSantriInput
+    wali: UserCreateNestedOneWithoutSantriInput
   }
 
   export type SantriUncheckedCreateWithoutTransactionsInput = {
@@ -18524,68 +18588,80 @@ export namespace Prisma {
     create: XOR<SantriCreateWithoutTransactionsInput, SantriUncheckedCreateWithoutTransactionsInput>
   }
 
-  export type CategoryCreateWithoutTransactionsInput = {
-    name: string
-    type: $Enums.CategoryType
-    isActive?: boolean
-    createdAt?: Date | string
-    institution: InstitutionCreateNestedOneWithoutCategoriesInput
-  }
-
-  export type CategoryUncheckedCreateWithoutTransactionsInput = {
-    id?: number
-    name: string
-    type: $Enums.CategoryType
-    institutionId: number
-    isActive?: boolean
-    createdAt?: Date | string
-  }
-
-  export type CategoryCreateOrConnectWithoutTransactionsInput = {
-    where: CategoryWhereUniqueInput
+  export type CategoryUpsertWithoutTransactionsInput = {
+    update: XOR<CategoryUpdateWithoutTransactionsInput, CategoryUncheckedUpdateWithoutTransactionsInput>
     create: XOR<CategoryCreateWithoutTransactionsInput, CategoryUncheckedCreateWithoutTransactionsInput>
+    where?: CategoryWhereInput
   }
 
-  export type UserCreateWithoutTransactionsInput = {
-    username: string
-    email: string
-    password: string
-    role: $Enums.UserRole
-    isEmailVerified?: boolean
-    isActive?: boolean
-    createdAt?: Date | string
-    profile?: ProfileCreateNestedOneWithoutUserInput
-    institution?: InstitutionCreateNestedOneWithoutUsersInput
-    createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
-    santri?: SantriCreateNestedManyWithoutWaliInput
-    emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
-    authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    passwordResets?: PasswordResetCreateNestedManyWithoutUserInput
+  export type CategoryUpdateToOneWithWhereWithoutTransactionsInput = {
+    where?: CategoryWhereInput
+    data: XOR<CategoryUpdateWithoutTransactionsInput, CategoryUncheckedUpdateWithoutTransactionsInput>
   }
 
-  export type UserUncheckedCreateWithoutTransactionsInput = {
-    id?: number
-    username: string
-    email: string
-    password: string
-    role: $Enums.UserRole
-    institutionId?: number | null
-    isEmailVerified?: boolean
-    isActive?: boolean
-    createdAt?: Date | string
-    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
-    createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
-    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
-    emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
-    authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    passwordResets?: PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  export type CategoryUpdateWithoutTransactionsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    institution?: InstitutionUpdateOneRequiredWithoutCategoriesNestedInput
   }
 
-  export type UserCreateOrConnectWithoutTransactionsInput = {
-    where: UserWhereUniqueInput
+  export type CategoryUncheckedUpdateWithoutTransactionsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
+    institutionId?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutTransactionsInput = {
+    update: XOR<UserUpdateWithoutTransactionsInput, UserUncheckedUpdateWithoutTransactionsInput>
     create: XOR<UserCreateWithoutTransactionsInput, UserUncheckedCreateWithoutTransactionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTransactionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTransactionsInput, UserUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type UserUpdateWithoutTransactionsInput = {
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
+    emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
+    createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    passwordResets?: PasswordResetUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    santri?: SantriUpdateManyWithoutWaliNestedInput
+    institution?: InstitutionUpdateOneWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTransactionsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
+    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
+    emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
+    createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    passwordResets?: PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
   }
 
   export type SantriUpsertWithoutTransactionsInput = {
@@ -18608,9 +18684,9 @@ export namespace Prisma {
     institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    wali?: UserUpdateOneRequiredWithoutSantriNestedInput
-    institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
     authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
+    institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
+    wali?: UserUpdateOneRequiredWithoutSantriNestedInput
   }
 
   export type SantriUncheckedUpdateWithoutTransactionsInput = {
@@ -18626,225 +18702,6 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutSantriNestedInput
-  }
-
-  export type CategoryUpsertWithoutTransactionsInput = {
-    update: XOR<CategoryUpdateWithoutTransactionsInput, CategoryUncheckedUpdateWithoutTransactionsInput>
-    create: XOR<CategoryCreateWithoutTransactionsInput, CategoryUncheckedCreateWithoutTransactionsInput>
-    where?: CategoryWhereInput
-  }
-
-  export type CategoryUpdateToOneWithWhereWithoutTransactionsInput = {
-    where?: CategoryWhereInput
-    data: XOR<CategoryUpdateWithoutTransactionsInput, CategoryUncheckedUpdateWithoutTransactionsInput>
-  }
-
-  export type CategoryUpdateWithoutTransactionsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    institution?: InstitutionUpdateOneRequiredWithoutCategoriesNestedInput
-  }
-
-  export type CategoryUncheckedUpdateWithoutTransactionsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
-    institutionId?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type UserUpsertWithoutTransactionsInput = {
-    update: XOR<UserUpdateWithoutTransactionsInput, UserUncheckedUpdateWithoutTransactionsInput>
-    create: XOR<UserCreateWithoutTransactionsInput, UserUncheckedCreateWithoutTransactionsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutTransactionsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutTransactionsInput, UserUncheckedUpdateWithoutTransactionsInput>
-  }
-
-  export type UserUpdateWithoutTransactionsInput = {
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    profile?: ProfileUpdateOneWithoutUserNestedInput
-    institution?: InstitutionUpdateOneWithoutUsersNestedInput
-    createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
-    santri?: SantriUpdateManyWithoutWaliNestedInput
-    emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
-    authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    passwordResets?: PasswordResetUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutTransactionsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
-    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
-    createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
-    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
-    emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
-    authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    passwordResets?: PasswordResetUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type ProfileCreateWithoutUserInput = {
-    name: string
-    gender?: string | null
-    address: string
-    phone?: string | null
-    occupation?: string | null
-    profile_picture_url?: string | null
-    public_id?: string | null
-  }
-
-  export type ProfileUncheckedCreateWithoutUserInput = {
-    id?: number
-    name: string
-    gender?: string | null
-    address: string
-    phone?: string | null
-    occupation?: string | null
-    profile_picture_url?: string | null
-    public_id?: string | null
-  }
-
-  export type ProfileCreateOrConnectWithoutUserInput = {
-    where: ProfileWhereUniqueInput
-    create: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
-  }
-
-  export type InstitutionCreateWithoutUsersInput = {
-    name: string
-    isActive?: boolean
-    createdAt?: Date | string
-    santri?: SantriCreateNestedManyWithoutInstitutionInput
-    categories?: CategoryCreateNestedManyWithoutInstitutionInput
-    admin: UserCreateNestedOneWithoutCreatedInstitutionsInput
-  }
-
-  export type InstitutionUncheckedCreateWithoutUsersInput = {
-    id?: number
-    name: string
-    createdBy: number
-    isActive?: boolean
-    createdAt?: Date | string
-    santri?: SantriUncheckedCreateNestedManyWithoutInstitutionInput
-    categories?: CategoryUncheckedCreateNestedManyWithoutInstitutionInput
-  }
-
-  export type InstitutionCreateOrConnectWithoutUsersInput = {
-    where: InstitutionWhereUniqueInput
-    create: XOR<InstitutionCreateWithoutUsersInput, InstitutionUncheckedCreateWithoutUsersInput>
-  }
-
-  export type InstitutionCreateWithoutAdminInput = {
-    name: string
-    isActive?: boolean
-    createdAt?: Date | string
-    users?: UserCreateNestedManyWithoutInstitutionInput
-    santri?: SantriCreateNestedManyWithoutInstitutionInput
-    categories?: CategoryCreateNestedManyWithoutInstitutionInput
-  }
-
-  export type InstitutionUncheckedCreateWithoutAdminInput = {
-    id?: number
-    name: string
-    isActive?: boolean
-    createdAt?: Date | string
-    users?: UserUncheckedCreateNestedManyWithoutInstitutionInput
-    santri?: SantriUncheckedCreateNestedManyWithoutInstitutionInput
-    categories?: CategoryUncheckedCreateNestedManyWithoutInstitutionInput
-  }
-
-  export type InstitutionCreateOrConnectWithoutAdminInput = {
-    where: InstitutionWhereUniqueInput
-    create: XOR<InstitutionCreateWithoutAdminInput, InstitutionUncheckedCreateWithoutAdminInput>
-  }
-
-  export type InstitutionCreateManyAdminInputEnvelope = {
-    data: InstitutionCreateManyAdminInput | InstitutionCreateManyAdminInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type SantriCreateWithoutWaliInput = {
-    nis: string
-    fullname: string
-    kelas: string
-    gender: string
-    waliName?: string | null
-    institutionName?: string | null
-    isActive?: boolean
-    createdAt?: Date | string
-    institution: InstitutionCreateNestedOneWithoutSantriInput
-    authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
-    transactions?: TransactionCreateNestedManyWithoutSantriInput
-  }
-
-  export type SantriUncheckedCreateWithoutWaliInput = {
-    id?: number
-    nis: string
-    fullname: string
-    kelas: string
-    gender: string
-    institutionId: number
-    waliName?: string | null
-    institutionName?: string | null
-    isActive?: boolean
-    createdAt?: Date | string
-    authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutSantriInput
-    transactions?: TransactionUncheckedCreateNestedManyWithoutSantriInput
-  }
-
-  export type SantriCreateOrConnectWithoutWaliInput = {
-    where: SantriWhereUniqueInput
-    create: XOR<SantriCreateWithoutWaliInput, SantriUncheckedCreateWithoutWaliInput>
-  }
-
-  export type SantriCreateManyWaliInputEnvelope = {
-    data: SantriCreateManyWaliInput | SantriCreateManyWaliInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type EmailVerificationCreateWithoutUserInput = {
-    otpCode: string
-    expiredAt: Date | string
-    isUsed?: boolean
-    createdAt?: Date | string
-  }
-
-  export type EmailVerificationUncheckedCreateWithoutUserInput = {
-    id?: number
-    otpCode: string
-    expiredAt: Date | string
-    isUsed?: boolean
-    createdAt?: Date | string
-  }
-
-  export type EmailVerificationCreateOrConnectWithoutUserInput = {
-    where: EmailVerificationWhereUniqueInput
-    create: XOR<EmailVerificationCreateWithoutUserInput, EmailVerificationUncheckedCreateWithoutUserInput>
-  }
-
-  export type EmailVerificationCreateManyUserInputEnvelope = {
-    data: EmailVerificationCreateManyUserInput | EmailVerificationCreateManyUserInput[]
-    skipDuplicates?: boolean
   }
 
   export type AuthAccountCreateWithoutUserInput = {
@@ -18874,36 +18731,57 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type TransactionCreateWithoutAdminInput = {
-    type: $Enums.CategoryType
-    amount: Decimal | DecimalJsLike | number | string
-    description?: string | null
-    transactionDate: Date | string
-    isDeleted?: boolean
+  export type EmailVerificationCreateWithoutUserInput = {
+    otpCode: string
+    expiredAt: Date | string
+    isUsed?: boolean
     createdAt?: Date | string
-    santri: SantriCreateNestedOneWithoutTransactionsInput
-    category: CategoryCreateNestedOneWithoutTransactionsInput
   }
 
-  export type TransactionUncheckedCreateWithoutAdminInput = {
+  export type EmailVerificationUncheckedCreateWithoutUserInput = {
     id?: number
-    santriId: number
-    categoryId: number
-    type: $Enums.CategoryType
-    amount: Decimal | DecimalJsLike | number | string
-    description?: string | null
-    transactionDate: Date | string
-    isDeleted?: boolean
+    otpCode: string
+    expiredAt: Date | string
+    isUsed?: boolean
     createdAt?: Date | string
   }
 
-  export type TransactionCreateOrConnectWithoutAdminInput = {
-    where: TransactionWhereUniqueInput
-    create: XOR<TransactionCreateWithoutAdminInput, TransactionUncheckedCreateWithoutAdminInput>
+  export type EmailVerificationCreateOrConnectWithoutUserInput = {
+    where: EmailVerificationWhereUniqueInput
+    create: XOR<EmailVerificationCreateWithoutUserInput, EmailVerificationUncheckedCreateWithoutUserInput>
   }
 
-  export type TransactionCreateManyAdminInputEnvelope = {
-    data: TransactionCreateManyAdminInput | TransactionCreateManyAdminInput[]
+  export type EmailVerificationCreateManyUserInputEnvelope = {
+    data: EmailVerificationCreateManyUserInput | EmailVerificationCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type InstitutionCreateWithoutAdminInput = {
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    categories?: CategoryCreateNestedManyWithoutInstitutionInput
+    santri?: SantriCreateNestedManyWithoutInstitutionInput
+    users?: UserCreateNestedManyWithoutInstitutionInput
+  }
+
+  export type InstitutionUncheckedCreateWithoutAdminInput = {
+    id?: number
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    categories?: CategoryUncheckedCreateNestedManyWithoutInstitutionInput
+    santri?: SantriUncheckedCreateNestedManyWithoutInstitutionInput
+    users?: UserUncheckedCreateNestedManyWithoutInstitutionInput
+  }
+
+  export type InstitutionCreateOrConnectWithoutAdminInput = {
+    where: InstitutionWhereUniqueInput
+    create: XOR<InstitutionCreateWithoutAdminInput, InstitutionUncheckedCreateWithoutAdminInput>
+  }
+
+  export type InstitutionCreateManyAdminInputEnvelope = {
+    data: InstitutionCreateManyAdminInput | InstitutionCreateManyAdminInput[]
     skipDuplicates?: boolean
   }
 
@@ -18957,109 +18835,142 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ProfileUpsertWithoutUserInput = {
-    update: XOR<ProfileUpdateWithoutUserInput, ProfileUncheckedUpdateWithoutUserInput>
+  export type ProfileCreateWithoutUserInput = {
+    name: string
+    gender?: string | null
+    address: string
+    profile_picture_url?: string | null
+    public_id?: string | null
+    occupation?: string | null
+    phone?: string | null
+  }
+
+  export type ProfileUncheckedCreateWithoutUserInput = {
+    id?: number
+    name: string
+    gender?: string | null
+    address: string
+    profile_picture_url?: string | null
+    public_id?: string | null
+    occupation?: string | null
+    phone?: string | null
+  }
+
+  export type ProfileCreateOrConnectWithoutUserInput = {
+    where: ProfileWhereUniqueInput
     create: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
-    where?: ProfileWhereInput
   }
 
-  export type ProfileUpdateToOneWithWhereWithoutUserInput = {
-    where?: ProfileWhereInput
-    data: XOR<ProfileUpdateWithoutUserInput, ProfileUncheckedUpdateWithoutUserInput>
+  export type SantriCreateWithoutWaliInput = {
+    nis: string
+    fullname: string
+    kelas: string
+    gender: string
+    waliName?: string | null
+    institutionName?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
+    institution: InstitutionCreateNestedOneWithoutSantriInput
+    transactions?: TransactionCreateNestedManyWithoutSantriInput
   }
 
-  export type ProfileUpdateWithoutUserInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    occupation?: NullableStringFieldUpdateOperationsInput | string | null
-    profile_picture_url?: NullableStringFieldUpdateOperationsInput | string | null
-    public_id?: NullableStringFieldUpdateOperationsInput | string | null
+  export type SantriUncheckedCreateWithoutWaliInput = {
+    id?: number
+    nis: string
+    fullname: string
+    kelas: string
+    gender: string
+    institutionId: number
+    waliName?: string | null
+    institutionName?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutSantriInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutSantriInput
   }
 
-  export type ProfileUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    occupation?: NullableStringFieldUpdateOperationsInput | string | null
-    profile_picture_url?: NullableStringFieldUpdateOperationsInput | string | null
-    public_id?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type InstitutionUpsertWithoutUsersInput = {
-    update: XOR<InstitutionUpdateWithoutUsersInput, InstitutionUncheckedUpdateWithoutUsersInput>
-    create: XOR<InstitutionCreateWithoutUsersInput, InstitutionUncheckedCreateWithoutUsersInput>
-    where?: InstitutionWhereInput
-  }
-
-  export type InstitutionUpdateToOneWithWhereWithoutUsersInput = {
-    where?: InstitutionWhereInput
-    data: XOR<InstitutionUpdateWithoutUsersInput, InstitutionUncheckedUpdateWithoutUsersInput>
-  }
-
-  export type InstitutionUpdateWithoutUsersInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    santri?: SantriUpdateManyWithoutInstitutionNestedInput
-    categories?: CategoryUpdateManyWithoutInstitutionNestedInput
-    admin?: UserUpdateOneRequiredWithoutCreatedInstitutionsNestedInput
-  }
-
-  export type InstitutionUncheckedUpdateWithoutUsersInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    createdBy?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    santri?: SantriUncheckedUpdateManyWithoutInstitutionNestedInput
-    categories?: CategoryUncheckedUpdateManyWithoutInstitutionNestedInput
-  }
-
-  export type InstitutionUpsertWithWhereUniqueWithoutAdminInput = {
-    where: InstitutionWhereUniqueInput
-    update: XOR<InstitutionUpdateWithoutAdminInput, InstitutionUncheckedUpdateWithoutAdminInput>
-    create: XOR<InstitutionCreateWithoutAdminInput, InstitutionUncheckedCreateWithoutAdminInput>
-  }
-
-  export type InstitutionUpdateWithWhereUniqueWithoutAdminInput = {
-    where: InstitutionWhereUniqueInput
-    data: XOR<InstitutionUpdateWithoutAdminInput, InstitutionUncheckedUpdateWithoutAdminInput>
-  }
-
-  export type InstitutionUpdateManyWithWhereWithoutAdminInput = {
-    where: InstitutionScalarWhereInput
-    data: XOR<InstitutionUpdateManyMutationInput, InstitutionUncheckedUpdateManyWithoutAdminInput>
-  }
-
-  export type InstitutionScalarWhereInput = {
-    AND?: InstitutionScalarWhereInput | InstitutionScalarWhereInput[]
-    OR?: InstitutionScalarWhereInput[]
-    NOT?: InstitutionScalarWhereInput | InstitutionScalarWhereInput[]
-    id?: IntFilter<"Institution"> | number
-    name?: StringFilter<"Institution"> | string
-    createdBy?: IntFilter<"Institution"> | number
-    isActive?: BoolFilter<"Institution"> | boolean
-    createdAt?: DateTimeFilter<"Institution"> | Date | string
-  }
-
-  export type SantriUpsertWithWhereUniqueWithoutWaliInput = {
+  export type SantriCreateOrConnectWithoutWaliInput = {
     where: SantriWhereUniqueInput
-    update: XOR<SantriUpdateWithoutWaliInput, SantriUncheckedUpdateWithoutWaliInput>
     create: XOR<SantriCreateWithoutWaliInput, SantriUncheckedCreateWithoutWaliInput>
   }
 
-  export type SantriUpdateWithWhereUniqueWithoutWaliInput = {
-    where: SantriWhereUniqueInput
-    data: XOR<SantriUpdateWithoutWaliInput, SantriUncheckedUpdateWithoutWaliInput>
+  export type SantriCreateManyWaliInputEnvelope = {
+    data: SantriCreateManyWaliInput | SantriCreateManyWaliInput[]
+    skipDuplicates?: boolean
   }
 
-  export type SantriUpdateManyWithWhereWithoutWaliInput = {
-    where: SantriScalarWhereInput
-    data: XOR<SantriUpdateManyMutationInput, SantriUncheckedUpdateManyWithoutWaliInput>
+  export type TransactionCreateWithoutAdminInput = {
+    type: $Enums.category_type
+    amount: Decimal | DecimalJsLike | number | string
+    description?: string | null
+    transactionDate: Date | string
+    isDeleted?: boolean
+    createdAt?: Date | string
+    category: CategoryCreateNestedOneWithoutTransactionsInput
+    santri: SantriCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type TransactionUncheckedCreateWithoutAdminInput = {
+    id?: number
+    santriId: number
+    categoryId: number
+    type: $Enums.category_type
+    amount: Decimal | DecimalJsLike | number | string
+    description?: string | null
+    transactionDate: Date | string
+    isDeleted?: boolean
+    createdAt?: Date | string
+  }
+
+  export type TransactionCreateOrConnectWithoutAdminInput = {
+    where: TransactionWhereUniqueInput
+    create: XOR<TransactionCreateWithoutAdminInput, TransactionUncheckedCreateWithoutAdminInput>
+  }
+
+  export type TransactionCreateManyAdminInputEnvelope = {
+    data: TransactionCreateManyAdminInput | TransactionCreateManyAdminInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type InstitutionCreateWithoutUsersInput = {
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    categories?: CategoryCreateNestedManyWithoutInstitutionInput
+    admin: UserCreateNestedOneWithoutCreatedInstitutionsInput
+    santri?: SantriCreateNestedManyWithoutInstitutionInput
+  }
+
+  export type InstitutionUncheckedCreateWithoutUsersInput = {
+    id?: number
+    name: string
+    createdBy: number
+    isActive?: boolean
+    createdAt?: Date | string
+    categories?: CategoryUncheckedCreateNestedManyWithoutInstitutionInput
+    santri?: SantriUncheckedCreateNestedManyWithoutInstitutionInput
+  }
+
+  export type InstitutionCreateOrConnectWithoutUsersInput = {
+    where: InstitutionWhereUniqueInput
+    create: XOR<InstitutionCreateWithoutUsersInput, InstitutionUncheckedCreateWithoutUsersInput>
+  }
+
+  export type AuthAccountUpsertWithWhereUniqueWithoutUserInput = {
+    where: AuthAccountWhereUniqueInput
+    update: XOR<AuthAccountUpdateWithoutUserInput, AuthAccountUncheckedUpdateWithoutUserInput>
+    create: XOR<AuthAccountCreateWithoutUserInput, AuthAccountUncheckedCreateWithoutUserInput>
+  }
+
+  export type AuthAccountUpdateWithWhereUniqueWithoutUserInput = {
+    where: AuthAccountWhereUniqueInput
+    data: XOR<AuthAccountUpdateWithoutUserInput, AuthAccountUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AuthAccountUpdateManyWithWhereWithoutUserInput = {
+    where: AuthAccountScalarWhereInput
+    data: XOR<AuthAccountUpdateManyMutationInput, AuthAccountUncheckedUpdateManyWithoutUserInput>
   }
 
   export type EmailVerificationUpsertWithWhereUniqueWithoutUserInput = {
@@ -19090,36 +19001,31 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"EmailVerification"> | Date | string
   }
 
-  export type AuthAccountUpsertWithWhereUniqueWithoutUserInput = {
-    where: AuthAccountWhereUniqueInput
-    update: XOR<AuthAccountUpdateWithoutUserInput, AuthAccountUncheckedUpdateWithoutUserInput>
-    create: XOR<AuthAccountCreateWithoutUserInput, AuthAccountUncheckedCreateWithoutUserInput>
+  export type InstitutionUpsertWithWhereUniqueWithoutAdminInput = {
+    where: InstitutionWhereUniqueInput
+    update: XOR<InstitutionUpdateWithoutAdminInput, InstitutionUncheckedUpdateWithoutAdminInput>
+    create: XOR<InstitutionCreateWithoutAdminInput, InstitutionUncheckedCreateWithoutAdminInput>
   }
 
-  export type AuthAccountUpdateWithWhereUniqueWithoutUserInput = {
-    where: AuthAccountWhereUniqueInput
-    data: XOR<AuthAccountUpdateWithoutUserInput, AuthAccountUncheckedUpdateWithoutUserInput>
+  export type InstitutionUpdateWithWhereUniqueWithoutAdminInput = {
+    where: InstitutionWhereUniqueInput
+    data: XOR<InstitutionUpdateWithoutAdminInput, InstitutionUncheckedUpdateWithoutAdminInput>
   }
 
-  export type AuthAccountUpdateManyWithWhereWithoutUserInput = {
-    where: AuthAccountScalarWhereInput
-    data: XOR<AuthAccountUpdateManyMutationInput, AuthAccountUncheckedUpdateManyWithoutUserInput>
+  export type InstitutionUpdateManyWithWhereWithoutAdminInput = {
+    where: InstitutionScalarWhereInput
+    data: XOR<InstitutionUpdateManyMutationInput, InstitutionUncheckedUpdateManyWithoutAdminInput>
   }
 
-  export type TransactionUpsertWithWhereUniqueWithoutAdminInput = {
-    where: TransactionWhereUniqueInput
-    update: XOR<TransactionUpdateWithoutAdminInput, TransactionUncheckedUpdateWithoutAdminInput>
-    create: XOR<TransactionCreateWithoutAdminInput, TransactionUncheckedCreateWithoutAdminInput>
-  }
-
-  export type TransactionUpdateWithWhereUniqueWithoutAdminInput = {
-    where: TransactionWhereUniqueInput
-    data: XOR<TransactionUpdateWithoutAdminInput, TransactionUncheckedUpdateWithoutAdminInput>
-  }
-
-  export type TransactionUpdateManyWithWhereWithoutAdminInput = {
-    where: TransactionScalarWhereInput
-    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutAdminInput>
+  export type InstitutionScalarWhereInput = {
+    AND?: InstitutionScalarWhereInput | InstitutionScalarWhereInput[]
+    OR?: InstitutionScalarWhereInput[]
+    NOT?: InstitutionScalarWhereInput | InstitutionScalarWhereInput[]
+    id?: IntFilter<"Institution"> | number
+    name?: StringFilter<"Institution"> | string
+    createdBy?: IntFilter<"Institution"> | number
+    isActive?: BoolFilter<"Institution"> | boolean
+    createdAt?: DateTimeFilter<"Institution"> | Date | string
   }
 
   export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
@@ -19178,10 +19084,104 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"PasswordReset"> | Date | string
   }
 
+  export type ProfileUpsertWithoutUserInput = {
+    update: XOR<ProfileUpdateWithoutUserInput, ProfileUncheckedUpdateWithoutUserInput>
+    create: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
+    where?: ProfileWhereInput
+  }
+
+  export type ProfileUpdateToOneWithWhereWithoutUserInput = {
+    where?: ProfileWhereInput
+    data: XOR<ProfileUpdateWithoutUserInput, ProfileUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ProfileUpdateWithoutUserInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    profile_picture_url?: NullableStringFieldUpdateOperationsInput | string | null
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProfileUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    profile_picture_url?: NullableStringFieldUpdateOperationsInput | string | null
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SantriUpsertWithWhereUniqueWithoutWaliInput = {
+    where: SantriWhereUniqueInput
+    update: XOR<SantriUpdateWithoutWaliInput, SantriUncheckedUpdateWithoutWaliInput>
+    create: XOR<SantriCreateWithoutWaliInput, SantriUncheckedCreateWithoutWaliInput>
+  }
+
+  export type SantriUpdateWithWhereUniqueWithoutWaliInput = {
+    where: SantriWhereUniqueInput
+    data: XOR<SantriUpdateWithoutWaliInput, SantriUncheckedUpdateWithoutWaliInput>
+  }
+
+  export type SantriUpdateManyWithWhereWithoutWaliInput = {
+    where: SantriScalarWhereInput
+    data: XOR<SantriUpdateManyMutationInput, SantriUncheckedUpdateManyWithoutWaliInput>
+  }
+
+  export type TransactionUpsertWithWhereUniqueWithoutAdminInput = {
+    where: TransactionWhereUniqueInput
+    update: XOR<TransactionUpdateWithoutAdminInput, TransactionUncheckedUpdateWithoutAdminInput>
+    create: XOR<TransactionCreateWithoutAdminInput, TransactionUncheckedCreateWithoutAdminInput>
+  }
+
+  export type TransactionUpdateWithWhereUniqueWithoutAdminInput = {
+    where: TransactionWhereUniqueInput
+    data: XOR<TransactionUpdateWithoutAdminInput, TransactionUncheckedUpdateWithoutAdminInput>
+  }
+
+  export type TransactionUpdateManyWithWhereWithoutAdminInput = {
+    where: TransactionScalarWhereInput
+    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutAdminInput>
+  }
+
+  export type InstitutionUpsertWithoutUsersInput = {
+    update: XOR<InstitutionUpdateWithoutUsersInput, InstitutionUncheckedUpdateWithoutUsersInput>
+    create: XOR<InstitutionCreateWithoutUsersInput, InstitutionUncheckedCreateWithoutUsersInput>
+    where?: InstitutionWhereInput
+  }
+
+  export type InstitutionUpdateToOneWithWhereWithoutUsersInput = {
+    where?: InstitutionWhereInput
+    data: XOR<InstitutionUpdateWithoutUsersInput, InstitutionUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type InstitutionUpdateWithoutUsersInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categories?: CategoryUpdateManyWithoutInstitutionNestedInput
+    admin?: UserUpdateOneRequiredWithoutCreatedInstitutionsNestedInput
+    santri?: SantriUpdateManyWithoutInstitutionNestedInput
+  }
+
+  export type InstitutionUncheckedUpdateWithoutUsersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    createdBy?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categories?: CategoryUncheckedUpdateManyWithoutInstitutionNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutInstitutionNestedInput
+  }
+
   export type TransactionCreateManyCategoryInput = {
     id?: number
     santriId: number
-    type: $Enums.CategoryType
+    type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
     description?: string | null
     transactionDate: Date | string
@@ -19191,20 +19191,20 @@ export namespace Prisma {
   }
 
   export type TransactionUpdateWithoutCategoryInput = {
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    santri?: SantriUpdateOneRequiredWithoutTransactionsNestedInput
     admin?: UserUpdateOneRequiredWithoutTransactionsNestedInput
+    santri?: SantriUpdateOneRequiredWithoutTransactionsNestedInput
   }
 
   export type TransactionUncheckedUpdateWithoutCategoryInput = {
     id?: IntFieldUpdateOperationsInput | number
     santriId?: IntFieldUpdateOperationsInput | number
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19216,7 +19216,7 @@ export namespace Prisma {
   export type TransactionUncheckedUpdateManyWithoutCategoryInput = {
     id?: IntFieldUpdateOperationsInput | number
     santriId?: IntFieldUpdateOperationsInput | number
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19225,13 +19225,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UserCreateManyInstitutionInput = {
+  export type CategoryCreateManyInstitutionInput = {
     id?: number
-    username: string
-    email: string
-    password: string
-    role: $Enums.UserRole
-    isEmailVerified?: boolean
+    name: string
+    type: $Enums.category_type
     isActive?: boolean
     createdAt?: Date | string
   }
@@ -19249,58 +19246,38 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type CategoryCreateManyInstitutionInput = {
+  export type UserCreateManyInstitutionInput = {
     id?: number
-    name: string
-    type: $Enums.CategoryType
+    username: string
+    email: string
+    password: string
+    role: $Enums.user_role
+    isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
   }
 
-  export type UserUpdateWithoutInstitutionInput = {
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+  export type CategoryUpdateWithoutInstitutionInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    profile?: ProfileUpdateOneWithoutUserNestedInput
-    createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
-    santri?: SantriUpdateManyWithoutWaliNestedInput
-    emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
-    authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
-    transactions?: TransactionUpdateManyWithoutAdminNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    passwordResets?: PasswordResetUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUpdateManyWithoutCategoryNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutInstitutionInput = {
+  export type CategoryUncheckedUpdateWithoutInstitutionInput = {
     id?: IntFieldUpdateOperationsInput | number
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    name?: StringFieldUpdateOperationsInput | string
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
-    createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
-    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
-    emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
-    authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
-    transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    passwordResets?: PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
-  export type UserUncheckedUpdateManyWithoutInstitutionInput = {
+  export type CategoryUncheckedUpdateManyWithoutInstitutionInput = {
     id?: IntFieldUpdateOperationsInput | number
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    name?: StringFieldUpdateOperationsInput | string
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19314,8 +19291,8 @@ export namespace Prisma {
     institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    wali?: UserUpdateOneRequiredWithoutSantriNestedInput
     authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
+    wali?: UserUpdateOneRequiredWithoutSantriNestedInput
     transactions?: TransactionUpdateManyWithoutSantriNestedInput
   }
 
@@ -19347,27 +19324,50 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type CategoryUpdateWithoutInstitutionInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
+  export type UserUpdateWithoutInstitutionInput = {
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    transactions?: TransactionUpdateManyWithoutCategoryNestedInput
+    authAccounts?: AuthAccountUpdateManyWithoutUserNestedInput
+    emailVerifications?: EmailVerificationUpdateManyWithoutUserNestedInput
+    createdInstitutions?: InstitutionUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    passwordResets?: PasswordResetUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    santri?: SantriUpdateManyWithoutWaliNestedInput
+    transactions?: TransactionUpdateManyWithoutAdminNestedInput
   }
 
-  export type CategoryUncheckedUpdateWithoutInstitutionInput = {
+  export type UserUncheckedUpdateWithoutInstitutionInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    transactions?: TransactionUncheckedUpdateManyWithoutCategoryNestedInput
+    authAccounts?: AuthAccountUncheckedUpdateManyWithoutUserNestedInput
+    emailVerifications?: EmailVerificationUncheckedUpdateManyWithoutUserNestedInput
+    createdInstitutions?: InstitutionUncheckedUpdateManyWithoutAdminNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    passwordResets?: PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutWaliNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
   }
 
-  export type CategoryUncheckedUpdateManyWithoutInstitutionInput = {
+  export type UserUncheckedUpdateManyWithoutInstitutionInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19384,7 +19384,7 @@ export namespace Prisma {
   export type TransactionCreateManySantriInput = {
     id?: number
     categoryId: number
-    type: $Enums.CategoryType
+    type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
     description?: string | null
     transactionDate: Date | string
@@ -19420,7 +19420,7 @@ export namespace Prisma {
   }
 
   export type TransactionUpdateWithoutSantriInput = {
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19433,7 +19433,7 @@ export namespace Prisma {
   export type TransactionUncheckedUpdateWithoutSantriInput = {
     id?: IntFieldUpdateOperationsInput | number
     categoryId?: IntFieldUpdateOperationsInput | number
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19445,7 +19445,7 @@ export namespace Prisma {
   export type TransactionUncheckedUpdateManyWithoutSantriInput = {
     id?: IntFieldUpdateOperationsInput | number
     categoryId?: IntFieldUpdateOperationsInput | number
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19454,22 +19454,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type InstitutionCreateManyAdminInput = {
+  export type AuthAccountCreateManyUserInput = {
     id?: number
-    name: string
-    isActive?: boolean
-    createdAt?: Date | string
-  }
-
-  export type SantriCreateManyWaliInput = {
-    id?: number
-    nis: string
-    fullname: string
-    kelas: string
-    gender: string
-    institutionId: number
-    waliName?: string | null
-    institutionName?: string | null
+    username: string
+    password: string
+    santriId?: number | null
     isActive?: boolean
     createdAt?: Date | string
   }
@@ -19482,24 +19471,10 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type AuthAccountCreateManyUserInput = {
+  export type InstitutionCreateManyAdminInput = {
     id?: number
-    username: string
-    password: string
-    santriId?: number | null
+    name: string
     isActive?: boolean
-    createdAt?: Date | string
-  }
-
-  export type TransactionCreateManyAdminInput = {
-    id?: number
-    santriId: number
-    categoryId: number
-    type: $Enums.CategoryType
-    amount: Decimal | DecimalJsLike | number | string
-    description?: string | null
-    transactionDate: Date | string
-    isDeleted?: boolean
     createdAt?: Date | string
   }
 
@@ -19519,95 +19494,29 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type InstitutionUpdateWithoutAdminInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUpdateManyWithoutInstitutionNestedInput
-    santri?: SantriUpdateManyWithoutInstitutionNestedInput
-    categories?: CategoryUpdateManyWithoutInstitutionNestedInput
+  export type SantriCreateManyWaliInput = {
+    id?: number
+    nis: string
+    fullname: string
+    kelas: string
+    gender: string
+    institutionId: number
+    waliName?: string | null
+    institutionName?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
   }
 
-  export type InstitutionUncheckedUpdateWithoutAdminInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    users?: UserUncheckedUpdateManyWithoutInstitutionNestedInput
-    santri?: SantriUncheckedUpdateManyWithoutInstitutionNestedInput
-    categories?: CategoryUncheckedUpdateManyWithoutInstitutionNestedInput
-  }
-
-  export type InstitutionUncheckedUpdateManyWithoutAdminInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SantriUpdateWithoutWaliInput = {
-    nis?: StringFieldUpdateOperationsInput | string
-    fullname?: StringFieldUpdateOperationsInput | string
-    kelas?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
-    waliName?: NullableStringFieldUpdateOperationsInput | string | null
-    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
-    authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
-    transactions?: TransactionUpdateManyWithoutSantriNestedInput
-  }
-
-  export type SantriUncheckedUpdateWithoutWaliInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    nis?: StringFieldUpdateOperationsInput | string
-    fullname?: StringFieldUpdateOperationsInput | string
-    kelas?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
-    institutionId?: IntFieldUpdateOperationsInput | number
-    waliName?: NullableStringFieldUpdateOperationsInput | string | null
-    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    authAccounts?: AuthAccountUncheckedUpdateManyWithoutSantriNestedInput
-    transactions?: TransactionUncheckedUpdateManyWithoutSantriNestedInput
-  }
-
-  export type SantriUncheckedUpdateManyWithoutWaliInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    nis?: StringFieldUpdateOperationsInput | string
-    fullname?: StringFieldUpdateOperationsInput | string
-    kelas?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
-    institutionId?: IntFieldUpdateOperationsInput | number
-    waliName?: NullableStringFieldUpdateOperationsInput | string | null
-    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type EmailVerificationUpdateWithoutUserInput = {
-    otpCode?: StringFieldUpdateOperationsInput | string
-    expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isUsed?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type EmailVerificationUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    otpCode?: StringFieldUpdateOperationsInput | string
-    expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isUsed?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type EmailVerificationUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    otpCode?: StringFieldUpdateOperationsInput | string
-    expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isUsed?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type TransactionCreateManyAdminInput = {
+    id?: number
+    santriId: number
+    categoryId: number
+    type: $Enums.category_type
+    amount: Decimal | DecimalJsLike | number | string
+    description?: string | null
+    transactionDate: Date | string
+    isDeleted?: boolean
+    createdAt?: Date | string
   }
 
   export type AuthAccountUpdateWithoutUserInput = {
@@ -19636,38 +19545,52 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TransactionUpdateWithoutAdminInput = {
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    santri?: SantriUpdateOneRequiredWithoutTransactionsNestedInput
-    category?: CategoryUpdateOneRequiredWithoutTransactionsNestedInput
-  }
-
-  export type TransactionUncheckedUpdateWithoutAdminInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    santriId?: IntFieldUpdateOperationsInput | number
-    categoryId?: IntFieldUpdateOperationsInput | number
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+  export type EmailVerificationUpdateWithoutUserInput = {
+    otpCode?: StringFieldUpdateOperationsInput | string
+    expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TransactionUncheckedUpdateManyWithoutAdminInput = {
+  export type EmailVerificationUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    santriId?: IntFieldUpdateOperationsInput | number
-    categoryId?: IntFieldUpdateOperationsInput | number
-    type?: EnumCategoryTypeFieldUpdateOperationsInput | $Enums.CategoryType
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    otpCode?: StringFieldUpdateOperationsInput | string
+    expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmailVerificationUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    otpCode?: StringFieldUpdateOperationsInput | string
+    expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InstitutionUpdateWithoutAdminInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categories?: CategoryUpdateManyWithoutInstitutionNestedInput
+    santri?: SantriUpdateManyWithoutInstitutionNestedInput
+    users?: UserUpdateManyWithoutInstitutionNestedInput
+  }
+
+  export type InstitutionUncheckedUpdateWithoutAdminInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categories?: CategoryUncheckedUpdateManyWithoutInstitutionNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutInstitutionNestedInput
+    users?: UserUncheckedUpdateManyWithoutInstitutionNestedInput
+  }
+
+  export type InstitutionUncheckedUpdateManyWithoutAdminInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -19714,6 +19637,83 @@ export namespace Prisma {
     otpCode?: StringFieldUpdateOperationsInput | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isUsed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SantriUpdateWithoutWaliInput = {
+    nis?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
+    institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
+    transactions?: TransactionUpdateManyWithoutSantriNestedInput
+  }
+
+  export type SantriUncheckedUpdateWithoutWaliInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nis?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    institutionId?: IntFieldUpdateOperationsInput | number
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authAccounts?: AuthAccountUncheckedUpdateManyWithoutSantriNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutSantriNestedInput
+  }
+
+  export type SantriUncheckedUpdateManyWithoutWaliInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nis?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    institutionId?: IntFieldUpdateOperationsInput | number
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionUpdateWithoutAdminInput = {
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: CategoryUpdateOneRequiredWithoutTransactionsNestedInput
+    santri?: SantriUpdateOneRequiredWithoutTransactionsNestedInput
+  }
+
+  export type TransactionUncheckedUpdateWithoutAdminInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    santriId?: IntFieldUpdateOperationsInput | number
+    categoryId?: IntFieldUpdateOperationsInput | number
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutAdminInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    santriId?: IntFieldUpdateOperationsInput | number
+    categoryId?: IntFieldUpdateOperationsInput | number
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

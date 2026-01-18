@@ -138,7 +138,9 @@ export class SantriRepository implements ISantriRepository {
       orderBy.fullname = order;
     } else if (sortBy === "wali") {
       // Sort by the related user's username
-      orderBy.wali = { username: order };
+      // orderBy.wali = { username: order };
+      // TODO: Re-enable when Prisma Adapter bug is fixed
+      orderBy.createdAt = order;
     } else {
       orderBy.createdAt = order;
     }

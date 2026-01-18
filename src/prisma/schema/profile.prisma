@@ -3,10 +3,12 @@ model Profile {
   name                String
   gender              String?
   address             String
-  phone               String?
-  occupation          String?
   profile_picture_url String?
   public_id           String?
   userId              Int     @unique
+  occupation          String?
+  phone               String?
   user                User    @relation(fields: [userId], references: [id])
+
+  @@map("profile")
 }
