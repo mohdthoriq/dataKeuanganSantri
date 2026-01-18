@@ -1,6 +1,6 @@
 import PrismaInstance from "../database";
 import bcrypt from "bcrypt";
-import type { Prisma, PrismaClient, user, $Enums } from "../database";
+import type { Prisma, PrismaClient, User, $Enums } from "../database";
 import type { RequestResetResult } from "./auth.repository";
 
 import type { IPaginatedResult, IPaginationParams } from "../types/common";
@@ -28,22 +28,22 @@ export interface IUserListParams extends IPaginationParams {
 
 export interface GetUsersResult extends RequestResetResult {
   success: boolean;
-  data: Partial<user> & { institution: { id: number; name: string } | null };
+  data: Partial<User> & { institution: { id: number; name: string } | null };
 }
 
 export interface IUserRepository {
-  getAll(params: IUserListParams): Promise<IPaginatedResult<Partial<user>>>;
+  getAll(params: IUserListParams): Promise<IPaginatedResult<Partial<User>>>;
   getById(id: number): Promise<GetUsersResult>;
-  create(payload: ICreateUserPayload, admin: { institutionId: number }): Promise<Partial<user>>;
-  update(id: number, payload: IUpdateUserPayload): Promise<Partial<user>>;
-  updateStatus(id: number, isActive: boolean): Promise<Partial<user>>;
+  create(payload: ICreateUserPayload, admin: { institutionId: number }): Promise<Partial<User>>;
+  update(id: number, payload: IUpdateUserPayload): Promise<Partial<User>>;
+  updateStatus(id: number, isActive: boolean): Promise<Partial<User>>;
   deleteUser(id: number): Promise<boolean>;
 }
 
 export class UserRepository implements IUserRepository {
   constructor(private prisma: PrismaClient) { }
 
-  async getAll(params: IUserListParams): Promise<IPaginatedResult<Partial<user>>> {
+  async getAll(params: IUserListParams): Promise<IPaginatedResult<Partial<User>>> {
     const {
       page = 1,
       limit = 10,
@@ -54,7 +54,7 @@ export class UserRepository implements IUserRepository {
     } = params;
     const skip = (page - 1) * limit;
 
-    const where: Prisma.userWhereInput = {};
+    const where: Prisma.UserWhereInput = {};
     if (search) {
       where.OR = [
         { username: { contains: search, mode: "insensitive" } },
@@ -63,7 +63,7 @@ export class UserRepository implements IUserRepository {
     }
     if (isActive !== undefined) where.isActive = isActive;
 
-    const orderBy: Prisma.userOrderByWithRelationInput = {};
+    const orderBy: Prisma.UserOrderByWithRelationInput = {};
     if (sortBy === "username") orderBy.username = order;
     else if (sortBy === "email") orderBy.email = order;
     else orderBy.createdAt = order;
@@ -112,7 +112,7 @@ export class UserRepository implements IUserRepository {
     return { success: true, data: user };
   }
 
-  async create(payload: ICreateUserPayload, admin: { institutionId: number }): Promise<Partial<user>> {
+  async create(payload: ICreateUserPayload, admin: { institutionId: number }): Promise<Partial<User>> {
     const exists = await prisma.user.findUnique({ where: { email: payload.email } });
     if (exists) throw new Error("Email already exists");
 
@@ -141,7 +141,7 @@ export class UserRepository implements IUserRepository {
     return user;
   }
 
-  async update(id: number, payload: IUpdateUserPayload): Promise<Partial<user>> {
+  async update(id: number, payload: IUpdateUserPayload): Promise<Partial<User>> {
     const user = await this.prisma.user.findUnique({ where: { id } });
     if (!user) throw new Error("User not found");
 
@@ -167,7 +167,7 @@ export class UserRepository implements IUserRepository {
     return updatedUser;
   }
 
-  async updateStatus(id: number, isActive: boolean): Promise<Partial<user>> {
+  async updateStatus(id: number, isActive: boolean): Promise<Partial<User>> {
     const user = await this.prisma.user.findUnique({ where: { id } });
     if (!user) throw new Error("User not found");
 

@@ -1,29 +1,29 @@
 import { randomInt } from "crypto";
-import type { PrismaClient, email_verification, Prisma } from "../database";
+import type { PrismaClient, EmailVerification, Prisma } from "../database";
 import PrismaInstance from "../database";
 
 const prisma = PrismaInstance;
 
 export interface IEmailVerificationRepository {
-  generateOtp(userId: number): Promise<email_verification>;
+  generateOtp(userId: number): Promise<EmailVerification>;
   verifyOtp(userId: number, otpCode: string): Promise<boolean>;
-  findActiveOtp(userId: number): Promise<email_verification | null>;
+  findActiveOtp(userId: number): Promise<EmailVerification | null>;
   invalidateOtps(userId: number): Promise<void>;
 }
 
 export class EmailVerificationRepository implements IEmailVerificationRepository {
   constructor(private prisma: PrismaClient) { }
 
-  async generateOtp(userId: number): Promise<email_verification> {
+  async generateOtp(userId: number): Promise<EmailVerification> {
     // Hapus OTP lama yang belum dipakai
-    await this.prisma.email_verification.deleteMany({
+    await this.prisma.emailVerification.deleteMany({
       where: { userId, isUsed: false },
     });
 
     const otpCode = randomInt(100000, 999999).toString();
     const expiredAt = new Date(Date.now() + 10 * 60 * 1000); // 10 menit
 
-    const otp = await this.prisma.email_verification.create({
+    const otp = await this.prisma.emailVerification.create({
       data: { userId, otpCode, expiredAt },
     });
 
@@ -31,7 +31,7 @@ export class EmailVerificationRepository implements IEmailVerificationRepository
   }
 
   async verifyOtp(userId: number, otpCode: string): Promise<boolean> {
-    const record = await this.prisma.email_verification.findFirst({
+    const record = await this.prisma.emailVerification.findFirst({
       where: {
         userId,
         otpCode,
@@ -43,7 +43,7 @@ export class EmailVerificationRepository implements IEmailVerificationRepository
     if (!record) throw new Error("Invalid OTP");
 
     await this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
-      await tx.email_verification.update({
+      await tx.emailVerification.update({
         where: { id: record.id },
         data: { isUsed: true },
       });
@@ -56,14 +56,14 @@ export class EmailVerificationRepository implements IEmailVerificationRepository
     return true;
   }
 
-  async findActiveOtp(userId: number): Promise<email_verification | null> {
-    return this.prisma.email_verification.findFirst({
+  async findActiveOtp(userId: number): Promise<EmailVerification | null> {
+    return this.prisma.emailVerification.findFirst({
       where: { userId, isUsed: false, expiredAt: { gte: new Date() } },
     });
   }
 
   async invalidateOtps(userId: number): Promise<void> {
-    await this.prisma.email_verification.updateMany({
+    await this.prisma.emailVerification.updateMany({
       where: { userId, isUsed: false },
       data: { isUsed: true },
     });

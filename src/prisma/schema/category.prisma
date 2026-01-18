@@ -1,12 +1,12 @@
-model category {
+model Category {
   id            Int           @id @default(autoincrement())
   name          String
   type          category_type
   institutionId Int
   isActive      Boolean       @default(true)
   createdAt     DateTime      @default(now())
-  institution   institution   @relation(fields: [institutionId], references: [id])
-  transactions  transaction[]
+  institution   Institution   @relation(fields: [institutionId], references: [id])
+  transactions  Transaction[]
 
   @@map("category")
 }

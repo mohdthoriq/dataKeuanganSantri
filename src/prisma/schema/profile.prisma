@@ -1,4 +1,4 @@
-model profile {
+model Profile {
   id                  Int     @id @default(autoincrement())
   name                String
   gender              String?
@@ -8,7 +8,7 @@ model profile {
   userId              Int     @unique
   occupation          String?
   phone               String?
-  user                user    @relation(fields: [userId], references: [id])
+  user                User    @relation(fields: [userId], references: [id])
 
   @@map("profile")
 }

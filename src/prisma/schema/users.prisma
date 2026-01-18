@@ -1,4 +1,4 @@
-model user {
+model User {
   id                  Int                 @id @default(autoincrement())
   username            String
   email               String              @unique
@@ -8,15 +8,15 @@ model user {
   isEmailVerified     Boolean             @default(false)
   isActive            Boolean             @default(true)
   createdAt           DateTime            @default(now())
-  authAccounts        auth_account[]
-  emailVerifications  email_verification[]
-  createdInstitutions institution[]       @relation("InstitutionAdmin")
-  notifications       notification[]
-  passwordResets      password_reset[]
-  profile             profile?
-  santri              santri[]            @relation("WaliSantri")
-  transactions        transaction[]       @relation("AdminTransactions")
-  institution         institution?        @relation("InstitutionUsers", fields: [institutionId], references: [id])
+  authAccounts        AuthAccount[]
+  emailVerifications  EmailVerification[]
+  createdInstitutions Institution[]       @relation("InstitutionAdmin")
+  notifications       Notification[]
+  passwordResets      PasswordReset[]
+  profile             Profile?
+  santri              Santri[]            @relation("WaliSantri")
+  transactions        Transaction[]       @relation("AdminTransactions")
+  institution         Institution?        @relation("InstitutionUsers", fields: [institutionId], references: [id])
 
   @@map("user")
 }

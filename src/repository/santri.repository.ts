@@ -1,5 +1,5 @@
 // src/repository/santri.repository.ts
-import type { PrismaClient, santri, Prisma } from "../database";
+import type { PrismaClient, Santri, Prisma } from "../database";
 
 import type { IPaginatedResult, IPaginationParams } from "../types/common";
 
@@ -19,19 +19,19 @@ export interface ISantriListParams extends IPaginationParams {
 }
 
 export interface ISantriRepository {
-  create(payload: ICreateSantriPayload): Promise<santri>;
-  getList(params: ISantriListParams): Promise<IPaginatedResult<santri>>;
-  getById(id: number): Promise<santri>;
-  update(id: number, data: Partial<ICreateSantriPayload>): Promise<santri>;
+  create(payload: ICreateSantriPayload): Promise<Santri>;
+  getList(params: ISantriListParams): Promise<IPaginatedResult<Santri>>;
+  getById(id: number): Promise<Santri>;
+  update(id: number, data: Partial<ICreateSantriPayload>): Promise<Santri>;
   delete(id: number): Promise<boolean>;
-  getByWali(waliId: number): Promise<santri[]>;
+  getByWali(waliId: number): Promise<Santri[]>;
   getStats(institutionId: number): Promise<{ totalSantri: number; activeSantri: number }>;
 }
 
 export class SantriRepository implements ISantriRepository {
   constructor(private prisma: PrismaClient) { }
 
-  async create(payload: ICreateSantriPayload): Promise<santri> {
+  async create(payload: ICreateSantriPayload): Promise<Santri> {
     let institutionId = payload.institutionId;
     let institutionName = payload.institutionName;
 
@@ -103,7 +103,7 @@ export class SantriRepository implements ISantriRepository {
 
   async getList(
     params: ISantriListParams
-  ): Promise<IPaginatedResult<santri>> {
+  ): Promise<IPaginatedResult<Santri>> {
     const {
       institutionId,
       page = 1,
@@ -115,7 +115,7 @@ export class SantriRepository implements ISantriRepository {
 
     const skip = (page - 1) * limit;
 
-    const where: Prisma.santriWhereInput = {
+    const where: Prisma.SantriWhereInput = {
       institutionId,
     };
 
@@ -131,7 +131,7 @@ export class SantriRepository implements ISantriRepository {
       ];
     }
 
-    const orderBy: Prisma.santriOrderByWithRelationInput = {};
+    const orderBy: Prisma.SantriOrderByWithRelationInput = {};
     if (sortBy === "nis") {
       orderBy.nis = order;
     } else if (sortBy === "fullname") {
@@ -178,7 +178,7 @@ export class SantriRepository implements ISantriRepository {
     };
   }
 
-  async getById(id: number): Promise<santri> {
+  async getById(id: number): Promise<Santri> {
     const santri = await this.prisma.santri.findUnique({
       where: { id },
       include: {
@@ -200,7 +200,7 @@ export class SantriRepository implements ISantriRepository {
     return santri;
   }
 
-  async update(id: number, data: Partial<ICreateSantriPayload>): Promise<santri> {
+  async update(id: number, data: Partial<ICreateSantriPayload>): Promise<Santri> {
     const santri = await this.prisma.santri.findUnique({
       where: { id },
       include: { wali: { select: { username: true } } }
@@ -210,7 +210,7 @@ export class SantriRepository implements ISantriRepository {
     }
 
     const { waliId, institutionId, ...otherData } = data;
-    const updateData: Prisma.santriUpdateInput = { ...otherData };
+    const updateData: Prisma.SantriUpdateInput = { ...otherData };
 
     if (waliId && waliId !== santri.waliId) {
       updateData.wali = { connect: { id: waliId } };
@@ -260,7 +260,7 @@ export class SantriRepository implements ISantriRepository {
     return true;
   }
 
-  async getByWali(waliId: number): Promise<santri[]> {
+  async getByWali(waliId: number): Promise<Santri[]> {
     return this.prisma.santri.findMany({ where: { waliId } });
   }
 

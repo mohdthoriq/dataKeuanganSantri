@@ -1,5 +1,5 @@
 // src/repository/category.repository.ts
-import type { PrismaClient, category, $Enums, Prisma } from "../database";
+import type { PrismaClient, Category, $Enums, Prisma } from "../database";
 import type { IPaginatedResult, IPaginationParams } from "../types/common";
 
 export interface ICategoryListParams extends IPaginationParams {
@@ -9,15 +9,15 @@ export interface ICategoryListParams extends IPaginationParams {
 }
 
 export interface ICategoryRepository {
-  create(data: { name: string; type: $Enums.category_type; institutionId: number }): Promise<category>;
-  getList(params: ICategoryListParams): Promise<IPaginatedResult<category>>;
-  getById(id: number): Promise<category>;
+  create(data: { name: string; type: $Enums.category_type; institutionId: number }): Promise<Category>;
+  getList(params: ICategoryListParams): Promise<IPaginatedResult<Category>>;
+  getById(id: number): Promise<Category>;
   updateById(
     id: number,
     payload: { name?: string; type?: $Enums.category_type; isActive?: boolean }
-  ): Promise<category>;
-  updateStatusById(id: number, isActive: boolean): Promise<category>;
-  deleteById(id: number): Promise<category>;
+  ): Promise<Category>;
+  updateStatusById(id: number, isActive: boolean): Promise<Category>;
+  deleteById(id: number): Promise<Category>;
 }
 
 export class CategoryRepository implements ICategoryRepository {
@@ -32,7 +32,7 @@ export class CategoryRepository implements ICategoryRepository {
     return this.prisma.category.create({ data });
   }
 
-  async getList(params: ICategoryListParams): Promise<IPaginatedResult<category>> {
+  async getList(params: ICategoryListParams): Promise<IPaginatedResult<Category>> {
     const {
       institutionId,
       type,
@@ -46,13 +46,13 @@ export class CategoryRepository implements ICategoryRepository {
 
     const skip = (page - 1) * limit;
 
-    const where: Prisma.categoryWhereInput = { institutionId };
+    const where: Prisma.CategoryWhereInput = { institutionId };
 
     if (type) where.type = type;
     if (isActive !== undefined) where.isActive = isActive;
     if (search) where.name = { contains: search, mode: "insensitive" };
 
-    const orderBy: Prisma.categoryOrderByWithRelationInput = {};
+    const orderBy: Prisma.CategoryOrderByWithRelationInput = {};
     if (sortBy === "name") {
       orderBy.name = order;
     } else {

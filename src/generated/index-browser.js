@@ -120,7 +120,7 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.Email_verificationScalarFieldEnum = {
+exports.Prisma.EmailVerificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   otpCode: 'otpCode',
@@ -129,7 +129,7 @@ exports.Prisma.Email_verificationScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.Auth_accountScalarFieldEnum = {
+exports.Prisma.AuthAccountScalarFieldEnum = {
   id: 'id',
   username: 'username',
   password: 'password',
@@ -165,7 +165,7 @@ exports.Prisma.NotificationScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.Password_resetScalarFieldEnum = {
+exports.Prisma.PasswordResetScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   otpCode: 'otpCode',
@@ -250,16 +250,16 @@ exports.user_role = exports.$Enums.user_role = {
 };
 
 exports.Prisma.ModelName = {
-  email_verification: 'email_verification',
-  auth_account: 'auth_account',
-  category: 'category',
-  institution: 'institution',
-  notification: 'notification',
-  password_reset: 'password_reset',
-  profile: 'profile',
-  santri: 'santri',
-  transaction: 'transaction',
-  user: 'user'
+  EmailVerification: 'EmailVerification',
+  AuthAccount: 'AuthAccount',
+  Category: 'Category',
+  Institution: 'Institution',
+  Notification: 'Notification',
+  PasswordReset: 'PasswordReset',
+  Profile: 'Profile',
+  Santri: 'Santri',
+  Transaction: 'Transaction',
+  User: 'User'
 };
 
 /**

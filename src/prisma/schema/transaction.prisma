@@ -1,4 +1,4 @@
-model transaction {
+model Transaction {
   id              Int          @id @default(autoincrement())
   santriId        Int
   categoryId      Int
@@ -9,9 +9,9 @@ model transaction {
   createdBy       Int
   isDeleted       Boolean      @default(false)
   createdAt       DateTime     @default(now())
-  category        category     @relation(fields: [categoryId], references: [id])
-  admin           user         @relation("AdminTransactions", fields: [createdBy], references: [id])
-  santri          santri       @relation(fields: [santriId], references: [id])
+  category        Category     @relation(fields: [categoryId], references: [id])
+  admin           User         @relation("AdminTransactions", fields: [createdBy], references: [id])
+  santri          Santri       @relation(fields: [santriId], references: [id])
 
   @@map("transaction")
 }

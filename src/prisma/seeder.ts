@@ -11,10 +11,10 @@ async function main() {
 
   // Hapus data lama (berurutan sesuai foreign key)
   await prisma.transaction.deleteMany();
-  await prisma.auth_account.deleteMany();
+  await prisma.authAccount.deleteMany();
   await prisma.santri.deleteMany();
   await prisma.category.deleteMany();
-  await prisma.email_verification.deleteMany();
+  await prisma.emailVerification.deleteMany();
   await prisma.notification.deleteMany();
   await prisma.institution.deleteMany();
   await prisma.user.deleteMany();
@@ -205,7 +205,7 @@ async function main() {
   for (const santri of santriList) {
     const wali = waliSantri.find(w => w.id === santri.waliId);
     if (wali) {
-      const authAccount = await prisma.auth_account.create({
+      const authAccount = await prisma.authAccount.create({
         data: {
           username: `santri_${santri.nis}`,
           password: hashedPassword,
@@ -262,7 +262,7 @@ async function main() {
   const emailVerifications = [];
 
   for (const user of [...admins, ...waliSantri].slice(0, 50)) {
-    const verification = await prisma.email_verification.create({
+    const verification = await prisma.emailVerification.create({
       data: {
         userId: user.id,
         otpCode: String(faker.number.int({ min: 100000, max: 999999 })),

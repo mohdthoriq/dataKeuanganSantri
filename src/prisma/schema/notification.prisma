@@ -1,11 +1,11 @@
-model notification {
+model Notification {
   id        Int      @id @default(autoincrement())
   userId    Int
   title     String
   message   String
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
-  user      user     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 
   @@map("notification")
 }

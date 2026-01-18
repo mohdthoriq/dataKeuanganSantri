@@ -1,12 +1,12 @@
 // src/services/santri.service.ts
-import type { santri } from "../database";
+import type { Santri } from "../database";
 import type { SantriRepository, ICreateSantriPayload } from "../repository/santri.repository";
 import type { IPaginatedResult } from "../types/common";
 
 export class SantriService {
   constructor(private santriRepo: SantriRepository) { }
 
-  async createSantri(payload: ICreateSantriPayload): Promise<santri> {
+  async createSantri(payload: ICreateSantriPayload): Promise<Santri> {
     return this.santriRepo.create(payload);
   }
 
@@ -17,7 +17,7 @@ export class SantriService {
     search?: string,
     sortBy?: string,
     order?: "asc" | "desc"
-  ): Promise<IPaginatedResult<santri>> {
+  ): Promise<IPaginatedResult<Santri>> {
     return this.santriRepo.getList({
       institutionId,
       page,
@@ -28,11 +28,11 @@ export class SantriService {
     });
   }
 
-  async getSantriById(id: number): Promise<santri> {
+  async getSantriById(id: number): Promise<Santri> {
     return this.santriRepo.getById(id);
   }
 
-  async updateSantri(id: number, data: Partial<ICreateSantriPayload>): Promise<santri> {
+  async updateSantri(id: number, data: Partial<ICreateSantriPayload>): Promise<Santri> {
     return this.santriRepo.update(id, data);
   }
 

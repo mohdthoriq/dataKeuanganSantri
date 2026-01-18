@@ -1,4 +1,4 @@
-import type { PrismaClient, institution, Prisma } from "../database";
+import type { PrismaClient, Institution, Prisma } from "../database";
 import type { IPaginatedResult, IPaginationParams } from "../types/common";
 
 export interface ICreateInstitutionPayload {
@@ -11,17 +11,17 @@ export interface IInstitutionListParams extends IPaginationParams {
 }
 
 export interface IInstitutionRepository {
-  create(payload: ICreateInstitutionPayload): Promise<institution>;
-  getById(id: number): Promise<institution>;
-  getByUser(params: IInstitutionListParams): Promise<IPaginatedResult<institution>>;
-  update(id: number, name: string): Promise<institution>;
+  create(payload: ICreateInstitutionPayload): Promise<Institution>;
+  getById(id: number): Promise<Institution>;
+  getByUser(params: IInstitutionListParams): Promise<IPaginatedResult<Institution>>;
+  update(id: number, name: string): Promise<Institution>;
   delete(id: number): Promise<boolean>;
 }
 
 export class InstitutionRepository implements IInstitutionRepository {
   constructor(private prisma: PrismaClient) { }
 
-  async create(payload: ICreateInstitutionPayload): Promise<institution> {
+  async create(payload: ICreateInstitutionPayload): Promise<Institution> {
     const exists = await this.prisma.institution.findFirst({
       where: { name: payload.name },
     });
@@ -32,13 +32,13 @@ export class InstitutionRepository implements IInstitutionRepository {
     });
   }
 
-  async getById(id: number): Promise<institution> {
+  async getById(id: number): Promise<Institution> {
     const institution = await this.prisma.institution.findUnique({ where: { id } });
     if (!institution) throw new Error("Institution not found");
     return institution;
   }
 
-  async getByUser(params: IInstitutionListParams): Promise<IPaginatedResult<institution>> {
+  async getByUser(params: IInstitutionListParams): Promise<IPaginatedResult<Institution>> {
     const {
       userId,
       page = 1,
@@ -49,12 +49,12 @@ export class InstitutionRepository implements IInstitutionRepository {
     } = params;
     const skip = (page - 1) * limit;
 
-    const where: Prisma.institutionWhereInput = { createdBy: userId };
+    const where: Prisma.InstitutionWhereInput = { createdBy: userId };
     if (search) {
       where.name = { contains: search, mode: "insensitive" };
     }
 
-    const orderBy: Prisma.institutionOrderByWithRelationInput = {};
+    const orderBy: Prisma.InstitutionOrderByWithRelationInput = {};
     if (sortBy === "name") {
       orderBy.name = order;
     } else {
@@ -77,7 +77,7 @@ export class InstitutionRepository implements IInstitutionRepository {
     };
   }
 
-  async update(id: number, name: string): Promise<institution> {
+  async update(id: number, name: string): Promise<Institution> {
     return this.prisma.institution.update({
       where: { id },
       data: { name },
@@ -89,7 +89,7 @@ export class InstitutionRepository implements IInstitutionRepository {
     return true;
   }
 
-  async getByName(name: string): Promise<institution | null> {
+  async getByName(name: string): Promise<Institution | null> {
     return this.prisma.institution.findUnique({
       where: { name },
     });

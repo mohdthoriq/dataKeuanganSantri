@@ -1,16 +1,16 @@
-model email_verification {
+model EmailVerification {
   id        Int      @id @default(autoincrement())
   userId    Int
   otpCode   String
   expiredAt DateTime
   isUsed    Boolean  @default(false)
   createdAt DateTime @default(now())
-  user      user     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 
   @@map("email_verification")
 }
 
-model auth_account {
+model AuthAccount {
   id        Int      @id @default(autoincrement())
   username  String
   password  String
@@ -18,21 +18,21 @@ model auth_account {
   santriId  Int?
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
-  santri    santri?  @relation(fields: [santriId], references: [id])
-  user      user     @relation(fields: [userId], references: [id])
+  santri    Santri?  @relation(fields: [santriId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 
   @@map("auth_account")
 }
 
-model category {
+model Category {
   id            Int           @id @default(autoincrement())
   name          String
   type          category_type
   institutionId Int
   isActive      Boolean       @default(true)
   createdAt     DateTime      @default(now())
-  institution   institution   @relation(fields: [institutionId], references: [id])
-  transactions  transaction[]
+  institution   Institution   @relation(fields: [institutionId], references: [id])
+  transactions  Transaction[]
 
   @@map("category")
 }
@@ -47,45 +47,45 @@ enum category_type {
   PENGELUARAN
 }
 
-model institution {
+model Institution {
   id         Int        @id @default(autoincrement())
   name       String     @unique
   createdBy  Int
   isActive   Boolean    @default(true)
   createdAt  DateTime   @default(now())
-  categories category[]
-  admin      user       @relation("InstitutionAdmin", fields: [createdBy], references: [id])
-  santri     santri[]
-  users      user[]     @relation("InstitutionUsers")
+  categories Category[]
+  admin      User       @relation("InstitutionAdmin", fields: [createdBy], references: [id])
+  santri     Santri[]
+  users      User[]     @relation("InstitutionUsers")
 
   @@map("institution")
 }
 
-model notification {
+model Notification {
   id        Int      @id @default(autoincrement())
   userId    Int
   title     String
   message   String
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
-  user      user     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 
   @@map("notification")
 }
 
-model password_reset {
+model PasswordReset {
   id        Int      @id @default(autoincrement())
   userId    Int
   otpCode   String
   expiredAt DateTime
   isUsed    Boolean  @default(false)
   createdAt DateTime @default(now())
-  user      user     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 
   @@map("password_reset")
 }
 
-model profile {
+model Profile {
   id                  Int     @id @default(autoincrement())
   name                String
   gender              String?
@@ -95,14 +95,14 @@ model profile {
   userId              Int     @unique
   occupation          String?
   phone               String?
-  user                user    @relation(fields: [userId], references: [id])
+  user                User    @relation(fields: [userId], references: [id])
 
   @@map("profile")
 }
 
-model santri {
-  id              Int            @id @default(autoincrement())
-  nis             String         @unique
+model Santri {
+  id              Int           @id @default(autoincrement())
+  nis             String        @unique
   fullname        String
   kelas           String
   gender          String
@@ -110,17 +110,17 @@ model santri {
   institutionId   Int
   waliName        String?
   institutionName String?
-  isActive        Boolean        @default(true)
-  createdAt       DateTime       @default(now())
-  authAccounts    auth_account[]
-  institution     institution    @relation(fields: [institutionId], references: [id])
-  wali            user           @relation("WaliSantri", fields: [waliId], references: [id])
-  transactions    transaction[]
+  isActive        Boolean       @default(true)
+  createdAt       DateTime      @default(now())
+  authAccounts    AuthAccount[]
+  institution     Institution   @relation(fields: [institutionId], references: [id])
+  wali            User          @relation("WaliSantri", fields: [waliId], references: [id])
+  transactions    Transaction[]
 
   @@map("santri")
 }
 
-model transaction {
+model Transaction {
   id              Int           @id @default(autoincrement())
   santriId        Int
   categoryId      Int
@@ -131,32 +131,32 @@ model transaction {
   createdBy       Int
   isDeleted       Boolean       @default(false)
   createdAt       DateTime      @default(now())
-  category        category      @relation(fields: [categoryId], references: [id])
-  admin           user          @relation("AdminTransactions", fields: [createdBy], references: [id])
-  santri          santri        @relation(fields: [santriId], references: [id])
+  category        Category      @relation(fields: [categoryId], references: [id])
+  admin           User          @relation("AdminTransactions", fields: [createdBy], references: [id])
+  santri          Santri        @relation(fields: [santriId], references: [id])
 
   @@map("transaction")
 }
 
-model user {
-  id                  Int                  @id @default(autoincrement())
+model User {
+  id                  Int                 @id @default(autoincrement())
   username            String
-  email               String               @unique
+  email               String              @unique
   password            String
   role                user_role
   institutionId       Int?
-  isEmailVerified     Boolean              @default(false)
-  isActive            Boolean              @default(true)
-  createdAt           DateTime             @default(now())
-  authAccounts        auth_account[]
-  emailVerifications  email_verification[]
-  createdInstitutions institution[]        @relation("InstitutionAdmin")
-  notifications       notification[]
-  passwordResets      password_reset[]
-  profile             profile?
-  santri              santri[]             @relation("WaliSantri")
-  transactions        transaction[]        @relation("AdminTransactions")
-  institution         institution?         @relation("InstitutionUsers", fields: [institutionId], references: [id])
+  isEmailVerified     Boolean             @default(false)
+  isActive            Boolean             @default(true)
+  createdAt           DateTime            @default(now())
+  authAccounts        AuthAccount[]
+  emailVerifications  EmailVerification[]
+  createdInstitutions Institution[]       @relation("InstitutionAdmin")
+  notifications       Notification[]
+  passwordResets      PasswordReset[]
+  profile             Profile?
+  santri              Santri[]            @relation("WaliSantri")
+  transactions        Transaction[]       @relation("AdminTransactions")
+  institution         Institution?        @relation("InstitutionUsers", fields: [institutionId], references: [id])
 
   @@map("user")
 }

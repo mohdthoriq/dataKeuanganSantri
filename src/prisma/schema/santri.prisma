@@ -1,4 +1,4 @@
-model santri {
+model Santri {
   id              Int           @id @default(autoincrement())
   nis             String        @unique
   fullname        String
@@ -10,10 +10,10 @@ model santri {
   institutionName String?
   isActive        Boolean       @default(true)
   createdAt       DateTime      @default(now())
-  authAccounts    auth_account[]
-  institution     institution   @relation(fields: [institutionId], references: [id])
-  wali            user          @relation("WaliSantri", fields: [waliId], references: [id])
-  transactions    transaction[]
+  authAccounts    AuthAccount[]
+  institution     Institution   @relation(fields: [institutionId], references: [id])
+  wali            User          @relation("WaliSantri", fields: [waliId], references: [id])
+  transactions    Transaction[]
 
   @@map("santri")
 }
