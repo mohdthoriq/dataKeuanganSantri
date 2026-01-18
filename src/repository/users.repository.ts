@@ -1,6 +1,6 @@
 import PrismaInstance from "../database";
 import bcrypt from "bcrypt";
-import type { Prisma, PrismaClient, Users, $Enums } from "../database";
+import type { Prisma, PrismaClient, Users, user_role } from "../database";
 import type { RequestResetResult } from "./auth.repository";
 
 import type { IPaginatedResult, IPaginationParams } from "../types/common";
@@ -11,14 +11,14 @@ export interface ICreateUserPayload {
   username: string;
   email: string;
   password: string;
-  role: $Enums.user_role;
+  role: user_role;
   institutionId?: number;
 }
 
 export interface IUpdateUserPayload {
   username?: string;
   email?: string;
-  role?: $Enums.user_role;
+  role?: user_role;
   institutionId?: number | null;
 }
 

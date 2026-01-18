@@ -3050,6 +3050,7 @@ export namespace Prisma {
   export type AuthAccountMinAggregateOutputType = {
     id: number | null
     username: string | null
+    email: string | null
     password: string | null
     userId: number | null
     santriId: number | null
@@ -3060,6 +3061,7 @@ export namespace Prisma {
   export type AuthAccountMaxAggregateOutputType = {
     id: number | null
     username: string | null
+    email: string | null
     password: string | null
     userId: number | null
     santriId: number | null
@@ -3070,6 +3072,7 @@ export namespace Prisma {
   export type AuthAccountCountAggregateOutputType = {
     id: number
     username: number
+    email: number
     password: number
     userId: number
     santriId: number
@@ -3094,6 +3097,7 @@ export namespace Prisma {
   export type AuthAccountMinAggregateInputType = {
     id?: true
     username?: true
+    email?: true
     password?: true
     userId?: true
     santriId?: true
@@ -3104,6 +3108,7 @@ export namespace Prisma {
   export type AuthAccountMaxAggregateInputType = {
     id?: true
     username?: true
+    email?: true
     password?: true
     userId?: true
     santriId?: true
@@ -3114,6 +3119,7 @@ export namespace Prisma {
   export type AuthAccountCountAggregateInputType = {
     id?: true
     username?: true
+    email?: true
     password?: true
     userId?: true
     santriId?: true
@@ -3211,6 +3217,7 @@ export namespace Prisma {
   export type AuthAccountGroupByOutputType = {
     id: number
     username: string
+    email: string
     password: string
     userId: number
     santriId: number | null
@@ -3240,6 +3247,7 @@ export namespace Prisma {
   export type AuthAccountSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     username?: boolean
+    email?: boolean
     password?: boolean
     userId?: boolean
     santriId?: boolean
@@ -3252,6 +3260,7 @@ export namespace Prisma {
   export type AuthAccountSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     username?: boolean
+    email?: boolean
     password?: boolean
     userId?: boolean
     santriId?: boolean
@@ -3264,6 +3273,7 @@ export namespace Prisma {
   export type AuthAccountSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     username?: boolean
+    email?: boolean
     password?: boolean
     userId?: boolean
     santriId?: boolean
@@ -3276,6 +3286,7 @@ export namespace Prisma {
   export type AuthAccountSelectScalar = {
     id?: boolean
     username?: boolean
+    email?: boolean
     password?: boolean
     userId?: boolean
     santriId?: boolean
@@ -3283,7 +3294,7 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type AuthAccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "password" | "userId" | "santriId" | "isActive" | "createdAt", ExtArgs["result"]["authAccount"]>
+  export type AuthAccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "password" | "userId" | "santriId" | "isActive" | "createdAt", ExtArgs["result"]["authAccount"]>
   export type AuthAccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     santri?: boolean | AuthAccount$santriArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
@@ -3306,6 +3317,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       username: string
+      email: string
       password: string
       userId: number
       santriId: number | null
@@ -3738,6 +3750,7 @@ export namespace Prisma {
   interface AuthAccountFieldRefs {
     readonly id: FieldRef<"AuthAccount", 'Int'>
     readonly username: FieldRef<"AuthAccount", 'String'>
+    readonly email: FieldRef<"AuthAccount", 'String'>
     readonly password: FieldRef<"AuthAccount", 'String'>
     readonly userId: FieldRef<"AuthAccount", 'Int'>
     readonly santriId: FieldRef<"AuthAccount", 'Int'>
@@ -13713,6 +13726,7 @@ export namespace Prisma {
   export const AuthAccountScalarFieldEnum: {
     id: 'id',
     username: 'username',
+    email: 'email',
     password: 'password',
     userId: 'userId',
     santriId: 'santriId',
@@ -14038,6 +14052,7 @@ export namespace Prisma {
     NOT?: AuthAccountWhereInput | AuthAccountWhereInput[]
     id?: IntFilter<"AuthAccount"> | number
     username?: StringFilter<"AuthAccount"> | string
+    email?: StringFilter<"AuthAccount"> | string
     password?: StringFilter<"AuthAccount"> | string
     userId?: IntFilter<"AuthAccount"> | number
     santriId?: IntNullableFilter<"AuthAccount"> | number | null
@@ -14050,6 +14065,7 @@ export namespace Prisma {
   export type AuthAccountOrderByWithRelationInput = {
     id?: SortOrder
     username?: SortOrder
+    email?: SortOrder
     password?: SortOrder
     userId?: SortOrder
     santriId?: SortOrderInput | SortOrder
@@ -14061,6 +14077,7 @@ export namespace Prisma {
 
   export type AuthAccountWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    email?: string
     AND?: AuthAccountWhereInput | AuthAccountWhereInput[]
     OR?: AuthAccountWhereInput[]
     NOT?: AuthAccountWhereInput | AuthAccountWhereInput[]
@@ -14072,11 +14089,12 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"AuthAccount"> | Date | string
     santri?: XOR<SantriNullableScalarRelationFilter, SantriWhereInput> | null
     user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
-  }, "id">
+  }, "id" | "email">
 
   export type AuthAccountOrderByWithAggregationInput = {
     id?: SortOrder
     username?: SortOrder
+    email?: SortOrder
     password?: SortOrder
     userId?: SortOrder
     santriId?: SortOrderInput | SortOrder
@@ -14095,6 +14113,7 @@ export namespace Prisma {
     NOT?: AuthAccountScalarWhereWithAggregatesInput | AuthAccountScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"AuthAccount"> | number
     username?: StringWithAggregatesFilter<"AuthAccount"> | string
+    email?: StringWithAggregatesFilter<"AuthAccount"> | string
     password?: StringWithAggregatesFilter<"AuthAccount"> | string
     userId?: IntWithAggregatesFilter<"AuthAccount"> | number
     santriId?: IntNullableWithAggregatesFilter<"AuthAccount"> | number | null
@@ -14780,6 +14799,7 @@ export namespace Prisma {
 
   export type AuthAccountCreateInput = {
     username: string
+    email: string
     password: string
     isActive?: boolean
     createdAt?: Date | string
@@ -14790,6 +14810,7 @@ export namespace Prisma {
   export type AuthAccountUncheckedCreateInput = {
     id?: number
     username: string
+    email: string
     password: string
     userId: number
     santriId?: number | null
@@ -14799,6 +14820,7 @@ export namespace Prisma {
 
   export type AuthAccountUpdateInput = {
     username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14809,6 +14831,7 @@ export namespace Prisma {
   export type AuthAccountUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
     santriId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -14819,6 +14842,7 @@ export namespace Prisma {
   export type AuthAccountCreateManyInput = {
     id?: number
     username: string
+    email: string
     password: string
     userId: number
     santriId?: number | null
@@ -14828,6 +14852,7 @@ export namespace Prisma {
 
   export type AuthAccountUpdateManyMutationInput = {
     username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14836,6 +14861,7 @@ export namespace Prisma {
   export type AuthAccountUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
     santriId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -15630,6 +15656,7 @@ export namespace Prisma {
   export type AuthAccountCountOrderByAggregateInput = {
     id?: SortOrder
     username?: SortOrder
+    email?: SortOrder
     password?: SortOrder
     userId?: SortOrder
     santriId?: SortOrder
@@ -15646,6 +15673,7 @@ export namespace Prisma {
   export type AuthAccountMaxOrderByAggregateInput = {
     id?: SortOrder
     username?: SortOrder
+    email?: SortOrder
     password?: SortOrder
     userId?: SortOrder
     santriId?: SortOrder
@@ -15656,6 +15684,7 @@ export namespace Prisma {
   export type AuthAccountMinOrderByAggregateInput = {
     id?: SortOrder
     username?: SortOrder
+    email?: SortOrder
     password?: SortOrder
     userId?: SortOrder
     santriId?: SortOrder
@@ -18243,6 +18272,7 @@ export namespace Prisma {
 
   export type AuthAccountCreateWithoutSantriInput = {
     username: string
+    email: string
     password: string
     isActive?: boolean
     createdAt?: Date | string
@@ -18252,6 +18282,7 @@ export namespace Prisma {
   export type AuthAccountUncheckedCreateWithoutSantriInput = {
     id?: number
     username: string
+    email: string
     password: string
     userId: number
     isActive?: boolean
@@ -18389,6 +18420,7 @@ export namespace Prisma {
     NOT?: AuthAccountScalarWhereInput | AuthAccountScalarWhereInput[]
     id?: IntFilter<"AuthAccount"> | number
     username?: StringFilter<"AuthAccount"> | string
+    email?: StringFilter<"AuthAccount"> | string
     password?: StringFilter<"AuthAccount"> | string
     userId?: IntFilter<"AuthAccount"> | number
     santriId?: IntNullableFilter<"AuthAccount"> | number | null
@@ -18706,6 +18738,7 @@ export namespace Prisma {
 
   export type AuthAccountCreateWithoutUserInput = {
     username: string
+    email: string
     password: string
     isActive?: boolean
     createdAt?: Date | string
@@ -18715,6 +18748,7 @@ export namespace Prisma {
   export type AuthAccountUncheckedCreateWithoutUserInput = {
     id?: number
     username: string
+    email: string
     password: string
     santriId?: number | null
     isActive?: boolean
@@ -19375,6 +19409,7 @@ export namespace Prisma {
   export type AuthAccountCreateManySantriInput = {
     id?: number
     username: string
+    email: string
     password: string
     userId: number
     isActive?: boolean
@@ -19395,6 +19430,7 @@ export namespace Prisma {
 
   export type AuthAccountUpdateWithoutSantriInput = {
     username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19404,6 +19440,7 @@ export namespace Prisma {
   export type AuthAccountUncheckedUpdateWithoutSantriInput = {
     id?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -19413,6 +19450,7 @@ export namespace Prisma {
   export type AuthAccountUncheckedUpdateManyWithoutSantriInput = {
     id?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -19457,6 +19495,7 @@ export namespace Prisma {
   export type AuthAccountCreateManyUserInput = {
     id?: number
     username: string
+    email: string
     password: string
     santriId?: number | null
     isActive?: boolean
@@ -19521,6 +19560,7 @@ export namespace Prisma {
 
   export type AuthAccountUpdateWithoutUserInput = {
     username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19530,6 +19570,7 @@ export namespace Prisma {
   export type AuthAccountUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     santriId?: NullableIntFieldUpdateOperationsInput | number | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -19539,6 +19580,7 @@ export namespace Prisma {
   export type AuthAccountUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     santriId?: NullableIntFieldUpdateOperationsInput | number | null
     isActive?: BoolFieldUpdateOperationsInput | boolean

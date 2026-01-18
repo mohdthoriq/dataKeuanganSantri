@@ -1,12 +1,12 @@
 // src/repository/transaction.repository.ts
-import type { PrismaClient, Transaction, $Enums, Prisma } from "../database";
+import type { PrismaClient, Transaction, Prisma, category_type } from "../database";
 
 import type { IPaginatedResult, IPaginationParams } from "../types/common";
 
 export interface ICreateTransactionPayload {
     santriId: number;
     categoryId: number;
-    type: $Enums.category_type;
+    type: category_type;
     amount: Prisma.Decimal | number;
     description?: string;
     transactionDate: Date;
@@ -16,7 +16,7 @@ export interface ICreateTransactionPayload {
 export interface ITransactionListParams extends IPaginationParams {
     santriId?: number;
     categoryId?: number;
-    type?: $Enums.category_type;
+    type?: category_type;
     createdBy?: number;
 }
 

@@ -132,6 +132,7 @@ exports.Prisma.EmailVerificationScalarFieldEnum = {
 exports.Prisma.AuthAccountScalarFieldEnum = {
   id: 'id',
   username: 'username',
+  email: 'email',
   password: 'password',
   userId: 'userId',
   santriId: 'santriId',
