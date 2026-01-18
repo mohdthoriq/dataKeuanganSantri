@@ -93,10 +93,10 @@ export class SantriRepository implements ISantriRepository {
         gender: payload.gender,
 
         waliId: waliId!,
-        waliName: waliName!,
+        // waliName removed - derived from relation
 
         institutionId: institutionId!,
-        institutionName: institutionName!,
+        // institutionName removed - derived from relation
       },
     });
   }
@@ -137,8 +137,8 @@ export class SantriRepository implements ISantriRepository {
     } else if (sortBy === "fullname") {
       orderBy.fullname = order;
     } else if (sortBy === "wali") {
-      // Sort by the stored waliName field instead of relation
-      orderBy.waliName = order;
+      // Sort by the related user's username
+      orderBy.wali = { username: order };
     } else {
       orderBy.createdAt = order;
     }
@@ -199,7 +199,10 @@ export class SantriRepository implements ISantriRepository {
   }
 
   async update(id: number, data: Partial<ICreateSantriPayload>): Promise<Santri> {
-    const santri = await this.prisma.santri.findUnique({ where: { id } });
+    const santri = await this.prisma.santri.findUnique({
+      where: { id },
+      include: { wali: { select: { username: true } } }
+    });
     if (!santri) {
       throw new Error("Santri not found");
     }
@@ -209,40 +212,39 @@ export class SantriRepository implements ISantriRepository {
 
     if (waliId && waliId !== santri.waliId) {
       updateData.wali = { connect: { id: waliId } };
+      // Verify wali exists
       const wali = await this.prisma.user.findUnique({
         where: { id: waliId },
-        select: { username: true },
+        select: { id: true },
       });
       if (!wali) throw new Error("Wali not found");
-      updateData.waliName = wali.username;
-    } else if (data.waliName && data.waliName !== santri.waliName) {
+    } else if (data.waliName && data.waliName !== santri.wali?.username) {
+      // Logic for finding by name if needed, but primarily we rely on ID now.
+      // Or finding by username to get ID:
       const wali = await this.prisma.user.findFirst({
         where: { username: data.waliName },
         select: { id: true },
       });
       if (!wali) throw new Error("Wali not found");
-      updateData.wali = {
-        connect: { id: wali.id },
-      };
+      updateData.wali = { connect: { id: wali.id } };
     }
 
     if (institutionId && institutionId !== santri.institutionId) {
       updateData.institution = { connect: { id: institutionId } };
+      // Verify institution exists
       const institution = await this.prisma.institution.findUnique({
         where: { id: institutionId },
-        select: { name: true },
+        select: { id: true },
       });
       if (!institution) throw new Error("Institution not found");
-      updateData.institutionName = institution.name;
-    } else if (data.institutionName && data.institutionName !== santri.institutionName) {
+    } else if (data.institutionName) {
+      // Logic for finding by name if needed
       const institution = await this.prisma.institution.findFirst({
         where: { name: data.institutionName },
         select: { id: true },
       });
       if (!institution) throw new Error("Institution not found");
-      updateData.institution = {
-        connect: { id: institution.id },
-      };
+      updateData.institution = { connect: { id: institution.id } };
     }
 
     return this.prisma.santri.update({

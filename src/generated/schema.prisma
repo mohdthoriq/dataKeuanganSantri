@@ -85,8 +85,10 @@ model PasswordReset {
 model Profile {
   id                  Int     @id @default(autoincrement())
   name                String
-  gender              String
+  gender              String?
   address             String
+  phone               String?
+  occupation          String?
   profile_picture_url String?
   public_id           String?
   userId              Int     @unique
@@ -101,7 +103,7 @@ model Santri {
   gender   String
 
   waliId        Int
-  institutionId Int @unique
+  institutionId Int
 
   waliName        String?
   institutionName String?

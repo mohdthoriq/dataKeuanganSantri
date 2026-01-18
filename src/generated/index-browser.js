@@ -179,6 +179,8 @@ exports.Prisma.ProfileScalarFieldEnum = {
   name: 'name',
   gender: 'gender',
   address: 'address',
+  phone: 'phone',
+  occupation: 'occupation',
   profile_picture_url: 'profile_picture_url',
   public_id: 'public_id',
   userId: 'userId'

@@ -8742,6 +8742,8 @@ export namespace Prisma {
     name: string | null
     gender: string | null
     address: string | null
+    phone: string | null
+    occupation: string | null
     profile_picture_url: string | null
     public_id: string | null
     userId: number | null
@@ -8752,6 +8754,8 @@ export namespace Prisma {
     name: string | null
     gender: string | null
     address: string | null
+    phone: string | null
+    occupation: string | null
     profile_picture_url: string | null
     public_id: string | null
     userId: number | null
@@ -8762,6 +8766,8 @@ export namespace Prisma {
     name: number
     gender: number
     address: number
+    phone: number
+    occupation: number
     profile_picture_url: number
     public_id: number
     userId: number
@@ -8784,6 +8790,8 @@ export namespace Prisma {
     name?: true
     gender?: true
     address?: true
+    phone?: true
+    occupation?: true
     profile_picture_url?: true
     public_id?: true
     userId?: true
@@ -8794,6 +8802,8 @@ export namespace Prisma {
     name?: true
     gender?: true
     address?: true
+    phone?: true
+    occupation?: true
     profile_picture_url?: true
     public_id?: true
     userId?: true
@@ -8804,6 +8814,8 @@ export namespace Prisma {
     name?: true
     gender?: true
     address?: true
+    phone?: true
+    occupation?: true
     profile_picture_url?: true
     public_id?: true
     userId?: true
@@ -8899,8 +8911,10 @@ export namespace Prisma {
   export type ProfileGroupByOutputType = {
     id: number
     name: string
-    gender: string
+    gender: string | null
     address: string
+    phone: string | null
+    occupation: string | null
     profile_picture_url: string | null
     public_id: string | null
     userId: number
@@ -8930,6 +8944,8 @@ export namespace Prisma {
     name?: boolean
     gender?: boolean
     address?: boolean
+    phone?: boolean
+    occupation?: boolean
     profile_picture_url?: boolean
     public_id?: boolean
     userId?: boolean
@@ -8941,6 +8957,8 @@ export namespace Prisma {
     name?: boolean
     gender?: boolean
     address?: boolean
+    phone?: boolean
+    occupation?: boolean
     profile_picture_url?: boolean
     public_id?: boolean
     userId?: boolean
@@ -8952,6 +8970,8 @@ export namespace Prisma {
     name?: boolean
     gender?: boolean
     address?: boolean
+    phone?: boolean
+    occupation?: boolean
     profile_picture_url?: boolean
     public_id?: boolean
     userId?: boolean
@@ -8963,12 +8983,14 @@ export namespace Prisma {
     name?: boolean
     gender?: boolean
     address?: boolean
+    phone?: boolean
+    occupation?: boolean
     profile_picture_url?: boolean
     public_id?: boolean
     userId?: boolean
   }
 
-  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "gender" | "address" | "profile_picture_url" | "public_id" | "userId", ExtArgs["result"]["profile"]>
+  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "gender" | "address" | "phone" | "occupation" | "profile_picture_url" | "public_id" | "userId", ExtArgs["result"]["profile"]>
   export type ProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -8987,8 +9009,10 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
-      gender: string
+      gender: string | null
       address: string
+      phone: string | null
+      occupation: string | null
       profile_picture_url: string | null
       public_id: string | null
       userId: number
@@ -9420,6 +9444,8 @@ export namespace Prisma {
     readonly name: FieldRef<"Profile", 'String'>
     readonly gender: FieldRef<"Profile", 'String'>
     readonly address: FieldRef<"Profile", 'String'>
+    readonly phone: FieldRef<"Profile", 'String'>
+    readonly occupation: FieldRef<"Profile", 'String'>
     readonly profile_picture_url: FieldRef<"Profile", 'String'>
     readonly public_id: FieldRef<"Profile", 'String'>
     readonly userId: FieldRef<"Profile", 'Int'>
@@ -13749,6 +13775,8 @@ export namespace Prisma {
     name: 'name',
     gender: 'gender',
     address: 'address',
+    phone: 'phone',
+    occupation: 'occupation',
     profile_picture_url: 'profile_picture_url',
     public_id: 'public_id',
     userId: 'userId'
@@ -14335,8 +14363,10 @@ export namespace Prisma {
     NOT?: ProfileWhereInput | ProfileWhereInput[]
     id?: IntFilter<"Profile"> | number
     name?: StringFilter<"Profile"> | string
-    gender?: StringFilter<"Profile"> | string
+    gender?: StringNullableFilter<"Profile"> | string | null
     address?: StringFilter<"Profile"> | string
+    phone?: StringNullableFilter<"Profile"> | string | null
+    occupation?: StringNullableFilter<"Profile"> | string | null
     profile_picture_url?: StringNullableFilter<"Profile"> | string | null
     public_id?: StringNullableFilter<"Profile"> | string | null
     userId?: IntFilter<"Profile"> | number
@@ -14346,8 +14376,10 @@ export namespace Prisma {
   export type ProfileOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    gender?: SortOrder
+    gender?: SortOrderInput | SortOrder
     address?: SortOrder
+    phone?: SortOrderInput | SortOrder
+    occupation?: SortOrderInput | SortOrder
     profile_picture_url?: SortOrderInput | SortOrder
     public_id?: SortOrderInput | SortOrder
     userId?: SortOrder
@@ -14361,8 +14393,10 @@ export namespace Prisma {
     OR?: ProfileWhereInput[]
     NOT?: ProfileWhereInput | ProfileWhereInput[]
     name?: StringFilter<"Profile"> | string
-    gender?: StringFilter<"Profile"> | string
+    gender?: StringNullableFilter<"Profile"> | string | null
     address?: StringFilter<"Profile"> | string
+    phone?: StringNullableFilter<"Profile"> | string | null
+    occupation?: StringNullableFilter<"Profile"> | string | null
     profile_picture_url?: StringNullableFilter<"Profile"> | string | null
     public_id?: StringNullableFilter<"Profile"> | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -14371,8 +14405,10 @@ export namespace Prisma {
   export type ProfileOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    gender?: SortOrder
+    gender?: SortOrderInput | SortOrder
     address?: SortOrder
+    phone?: SortOrderInput | SortOrder
+    occupation?: SortOrderInput | SortOrder
     profile_picture_url?: SortOrderInput | SortOrder
     public_id?: SortOrderInput | SortOrder
     userId?: SortOrder
@@ -14389,8 +14425,10 @@ export namespace Prisma {
     NOT?: ProfileScalarWhereWithAggregatesInput | ProfileScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Profile"> | number
     name?: StringWithAggregatesFilter<"Profile"> | string
-    gender?: StringWithAggregatesFilter<"Profile"> | string
+    gender?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     address?: StringWithAggregatesFilter<"Profile"> | string
+    phone?: StringNullableWithAggregatesFilter<"Profile"> | string | null
+    occupation?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     profile_picture_url?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     public_id?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     userId?: IntWithAggregatesFilter<"Profile"> | number
@@ -14438,7 +14476,6 @@ export namespace Prisma {
   export type SantriWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     nis?: string
-    institutionId?: number
     AND?: SantriWhereInput | SantriWhereInput[]
     OR?: SantriWhereInput[]
     NOT?: SantriWhereInput | SantriWhereInput[]
@@ -14446,6 +14483,7 @@ export namespace Prisma {
     kelas?: StringFilter<"Santri"> | string
     gender?: StringFilter<"Santri"> | string
     waliId?: IntFilter<"Santri"> | number
+    institutionId?: IntFilter<"Santri"> | number
     waliName?: StringNullableFilter<"Santri"> | string | null
     institutionName?: StringNullableFilter<"Santri"> | string | null
     isActive?: BoolFilter<"Santri"> | boolean
@@ -14454,7 +14492,7 @@ export namespace Prisma {
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
     authAccounts?: AuthAccountListRelationFilter
     transactions?: TransactionListRelationFilter
-  }, "id" | "nis" | "institutionId">
+  }, "id" | "nis">
 
   export type SantriOrderByWithAggregationInput = {
     id?: SortOrder
@@ -15052,8 +15090,10 @@ export namespace Prisma {
 
   export type ProfileCreateInput = {
     name: string
-    gender: string
+    gender?: string | null
     address: string
+    phone?: string | null
+    occupation?: string | null
     profile_picture_url?: string | null
     public_id?: string | null
     user: UserCreateNestedOneWithoutProfileInput
@@ -15062,8 +15102,10 @@ export namespace Prisma {
   export type ProfileUncheckedCreateInput = {
     id?: number
     name: string
-    gender: string
+    gender?: string | null
     address: string
+    phone?: string | null
+    occupation?: string | null
     profile_picture_url?: string | null
     public_id?: string | null
     userId: number
@@ -15071,8 +15113,10 @@ export namespace Prisma {
 
   export type ProfileUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
     profile_picture_url?: NullableStringFieldUpdateOperationsInput | string | null
     public_id?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutProfileNestedInput
@@ -15081,8 +15125,10 @@ export namespace Prisma {
   export type ProfileUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
     profile_picture_url?: NullableStringFieldUpdateOperationsInput | string | null
     public_id?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: IntFieldUpdateOperationsInput | number
@@ -15091,8 +15137,10 @@ export namespace Prisma {
   export type ProfileCreateManyInput = {
     id?: number
     name: string
-    gender: string
+    gender?: string | null
     address: string
+    phone?: string | null
+    occupation?: string | null
     profile_picture_url?: string | null
     public_id?: string | null
     userId: number
@@ -15100,8 +15148,10 @@ export namespace Prisma {
 
   export type ProfileUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
     profile_picture_url?: NullableStringFieldUpdateOperationsInput | string | null
     public_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -15109,8 +15159,10 @@ export namespace Prisma {
   export type ProfileUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
     profile_picture_url?: NullableStringFieldUpdateOperationsInput | string | null
     public_id?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: IntFieldUpdateOperationsInput | number
@@ -15860,6 +15912,8 @@ export namespace Prisma {
     name?: SortOrder
     gender?: SortOrder
     address?: SortOrder
+    phone?: SortOrder
+    occupation?: SortOrder
     profile_picture_url?: SortOrder
     public_id?: SortOrder
     userId?: SortOrder
@@ -15875,6 +15929,8 @@ export namespace Prisma {
     name?: SortOrder
     gender?: SortOrder
     address?: SortOrder
+    phone?: SortOrder
+    occupation?: SortOrder
     profile_picture_url?: SortOrder
     public_id?: SortOrder
     userId?: SortOrder
@@ -15885,6 +15941,8 @@ export namespace Prisma {
     name?: SortOrder
     gender?: SortOrder
     address?: SortOrder
+    phone?: SortOrder
+    occupation?: SortOrder
     profile_picture_url?: SortOrder
     public_id?: SortOrder
     userId?: SortOrder
@@ -18648,8 +18706,10 @@ export namespace Prisma {
 
   export type ProfileCreateWithoutUserInput = {
     name: string
-    gender: string
+    gender?: string | null
     address: string
+    phone?: string | null
+    occupation?: string | null
     profile_picture_url?: string | null
     public_id?: string | null
   }
@@ -18657,8 +18717,10 @@ export namespace Prisma {
   export type ProfileUncheckedCreateWithoutUserInput = {
     id?: number
     name: string
-    gender: string
+    gender?: string | null
     address: string
+    phone?: string | null
+    occupation?: string | null
     profile_picture_url?: string | null
     public_id?: string | null
   }
@@ -18908,8 +18970,10 @@ export namespace Prisma {
 
   export type ProfileUpdateWithoutUserInput = {
     name?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
     profile_picture_url?: NullableStringFieldUpdateOperationsInput | string | null
     public_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -18917,8 +18981,10 @@ export namespace Prisma {
   export type ProfileUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
     profile_picture_url?: NullableStringFieldUpdateOperationsInput | string | null
     public_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
