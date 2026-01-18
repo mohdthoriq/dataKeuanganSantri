@@ -4,13 +4,13 @@ import type { ICategoryRepository, ICategoryListParams } from "../repository/cat
 
 export interface ICreateCategoryPayload {
   name: string;
-  type: $Enums.CategoryType;
+  type: $Enums.category_type;
   institutionId: number;
 }
 
 export interface IUpdateCategoryPayload {
   name?: string;
-  type?: $Enums.CategoryType;
+  type?: $Enums.category_type;
   isActive?: boolean;
 }
 

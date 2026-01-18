@@ -1,5 +1,5 @@
 // src/repository/santri.repository.ts
-import type { PrismaClient, Santri, Prisma } from "../database";
+import type { PrismaClient, santri, Prisma } from "../database";
 
 import type { IPaginatedResult, IPaginationParams } from "../types/common";
 
@@ -19,19 +19,19 @@ export interface ISantriListParams extends IPaginationParams {
 }
 
 export interface ISantriRepository {
-  create(payload: ICreateSantriPayload): Promise<Santri>;
-  getList(params: ISantriListParams): Promise<IPaginatedResult<Santri>>;
-  getById(id: number): Promise<Santri>;
-  update(id: number, data: Partial<ICreateSantriPayload>): Promise<Santri>;
+  create(payload: ICreateSantriPayload): Promise<santri>;
+  getList(params: ISantriListParams): Promise<IPaginatedResult<santri>>;
+  getById(id: number): Promise<santri>;
+  update(id: number, data: Partial<ICreateSantriPayload>): Promise<santri>;
   delete(id: number): Promise<boolean>;
-  getByWali(waliId: number): Promise<Santri[]>;
+  getByWali(waliId: number): Promise<santri[]>;
   getStats(institutionId: number): Promise<{ totalSantri: number; activeSantri: number }>;
 }
 
 export class SantriRepository implements ISantriRepository {
   constructor(private prisma: PrismaClient) { }
 
-  async create(payload: ICreateSantriPayload): Promise<Santri> {
+  async create(payload: ICreateSantriPayload): Promise<santri> {
     let institutionId = payload.institutionId;
     let institutionName = payload.institutionName;
 
@@ -103,7 +103,7 @@ export class SantriRepository implements ISantriRepository {
 
   async getList(
     params: ISantriListParams
-  ): Promise<IPaginatedResult<Santri>> {
+  ): Promise<IPaginatedResult<santri>> {
     const {
       institutionId,
       page = 1,
@@ -178,7 +178,7 @@ export class SantriRepository implements ISantriRepository {
     };
   }
 
-  async getById(id: number): Promise<Santri> {
+  async getById(id: number): Promise<santri> {
     const santri = await this.prisma.santri.findUnique({
       where: { id },
       include: {
@@ -200,7 +200,7 @@ export class SantriRepository implements ISantriRepository {
     return santri;
   }
 
-  async update(id: number, data: Partial<ICreateSantriPayload>): Promise<Santri> {
+  async update(id: number, data: Partial<ICreateSantriPayload>): Promise<santri> {
     const santri = await this.prisma.santri.findUnique({
       where: { id },
       include: { wali: { select: { username: true } } }
@@ -260,7 +260,7 @@ export class SantriRepository implements ISantriRepository {
     return true;
   }
 
-  async getByWali(waliId: number): Promise<Santri[]> {
+  async getByWali(waliId: number): Promise<santri[]> {
     return this.prisma.santri.findMany({ where: { waliId } });
   }
 

@@ -2,7 +2,7 @@ import PrismaInstance from "../database";
 import bcrypt from "bcrypt";
 import { randomInt } from "crypto";
 import jwt from "jsonwebtoken";
-import type { PrismaClient, User } from "../database";
+import type { PrismaClient, user } from "../database";
 import { sendEmail } from "../utils/apiKey";
 
 const prisma = PrismaInstance;
@@ -41,7 +41,7 @@ export type RequestResetResult = {
 
 
 export interface IAuthRepository {
-    findByEmail(email: string): Promise<User | null>;
+    findByEmail(email: string): Promise<user | null>;
     registerAdmin(payload: RegisterAdminPayload): Promise<RegisterAdminResult>;
     login(email: string, password: string): Promise<LoginResult>;
     requestReset(email: string): Promise<RequestResetResult>;
