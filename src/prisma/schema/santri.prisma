@@ -12,7 +12,7 @@ model Santri {
   createdAt       DateTime      @default(now())
   authAccounts    AuthAccount[]
   institution     Institution   @relation(fields: [institutionId], references: [id])
-  wali            User          @relation("WaliSantri", fields: [waliId], references: [id])
+  wali            Users          @relation("WaliSantri", fields: [waliId], references: [id])
   transactions    Transaction[]
 
   @@map("santri")

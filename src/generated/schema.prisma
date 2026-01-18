@@ -5,7 +5,7 @@ model EmailVerification {
   expiredAt DateTime
   isUsed    Boolean  @default(false)
   createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
+  user      Users    @relation(fields: [userId], references: [id])
 
   @@map("email_verification")
 }
@@ -19,7 +19,7 @@ model AuthAccount {
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
   santri    Santri?  @relation(fields: [santriId], references: [id])
-  user      User     @relation(fields: [userId], references: [id])
+  user      Users    @relation(fields: [userId], references: [id])
 
   @@map("auth_account")
 }
@@ -54,9 +54,9 @@ model Institution {
   isActive   Boolean    @default(true)
   createdAt  DateTime   @default(now())
   categories Category[]
-  admin      User       @relation("InstitutionAdmin", fields: [createdBy], references: [id])
+  admin      Users      @relation("InstitutionAdmin", fields: [createdBy], references: [id])
   santri     Santri[]
-  users      User[]     @relation("InstitutionUsers")
+  users      Users[]    @relation("InstitutionUsers")
 
   @@map("institution")
 }
@@ -68,7 +68,7 @@ model Notification {
   message   String
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
+  user      Users    @relation(fields: [userId], references: [id])
 
   @@map("notification")
 }
@@ -80,7 +80,7 @@ model PasswordReset {
   expiredAt DateTime
   isUsed    Boolean  @default(false)
   createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
+  user      Users    @relation(fields: [userId], references: [id])
 
   @@map("password_reset")
 }
@@ -95,7 +95,7 @@ model Profile {
   userId              Int     @unique
   occupation          String?
   phone               String?
-  user                User    @relation(fields: [userId], references: [id])
+  user                Users   @relation(fields: [userId], references: [id])
 
   @@map("profile")
 }
@@ -114,7 +114,7 @@ model Santri {
   createdAt       DateTime      @default(now())
   authAccounts    AuthAccount[]
   institution     Institution   @relation(fields: [institutionId], references: [id])
-  wali            User          @relation("WaliSantri", fields: [waliId], references: [id])
+  wali            Users         @relation("WaliSantri", fields: [waliId], references: [id])
   transactions    Transaction[]
 
   @@map("santri")
@@ -132,13 +132,13 @@ model Transaction {
   isDeleted       Boolean       @default(false)
   createdAt       DateTime      @default(now())
   category        Category      @relation(fields: [categoryId], references: [id])
-  admin           User          @relation("AdminTransactions", fields: [createdBy], references: [id])
+  admin           Users         @relation("AdminTransactions", fields: [createdBy], references: [id])
   santri          Santri        @relation(fields: [santriId], references: [id])
 
   @@map("transaction")
 }
 
-model User {
+model Users {
   id                  Int                 @id @default(autoincrement())
   username            String
   email               String              @unique
@@ -158,7 +158,7 @@ model User {
   transactions        Transaction[]       @relation("AdminTransactions")
   institution         Institution?        @relation("InstitutionUsers", fields: [institutionId], references: [id])
 
-  @@map("user")
+  @@map("users")
 }
 
 generator client {

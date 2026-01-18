@@ -48,7 +48,7 @@ export class EmailVerificationRepository implements IEmailVerificationRepository
         data: { isUsed: true },
       });
 
-      await tx.user.update({
+      await tx.users.update({
         where: { id: userId },
         data: { isEmailVerified: true },
       });

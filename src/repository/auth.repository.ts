@@ -2,7 +2,7 @@ import PrismaInstance from "../database";
 import bcrypt from "bcrypt";
 import { randomInt } from "crypto";
 import jwt from "jsonwebtoken";
-import type { PrismaClient, User } from "../database";
+import type { PrismaClient, Users } from "../database";
 import { sendEmail } from "../utils/apiKey";
 
 const prisma = PrismaInstance;
@@ -41,7 +41,7 @@ export type RequestResetResult = {
 
 
 export interface IAuthRepository {
-    findByEmail(email: string): Promise<User | null>;
+    findByEmail(email: string): Promise<Users | null>;
     registerAdmin(payload: RegisterAdminPayload): Promise<RegisterAdminResult>;
     login(email: string, password: string): Promise<LoginResult>;
     requestReset(email: string): Promise<RequestResetResult>;
@@ -52,7 +52,7 @@ export class AuthRepository implements IAuthRepository {
     constructor(private prisma: PrismaClient) { }
 
     async findByEmail(email: string) {
-        const user = await this.prisma.user.findUnique({ where: { email } });
+        const user = await this.prisma.users.findUnique({ where: { email } });
         return user;
     }
 
@@ -63,7 +63,7 @@ export class AuthRepository implements IAuthRepository {
             throw new Error("Username, email, and password are required");
         }
 
-        const existingUser = await this.prisma.user.findUnique({
+        const existingUser = await this.prisma.users.findUnique({
             where: { email },
         });
 
@@ -74,7 +74,7 @@ export class AuthRepository implements IAuthRepository {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const result = await this.prisma.$transaction(async (tx) => {
-            const admin = await tx.user.create({
+            const admin = await tx.users.create({
                 data: {
                     username,
                     email,
@@ -92,7 +92,7 @@ export class AuthRepository implements IAuthRepository {
                 },
             });
 
-            const updatedAdmin = await tx.user.update({
+            const updatedAdmin = await tx.users.update({
                 where: { id: admin.id },
                 data: { institutionId: lembaga.id },
             });
@@ -123,7 +123,7 @@ export class AuthRepository implements IAuthRepository {
     }
 
     async login(email: string, password: string): Promise<LoginResult> {
-        const user = await prisma.user.findUnique({
+        const user = await prisma.users.findUnique({
             where: { email },
             include: { institution: { select: { name: true } } }
         });
@@ -150,7 +150,7 @@ export class AuthRepository implements IAuthRepository {
         };
     }
     async requestReset(email: string): Promise<RequestResetResult> {
-        const user = await prisma.user.findUnique({ where: { email } });
+        const user = await prisma.users.findUnique({ where: { email } });
         if (!user) return { success: false, message: "User not found" };
 
         await prisma.passwordReset.deleteMany({
@@ -176,7 +176,7 @@ export class AuthRepository implements IAuthRepository {
         await prisma.passwordReset.update({ where: { id: record.id }, data: { isUsed: true } });
 
         const hashedPassword = await bcrypt.hash(newPassword, 10);
-        await prisma.user.update({ where: { id: userId }, data: { password: hashedPassword } });
+        await prisma.users.update({ where: { id: userId }, data: { password: hashedPassword } });
 
         return { success: true, message: "Password reset successfully" };
     }

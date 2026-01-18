@@ -1,5 +1,5 @@
 // prisma/seed.ts
-import { PrismaClient, user_role, $Enums } from '../generated';
+import { PrismaClient, $Enums } from '../generated';
 import { faker } from '@faker-js/faker';
 import bcrypt from 'bcrypt';
 import PrismaInstance from '../database';
@@ -17,7 +17,7 @@ async function main() {
   await prisma.emailVerification.deleteMany();
   await prisma.notification.deleteMany();
   await prisma.institution.deleteMany();
-  await prisma.user.deleteMany();
+  await prisma.users.deleteMany();
 
   console.log('🗑️  Data lama dihapus');
 
@@ -27,7 +27,7 @@ async function main() {
   const hashedPassword = await bcrypt.hash('password123', 10);
 
   for (let i = 0; i < 10; i++) {
-    const admin = await prisma.user.create({
+    const admin = await prisma.users.create({
       data: {
         username: faker.person.fullName(),
         email: `admin${i + 1}@pesantren.com`,
@@ -75,7 +75,7 @@ async function main() {
     institutions.push(institution);
 
     // Update admin dengan institutionId
-    await prisma.user.update({
+    await prisma.users.update({
       where: { id: admin.id },
       data: { institutionId: institution.id },
     });
@@ -88,7 +88,7 @@ async function main() {
 
   for (let i = 0; i < 150; i++) {
     const institution = faker.helpers.arrayElement(institutions);
-    const wali = await prisma.user.create({
+    const wali = await prisma.users.create({
       data: {
         username: faker.person.fullName(),
         email: faker.internet.email().toLowerCase(),

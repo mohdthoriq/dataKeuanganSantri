@@ -213,7 +213,7 @@ exports.Prisma.TransactionScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.UserScalarFieldEnum = {
+exports.Prisma.UsersScalarFieldEnum = {
   id: 'id',
   username: 'username',
   email: 'email',
@@ -259,7 +259,7 @@ exports.Prisma.ModelName = {
   Profile: 'Profile',
   Santri: 'Santri',
   Transaction: 'Transaction',
-  User: 'User'
+  Users: 'Users'
 };
 
 /**

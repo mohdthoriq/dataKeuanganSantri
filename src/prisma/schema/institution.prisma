@@ -5,9 +5,9 @@ model Institution {
   isActive   Boolean    @default(true)
   createdAt  DateTime   @default(now())
   categories Category[]
-  admin      User       @relation("InstitutionAdmin", fields: [createdBy], references: [id])
+  admin      Users       @relation("InstitutionAdmin", fields: [createdBy], references: [id])
   santri     Santri[]
-  users      User[]     @relation("InstitutionUsers")
+  users      Users[]     @relation("InstitutionUsers")
 
   @@map("institution")
 }
