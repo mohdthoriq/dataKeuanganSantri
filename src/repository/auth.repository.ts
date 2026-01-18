@@ -150,33 +150,33 @@ export class AuthRepository implements IAuthRepository {
         };
     }
     async requestReset(email: string): Promise<RequestResetResult> {
-        const user = await prisma.users.findUnique({ where: { email } });
+        const user = await this.prisma.users.findUnique({ where: { email } });
         if (!user) return { success: false, message: "User not found" };
 
-        await prisma.passwordReset.deleteMany({
+        await this.prisma.passwordReset.deleteMany({
             where: { userId: user.id, isUsed: false },
         });
 
         const otpCode = randomInt(100000, 999999).toString();
         const expiredAt = new Date(Date.now() + 10 * 60 * 1000); // 10 menit
 
-        await prisma.passwordReset.create({
+        await this.prisma.passwordReset.create({
             data: { userId: user.id, otpCode, expiredAt, isUsed: false },
         });
 
         return { success: true, message: "OTP sent successfully", otpCode };
     }
     async resetPassword(userId: number, otpCode: string, newPassword: string): Promise<RequestResetResult> {
-        const record = await prisma.passwordReset.findFirst({
+        const record = await this.prisma.passwordReset.findFirst({
             where: { userId, otpCode, isUsed: false, expiredAt: { gte: new Date() } },
         });
 
         if (!record) throw new Error("Invalid OTP");
 
-        await prisma.passwordReset.update({ where: { id: record.id }, data: { isUsed: true } });
+        await this.prisma.passwordReset.update({ where: { id: record.id }, data: { isUsed: true } });
 
         const hashedPassword = await bcrypt.hash(newPassword, 10);
-        await prisma.users.update({ where: { id: userId }, data: { password: hashedPassword } });
+        await this.prisma.users.update({ where: { id: userId }, data: { password: hashedPassword } });
 
         return { success: true, message: "Password reset successfully" };
     }
