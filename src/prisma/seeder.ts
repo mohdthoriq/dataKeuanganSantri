@@ -1,5 +1,5 @@
 // prisma/seed.ts
-import { PrismaClient, UserRole, CategoryType } from '../generated';
+import { PrismaClient, user_role, $Enums } from '../generated';
 import { faker } from '@faker-js/faker';
 import bcrypt from 'bcrypt';
 import PrismaInstance from '../database';
@@ -11,10 +11,10 @@ async function main() {
 
   // Hapus data lama (berurutan sesuai foreign key)
   await prisma.transaction.deleteMany();
-  await prisma.authAccount.deleteMany();
+  await prisma.auth_account.deleteMany();
   await prisma.santri.deleteMany();
   await prisma.category.deleteMany();
-  await prisma.emailVerification.deleteMany();
+  await prisma.email_verification.deleteMany();
   await prisma.notification.deleteMany();
   await prisma.institution.deleteMany();
   await prisma.user.deleteMany();
@@ -32,7 +32,7 @@ async function main() {
         username: faker.person.fullName(),
         email: `admin${i + 1}@pesantren.com`,
         password: hashedPassword,
-        role: UserRole.ADMIN,
+        role: $Enums.user_role.ADMIN,
         isEmailVerified: true,
         isActive: true,
         createdAt: faker.date.past({ years: 2 }),
@@ -93,7 +93,7 @@ async function main() {
         username: faker.person.fullName(),
         email: faker.internet.email().toLowerCase(),
         password: hashedPassword,
-        role: UserRole.WALI_SANTRI,
+        role: $Enums.user_role.WALI_SANTRI,
         institutionId: institution.id,
         isEmailVerified: faker.datatype.boolean(0.8),
         isActive: faker.datatype.boolean(0.95),
@@ -134,7 +134,7 @@ async function main() {
       const category = await prisma.category.create({
         data: {
           name: catName,
-          type: CategoryType.PEMASUKAN,
+          type: $Enums.category_type.PEMASUKAN,
           institutionId: institution.id,
           isActive: true,
           createdAt: faker.date.past({ years: 1 }),
@@ -148,7 +148,7 @@ async function main() {
       const category = await prisma.category.create({
         data: {
           name: catName,
-          type: CategoryType.PENGELUARAN,
+          type: $Enums.category_type.PENGELUARAN,
           institutionId: institution.id,
           isActive: true,
           createdAt: faker.date.past({ years: 1 }),
@@ -205,7 +205,7 @@ async function main() {
   for (const santri of santriList) {
     const wali = waliSantri.find(w => w.id === santri.waliId);
     if (wali) {
-      const authAccount = await prisma.authAccount.create({
+      const authAccount = await prisma.auth_account.create({
         data: {
           username: `santri_${santri.nis}`,
           password: hashedPassword,
@@ -233,7 +233,7 @@ async function main() {
     const admin = admins.find(a => a.institutionId === santri.institutionId);
 
     if (admin) {
-      const amount = category.type === CategoryType.PEMASUKAN
+      const amount = category.type === $Enums.category_type.PEMASUKAN
         ? faker.number.int({ min: 100000, max: 2000000 })
         : faker.number.int({ min: 50000, max: 5000000 });
 
@@ -262,7 +262,7 @@ async function main() {
   const emailVerifications = [];
 
   for (const user of [...admins, ...waliSantri].slice(0, 50)) {
-    const verification = await prisma.emailVerification.create({
+    const verification = await prisma.email_verification.create({
       data: {
         userId: user.id,
         otpCode: String(faker.number.int({ min: 100000, max: 999999 })),
@@ -337,11 +337,11 @@ async function main() {
 
   // Statistik transaksi
   const totalPemasukan = await prisma.transaction.aggregate({
-    where: { type: CategoryType.PEMASUKAN, isDeleted: false },
+    where: { type: $Enums.category_type.PEMASUKAN, isDeleted: false },
     _sum: { amount: true },
   });
   const totalPengeluaran = await prisma.transaction.aggregate({
-    where: { type: CategoryType.PENGELUARAN, isDeleted: false },
+    where: { type: $Enums.category_type.PENGELUARAN, isDeleted: false },
     _sum: { amount: true },
   });
 
