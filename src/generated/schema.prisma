@@ -102,8 +102,6 @@ model santri {
   institution     institution    @relation(fields: [institutionId], references: [id])
   wali            user           @relation("WaliSantri", fields: [waliId], references: [id])
   transactions    transaction[]
-
-  @@map("santri")
 }
 
 model transaction {
