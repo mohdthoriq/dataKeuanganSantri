@@ -20,5 +20,5 @@ model Santri {
   authAccounts AuthAccount[]
   transactions Transaction[]
 
-  @@map("Santri")
+  @@map("santri")
 }

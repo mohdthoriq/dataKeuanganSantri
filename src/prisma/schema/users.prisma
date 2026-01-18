@@ -21,4 +21,6 @@ model User {
   transactions       Transaction[] @relation("AdminTransactions")
   notifications      Notification[]
   passwordResets     PasswordReset[]
+
+  @@map("users")
 }
