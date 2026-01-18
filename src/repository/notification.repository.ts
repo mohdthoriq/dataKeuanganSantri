@@ -1,4 +1,4 @@
-import type { PrismaClient, Notification, Prisma } from "../database";
+import type { PrismaClient, notification, Prisma } from "../database";
 import type { IPaginatedResult, IPaginationParams } from "../types/common";
 import PrismaInstance from "../database";
 
@@ -9,16 +9,16 @@ export interface INotificationListParams extends IPaginationParams {
 }
 
 export interface INotificationRepository {
-  getAll(params: INotificationListParams): Promise<IPaginatedResult<Notification>>;
-  markAsRead(id: number): Promise<Notification>;
+  getAll(params: INotificationListParams): Promise<IPaginatedResult<notification>>;
+  markAsRead(id: number): Promise<notification>;
   markAllAsRead(userId: number): Promise<void>;
-  create(userId: number, title: string, message: string): Promise<Notification>;
+  create(userId: number, title: string, message: string): Promise<notification>;
 }
 
 export class NotificationRepository implements INotificationRepository {
   constructor(private prisma: PrismaClient = prisma) { }
 
-  async getAll(params: INotificationListParams): Promise<IPaginatedResult<Notification>> {
+  async getAll(params: INotificationListParams): Promise<IPaginatedResult<notification>> {
     const {
       userId,
       page = 1,
@@ -28,9 +28,9 @@ export class NotificationRepository implements INotificationRepository {
     } = params;
 
     const skip = (page - 1) * limit;
-    const where: Prisma.NotificationWhereInput = { userId };
+    const where: Prisma.notificationWhereInput = { userId };
 
-    const orderBy: Prisma.NotificationOrderByWithRelationInput = {};
+    const orderBy: Prisma.notificationOrderByWithRelationInput = {};
     if (sortBy === "title") {
       orderBy.title = order;
     } else {
@@ -53,7 +53,7 @@ export class NotificationRepository implements INotificationRepository {
     };
   }
 
-  async markAsRead(id: number): Promise<Notification> {
+  async markAsRead(id: number): Promise<notification> {
     return this.prisma.notification.update({
       where: { id },
       data: { isRead: true },
@@ -67,7 +67,7 @@ export class NotificationRepository implements INotificationRepository {
     });
   }
 
-  async create(userId: number, title: string, message: string): Promise<Notification> {
+  async create(userId: number, title: string, message: string): Promise<notification> {
     return this.prisma.notification.create({
       data: { userId, title, message },
     });

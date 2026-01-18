@@ -1,12 +1,12 @@
 // src/repository/transaction.repository.ts
-import type { PrismaClient, Transaction, $Enums, Prisma } from "../database";
+import type { PrismaClient, transaction, $Enums, Prisma } from "../database";
 
 import type { IPaginatedResult, IPaginationParams } from "../types/common";
 
 export interface ICreateTransactionPayload {
     santriId: number;
     categoryId: number;
-    type: $Enums.CategoryType;
+    type: $Enums.category_type;
     amount: Prisma.Decimal | number;
     description?: string;
     transactionDate: Date;
@@ -16,22 +16,22 @@ export interface ICreateTransactionPayload {
 export interface ITransactionListParams extends IPaginationParams {
     santriId?: number;
     categoryId?: number;
-    type?: $Enums.CategoryType;
+    type?: $Enums.category_type;
     createdBy?: number;
 }
 
 export interface ITransactionRepository {
-    create(payload: ICreateTransactionPayload): Promise<Transaction>;
-    getList(params: ITransactionListParams): Promise<IPaginatedResult<Transaction>>;
-    getById(id: number): Promise<Transaction | null>;
-    update(id: number, data: Partial<ICreateTransactionPayload>): Promise<Transaction>;
-    delete(id: number): Promise<Transaction>;
+    create(payload: ICreateTransactionPayload): Promise<transaction>;
+    getList(params: ITransactionListParams): Promise<IPaginatedResult<transaction>>;
+    getById(id: number): Promise<transaction | null>;
+    update(id: number, data: Partial<ICreateTransactionPayload>): Promise<transaction>;
+    delete(id: number): Promise<transaction>;
 }
 
 export class TransactionRepository implements ITransactionRepository {
     constructor(private prisma: PrismaClient) { }
 
-    async create(payload: ICreateTransactionPayload): Promise<Transaction> {
+    async create(payload: ICreateTransactionPayload): Promise<transaction> {
         const { santriId, categoryId, type, amount, transactionDate, createdBy, description } = payload;
 
         return this.prisma.transaction.create({
@@ -47,7 +47,7 @@ export class TransactionRepository implements ITransactionRepository {
         });
     }
 
-    async getList(params: ITransactionListParams): Promise<IPaginatedResult<Transaction>> {
+    async getList(params: ITransactionListParams): Promise<IPaginatedResult<transaction>> {
         const {
             santriId,
             categoryId,
@@ -62,7 +62,7 @@ export class TransactionRepository implements ITransactionRepository {
 
         const skip = (page - 1) * limit;
 
-        const where: Prisma.TransactionWhereInput = {
+        const where: Prisma.transactionWhereInput = {
             ...(santriId !== undefined && { santriId: santriId }),
             ...(categoryId !== undefined && { categoryId: categoryId }),
             ...(type !== undefined && { type: type }),
@@ -77,7 +77,7 @@ export class TransactionRepository implements ITransactionRepository {
             ];
         }
 
-        const orderBy: Prisma.TransactionOrderByWithRelationInput = {};
+        const orderBy: Prisma.transactionOrderByWithRelationInput = {};
         if (sortBy === "amount") {
             orderBy.amount = order;
         } else if (sortBy === "date") {
@@ -108,7 +108,7 @@ export class TransactionRepository implements ITransactionRepository {
         };
     }
 
-    async getById(id: number): Promise<Transaction | null> {
+    async getById(id: number): Promise<transaction | null> {
         return this.prisma.transaction.findFirst({
             where: { id, isDeleted: false },
             include: { santri: true, category: true, admin: true },
@@ -118,8 +118,8 @@ export class TransactionRepository implements ITransactionRepository {
     async update(
         id: number,
         payload: Partial<ICreateTransactionPayload>
-    ): Promise<Transaction> {
-        const data: Prisma.TransactionUpdateInput = {
+    ): Promise<transaction> {
+        const data: Prisma.transactionUpdateInput = {
             ...(payload.santriId !== undefined && { santriId: payload.santriId }),
             ...(payload.categoryId !== undefined && { categoryId: payload.categoryId }),
             ...(payload.type !== undefined && { type: payload.type }),
@@ -135,7 +135,7 @@ export class TransactionRepository implements ITransactionRepository {
         });
     }
 
-    async delete(id: number): Promise<Transaction> {
+    async delete(id: number): Promise<transaction> {
         return this.prisma.transaction.update({ where: { id }, data: { isDeleted: true } });
     }
 }
