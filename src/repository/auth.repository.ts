@@ -52,7 +52,7 @@ export class AuthRepository implements IAuthRepository {
     constructor(private prisma: PrismaClient) { }
 
     async findByEmail(email: string): Promise<Users | null> {
-        return await this.prisma.users.findUnique({ where: { email } });
+        return await this.prisma.users.findFirst({ where: { email } });
     }
 
     async registerAdmin(payload: RegisterAdminPayload): Promise<RegisterAdminResult> {
@@ -114,7 +114,7 @@ export class AuthRepository implements IAuthRepository {
     }
 
     async login(email: string, password: string): Promise<LoginResult> {
-        const user = await this.prisma.users.findUnique({
+        const user = await this.prisma.users.findFirst({
             where: { email },
             include: { institution: { select: { name: true } } }
         });
