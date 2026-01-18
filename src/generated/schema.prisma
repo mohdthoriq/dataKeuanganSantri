@@ -6,6 +6,8 @@ model email_verification {
   isUsed    Boolean  @default(false)
   createdAt DateTime @default(now())
   user      user     @relation(fields: [userId], references: [id])
+
+  @@map("email_verification")
 }
 
 model auth_account {
@@ -18,6 +20,8 @@ model auth_account {
   createdAt DateTime @default(now())
   santri    santri?  @relation(fields: [santriId], references: [id])
   user      user     @relation(fields: [userId], references: [id])
+
+  @@map("auth_account")
 }
 
 model category {
@@ -29,6 +33,8 @@ model category {
   createdAt     DateTime      @default(now())
   institution   institution   @relation(fields: [institutionId], references: [id])
   transactions  transaction[]
+
+  @@map("category")
 }
 
 enum user_role {
@@ -51,6 +57,8 @@ model institution {
   admin      user       @relation("InstitutionAdmin", fields: [createdBy], references: [id])
   santri     santri[]
   users      user[]     @relation("InstitutionUsers")
+
+  @@map("institution")
 }
 
 model notification {
@@ -61,6 +69,8 @@ model notification {
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
   user      user     @relation(fields: [userId], references: [id])
+
+  @@map("notification")
 }
 
 model password_reset {
@@ -71,6 +81,8 @@ model password_reset {
   isUsed    Boolean  @default(false)
   createdAt DateTime @default(now())
   user      user     @relation(fields: [userId], references: [id])
+
+  @@map("password_reset")
 }
 
 model profile {
@@ -84,6 +96,8 @@ model profile {
   occupation          String?
   phone               String?
   user                user    @relation(fields: [userId], references: [id])
+
+  @@map("profile")
 }
 
 model santri {
@@ -102,6 +116,8 @@ model santri {
   institution     institution    @relation(fields: [institutionId], references: [id])
   wali            user           @relation("WaliSantri", fields: [waliId], references: [id])
   transactions    transaction[]
+
+  @@map("santri")
 }
 
 model transaction {
@@ -118,6 +134,8 @@ model transaction {
   category        category      @relation(fields: [categoryId], references: [id])
   admin           user          @relation("AdminTransactions", fields: [createdBy], references: [id])
   santri          santri        @relation(fields: [santriId], references: [id])
+
+  @@map("transaction")
 }
 
 model user {
@@ -139,12 +157,13 @@ model user {
   santri              santri[]             @relation("WaliSantri")
   transactions        transaction[]        @relation("AdminTransactions")
   institution         institution?         @relation("InstitutionUsers", fields: [institutionId], references: [id])
+
+  @@map("user")
 }
 
 generator client {
-  provider        = "prisma-client-js"
-  output          = "../generated"
-  previewFeatures = ["prismaSchemaFolder"]
+  provider = "prisma-client-js"
+  output   = "../generated"
 }
 
 datasource db {
