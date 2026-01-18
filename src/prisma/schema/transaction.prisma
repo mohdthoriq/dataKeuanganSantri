@@ -12,4 +12,6 @@ model transaction {
   category        category     @relation(fields: [categoryId], references: [id])
   admin           user         @relation("AdminTransactions", fields: [createdBy], references: [id])
   santri          santri       @relation(fields: [santriId], references: [id])
+
+  @@map("transaction")
 }

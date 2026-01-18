@@ -17,4 +17,6 @@ model user {
   santri              santri[]            @relation("WaliSantri")
   transactions        transaction[]       @relation("AdminTransactions")
   institution         institution?        @relation("InstitutionUsers", fields: [institutionId], references: [id])
+
+  @@map("user")
 }

@@ -9,4 +9,6 @@ model profile {
   occupation          String?
   phone               String?
   user                user    @relation(fields: [userId], references: [id])
+
+  @@map("profile")
 }

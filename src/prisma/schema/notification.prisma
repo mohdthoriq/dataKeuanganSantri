@@ -6,4 +6,6 @@ model notification {
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
   user      user     @relation(fields: [userId], references: [id])
+
+  @@map("notification")
 }

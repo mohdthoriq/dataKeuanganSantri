@@ -8,4 +8,6 @@ model institution {
   admin      user       @relation("InstitutionAdmin", fields: [createdBy], references: [id])
   santri     santri[]
   users      user[]     @relation("InstitutionUsers")
+
+  @@map("institution")
 }
