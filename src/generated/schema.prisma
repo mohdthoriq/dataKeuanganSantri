@@ -38,16 +38,6 @@ model Category {
   @@map("category")
 }
 
-enum user_role {
-  ADMIN
-  WALI_SANTRI
-}
-
-enum category_type {
-  PEMASUKAN
-  PENGELUARAN
-}
-
 model Institution {
   id        Int      @id @default(autoincrement())
   name      String   @unique
@@ -137,8 +127,6 @@ model Santri {
   waliName        String?
   institutionName String?
 
-<<<<<<< HEAD
-=======
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
 
@@ -148,8 +136,7 @@ model Santri {
   authAccounts AuthAccount[]
   transactions Transaction[]
 
->>>>>>> 28759af021b69e748e3c37446a9fdee6ca748b4b
-  @@map("Santri")
+  @@map("santri")
 }
 
 model Transaction {
@@ -175,7 +162,7 @@ model Users {
   username            String
   email               String              @unique
   password            String
-  role                user_role
+  role                user_role           @default(WALI_SANTRI)
   institutionId       Int?
   isEmailVerified     Boolean             @default(false)
   isActive            Boolean             @default(true)
@@ -194,11 +181,20 @@ model Users {
 }
 
 generator client {
-  provider        = "prisma-client-js"
-  output          = "../generated"
-  previewFeatures = ["prismaSchemaFolder"]
+  provider = "prisma-client-js"
+  output   = "../generated"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+enum user_role {
+  ADMIN
+  WALI_SANTRI
+}
+
+enum category_type {
+  PEMASUKAN
+  PENGELUARAN
 }

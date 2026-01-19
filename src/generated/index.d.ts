@@ -16903,7 +16903,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
@@ -16923,7 +16923,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     institutionId?: number | null
     isEmailVerified?: boolean
     isActive?: boolean
@@ -16982,7 +16982,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     institutionId?: number | null
     isEmailVerified?: boolean
     isActive?: boolean
@@ -18961,7 +18961,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
@@ -18980,7 +18980,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     institutionId?: number | null
     isEmailVerified?: boolean
     isActive?: boolean
@@ -19085,7 +19085,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
@@ -19104,7 +19104,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     institutionId?: number | null
     isEmailVerified?: boolean
     isActive?: boolean
@@ -19338,7 +19338,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
@@ -19357,7 +19357,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
@@ -19444,7 +19444,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
@@ -19463,7 +19463,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     institutionId?: number | null
     isEmailVerified?: boolean
     isActive?: boolean
@@ -19703,7 +19703,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
@@ -19722,7 +19722,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     institutionId?: number | null
     isEmailVerified?: boolean
     isActive?: boolean
@@ -19793,7 +19793,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
@@ -19812,7 +19812,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     institutionId?: number | null
     isEmailVerified?: boolean
     isActive?: boolean
@@ -19883,7 +19883,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
@@ -19902,7 +19902,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     institutionId?: number | null
     isEmailVerified?: boolean
     isActive?: boolean
@@ -20031,7 +20031,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
@@ -20050,7 +20050,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     institutionId?: number | null
     isEmailVerified?: boolean
     isActive?: boolean
@@ -20309,7 +20309,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
@@ -20328,7 +20328,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     institutionId?: number | null
     isEmailVerified?: boolean
     isActive?: boolean
@@ -21031,7 +21031,7 @@ export namespace Prisma {
     username: string
     email: string
     password: string
-    role: $Enums.user_role
+    role?: $Enums.user_role
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
