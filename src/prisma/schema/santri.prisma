@@ -14,12 +14,11 @@ model Santri {
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
 
-  wali        Users        @relation("WaliSantri", fields: [waliId], references: [id])
+  wali        Users       @relation("WaliSantri", fields: [waliId], references: [id])
   institution Institution @relation(fields: [institutionId], references: [id])
 
   authAccounts AuthAccount[]
   transactions Transaction[]
 
-  @@map("Santri")
+  @@map("santri")
 }
-

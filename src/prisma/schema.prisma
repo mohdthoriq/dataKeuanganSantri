@@ -1,7 +1,6 @@
 generator client {
-  provider        = "prisma-client-js"
-  output          = "../generated"
-  previewFeatures = ["prismaSchemaFolder"]
+  provider = "prisma-client-js"
+  output   = "../generated"
 }
 
 datasource db {
@@ -17,4 +16,3 @@ enum category_type {
   PEMASUKAN
   PENGELUARAN
 }
-
