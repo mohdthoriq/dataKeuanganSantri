@@ -13,8 +13,7 @@ export class UserService {
   }
 
   async create(payload: ICreateUserPayload, admin: { institutionId: number }) {
-    // hash password dulu
-    payload.password = await bcrypt.hash(payload.password, 10);
+    // hashing is handled in repository
     return this.userRepo.create(payload, admin);
   }
 

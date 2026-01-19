@@ -1,16 +1,18 @@
 // src/services/category.service.ts
 import type { $Enums } from "../database";
+
 import type { ICategoryRepository, ICategoryListParams } from "../repository/category.repository";
 
 export interface ICreateCategoryPayload {
   name: string;
-  type: $Enums.CategoryType;
+  type: $Enums.category_type;
   institutionId: number;
 }
 
 export interface IUpdateCategoryPayload {
   name?: string;
-  type?: $Enums.CategoryType;
+  type?: $Enums.category_type;
+
   isActive?: boolean;
 }
 

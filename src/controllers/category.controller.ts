@@ -22,7 +22,7 @@ export class CategoryController {
 
     const params: ICategoryListParams = {
       institutionId: Number(institutionId),
-      ...(type && { type: type as $Enums.CategoryType }),
+      ...(type && { type: type as $Enums.category_type }),
       ...(isActive !== undefined && { isActive: isActive === "true" }),
       ...(search && { search: search as string }),
       ...(page && { page: Number(page) }),

@@ -1,10 +1,11 @@
 model EmailVerification {
-  id         Int      @id @default(autoincrement())
-  userId     Int
-  otpCode    String
-  expiredAt  DateTime
-  isUsed     Boolean  @default(false)
-  createdAt  DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  otpCode   String
+  expiredAt DateTime
+  isUsed    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      Users     @relation(fields: [userId], references: [id])
 
-  user User @relation(fields: [userId], references: [id])
+  @@map("email_verification")
 }

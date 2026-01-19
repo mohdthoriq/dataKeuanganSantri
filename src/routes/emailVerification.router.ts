@@ -78,6 +78,7 @@ const controller = new EmailVerificationController(service)
 
 
 router.post("/request-otp", validate(requestOtpValidation), controller.requestOtp);
+router.post("/resend-otp", validate(requestOtpValidation), controller.resendOtpPublic);
 router.post("/verify-otp", validate(verifyOtpValidation), controller.verifyOtp);
 
 export default router;

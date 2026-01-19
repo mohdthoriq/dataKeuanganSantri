@@ -9,7 +9,7 @@ import type { Decimal } from "../generated/runtime/client";
 export interface ICreateTransactionPayload {
     santriId?: number;
     categoryId?: number;
-    type?: $Enums.CategoryType;
+    type?: $Enums.category_type;
     amount?: number | Decimal;
     description?: string;
     transactionDate?: Date; // ⚡ sekarang bisa undefined
@@ -26,7 +26,7 @@ export class TransactionController {
         const transaction = await this.transactionService.createTransaction({
             santriId,
             categoryId,
-            type: type as $Enums.CategoryType,
+            type: type as $Enums.category_type,
             amount,
             description,
             transactionDate: new Date(transactionDate),
@@ -42,7 +42,7 @@ export class TransactionController {
         const params: ITransactionListParams = {
             ...(santriId && { santriId: Number(santriId) }),
             ...(categoryId && { categoryId: Number(categoryId) }),
-            ...(type && { type: type as $Enums.CategoryType }),
+            ...(type && { type: type as $Enums.category_type }),
             ...(createdBy && { createdBy: Number(createdBy) }),
             ...(page && { page: Number(page) }),
             ...(limit && { limit: Number(limit) }),
@@ -77,7 +77,7 @@ export class TransactionController {
         const updatedTransaction = await this.transactionService.updateTransaction(id, {
             santriId,
             categoryId,
-            ...(type && { type: type as $Enums.CategoryType }),
+            ...(type && { type: type as $Enums.category_type }),
             amount,
             description,
             ...(transactionDate && { transactionDate: new Date(transactionDate) }),

@@ -1,9 +1,9 @@
-enum UserRole {
+enum user_role {
   ADMIN
   WALI_SANTRI
 }
 
-enum CategoryType {
+enum category_type {
   PEMASUKAN
   PENGELUARAN
 }

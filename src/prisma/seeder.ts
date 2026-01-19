@@ -1,8 +1,7 @@
 // prisma/seed.ts
-import { PrismaClient, UserRole, CategoryType } from '@prisma/client';
+import PrismaInstance, { user_role, category_type } from '../database';
 import { faker } from '@faker-js/faker';
 import bcrypt from 'bcrypt';
-import PrismaInstance from '../database';
 
 const prisma = PrismaInstance
 
@@ -15,9 +14,11 @@ async function main() {
   await prisma.santri.deleteMany();
   await prisma.category.deleteMany();
   await prisma.emailVerification.deleteMany();
+  await prisma.passwordReset.deleteMany();
   await prisma.notification.deleteMany();
+  await prisma.profile.deleteMany();
   await prisma.institution.deleteMany();
-  await prisma.user.deleteMany();
+  await prisma.users.deleteMany();
 
   console.log('🗑️  Data lama dihapus');
 
@@ -27,15 +28,27 @@ async function main() {
   const hashedPassword = await bcrypt.hash('password123', 10);
 
   for (let i = 0; i < 10; i++) {
-    const admin = await prisma.user.create({
+    const firstName = faker.person.firstName();
+    const lastName = faker.person.lastName();
+    
+    const admin = await prisma.users.create({
       data: {
-        username: faker.person.fullName(),
+        username: `admin${i + 1}`,
         email: `admin${i + 1}@pesantren.com`,
         password: hashedPassword,
-        role: UserRole.ADMIN,
+        role: user_role.ADMIN,
         isEmailVerified: true,
         isActive: true,
         createdAt: faker.date.past({ years: 2 }),
+        profile: {
+          create: {
+            name: `${firstName} ${lastName}`,
+            gender: faker.helpers.arrayElement(['LAKI-LAKI', 'PEREMPUAN']),
+            address: faker.location.streetAddress({ useFullAddress: true }),
+            phone: faker.phone.number(),
+            occupation: 'Administrator Pesantren',
+          },
+        },
       },
     });
     admins.push(admin);
@@ -75,7 +88,7 @@ async function main() {
     institutions.push(institution);
 
     // Update admin dengan institutionId
-    await prisma.user.update({
+    await prisma.users.update({
       where: { id: admin.id },
       data: { institutionId: institution.id },
     });
@@ -88,16 +101,29 @@ async function main() {
 
   for (let i = 0; i < 150; i++) {
     const institution = faker.helpers.arrayElement(institutions);
-    const wali = await prisma.user.create({
+    const firstName = faker.person.firstName();
+    const lastName = faker.person.lastName();
+    const fullName = `${firstName} ${lastName}`;
+
+    const wali = await prisma.users.create({
       data: {
-        username: faker.person.fullName(),
-        email: faker.internet.email().toLowerCase(),
+        username: `wali${i + 1}`,
+        email: faker.internet.email({ firstName, lastName }).toLowerCase(),
         password: hashedPassword,
-        role: UserRole.WALI_SANTRI,
+        role: user_role.WALI_SANTRI,
         institutionId: institution.id,
         isEmailVerified: faker.datatype.boolean(0.8),
         isActive: faker.datatype.boolean(0.95),
         createdAt: faker.date.past({ years: 1 }),
+        profile: {
+          create: {
+            name: fullName,
+            gender: faker.helpers.arrayElement(['LAKI-LAKI', 'PEREMPUAN']),
+            address: faker.location.streetAddress({ useFullAddress: true }),
+            phone: faker.phone.number(),
+            occupation: faker.person.jobTitle(),
+          },
+        },
       },
     });
     waliSantri.push(wali);
@@ -134,7 +160,7 @@ async function main() {
       const category = await prisma.category.create({
         data: {
           name: catName,
-          type: CategoryType.PEMASUKAN,
+          type: category_type.PEMASUKAN,
           institutionId: institution.id,
           isActive: true,
           createdAt: faker.date.past({ years: 1 }),
@@ -148,7 +174,7 @@ async function main() {
       const category = await prisma.category.create({
         data: {
           name: catName,
-          type: CategoryType.PENGELUARAN,
+          type: category_type.PENGELUARAN,
           institutionId: institution.id,
           isActive: true,
           createdAt: faker.date.past({ years: 1 }),
@@ -163,6 +189,7 @@ async function main() {
   console.log('👦 Membuat santri...');
   const santriList = [];
   const kelasOptions = ['1A', '1B', '2A', '2B', '3A', '3B', '4A', '4B', '5A', '5B', '6A', '6B'];
+  const genderOptions = ['LAKI-LAKI', 'PEREMPUAN'];
 
   for (let i = 0; i < 300; i++) {
     const institution = faker.helpers.arrayElement(institutions);
@@ -171,15 +198,19 @@ async function main() {
     );
 
     if (wali) {
-      const nis = `${institution.id}${String(i).padStart(4, '0')}`;
+      const nis = `NIS${String(Date.now() + i).slice(-8)}`;
+      const fullname = faker.person.fullName();
       
       const santri = await prisma.santri.create({
         data: {
           nis,
-          fullname: faker.person.fullName(),
+          fullname,
           kelas: faker.helpers.arrayElement(kelasOptions),
+          gender: faker.helpers.arrayElement(genderOptions),
           waliId: wali.id,
           institutionId: institution.id,
+          waliName: wali.username,
+          institutionName: institution.name,
           isActive: faker.datatype.boolean(0.95),
           createdAt: faker.date.past({ years: 1 }),
         },
@@ -196,9 +227,11 @@ async function main() {
   for (const santri of santriList) {
     const wali = waliSantri.find(w => w.id === santri.waliId);
     if (wali) {
+      const username = `santri_${santri.nis}`;
       const authAccount = await prisma.authAccount.create({
         data: {
-          username: `santri_${santri.nis}`,
+          username,
+          email: `${username}@pesantren.com`,
           password: hashedPassword,
           userId: wali.id,
           santriId: santri.id,
@@ -223,8 +256,8 @@ async function main() {
     const category = faker.helpers.arrayElement(institutionCategories);
     const admin = admins.find(a => a.institutionId === santri.institutionId);
 
-    if (admin) {
-      const amount = category.type === CategoryType.PEMASUKAN
+    if (admin && category) {
+      const amount = category.type === category_type.PEMASUKAN
         ? faker.number.int({ min: 100000, max: 2000000 })
         : faker.number.int({ min: 50000, max: 5000000 });
 
@@ -259,17 +292,33 @@ async function main() {
         otpCode: String(faker.number.int({ min: 100000, max: 999999 })),
         expiredAt: faker.date.future(),
         isUsed: user.isEmailVerified,
-        createdAt: faker.date.past({
-          years: 1,
-          refDate: new Date(),
-        }),
+        createdAt: faker.date.past({ years: 1 })
       },
     });
     emailVerifications.push(verification);
   }
   console.log(`✅ ${emailVerifications.length} email verifications dibuat`);
 
-  // 9. Buat Notifications
+  // 9. Buat Password Resets
+  console.log('🔑 Membuat password resets...');
+  const passwordResets = [];
+
+  for (let i = 0; i < 30; i++) {
+    const user = faker.helpers.arrayElement([...admins, ...waliSantri]);
+    const reset = await prisma.passwordReset.create({
+      data: {
+        userId: user.id,
+        otpCode: String(faker.number.int({ min: 100000, max: 999999 })),
+        expiredAt: faker.date.future({ years: 0.01 }),
+        isUsed: faker.datatype.boolean(0.6),
+        createdAt: faker.date.past({ years: 1 }),
+      },
+    });
+    passwordResets.push(reset);
+  }
+  console.log(`✅ ${passwordResets.length} password resets dibuat`);
+
+  // 10. Buat Notifications
   console.log('🔔 Membuat notifications...');
   const notifications = [];
   const notificationTemplates = [
@@ -278,9 +327,11 @@ async function main() {
     { title: 'Kegiatan Pesantren', message: 'Ada kegiatan haul akbar di pesantren' },
     { title: 'Informasi Penting', message: 'Mohon segera melengkapi data santri' },
     { title: 'Konfirmasi Pembayaran', message: 'Pembayaran Anda sudah diterima' },
+    { title: 'Pengumuman', message: 'Libur semester akan dimulai minggu depan' },
+    { title: 'Undangan Rapat', message: 'Rapat wali santri akan diadakan Sabtu besok' },
   ];
 
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < 250; i++) {
     const user = faker.helpers.arrayElement([...admins, ...waliSantri]);
     const template = faker.helpers.arrayElement(notificationTemplates);
 
@@ -290,10 +341,7 @@ async function main() {
         title: template.title,
         message: template.message,
         isRead: faker.datatype.boolean(0.6),
-        createdAt: faker.date.past({
-          years: 1,
-          refDate: new Date(),
-        }),
+        createdAt: faker.date.past({ years: 1 }),
       },
     });
     notifications.push(notification);
@@ -302,37 +350,44 @@ async function main() {
 
   // Tampilkan summary
   console.log('\n📊 Summary:');
-  console.log(`   👤 Admins: ${admins.length}`);
-  console.log(`   👨‍👩‍👧 Wali Santri: ${waliSantri.length}`);
+  console.log(`   👤 Users (Total): ${admins.length + waliSantri.length}`);
+  console.log(`      - Admins: ${admins.length}`);
+  console.log(`      - Wali Santri: ${waliSantri.length}`);
   console.log(`   🏫 Institutions: ${institutions.length}`);
   console.log(`   📁 Categories: ${categories.length}`);
   console.log(`   👦 Santri: ${santriList.length}`);
   console.log(`   🔐 Auth Accounts: ${authAccounts.length}`);
   console.log(`   💰 Transactions: ${transactions.length}`);
   console.log(`   📧 Email Verifications: ${emailVerifications.length}`);
+  console.log(`   🔑 Password Resets: ${passwordResets.length}`);
   console.log(`   🔔 Notifications: ${notifications.length}`);
+  console.log(`   👥 Profiles: ${admins.length + waliSantri.length}`);
 
   // Detail per institution
-  console.log('\n🏫 Data per Institution:');
+  console.log('\n🏫 Data per Institution (Top 3):');
   for (const institution of institutions.slice(0, 3)) {
     const santriCount = await prisma.santri.count({
       where: { institutionId: institution.id },
     });
+    const waliCount = await prisma.users.count({
+      where: { institutionId: institution.id, role: user_role.WALI_SANTRI },
+    });
     const transactionCount = await prisma.transaction.count({
       where: { santri: { institutionId: institution.id } },
     });
-    console.log(`   ${institution.name}:`);
+    console.log(`\n   ${institution.name}:`);
     console.log(`      - Santri: ${santriCount}`);
+    console.log(`      - Wali: ${waliCount}`);
     console.log(`      - Transactions: ${transactionCount}`);
   }
 
   // Statistik transaksi
   const totalPemasukan = await prisma.transaction.aggregate({
-    where: { type: CategoryType.PEMASUKAN, isDeleted: false },
+    where: { type: category_type.PEMASUKAN, isDeleted: false },
     _sum: { amount: true },
   });
   const totalPengeluaran = await prisma.transaction.aggregate({
-    where: { type: CategoryType.PENGELUARAN, isDeleted: false },
+    where: { type: category_type.PENGELUARAN, isDeleted: false },
     _sum: { amount: true },
   });
 
@@ -344,7 +399,8 @@ async function main() {
   console.log('\n✨ Seeding selesai!');
   console.log('\n🔑 Login Credentials:');
   console.log('   Admin: admin1@pesantren.com / password123');
-  console.log('   Santri: santri_[NIS] / password123');
+  console.log('   Wali: (check database for email) / password123');
+  console.log('   Santri: santri_[NIS]@pesantren.com / password123');
 }
 
 main()

@@ -6,7 +6,7 @@ export class EmailVerificationService {
   constructor(private repo: EmailVerificationRepository, private prisma: PrismaClient) { }
 
   async requestOtpByEmail(email: string) {
-    const user = await this.prisma.user.findUnique({
+    const user = await this.prisma.users.findUnique({
       where: { email },
     });
 
@@ -37,7 +37,7 @@ export class EmailVerificationService {
 
 
   async verifyOtpByEmail(email: string, otpCode: string) {
-    const user = await this.prisma.user.findUnique({
+    const user = await this.prisma.users.findUnique({
       where: { email },
     });
 
@@ -48,7 +48,7 @@ export class EmailVerificationService {
   }
 
   async resendOtp(userId: number) {
-    const user = await this.prisma.user.findUnique({
+    const user = await this.prisma.users.findUnique({
       where: { id: userId },
     });
 

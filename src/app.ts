@@ -44,11 +44,7 @@ app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 app.get('/', (_req: Request, res: Response) => {
     successResponse(
         res,
-        "Selamat datang di API E-Commerce!",
-        {
-            hari: 3,
-            status: "Server hidup!"
-        ,}
+        "Selamat datang di API E-Commerce!"
     )
 })
 

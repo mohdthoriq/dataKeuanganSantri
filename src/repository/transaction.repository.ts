@@ -6,7 +6,7 @@ import type { IPaginatedResult, IPaginationParams } from "../types/common";
 export interface ICreateTransactionPayload {
     santriId: number;
     categoryId: number;
-    type: $Enums.CategoryType;
+    type: $Enums.category_type;
     amount: Prisma.Decimal | number;
     description?: string;
     transactionDate: Date;
@@ -16,7 +16,7 @@ export interface ICreateTransactionPayload {
 export interface ITransactionListParams extends IPaginationParams {
     santriId?: number;
     categoryId?: number;
-    type?: $Enums.CategoryType;
+    type?: $Enums.category_type;
     createdBy?: number;
 }
 

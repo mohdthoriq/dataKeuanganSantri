@@ -44,3 +44,4 @@ export class SantriService {
     return this.santriRepo.getByWali(waliId);
   }
 }
+

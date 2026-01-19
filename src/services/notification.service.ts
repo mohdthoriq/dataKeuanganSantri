@@ -1,6 +1,6 @@
 import type { Notification } from "../database";
 import type { INotificationRepository, INotificationListParams } from "../repository/notification.repository";
-import type { IPaginatedResult, IPaginationParams } from "../types/common";
+import type { IPaginatedResult } from "../types/common";
 
 export class NotificationService {
   constructor(private notificationRepo: INotificationRepository) { }

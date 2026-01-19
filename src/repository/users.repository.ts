@@ -1,6 +1,6 @@
 import PrismaInstance from "../database";
 import bcrypt from "bcrypt";
-import type { Prisma, PrismaClient, User, $Enums } from "../database";
+import type { Prisma, PrismaClient, Users, $Enums } from "../database";
 import type { RequestResetResult } from "./auth.repository";
 
 import type { IPaginatedResult, IPaginationParams } from "../types/common";
@@ -11,14 +11,14 @@ export interface ICreateUserPayload {
   username: string;
   email: string;
   password: string;
-  role: $Enums.UserRole;
+  role: $Enums.user_role;
   institutionId?: number;
 }
 
 export interface IUpdateUserPayload {
   username?: string;
   email?: string;
-  role?: $Enums.UserRole;
+  role?: $Enums.user_role;
   institutionId?: number | null;
 }
 
@@ -28,22 +28,23 @@ export interface IUserListParams extends IPaginationParams {
 
 export interface GetUsersResult extends RequestResetResult {
   success: boolean;
-  data: Partial<User> & { institution: { id: number; name: string } | null };
+
+  data: Partial<Users> & { institution: { id: number; name: string } | null };
 }
 
 export interface IUserRepository {
-  getAll(params: IUserListParams): Promise<IPaginatedResult<Partial<User>>>;
+  getAll(params: IUserListParams): Promise<IPaginatedResult<Partial<Users>>>;
   getById(id: number): Promise<GetUsersResult>;
-  create(payload: ICreateUserPayload, admin: { institutionId: number }): Promise<Partial<User>>;
-  update(id: number, payload: IUpdateUserPayload): Promise<Partial<User>>;
-  updateStatus(id: number, isActive: boolean): Promise<Partial<User>>;
+  create(payload: ICreateUserPayload, admin: { institutionId: number }): Promise<Partial<Users>>;
+  update(id: number, payload: IUpdateUserPayload): Promise<Partial<Users>>;
+  updateStatus(id: number, isActive: boolean): Promise<Partial<Users>>;
   deleteUser(id: number): Promise<boolean>;
 }
 
 export class UserRepository implements IUserRepository {
   constructor(private prisma: PrismaClient) { }
 
-  async getAll(params: IUserListParams): Promise<IPaginatedResult<Partial<User>>> {
+  async getAll(params: IUserListParams): Promise<IPaginatedResult<Partial<Users>>> {
     const {
       page = 1,
       limit = 10,
@@ -54,7 +55,7 @@ export class UserRepository implements IUserRepository {
     } = params;
     const skip = (page - 1) * limit;
 
-    const where: Prisma.UserWhereInput = {};
+    const where: Prisma.UsersWhereInput = {};
     if (search) {
       where.OR = [
         { username: { contains: search, mode: "insensitive" } },
@@ -63,13 +64,13 @@ export class UserRepository implements IUserRepository {
     }
     if (isActive !== undefined) where.isActive = isActive;
 
-    const orderBy: Prisma.UserOrderByWithRelationInput = {};
+    const orderBy: Prisma.UsersOrderByWithRelationInput = {};
     if (sortBy === "username") orderBy.username = order;
     else if (sortBy === "email") orderBy.email = order;
     else orderBy.createdAt = order;
 
     const [data, total] = await this.prisma.$transaction([
-      prisma.user.findMany({
+      prisma.users.findMany({
         where,
         skip,
         take: limit,
@@ -84,7 +85,7 @@ export class UserRepository implements IUserRepository {
           createdAt: true,
         },
       }),
-      prisma.user.count({ where }),
+      prisma.users.count({ where }),
     ]);
 
     return {
@@ -94,7 +95,7 @@ export class UserRepository implements IUserRepository {
   }
 
   async getById(id: number): Promise<GetUsersResult> {
-    const user = await this.prisma.user.findFirst({
+    const user = await this.prisma.users.findFirst({
       where: { id },
       select: {
         id: true,
@@ -112,13 +113,13 @@ export class UserRepository implements IUserRepository {
     return { success: true, data: user };
   }
 
-  async create(payload: ICreateUserPayload, admin: { institutionId: number }): Promise<Partial<User>> {
-    const exists = await prisma.user.findUnique({ where: { email: payload.email } });
+  async create(payload: ICreateUserPayload, admin: { institutionId: number }): Promise<Partial<Users>> {
+    const exists = await prisma.users.findUnique({ where: { email: payload.email } });
     if (exists) throw new Error("Email already exists");
 
     const hashedPassword = await bcrypt.hash(payload.password, 10);
 
-    const user = await prisma.user.create({
+    const user = await prisma.users.create({
       data: {
         username: payload.username,
         email: payload.email,
@@ -141,11 +142,11 @@ export class UserRepository implements IUserRepository {
     return user;
   }
 
-  async update(id: number, payload: IUpdateUserPayload): Promise<Partial<User>> {
-    const user = await this.prisma.user.findUnique({ where: { id } });
+  async update(id: number, payload: IUpdateUserPayload): Promise<Partial<Users>> {
+    const user = await this.prisma.users.findUnique({ where: { id } });
     if (!user) throw new Error("User not found");
 
-    const updatedUser = await this.prisma.user.update({
+    const updatedUser = await this.prisma.users.update({
       where: { id },
       data: {
         ...(payload.username && { username: payload.username }),
@@ -167,11 +168,11 @@ export class UserRepository implements IUserRepository {
     return updatedUser;
   }
 
-  async updateStatus(id: number, isActive: boolean): Promise<Partial<User>> {
-    const user = await this.prisma.user.findUnique({ where: { id } });
+  async updateStatus(id: number, isActive: boolean): Promise<Partial<Users>> {
+    const user = await this.prisma.users.findUnique({ where: { id } });
     if (!user) throw new Error("User not found");
 
-    const updatedUser = await this.prisma.user.update({
+    const updatedUser = await this.prisma.users.update({
       where: { id },
       data: { isActive },
       select: {
@@ -189,10 +190,10 @@ export class UserRepository implements IUserRepository {
   }
 
   async deleteUser(id: number): Promise<boolean> {
-    const user = await this.prisma.user.findUnique({ where: { id } });
+    const user = await this.prisma.users.findUnique({ where: { id } });
     if (!user) throw new Error("User not found");
 
-    await this.prisma.user.update({ where: { id }, data: { isActive: false } });
+    await this.prisma.users.update({ where: { id }, data: { isActive: false } });
     return true;
   }
 };

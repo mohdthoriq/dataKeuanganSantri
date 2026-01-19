@@ -2,7 +2,7 @@ import PrismaInstance from "../database";
 import bcrypt from "bcrypt";
 import { randomInt } from "crypto";
 import jwt from "jsonwebtoken";
-import type { PrismaClient, User } from "../database";
+import type { PrismaClient, Users } from "../database";
 import { sendEmail } from "../utils/apiKey";
 
 const prisma = PrismaInstance;
@@ -41,7 +41,7 @@ export type RequestResetResult = {
 
 
 export interface IAuthRepository {
-    findByEmail(email: string): Promise<User | null>;
+    findByEmail(email: string): Promise<Users | null>;
     registerAdmin(payload: RegisterAdminPayload): Promise<RegisterAdminResult>;
     login(email: string, password: string): Promise<LoginResult>;
     requestReset(email: string): Promise<RequestResetResult>;
@@ -51,9 +51,8 @@ export interface IAuthRepository {
 export class AuthRepository implements IAuthRepository {
     constructor(private prisma: PrismaClient) { }
 
-    async findByEmail(email: string) {
-        const user = await this.prisma.user.findUnique({ where: { email } });
-        return user;
+    async findByEmail(email: string): Promise<Users | null> {
+        return await this.prisma.users.findUnique({ where: { email } });
     }
 
     async registerAdmin(payload: RegisterAdminPayload): Promise<RegisterAdminResult> {
@@ -63,18 +62,10 @@ export class AuthRepository implements IAuthRepository {
             throw new Error("Username, email, and password are required");
         }
 
-        const existingUser = await this.prisma.user.findUnique({
-            where: { email },
-        });
-
-        if (existingUser) {
-            throw new Error("User already exists");
-        }
-
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const result = await this.prisma.$transaction(async (tx) => {
-            const admin = await tx.user.create({
+            const admin = await tx.users.create({
                 data: {
                     username,
                     email,
@@ -92,7 +83,7 @@ export class AuthRepository implements IAuthRepository {
                 },
             });
 
-            const updatedAdmin = await tx.user.update({
+            const updatedAdmin = await tx.users.update({
                 where: { id: admin.id },
                 data: { institutionId: lembaga.id },
             });
@@ -123,7 +114,7 @@ export class AuthRepository implements IAuthRepository {
     }
 
     async login(email: string, password: string): Promise<LoginResult> {
-        const user = await prisma.user.findUnique({
+        const user = await this.prisma.users.findUnique({
             where: { email },
             include: { institution: { select: { name: true } } }
         });
@@ -150,33 +141,33 @@ export class AuthRepository implements IAuthRepository {
         };
     }
     async requestReset(email: string): Promise<RequestResetResult> {
-        const user = await prisma.user.findUnique({ where: { email } });
+        const user = await this.prisma.users.findUnique({ where: { email } });
         if (!user) return { success: false, message: "User not found" };
 
-        await prisma.passwordReset.deleteMany({
+        await this.prisma.passwordReset.deleteMany({
             where: { userId: user.id, isUsed: false },
         });
 
         const otpCode = randomInt(100000, 999999).toString();
         const expiredAt = new Date(Date.now() + 10 * 60 * 1000); // 10 menit
 
-        await prisma.passwordReset.create({
+        await this.prisma.passwordReset.create({
             data: { userId: user.id, otpCode, expiredAt, isUsed: false },
         });
 
         return { success: true, message: "OTP sent successfully", otpCode };
     }
     async resetPassword(userId: number, otpCode: string, newPassword: string): Promise<RequestResetResult> {
-        const record = await prisma.passwordReset.findFirst({
+        const record = await this.prisma.passwordReset.findFirst({
             where: { userId, otpCode, isUsed: false, expiredAt: { gte: new Date() } },
         });
 
         if (!record) throw new Error("Invalid OTP");
 
-        await prisma.passwordReset.update({ where: { id: record.id }, data: { isUsed: true } });
+        await this.prisma.passwordReset.update({ where: { id: record.id }, data: { isUsed: true } });
 
         const hashedPassword = await bcrypt.hash(newPassword, 10);
-        await prisma.user.update({ where: { id: userId }, data: { password: hashedPassword } });
+        await this.prisma.users.update({ where: { id: userId }, data: { password: hashedPassword } });
 
         return { success: true, message: "Password reset successfully" };
     }
