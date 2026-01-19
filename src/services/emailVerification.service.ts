@@ -1,5 +1,5 @@
 import { EmailVerificationRepository } from "../repository/emailVerification.repository";
-import type { PrismaClient } from "../generated";
+import type { PrismaClient } from "../database";
 import { sendEmail } from "../utils/apiKey";
 
 export class EmailVerificationService {
@@ -15,10 +15,23 @@ export class EmailVerificationService {
 
     const otp = await this.repo.generateOtp(user.id);
 
+    await sendEmail({
+      to: user.email,
+      subject: "OTP Verification",
+      html: `
+        <h2>OTP Verification</h2>
+        <h1>${otp.otpCode}</h1>
+        <p>Berlaku selama 10 menit (sampai ${otp.expiredAt.toLocaleString()})</p>
+      `,
+    });
+
     return {
-      email: user.email,
-      otpCode: otp.otpCode,
-      expiredAt: otp.expiredAt,
+      success: true,
+      message: "OTP sent successfully",
+      ...(process.env.NODE_ENV === "development" && {
+        otpCode: otp.otpCode,
+        expiredAt: otp.expiredAt,
+      }),
     };
   }
 

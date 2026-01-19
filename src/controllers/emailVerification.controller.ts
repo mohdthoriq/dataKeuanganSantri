@@ -9,8 +9,16 @@ export class EmailVerificationController {
     const { email } = req.body;
     if (!email) throw new Error("Email required");
 
-    const otp = await this.emailVerificationService.requestOtpByEmail(email);
-    successResponse(res, "OTP generated", otp);
+    const result = await this.emailVerificationService.requestOtpByEmail(email);
+    successResponse(res, "OTP generated and sent", result);
+  }
+
+  resendOtpPublic = async (req: Request, res: Response) => {
+    const { email } = req.body;
+    if (!email) throw new Error("Email required");
+
+    const result = await this.emailVerificationService.requestOtpByEmail(email);
+    successResponse(res, "OTP resent successfully", result);
   }
 
 

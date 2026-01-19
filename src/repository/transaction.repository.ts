@@ -1,29 +1,28 @@
 // src/repository/transaction.repository.ts
-import type { PrismaClient, Transaction, CategoryType } from "../generated";
-import { Decimal } from "../generated/runtime/client";
+import type { PrismaClient, Transaction, $Enums, Prisma } from "../database";
+
+import type { IPaginatedResult, IPaginationParams } from "../types/common";
 
 export interface ICreateTransactionPayload {
     santriId: number;
     categoryId: number;
-    type: CategoryType;
-    amount: Decimal | number;
+    type: $Enums.CategoryType;
+    amount: Prisma.Decimal | number;
     description?: string;
     transactionDate: Date;
     createdBy: number;
 }
 
-export interface ITransactionFilters {
+export interface ITransactionListParams extends IPaginationParams {
     santriId?: number;
     categoryId?: number;
-    type?: CategoryType;
+    type?: $Enums.CategoryType;
     createdBy?: number;
-    skip?: number;
-    take?: number;
 }
 
 export interface ITransactionRepository {
     create(payload: ICreateTransactionPayload): Promise<Transaction>;
-    getList(filters: ITransactionFilters): Promise<{ data: Transaction[]; meta: { page: number; limit: number; total: number; totalPages: number } }>;
+    getList(params: ITransactionListParams): Promise<IPaginatedResult<Transaction>>;
     getById(id: number): Promise<Transaction | null>;
     update(id: number, data: Partial<ICreateTransactionPayload>): Promise<Transaction>;
     delete(id: number): Promise<Transaction>;
@@ -40,7 +39,7 @@ export class TransactionRepository implements ITransactionRepository {
                 santriId,
                 categoryId,
                 type,
-                amount: new Decimal(amount),
+                amount,
                 transactionDate,
                 createdBy,
                 ...(description !== undefined && { description }),
@@ -48,24 +47,51 @@ export class TransactionRepository implements ITransactionRepository {
         });
     }
 
-    async getList(filters: ITransactionFilters): Promise<{ data: Transaction[], meta: { page: number, limit: number, total: number, totalPages: number } }> {
-        const skip = filters.skip ?? 0;
-        const take = filters.take ?? 10;
+    async getList(params: ITransactionListParams): Promise<IPaginatedResult<Transaction>> {
+        const {
+            santriId,
+            categoryId,
+            type,
+            createdBy,
+            page = 1,
+            limit = 10,
+            search,
+            sortBy,
+            order = "desc",
+        } = params;
 
-        const where: any = {
-            ...(filters.santriId !== undefined && { santriId: filters.santriId }),
-            ...(filters.categoryId !== undefined && { categoryId: filters.categoryId }),
-            ...(filters.type !== undefined && { type: filters.type }),
-            ...(filters.createdBy !== undefined && { createdBy: filters.createdBy }),
+        const skip = (page - 1) * limit;
+
+        const where: Prisma.TransactionWhereInput = {
+            ...(santriId !== undefined && { santriId: santriId }),
+            ...(categoryId !== undefined && { categoryId: categoryId }),
+            ...(type !== undefined && { type: type }),
+            ...(createdBy !== undefined && { createdBy: createdBy }),
             isDeleted: false,
         };
+
+        if (search) {
+            where.OR = [
+                { description: { contains: search, mode: "insensitive" } },
+                { santri: { fullname: { contains: search, mode: "insensitive" } } },
+            ];
+        }
+
+        const orderBy: Prisma.TransactionOrderByWithRelationInput = {};
+        if (sortBy === "amount") {
+            orderBy.amount = order;
+        } else if (sortBy === "date") {
+            orderBy.transactionDate = order;
+        } else {
+            orderBy.transactionDate = order;
+        }
 
         const [data, total] = await this.prisma.$transaction([
             this.prisma.transaction.findMany({
                 where,
                 skip,
-                take,
-                orderBy: { transactionDate: "desc" },
+                take: limit,
+                orderBy,
                 include: { santri: true, category: true, admin: true },
             }),
             this.prisma.transaction.count({ where }),
@@ -74,10 +100,10 @@ export class TransactionRepository implements ITransactionRepository {
         return {
             data,
             meta: {
-                page: Math.floor(skip / take) + 1,
-                limit: take,
+                page,
+                limit,
                 total,
-                totalPages: Math.ceil(total / take),
+                totalPages: Math.ceil(total / limit),
             }
         };
     }
@@ -89,9 +115,24 @@ export class TransactionRepository implements ITransactionRepository {
         });
     }
 
-    async update(id: number, data: Partial<ICreateTransactionPayload>): Promise<Transaction> {
-        if (data.amount !== undefined) data.amount = new Decimal(data.amount);
-        return this.prisma.transaction.update({ where: { id }, data });
+    async update(
+        id: number,
+        payload: Partial<ICreateTransactionPayload>
+    ): Promise<Transaction> {
+        const data: Prisma.TransactionUpdateInput = {
+            ...(payload.santriId !== undefined && { santriId: payload.santriId }),
+            ...(payload.categoryId !== undefined && { categoryId: payload.categoryId }),
+            ...(payload.type !== undefined && { type: payload.type }),
+            ...(payload.amount !== undefined && { amount: payload.amount }),
+            ...(payload.transactionDate !== undefined && { transactionDate: payload.transactionDate }),
+            ...(payload.createdBy !== undefined && { createdBy: payload.createdBy }),
+            ...(payload.description !== undefined && { description: payload.description }),
+        };
+
+        return this.prisma.transaction.update({
+            where: { id },
+            data,
+        });
     }
 
     async delete(id: number): Promise<Transaction> {

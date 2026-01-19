@@ -15,8 +15,8 @@ model User {
 
   createdInstitutions Institution[] @relation("InstitutionAdmin")
 
+  santri             Santri[] @relation("WaliSantri")
   emailVerifications EmailVerification[]
-  santriAsWali       Santri[]
   authAccounts       AuthAccount[]
   transactions       Transaction[] @relation("AdminTransactions")
   notifications      Notification[]

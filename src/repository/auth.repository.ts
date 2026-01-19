@@ -2,7 +2,7 @@ import PrismaInstance from "../database";
 import bcrypt from "bcrypt";
 import { randomInt } from "crypto";
 import jwt from "jsonwebtoken";
-import type { PrismaClient, User } from "../generated";
+import type { PrismaClient, User } from "../database";
 import { sendEmail } from "../utils/apiKey";
 
 const prisma = PrismaInstance;
@@ -27,10 +27,9 @@ export type RegisterAdminResult = {
 export type LoginResult = {
     token: string;
     user: {
-        id: number;
-        email: string;
         username: string;
         role: string;
+        institutionName?: string | null;
     };
 };
 
@@ -93,11 +92,10 @@ export class AuthRepository implements IAuthRepository {
                 },
             });
 
-            await tx.user.update({
+            const updatedAdmin = await tx.user.update({
                 where: { id: admin.id },
                 data: { institutionId: lembaga.id },
             });
-
             const otpCode = randomInt(100000, 999999).toString();
             const expiredAt = new Date(Date.now() + 10 * 60 * 1000);
 
@@ -110,18 +108,7 @@ export class AuthRepository implements IAuthRepository {
                 },
             });
 
-            return { user: admin, otpCode };
-        });
-
-
-        await sendEmail({
-            to: result.user.email,
-            subject: "OTP Verification",
-            html: `
-              <h2>OTP Verification</h2>
-              <h1>${result.otpCode}</h1>
-              <p>Berlaku 10 menit</p>
-            `,
+            return { user: updatedAdmin, otpCode };
         });
 
         return {
@@ -130,15 +117,16 @@ export class AuthRepository implements IAuthRepository {
             data: {
                 userId: result.user.id,
                 email: result.user.email,
-                ...(process.env.NODE_ENV === "development" && {
-                    otpCode: result.otpCode,
-                }),
+                otpCode: result.otpCode,
             },
         };
     }
 
     async login(email: string, password: string): Promise<LoginResult> {
-        const user = await prisma.user.findUnique({ where: { email } });
+        const user = await prisma.user.findUnique({
+            where: { email },
+            include: { institution: { select: { name: true } } }
+        });
         if (!user) throw new Error("User not found");
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -147,7 +135,7 @@ export class AuthRepository implements IAuthRepository {
         if (!user.isEmailVerified) throw new Error("Email not verified");
 
         const token = jwt.sign(
-            { id: user.id, role: user.role, institutionId: user.institutionId },
+            { id: user.id, role: user.role, institutionId: user.institutionId, institutionName: user.institution?.name },
             process.env.JWT_SECRET!,
             { expiresIn: "1h" }
         );
@@ -155,10 +143,9 @@ export class AuthRepository implements IAuthRepository {
         return {
             token,
             user: {
-                id: user.id,
-                email: user.email,
-                role: user.role,
                 username: user.username,
+                role: user.role,
+                institutionName: user.institution?.name ?? null,
             },
         };
     }

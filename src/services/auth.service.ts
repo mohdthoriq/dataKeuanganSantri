@@ -24,9 +24,10 @@ export class AuthService {
       institution,
     });
 
+    const otpCode = result.data.otpCode;
+
+    // Selalu kirim email jika ada otpCode
     if (result.data.otpCode) {
-
-
       await sendEmail({
         to: result.data.email,
         subject: "OTP Verification",
@@ -38,28 +39,24 @@ export class AuthService {
       });
     }
 
+    // Hide otpCode in production
+    if (config.NODE_ENV === "development") {
+      delete result.data.otpCode;
+    }
+
     return result;
   }
 
   async login(data: { email: string; password: string }) {
     const { email, password } = data;
+    console.log(`🔐 Login attempt for: ${email}`);
 
-    const user = await this.authRepo.findByEmail(email);
-    if (!user) throw new Error("User not found");
+    const result = await this.authRepo.login(email, password);
 
-    if (!user.isEmailVerified) throw new Error("Email not verified");
-
-    const isValid = await bcrypt.compare(password, user.password);
-    if (!isValid) throw new Error("Invalid password");
-
-    const token = jwt.sign(
-      { id: user.id, role: user.role, institutionId: user.institutionId },
-      config.JWT_SECRET,
-      { expiresIn: "1h" }
-    );
-
-    return { user, token };
+    console.log(`✅ Login successful for: ${email}`);
+    return result;
   }
+
 
   async requestReset(email: string) {
     const result = await this.authRepo.requestReset(email);

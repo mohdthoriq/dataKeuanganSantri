@@ -24,12 +24,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 7.1.0
- * Query Engine version: ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba
+ * Prisma Client JS version: 7.2.0
+ * Query Engine version: 0c8ef2ce45c83248ab3df073180d5eda9e8be7a3
  */
 Prisma.prismaVersion = {
-  client: "7.1.0",
-  engine: "ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba"
+  client: "7.2.0",
+  engine: "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -184,6 +184,21 @@ exports.Prisma.ProfileScalarFieldEnum = {
   userId: 'userId'
 };
 
+exports.Prisma.InstitutionProfileScalarFieldEnum = {
+  id: 'id',
+  institutionId: 'institutionId',
+  name: 'name',
+  address: 'address',
+  phone: 'phone',
+  email: 'email',
+  website: 'website',
+  logoUrl: 'logoUrl',
+  public_id: 'public_id',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SantriScalarFieldEnum = {
   id: 'id',
   nis: 'nis',
@@ -192,6 +207,8 @@ exports.Prisma.SantriScalarFieldEnum = {
   gender: 'gender',
   waliId: 'waliId',
   institutionId: 'institutionId',
+  waliName: 'waliName',
+  institutionName: 'institutionName',
   isActive: 'isActive',
   createdAt: 'createdAt'
 };
@@ -253,6 +270,7 @@ exports.Prisma.ModelName = {
   Notification: 'Notification',
   PasswordReset: 'PasswordReset',
   Profile: 'Profile',
+  InstitutionProfile: 'InstitutionProfile',
   Santri: 'Santri',
   Transaction: 'Transaction',
   User: 'User'

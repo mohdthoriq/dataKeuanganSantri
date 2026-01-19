@@ -1,16 +1,16 @@
 // src/services/transaction.service.ts
-import type { Transaction, CategoryType } from "../generated";
-import type { ITransactionRepository, ICreateTransactionPayload, ITransactionFilters } from "../repository/transaction.repository";
+import type { Transaction } from "../database";
+import type { ITransactionRepository, ICreateTransactionPayload, ITransactionListParams } from "../repository/transaction.repository";
 
 export class TransactionService {
-  constructor(private transactionRepo: ITransactionRepository) {}
+  constructor(private transactionRepo: ITransactionRepository) { }
 
   createTransaction(payload: ICreateTransactionPayload): Promise<Transaction> {
     return this.transactionRepo.create(payload);
   }
 
-  getTransactions(filters: ITransactionFilters) {
-    return this.transactionRepo.getList(filters);
+  getTransactions(params: ITransactionListParams) {
+    return this.transactionRepo.getList(params);
   }
 
   getTransactionById(id: number): Promise<Transaction | null> {

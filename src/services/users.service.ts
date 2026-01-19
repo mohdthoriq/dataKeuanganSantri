@@ -1,10 +1,10 @@
 import bcrypt from "bcrypt";
-import type { IUserRepository, ICreateUserPayload, IUpdateUserPayload, IGetAllUsersParams } from "../repository/users.repository";
+import type { IUserRepository, ICreateUserPayload, IUpdateUserPayload, IUserListParams } from "../repository/users.repository";
 
 export class UserService {
-  constructor(private userRepo: IUserRepository) {}
+  constructor(private userRepo: IUserRepository) { }
 
-  async getAll(params: IGetAllUsersParams) {
+  async getAll(params: IUserListParams) {
     return this.userRepo.getAll(params);
   }
 

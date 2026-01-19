@@ -57,9 +57,10 @@ model Institution {
 
   users User[] @relation("InstitutionUsers")
 
+  profile    InstitutionProfile?
   santri     Santri[]
   categories Category[]
-  admin      User       @relation("InstitutionAdmin", fields: [createdBy], references: [id])
+  admin      User                @relation("InstitutionAdmin", fields: [createdBy], references: [id])
 }
 
 model Notification {
@@ -97,24 +98,49 @@ model Profile {
   user                User    @relation(fields: [userId], references: [id])
 }
 
-model Santri {
-  id            Int      @id @default(autoincrement())
-  nis           String
-  fullname      String
-  kelas         String
-  gender        String
-  waliId        Int
-  institutionId Int
-  isActive      Boolean  @default(true)
-  createdAt     DateTime @default(now())
+model InstitutionProfile {
+  id            Int @id @default(autoincrement())
+  institutionId Int @unique
+
+  name        String? @unique
+  address     String?
+  phone       String?
+  email       String?
+  website     String?
+  logoUrl     String?
+  public_id   String?
+  description String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // relations
-  wali         User          @relation(fields: [waliId], references: [id])
-  institution  Institution   @relation(fields: [institutionId], references: [id])
+  institution Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
+}
+
+model Santri {
+  id       Int    @id @default(autoincrement())
+  nis      String @unique
+  fullname String
+  kelas    String
+  gender   String
+
+  waliId        Int
+  institutionId Int @unique
+
+  waliName        String?
+  institutionName String?
+
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  wali        User        @relation("WaliSantri", fields: [waliId], references: [id])
+  institution Institution @relation(fields: [institutionId], references: [id])
+
   authAccounts AuthAccount[]
   transactions Transaction[]
 
-  @@unique([nis, institutionId])
+  @@map("Santri")
 }
 
 model Transaction {
@@ -152,23 +178,18 @@ model User {
 
   createdInstitutions Institution[] @relation("InstitutionAdmin")
 
+  santri             Santri[]            @relation("WaliSantri")
   emailVerifications EmailVerification[]
-  santriAsWali       Santri[]
   authAccounts       AuthAccount[]
   transactions       Transaction[]       @relation("AdminTransactions")
   notifications      Notification[]
   passwordResets     PasswordReset[]
 }
 
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated"
+  provider        = "prisma-client-js"
+  output          = "../generated"
+  previewFeatures = ["prismaSchemaFolder"]
 }
 
 datasource db {

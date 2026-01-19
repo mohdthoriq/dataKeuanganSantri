@@ -1,8 +1,9 @@
-// src/prisma.ts
+// src/database.ts
 import { Pool } from "pg";
 import config from "./utils/env";
 import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "./generated";
+import { PrismaClient } from "./generated/index.js";
+import type { User, Institution, Category, EmailVerification, $Enums, Notification, Profile, Santri, Transaction, Prisma, InstitutionProfile } from "./generated/index.js";
 
 let prisma: PrismaClient;
 
@@ -17,5 +18,6 @@ const getPrisma = () => {
 
 export const PrismaInstance = getPrisma();
 
-export default PrismaInstance;
+export type { PrismaClient, User, Institution, Category, EmailVerification, $Enums, Notification, Profile, Santri, Transaction, Prisma, InstitutionProfile }
 
+export default PrismaInstance;

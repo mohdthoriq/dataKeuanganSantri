@@ -8,6 +8,7 @@ model Institution {
 
   users User[] @relation("InstitutionUsers")
 
+  profile InstitutionProfile?
   santri     Santri[]
   categories Category[]
   admin User @relation("InstitutionAdmin", fields: [createdBy], references: [id])

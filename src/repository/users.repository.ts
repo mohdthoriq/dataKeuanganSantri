@@ -1,7 +1,9 @@
 import PrismaInstance from "../database";
 import bcrypt from "bcrypt";
-import type { Prisma, PrismaClient, User, UserRole } from "../generated";
+import type { Prisma, PrismaClient, User, $Enums } from "../database";
 import type { RequestResetResult } from "./auth.repository";
+
+import type { IPaginatedResult, IPaginationParams } from "../types/common";
 
 const prisma = PrismaInstance;
 
@@ -9,34 +11,28 @@ export interface ICreateUserPayload {
   username: string;
   email: string;
   password: string;
-  role: UserRole;
+  role: $Enums.UserRole;
   institutionId?: number;
 }
 
 export interface IUpdateUserPayload {
   username?: string;
   email?: string;
-  role?: UserRole;
+  role?: $Enums.UserRole;
   institutionId?: number | null;
 }
 
-export interface IGetAllUsersParams {
-  page: number;
-  limit: number;
-  search?: string;
+export interface IUserListParams extends IPaginationParams {
   isActive?: boolean;
 }
 
 export interface GetUsersResult extends RequestResetResult {
-    success: boolean;
-    data: Partial<User> & { institution: { id: number; name: string } | null};
+  success: boolean;
+  data: Partial<User> & { institution: { id: number; name: string } | null };
 }
 
 export interface IUserRepository {
-  getAll(params: IGetAllUsersParams): Promise<{
-    data: Partial<User>[];
-    meta: { page: number; limit: number; total: number; totalPages: number };
-  }>;
+  getAll(params: IUserListParams): Promise<IPaginatedResult<Partial<User>>>;
   getById(id: number): Promise<GetUsersResult>;
   create(payload: ICreateUserPayload, admin: { institutionId: number }): Promise<Partial<User>>;
   update(id: number, payload: IUpdateUserPayload): Promise<Partial<User>>;
@@ -45,9 +41,17 @@ export interface IUserRepository {
 }
 
 export class UserRepository implements IUserRepository {
-    constructor(private prisma: PrismaClient) {}
+  constructor(private prisma: PrismaClient) { }
 
-    async getAll({ page, limit, search, isActive }: IGetAllUsersParams) {
+  async getAll(params: IUserListParams): Promise<IPaginatedResult<Partial<User>>> {
+    const {
+      page = 1,
+      limit = 10,
+      search,
+      isActive,
+      sortBy,
+      order = "desc",
+    } = params;
     const skip = (page - 1) * limit;
 
     const where: Prisma.UserWhereInput = {};
@@ -59,12 +63,17 @@ export class UserRepository implements IUserRepository {
     }
     if (isActive !== undefined) where.isActive = isActive;
 
+    const orderBy: Prisma.UserOrderByWithRelationInput = {};
+    if (sortBy === "username") orderBy.username = order;
+    else if (sortBy === "email") orderBy.email = order;
+    else orderBy.createdAt = order;
+
     const [data, total] = await this.prisma.$transaction([
       prisma.user.findMany({
         where,
         skip,
         take: limit,
-        orderBy: { createdAt: "desc" },
+        orderBy,
         select: {
           id: true,
           username: true,

@@ -2,7 +2,8 @@
 import type { Request, Response } from "express";
 import { successResponse } from "../utils/response";
 import type { CategoryService, ICreateCategoryPayload, IUpdateCategoryPayload } from "../services/category.service";
-import { CategoryType } from "../generated";
+import type { ICategoryListParams } from "../repository/category.repository";
+import type { $Enums } from "../database";
 
 export class CategoryController {
   constructor(private categoryService: CategoryService) { }
@@ -16,18 +17,18 @@ export class CategoryController {
   };
 
   getCategories = async (req: Request, res: Response) => {
-    const { institutionId, type, isActive, search } = req.query;
+    const { institutionId, type, isActive, search, page, limit, sortBy, order } = req.query;
+    if (!institutionId) throw new Error("institutionId is required");
 
-    const params: {
-      institutionId: number;
-      type?: CategoryType;
-      isActive?: boolean;
-      search?: string;
-    } = {
+    const params: ICategoryListParams = {
       institutionId: Number(institutionId),
-      ...(type && { type: type as CategoryType }),
+      ...(type && { type: type as $Enums.CategoryType }),
       ...(isActive !== undefined && { isActive: isActive === "true" }),
       ...(search && { search: search as string }),
+      ...(page && { page: Number(page) }),
+      ...(limit && { limit: Number(limit) }),
+      ...(sortBy && { sortBy: sortBy as string }),
+      ...(order && { order: order as "asc" | "desc" }),
     };
 
     const categories = await this.categoryService.getCategories(params);

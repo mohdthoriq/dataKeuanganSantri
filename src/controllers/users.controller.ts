@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import type { UserService } from "../services/users.service";
 import { successResponse } from "../utils/response";
-import type { IGetAllUsersParams } from "../repository/users.repository";
+import type { IUserListParams } from "../repository/users.repository";
 
 export interface IUsersController {
   getAllUsers(req: Request, res: Response): Promise<void>;
@@ -16,18 +16,16 @@ export class UsersController implements IUsersController {
   constructor(private usersService: UserService) { }
 
   getAllUsers = async (req: Request, res: Response) => {
-    const page = Number(req.query.page) || 1;
-    const limit = Number(req.query.limit) || 10;
+    const { page, limit, search, isActive, sortBy, order } = req.query;
 
-    const params: IGetAllUsersParams = { page, limit };
-
-    if (typeof req.query.search === "string") {
-      params.search = req.query.search;
-    }
-
-    if (req.query.isActive !== undefined) {
-      params.isActive = req.query.isActive === "true";
-    }
+    const params: IUserListParams = {
+      ...(page && { page: Number(page) }),
+      ...(limit && { limit: Number(limit) }),
+      ...(search && { search: search as string }),
+      ...(isActive !== undefined && { isActive: isActive === "true" }),
+      ...(sortBy && { sortBy: sortBy as string }),
+      ...(order && { order: order as "asc" | "desc" }),
+    };
 
     const result = await this.usersService.getAll(params);
 

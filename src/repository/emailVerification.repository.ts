@@ -1,5 +1,5 @@
 import { randomInt } from "crypto";
-import type { PrismaClient, EmailVerification } from "../generated";
+import type { PrismaClient, EmailVerification, Prisma } from "../database";
 import PrismaInstance from "../database";
 
 const prisma = PrismaInstance;
@@ -42,17 +42,17 @@ export class EmailVerificationRepository implements IEmailVerificationRepository
 
     if (!record) throw new Error("Invalid OTP");
 
-    await this.prisma.$transaction([
-      this.prisma.emailVerification.update({
+    await this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+      await tx.emailVerification.update({
         where: { id: record.id },
         data: { isUsed: true },
-      }),
-      this.prisma.user.update({
+      });
+
+      await tx.user.update({
         where: { id: userId },
         data: { isEmailVerified: true },
-      }),
-    ]);
-    
+      });
+    });
     return true;
   }
 

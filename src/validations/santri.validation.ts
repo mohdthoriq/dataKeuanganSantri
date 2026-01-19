@@ -17,13 +17,16 @@ export const createSantriValidation = [
 
   body("gender")
     .trim()
-    .notEmpty().withMessage("Gender wajib diisi"),
+    .notEmpty().withMessage("Gender wajib diisi")
+    .isIn(["Laki-laki", "Perempuan"]).withMessage("Gender harus Laki-laki atau Perempuan"),
 
-  body("waliId")
-    .isInt().withMessage("Wali ID harus berupa angka"),
+  body("waliName")
+    .trim()
+    .notEmpty().withMessage("Nama wali wajib diisi"),
 
-  body("institutionId")
-    .isInt().withMessage("Institution ID harus berupa angka"),
+  body("institutionName")
+    .trim()
+    .notEmpty().withMessage("Nama institusi wajib diisi"),
 ];
 
 export const updateSantriValidation = [
@@ -33,15 +36,12 @@ export const updateSantriValidation = [
   body("nis").optional().trim().notEmpty().isNumeric().isLength({ min: 6, max: 10 }).withMessage("NIS harus 6–10 digit"),
   body("fullname").optional().trim().notEmpty(),
   body("kelas").optional().trim().notEmpty(),
-  body("waliId").optional().isInt(),
+  body("gender").optional().isIn(["Laki-laki", "Perempuan"]).withMessage("Gender harus Laki-laki atau Perempuan"),
+  body("waliName").optional().trim().notEmpty(),
+  body("institutionName").optional().trim().notEmpty(),
 ];
 
 export const santriIdValidation = [
   param("id")
     .isInt().withMessage("Santri ID harus berupa angka"),
-];
-
-export const waliIdValidation = [
-  param("id")
-    .isInt().withMessage("Wali ID harus berupa angka"),
 ];

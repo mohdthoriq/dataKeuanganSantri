@@ -18,6 +18,8 @@ import transactionRouter from "./routes/transaction.router";
 import categoryRouter from "./routes/category.router";
 import notificationRouter from "./routes/notification.router";
 import profileRouter from "./routes/profile.router";
+import profileInstitutionRouter from "./routes/profileInstitution.router";
+
 
 const app: Application = express()
 
@@ -55,9 +57,10 @@ app.use('/api/profile', authenticate, profileRouter)
 app.use('/api/users', authenticate, usersRouter)
 app.use('/api/email-verification', emailVerificationRouter)
 app.use('/api/institution', institutionRouter)
-app.use('/api/santri', santriRouter)
-app.use('/api/transaction', transactionRouter)
-app.use('/api/category', categoryRouter)
+app.use('/api/profileinstitution', authenticate, profileInstitutionRouter);
+app.use('/api/santri', authenticate, santriRouter)
+app.use('/api/transaction', authenticate, transactionRouter)
+app.use('/api/category', authenticate, categoryRouter)
 app.use('/api/notification', authenticate, notificationRouter)
 
 
