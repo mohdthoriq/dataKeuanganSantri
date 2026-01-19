@@ -122,7 +122,7 @@ model Santri {
   gender   String
 
   waliId        Int
-  institutionId Int @unique
+  institutionId Int
 
   waliName        String?
   institutionName String?

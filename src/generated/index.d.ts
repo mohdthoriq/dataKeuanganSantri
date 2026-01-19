@@ -15909,7 +15909,6 @@ export namespace Prisma {
   export type SantriWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     nis?: string
-    institutionId?: number
     AND?: SantriWhereInput | SantriWhereInput[]
     OR?: SantriWhereInput[]
     NOT?: SantriWhereInput | SantriWhereInput[]
@@ -15917,6 +15916,7 @@ export namespace Prisma {
     kelas?: StringFilter<"Santri"> | string
     gender?: StringFilter<"Santri"> | string
     waliId?: IntFilter<"Santri"> | number
+    institutionId?: IntFilter<"Santri"> | number
     waliName?: StringNullableFilter<"Santri"> | string | null
     institutionName?: StringNullableFilter<"Santri"> | string | null
     isActive?: BoolFilter<"Santri"> | boolean
@@ -15925,7 +15925,7 @@ export namespace Prisma {
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
     authAccounts?: AuthAccountListRelationFilter
     transactions?: TransactionListRelationFilter
-  }, "id" | "nis" | "institutionId">
+  }, "id" | "nis">
 
   export type SantriOrderByWithAggregationInput = {
     id?: SortOrder
