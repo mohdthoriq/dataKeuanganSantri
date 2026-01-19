@@ -1,11 +1,8 @@
-import PrismaInstance from "../database";
 import bcrypt from "bcrypt";
 import { randomInt } from "crypto";
 import jwt from "jsonwebtoken";
 import type { PrismaClient, Users } from "../database";
-import { sendEmail } from "../utils/apiKey";
-
-const prisma = PrismaInstance;
+import config from "../utils/env";
 
 export type RegisterAdminPayload = {
     username: string;
@@ -127,7 +124,7 @@ export class AuthRepository implements IAuthRepository {
 
         const token = jwt.sign(
             { id: user.id, role: user.role, institutionId: user.institutionId, institutionName: user.institution?.name },
-            process.env.JWT_SECRET!,
+            config.JWT_SECRET!,
             { expiresIn: "1h" }
         );
 
