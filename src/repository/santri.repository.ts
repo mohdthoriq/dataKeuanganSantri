@@ -116,9 +116,11 @@ export class SantriRepository implements ISantriRepository {
 
     const skip = (page - 1) * limit;
 
-    const where: Prisma.SantriWhereInput = {
-      institutionId,
-    };
+    const where: Prisma.SantriWhereInput = {};
+
+    if (institutionId) {
+      where.institutionId = institutionId;
+    }
 
     if (search) {
       where.OR = [
@@ -138,7 +140,6 @@ export class SantriRepository implements ISantriRepository {
     } else if (sortBy === "fullname") {
       orderBy.fullname = order;
     } else if (sortBy === "wali") {
-      // Sort by the stored waliName field instead of relation
       orderBy.waliName = order;
     } else {
       orderBy.createdAt = order;
@@ -153,7 +154,15 @@ export class SantriRepository implements ISantriRepository {
         include: {
           wali: {
             select: {
+              id: true,
               username: true,
+              email: true,
+              profile: {
+                select: {
+                  name: true,
+                  phone: true,
+                }
+              }
             },
           },
           institution: {
@@ -183,7 +192,10 @@ export class SantriRepository implements ISantriRepository {
       include: {
         wali: {
           select: {
+            id: true,
             username: true,
+            email: true,
+            profile: true
           },
         },
         institution: {
