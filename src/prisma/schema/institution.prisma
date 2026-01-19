@@ -2,12 +2,16 @@ model Institution {
   id         Int        @id @default(autoincrement())
   name       String     @unique
   createdBy  Int
-  isActive   Boolean    @default(true)
-  createdAt  DateTime   @default(now())
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+
+
+  users Users[] @relation("InstitutionUsers")
+
+  profile InstitutionProfile?
   categories Category[]
   admin      Users       @relation("InstitutionAdmin", fields: [createdBy], references: [id])
   santri     Santri[]
-  users      Users[]     @relation("InstitutionUsers")
 
   @@map("institution")
 }

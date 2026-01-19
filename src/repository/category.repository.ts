@@ -1,20 +1,20 @@
 // src/repository/category.repository.ts
-import type { PrismaClient, Category, Prisma, category_type } from "../database";
+import type { PrismaClient, Category, Prisma } from "../database";
 import type { IPaginatedResult, IPaginationParams } from "../types/common";
 
 export interface ICategoryListParams extends IPaginationParams {
   institutionId: number;
-  type?: category_type;
+  type?: "PEMASUKAN" | "PENGELUARAN";
   isActive?: boolean;
 }
 
 export interface ICategoryRepository {
-  create(data: { name: string; type: category_type; institutionId: number }): Promise<Category>;
+  create(data: { name: string; type: "PEMASUKAN" | "PENGELUARAN"; institutionId: number }): Promise<Category>;
   getList(params: ICategoryListParams): Promise<IPaginatedResult<Category>>;
   getById(id: number): Promise<Category>;
   updateById(
     id: number,
-    payload: { name?: string; type?: category_type; isActive?: boolean }
+    payload: { name?: string; type?: "PEMASUKAN" | "PENGELUARAN"; isActive?: boolean }
   ): Promise<Category>;
   updateStatusById(id: number, isActive: boolean): Promise<Category>;
   deleteById(id: number): Promise<Category>;
@@ -23,7 +23,7 @@ export interface ICategoryRepository {
 export class CategoryRepository implements ICategoryRepository {
   constructor(private prisma: PrismaClient) { }
 
-  async create(data: { name: string; type: category_type; institutionId: number }) {
+  async create(data: { name: string; type: "PEMASUKAN" | "PENGELUARAN"; institutionId: number }) {
     const exist = await this.prisma.category.findFirst({
       where: { name: data.name, institutionId: data.institutionId },
     });
@@ -89,11 +89,13 @@ export class CategoryRepository implements ICategoryRepository {
     return category;
   }
 
-  async updateById(id: number, payload: { name?: string; type?: category_type; isActive?: boolean }) {
+
+  async updateById(id: number, payload: { name?: string; type?: "PEMASUKAN" | "PENGELUARAN"; isActive?: boolean }) {
     const exists = await this.prisma.category.findUnique({ where: { id } });
     if (!exists) throw new Error("Category not found");
 
-    const data: Partial<{ name: string; type: category_type; isActive: boolean }> = {};
+    const data: Partial<{ name: string; type: "PEMASUKAN" | "PENGELUARAN"; isActive: boolean }> = {};
+
     if (payload.name !== undefined) data.name = payload.name;
     if (payload.type !== undefined) data.type = payload.type;
     if (payload.isActive !== undefined) data.isActive = payload.isActive;

@@ -49,6 +49,11 @@ export type PasswordReset = $Result.DefaultSelection<Prisma.$PasswordResetPayloa
  */
 export type Profile = $Result.DefaultSelection<Prisma.$ProfilePayload>
 /**
+ * Model InstitutionProfile
+ * 
+ */
+export type InstitutionProfile = $Result.DefaultSelection<Prisma.$InstitutionProfilePayload>
+/**
  * Model Santri
  * 
  */
@@ -279,6 +284,16 @@ export class PrismaClient<
     * ```
     */
   get profile(): Prisma.ProfileDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.institutionProfile`: Exposes CRUD operations for the **InstitutionProfile** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more InstitutionProfiles
+    * const institutionProfiles = await prisma.institutionProfile.findMany()
+    * ```
+    */
+  get institutionProfile(): Prisma.InstitutionProfileDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.santri`: Exposes CRUD operations for the **Santri** model.
@@ -750,6 +765,7 @@ export namespace Prisma {
     Notification: 'Notification',
     PasswordReset: 'PasswordReset',
     Profile: 'Profile',
+    InstitutionProfile: 'InstitutionProfile',
     Santri: 'Santri',
     Transaction: 'Transaction',
     Users: 'Users'
@@ -768,7 +784,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "emailVerification" | "authAccount" | "category" | "institution" | "notification" | "passwordReset" | "profile" | "santri" | "transaction" | "users"
+      modelProps: "emailVerification" | "authAccount" | "category" | "institution" | "notification" | "passwordReset" | "profile" | "institutionProfile" | "santri" | "transaction" | "users"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1290,6 +1306,80 @@ export namespace Prisma {
           }
         }
       }
+      InstitutionProfile: {
+        payload: Prisma.$InstitutionProfilePayload<ExtArgs>
+        fields: Prisma.InstitutionProfileFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.InstitutionProfileFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstitutionProfilePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.InstitutionProfileFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstitutionProfilePayload>
+          }
+          findFirst: {
+            args: Prisma.InstitutionProfileFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstitutionProfilePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.InstitutionProfileFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstitutionProfilePayload>
+          }
+          findMany: {
+            args: Prisma.InstitutionProfileFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstitutionProfilePayload>[]
+          }
+          create: {
+            args: Prisma.InstitutionProfileCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstitutionProfilePayload>
+          }
+          createMany: {
+            args: Prisma.InstitutionProfileCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.InstitutionProfileCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstitutionProfilePayload>[]
+          }
+          delete: {
+            args: Prisma.InstitutionProfileDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstitutionProfilePayload>
+          }
+          update: {
+            args: Prisma.InstitutionProfileUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstitutionProfilePayload>
+          }
+          deleteMany: {
+            args: Prisma.InstitutionProfileDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.InstitutionProfileUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.InstitutionProfileUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstitutionProfilePayload>[]
+          }
+          upsert: {
+            args: Prisma.InstitutionProfileUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InstitutionProfilePayload>
+          }
+          aggregate: {
+            args: Prisma.InstitutionProfileAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateInstitutionProfile>
+          }
+          groupBy: {
+            args: Prisma.InstitutionProfileGroupByArgs<ExtArgs>
+            result: $Utils.Optional<InstitutionProfileGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.InstitutionProfileCountArgs<ExtArgs>
+            result: $Utils.Optional<InstitutionProfileCountAggregateOutputType> | number
+          }
+        }
+      }
       Santri: {
         payload: Prisma.$SantriPayload<ExtArgs>
         fields: Prisma.SantriFieldRefs
@@ -1627,6 +1717,7 @@ export namespace Prisma {
     notification?: NotificationOmit
     passwordReset?: PasswordResetOmit
     profile?: ProfileOmit
+    institutionProfile?: InstitutionProfileOmit
     santri?: SantriOmit
     transaction?: TransactionOmit
     users?: UsersOmit
@@ -1741,15 +1832,15 @@ export namespace Prisma {
    */
 
   export type InstitutionCountOutputType = {
+    users: number
     categories: number
     santri: number
-    users: number
   }
 
   export type InstitutionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | InstitutionCountOutputTypeCountUsersArgs
     categories?: boolean | InstitutionCountOutputTypeCountCategoriesArgs
     santri?: boolean | InstitutionCountOutputTypeCountSantriArgs
-    users?: boolean | InstitutionCountOutputTypeCountUsersArgs
   }
 
   // Custom InputTypes
@@ -1766,6 +1857,13 @@ export namespace Prisma {
   /**
    * InstitutionCountOutputType without action
    */
+  export type InstitutionCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UsersWhereInput
+  }
+
+  /**
+   * InstitutionCountOutputType without action
+   */
   export type InstitutionCountOutputTypeCountCategoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CategoryWhereInput
   }
@@ -1775,13 +1873,6 @@ export namespace Prisma {
    */
   export type InstitutionCountOutputTypeCountSantriArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SantriWhereInput
-  }
-
-  /**
-   * InstitutionCountOutputType without action
-   */
-  export type InstitutionCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UsersWhereInput
   }
 
 
@@ -5530,10 +5621,11 @@ export namespace Prisma {
     createdBy?: boolean
     isActive?: boolean
     createdAt?: boolean
+    users?: boolean | Institution$usersArgs<ExtArgs>
+    profile?: boolean | Institution$profileArgs<ExtArgs>
     categories?: boolean | Institution$categoriesArgs<ExtArgs>
     admin?: boolean | UsersDefaultArgs<ExtArgs>
     santri?: boolean | Institution$santriArgs<ExtArgs>
-    users?: boolean | Institution$usersArgs<ExtArgs>
     _count?: boolean | InstitutionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["institution"]>
 
@@ -5565,10 +5657,11 @@ export namespace Prisma {
 
   export type InstitutionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdBy" | "isActive" | "createdAt", ExtArgs["result"]["institution"]>
   export type InstitutionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | Institution$usersArgs<ExtArgs>
+    profile?: boolean | Institution$profileArgs<ExtArgs>
     categories?: boolean | Institution$categoriesArgs<ExtArgs>
     admin?: boolean | UsersDefaultArgs<ExtArgs>
     santri?: boolean | Institution$santriArgs<ExtArgs>
-    users?: boolean | Institution$usersArgs<ExtArgs>
     _count?: boolean | InstitutionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type InstitutionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5581,10 +5674,11 @@ export namespace Prisma {
   export type $InstitutionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Institution"
     objects: {
+      users: Prisma.$UsersPayload<ExtArgs>[]
+      profile: Prisma.$InstitutionProfilePayload<ExtArgs> | null
       categories: Prisma.$CategoryPayload<ExtArgs>[]
       admin: Prisma.$UsersPayload<ExtArgs>
       santri: Prisma.$SantriPayload<ExtArgs>[]
-      users: Prisma.$UsersPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -5986,10 +6080,11 @@ export namespace Prisma {
    */
   export interface Prisma__InstitutionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    users<T extends Institution$usersArgs<ExtArgs> = {}>(args?: Subset<T, Institution$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    profile<T extends Institution$profileArgs<ExtArgs> = {}>(args?: Subset<T, Institution$profileArgs<ExtArgs>>): Prisma__InstitutionProfileClient<$Result.GetResult<Prisma.$InstitutionProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     categories<T extends Institution$categoriesArgs<ExtArgs> = {}>(args?: Subset<T, Institution$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     admin<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     santri<T extends Institution$santriArgs<ExtArgs> = {}>(args?: Subset<T, Institution$santriArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SantriPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    users<T extends Institution$usersArgs<ExtArgs> = {}>(args?: Subset<T, Institution$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6420,6 +6515,49 @@ export namespace Prisma {
   }
 
   /**
+   * Institution.users
+   */
+  export type Institution$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Users
+     */
+    select?: UsersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Users
+     */
+    omit?: UsersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsersInclude<ExtArgs> | null
+    where?: UsersWhereInput
+    orderBy?: UsersOrderByWithRelationInput | UsersOrderByWithRelationInput[]
+    cursor?: UsersWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UsersScalarFieldEnum | UsersScalarFieldEnum[]
+  }
+
+  /**
+   * Institution.profile
+   */
+  export type Institution$profileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InstitutionProfile
+     */
+    select?: InstitutionProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InstitutionProfile
+     */
+    omit?: InstitutionProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstitutionProfileInclude<ExtArgs> | null
+    where?: InstitutionProfileWhereInput
+  }
+
+  /**
    * Institution.categories
    */
   export type Institution$categoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6465,30 +6603,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SantriScalarFieldEnum | SantriScalarFieldEnum[]
-  }
-
-  /**
-   * Institution.users
-   */
-  export type Institution$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Users
-     */
-    select?: UsersSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Users
-     */
-    omit?: UsersOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UsersInclude<ExtArgs> | null
-    where?: UsersWhereInput
-    orderBy?: UsersOrderByWithRelationInput | UsersOrderByWithRelationInput[]
-    cursor?: UsersWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: UsersScalarFieldEnum | UsersScalarFieldEnum[]
   }
 
   /**
@@ -9877,6 +9991,1193 @@ export namespace Prisma {
 
 
   /**
+   * Model InstitutionProfile
+   */
+
+  export type AggregateInstitutionProfile = {
+    _count: InstitutionProfileCountAggregateOutputType | null
+    _avg: InstitutionProfileAvgAggregateOutputType | null
+    _sum: InstitutionProfileSumAggregateOutputType | null
+    _min: InstitutionProfileMinAggregateOutputType | null
+    _max: InstitutionProfileMaxAggregateOutputType | null
+  }
+
+  export type InstitutionProfileAvgAggregateOutputType = {
+    id: number | null
+    institutionId: number | null
+  }
+
+  export type InstitutionProfileSumAggregateOutputType = {
+    id: number | null
+    institutionId: number | null
+  }
+
+  export type InstitutionProfileMinAggregateOutputType = {
+    id: number | null
+    institutionId: number | null
+    name: string | null
+    address: string | null
+    phone: string | null
+    email: string | null
+    website: string | null
+    logoUrl: string | null
+    public_id: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type InstitutionProfileMaxAggregateOutputType = {
+    id: number | null
+    institutionId: number | null
+    name: string | null
+    address: string | null
+    phone: string | null
+    email: string | null
+    website: string | null
+    logoUrl: string | null
+    public_id: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type InstitutionProfileCountAggregateOutputType = {
+    id: number
+    institutionId: number
+    name: number
+    address: number
+    phone: number
+    email: number
+    website: number
+    logoUrl: number
+    public_id: number
+    description: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type InstitutionProfileAvgAggregateInputType = {
+    id?: true
+    institutionId?: true
+  }
+
+  export type InstitutionProfileSumAggregateInputType = {
+    id?: true
+    institutionId?: true
+  }
+
+  export type InstitutionProfileMinAggregateInputType = {
+    id?: true
+    institutionId?: true
+    name?: true
+    address?: true
+    phone?: true
+    email?: true
+    website?: true
+    logoUrl?: true
+    public_id?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type InstitutionProfileMaxAggregateInputType = {
+    id?: true
+    institutionId?: true
+    name?: true
+    address?: true
+    phone?: true
+    email?: true
+    website?: true
+    logoUrl?: true
+    public_id?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type InstitutionProfileCountAggregateInputType = {
+    id?: true
+    institutionId?: true
+    name?: true
+    address?: true
+    phone?: true
+    email?: true
+    website?: true
+    logoUrl?: true
+    public_id?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type InstitutionProfileAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which InstitutionProfile to aggregate.
+     */
+    where?: InstitutionProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InstitutionProfiles to fetch.
+     */
+    orderBy?: InstitutionProfileOrderByWithRelationInput | InstitutionProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: InstitutionProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InstitutionProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InstitutionProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned InstitutionProfiles
+    **/
+    _count?: true | InstitutionProfileCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: InstitutionProfileAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: InstitutionProfileSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: InstitutionProfileMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: InstitutionProfileMaxAggregateInputType
+  }
+
+  export type GetInstitutionProfileAggregateType<T extends InstitutionProfileAggregateArgs> = {
+        [P in keyof T & keyof AggregateInstitutionProfile]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateInstitutionProfile[P]>
+      : GetScalarType<T[P], AggregateInstitutionProfile[P]>
+  }
+
+
+
+
+  export type InstitutionProfileGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InstitutionProfileWhereInput
+    orderBy?: InstitutionProfileOrderByWithAggregationInput | InstitutionProfileOrderByWithAggregationInput[]
+    by: InstitutionProfileScalarFieldEnum[] | InstitutionProfileScalarFieldEnum
+    having?: InstitutionProfileScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: InstitutionProfileCountAggregateInputType | true
+    _avg?: InstitutionProfileAvgAggregateInputType
+    _sum?: InstitutionProfileSumAggregateInputType
+    _min?: InstitutionProfileMinAggregateInputType
+    _max?: InstitutionProfileMaxAggregateInputType
+  }
+
+  export type InstitutionProfileGroupByOutputType = {
+    id: number
+    institutionId: number
+    name: string | null
+    address: string | null
+    phone: string | null
+    email: string | null
+    website: string | null
+    logoUrl: string | null
+    public_id: string | null
+    description: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: InstitutionProfileCountAggregateOutputType | null
+    _avg: InstitutionProfileAvgAggregateOutputType | null
+    _sum: InstitutionProfileSumAggregateOutputType | null
+    _min: InstitutionProfileMinAggregateOutputType | null
+    _max: InstitutionProfileMaxAggregateOutputType | null
+  }
+
+  type GetInstitutionProfileGroupByPayload<T extends InstitutionProfileGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<InstitutionProfileGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof InstitutionProfileGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], InstitutionProfileGroupByOutputType[P]>
+            : GetScalarType<T[P], InstitutionProfileGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type InstitutionProfileSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    institutionId?: boolean
+    name?: boolean
+    address?: boolean
+    phone?: boolean
+    email?: boolean
+    website?: boolean
+    logoUrl?: boolean
+    public_id?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["institutionProfile"]>
+
+  export type InstitutionProfileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    institutionId?: boolean
+    name?: boolean
+    address?: boolean
+    phone?: boolean
+    email?: boolean
+    website?: boolean
+    logoUrl?: boolean
+    public_id?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["institutionProfile"]>
+
+  export type InstitutionProfileSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    institutionId?: boolean
+    name?: boolean
+    address?: boolean
+    phone?: boolean
+    email?: boolean
+    website?: boolean
+    logoUrl?: boolean
+    public_id?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["institutionProfile"]>
+
+  export type InstitutionProfileSelectScalar = {
+    id?: boolean
+    institutionId?: boolean
+    name?: boolean
+    address?: boolean
+    phone?: boolean
+    email?: boolean
+    website?: boolean
+    logoUrl?: boolean
+    public_id?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type InstitutionProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "institutionId" | "name" | "address" | "phone" | "email" | "website" | "logoUrl" | "public_id" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["institutionProfile"]>
+  export type InstitutionProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
+  }
+  export type InstitutionProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
+  }
+  export type InstitutionProfileIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
+  }
+
+  export type $InstitutionProfilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "InstitutionProfile"
+    objects: {
+      institution: Prisma.$InstitutionPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      institutionId: number
+      name: string | null
+      address: string | null
+      phone: string | null
+      email: string | null
+      website: string | null
+      logoUrl: string | null
+      public_id: string | null
+      description: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["institutionProfile"]>
+    composites: {}
+  }
+
+  type InstitutionProfileGetPayload<S extends boolean | null | undefined | InstitutionProfileDefaultArgs> = $Result.GetResult<Prisma.$InstitutionProfilePayload, S>
+
+  type InstitutionProfileCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<InstitutionProfileFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: InstitutionProfileCountAggregateInputType | true
+    }
+
+  export interface InstitutionProfileDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['InstitutionProfile'], meta: { name: 'InstitutionProfile' } }
+    /**
+     * Find zero or one InstitutionProfile that matches the filter.
+     * @param {InstitutionProfileFindUniqueArgs} args - Arguments to find a InstitutionProfile
+     * @example
+     * // Get one InstitutionProfile
+     * const institutionProfile = await prisma.institutionProfile.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends InstitutionProfileFindUniqueArgs>(args: SelectSubset<T, InstitutionProfileFindUniqueArgs<ExtArgs>>): Prisma__InstitutionProfileClient<$Result.GetResult<Prisma.$InstitutionProfilePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one InstitutionProfile that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {InstitutionProfileFindUniqueOrThrowArgs} args - Arguments to find a InstitutionProfile
+     * @example
+     * // Get one InstitutionProfile
+     * const institutionProfile = await prisma.institutionProfile.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends InstitutionProfileFindUniqueOrThrowArgs>(args: SelectSubset<T, InstitutionProfileFindUniqueOrThrowArgs<ExtArgs>>): Prisma__InstitutionProfileClient<$Result.GetResult<Prisma.$InstitutionProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first InstitutionProfile that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InstitutionProfileFindFirstArgs} args - Arguments to find a InstitutionProfile
+     * @example
+     * // Get one InstitutionProfile
+     * const institutionProfile = await prisma.institutionProfile.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends InstitutionProfileFindFirstArgs>(args?: SelectSubset<T, InstitutionProfileFindFirstArgs<ExtArgs>>): Prisma__InstitutionProfileClient<$Result.GetResult<Prisma.$InstitutionProfilePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first InstitutionProfile that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InstitutionProfileFindFirstOrThrowArgs} args - Arguments to find a InstitutionProfile
+     * @example
+     * // Get one InstitutionProfile
+     * const institutionProfile = await prisma.institutionProfile.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends InstitutionProfileFindFirstOrThrowArgs>(args?: SelectSubset<T, InstitutionProfileFindFirstOrThrowArgs<ExtArgs>>): Prisma__InstitutionProfileClient<$Result.GetResult<Prisma.$InstitutionProfilePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more InstitutionProfiles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InstitutionProfileFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all InstitutionProfiles
+     * const institutionProfiles = await prisma.institutionProfile.findMany()
+     * 
+     * // Get first 10 InstitutionProfiles
+     * const institutionProfiles = await prisma.institutionProfile.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const institutionProfileWithIdOnly = await prisma.institutionProfile.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends InstitutionProfileFindManyArgs>(args?: SelectSubset<T, InstitutionProfileFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InstitutionProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a InstitutionProfile.
+     * @param {InstitutionProfileCreateArgs} args - Arguments to create a InstitutionProfile.
+     * @example
+     * // Create one InstitutionProfile
+     * const InstitutionProfile = await prisma.institutionProfile.create({
+     *   data: {
+     *     // ... data to create a InstitutionProfile
+     *   }
+     * })
+     * 
+     */
+    create<T extends InstitutionProfileCreateArgs>(args: SelectSubset<T, InstitutionProfileCreateArgs<ExtArgs>>): Prisma__InstitutionProfileClient<$Result.GetResult<Prisma.$InstitutionProfilePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many InstitutionProfiles.
+     * @param {InstitutionProfileCreateManyArgs} args - Arguments to create many InstitutionProfiles.
+     * @example
+     * // Create many InstitutionProfiles
+     * const institutionProfile = await prisma.institutionProfile.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends InstitutionProfileCreateManyArgs>(args?: SelectSubset<T, InstitutionProfileCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many InstitutionProfiles and returns the data saved in the database.
+     * @param {InstitutionProfileCreateManyAndReturnArgs} args - Arguments to create many InstitutionProfiles.
+     * @example
+     * // Create many InstitutionProfiles
+     * const institutionProfile = await prisma.institutionProfile.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many InstitutionProfiles and only return the `id`
+     * const institutionProfileWithIdOnly = await prisma.institutionProfile.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends InstitutionProfileCreateManyAndReturnArgs>(args?: SelectSubset<T, InstitutionProfileCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InstitutionProfilePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a InstitutionProfile.
+     * @param {InstitutionProfileDeleteArgs} args - Arguments to delete one InstitutionProfile.
+     * @example
+     * // Delete one InstitutionProfile
+     * const InstitutionProfile = await prisma.institutionProfile.delete({
+     *   where: {
+     *     // ... filter to delete one InstitutionProfile
+     *   }
+     * })
+     * 
+     */
+    delete<T extends InstitutionProfileDeleteArgs>(args: SelectSubset<T, InstitutionProfileDeleteArgs<ExtArgs>>): Prisma__InstitutionProfileClient<$Result.GetResult<Prisma.$InstitutionProfilePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one InstitutionProfile.
+     * @param {InstitutionProfileUpdateArgs} args - Arguments to update one InstitutionProfile.
+     * @example
+     * // Update one InstitutionProfile
+     * const institutionProfile = await prisma.institutionProfile.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends InstitutionProfileUpdateArgs>(args: SelectSubset<T, InstitutionProfileUpdateArgs<ExtArgs>>): Prisma__InstitutionProfileClient<$Result.GetResult<Prisma.$InstitutionProfilePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more InstitutionProfiles.
+     * @param {InstitutionProfileDeleteManyArgs} args - Arguments to filter InstitutionProfiles to delete.
+     * @example
+     * // Delete a few InstitutionProfiles
+     * const { count } = await prisma.institutionProfile.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends InstitutionProfileDeleteManyArgs>(args?: SelectSubset<T, InstitutionProfileDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more InstitutionProfiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InstitutionProfileUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many InstitutionProfiles
+     * const institutionProfile = await prisma.institutionProfile.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends InstitutionProfileUpdateManyArgs>(args: SelectSubset<T, InstitutionProfileUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more InstitutionProfiles and returns the data updated in the database.
+     * @param {InstitutionProfileUpdateManyAndReturnArgs} args - Arguments to update many InstitutionProfiles.
+     * @example
+     * // Update many InstitutionProfiles
+     * const institutionProfile = await prisma.institutionProfile.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more InstitutionProfiles and only return the `id`
+     * const institutionProfileWithIdOnly = await prisma.institutionProfile.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends InstitutionProfileUpdateManyAndReturnArgs>(args: SelectSubset<T, InstitutionProfileUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InstitutionProfilePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one InstitutionProfile.
+     * @param {InstitutionProfileUpsertArgs} args - Arguments to update or create a InstitutionProfile.
+     * @example
+     * // Update or create a InstitutionProfile
+     * const institutionProfile = await prisma.institutionProfile.upsert({
+     *   create: {
+     *     // ... data to create a InstitutionProfile
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the InstitutionProfile we want to update
+     *   }
+     * })
+     */
+    upsert<T extends InstitutionProfileUpsertArgs>(args: SelectSubset<T, InstitutionProfileUpsertArgs<ExtArgs>>): Prisma__InstitutionProfileClient<$Result.GetResult<Prisma.$InstitutionProfilePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of InstitutionProfiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InstitutionProfileCountArgs} args - Arguments to filter InstitutionProfiles to count.
+     * @example
+     * // Count the number of InstitutionProfiles
+     * const count = await prisma.institutionProfile.count({
+     *   where: {
+     *     // ... the filter for the InstitutionProfiles we want to count
+     *   }
+     * })
+    **/
+    count<T extends InstitutionProfileCountArgs>(
+      args?: Subset<T, InstitutionProfileCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], InstitutionProfileCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a InstitutionProfile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InstitutionProfileAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends InstitutionProfileAggregateArgs>(args: Subset<T, InstitutionProfileAggregateArgs>): Prisma.PrismaPromise<GetInstitutionProfileAggregateType<T>>
+
+    /**
+     * Group by InstitutionProfile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InstitutionProfileGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends InstitutionProfileGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: InstitutionProfileGroupByArgs['orderBy'] }
+        : { orderBy?: InstitutionProfileGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, InstitutionProfileGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInstitutionProfileGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the InstitutionProfile model
+   */
+  readonly fields: InstitutionProfileFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for InstitutionProfile.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__InstitutionProfileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    institution<T extends InstitutionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InstitutionDefaultArgs<ExtArgs>>): Prisma__InstitutionClient<$Result.GetResult<Prisma.$InstitutionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the InstitutionProfile model
+   */
+  interface InstitutionProfileFieldRefs {
+    readonly id: FieldRef<"InstitutionProfile", 'Int'>
+    readonly institutionId: FieldRef<"InstitutionProfile", 'Int'>
+    readonly name: FieldRef<"InstitutionProfile", 'String'>
+    readonly address: FieldRef<"InstitutionProfile", 'String'>
+    readonly phone: FieldRef<"InstitutionProfile", 'String'>
+    readonly email: FieldRef<"InstitutionProfile", 'String'>
+    readonly website: FieldRef<"InstitutionProfile", 'String'>
+    readonly logoUrl: FieldRef<"InstitutionProfile", 'String'>
+    readonly public_id: FieldRef<"InstitutionProfile", 'String'>
+    readonly description: FieldRef<"InstitutionProfile", 'String'>
+    readonly createdAt: FieldRef<"InstitutionProfile", 'DateTime'>
+    readonly updatedAt: FieldRef<"InstitutionProfile", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * InstitutionProfile findUnique
+   */
+  export type InstitutionProfileFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InstitutionProfile
+     */
+    select?: InstitutionProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InstitutionProfile
+     */
+    omit?: InstitutionProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstitutionProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which InstitutionProfile to fetch.
+     */
+    where: InstitutionProfileWhereUniqueInput
+  }
+
+  /**
+   * InstitutionProfile findUniqueOrThrow
+   */
+  export type InstitutionProfileFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InstitutionProfile
+     */
+    select?: InstitutionProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InstitutionProfile
+     */
+    omit?: InstitutionProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstitutionProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which InstitutionProfile to fetch.
+     */
+    where: InstitutionProfileWhereUniqueInput
+  }
+
+  /**
+   * InstitutionProfile findFirst
+   */
+  export type InstitutionProfileFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InstitutionProfile
+     */
+    select?: InstitutionProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InstitutionProfile
+     */
+    omit?: InstitutionProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstitutionProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which InstitutionProfile to fetch.
+     */
+    where?: InstitutionProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InstitutionProfiles to fetch.
+     */
+    orderBy?: InstitutionProfileOrderByWithRelationInput | InstitutionProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for InstitutionProfiles.
+     */
+    cursor?: InstitutionProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InstitutionProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InstitutionProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InstitutionProfiles.
+     */
+    distinct?: InstitutionProfileScalarFieldEnum | InstitutionProfileScalarFieldEnum[]
+  }
+
+  /**
+   * InstitutionProfile findFirstOrThrow
+   */
+  export type InstitutionProfileFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InstitutionProfile
+     */
+    select?: InstitutionProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InstitutionProfile
+     */
+    omit?: InstitutionProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstitutionProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which InstitutionProfile to fetch.
+     */
+    where?: InstitutionProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InstitutionProfiles to fetch.
+     */
+    orderBy?: InstitutionProfileOrderByWithRelationInput | InstitutionProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for InstitutionProfiles.
+     */
+    cursor?: InstitutionProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InstitutionProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InstitutionProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InstitutionProfiles.
+     */
+    distinct?: InstitutionProfileScalarFieldEnum | InstitutionProfileScalarFieldEnum[]
+  }
+
+  /**
+   * InstitutionProfile findMany
+   */
+  export type InstitutionProfileFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InstitutionProfile
+     */
+    select?: InstitutionProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InstitutionProfile
+     */
+    omit?: InstitutionProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstitutionProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which InstitutionProfiles to fetch.
+     */
+    where?: InstitutionProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InstitutionProfiles to fetch.
+     */
+    orderBy?: InstitutionProfileOrderByWithRelationInput | InstitutionProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing InstitutionProfiles.
+     */
+    cursor?: InstitutionProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InstitutionProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InstitutionProfiles.
+     */
+    skip?: number
+    distinct?: InstitutionProfileScalarFieldEnum | InstitutionProfileScalarFieldEnum[]
+  }
+
+  /**
+   * InstitutionProfile create
+   */
+  export type InstitutionProfileCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InstitutionProfile
+     */
+    select?: InstitutionProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InstitutionProfile
+     */
+    omit?: InstitutionProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstitutionProfileInclude<ExtArgs> | null
+    /**
+     * The data needed to create a InstitutionProfile.
+     */
+    data: XOR<InstitutionProfileCreateInput, InstitutionProfileUncheckedCreateInput>
+  }
+
+  /**
+   * InstitutionProfile createMany
+   */
+  export type InstitutionProfileCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many InstitutionProfiles.
+     */
+    data: InstitutionProfileCreateManyInput | InstitutionProfileCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * InstitutionProfile createManyAndReturn
+   */
+  export type InstitutionProfileCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InstitutionProfile
+     */
+    select?: InstitutionProfileSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the InstitutionProfile
+     */
+    omit?: InstitutionProfileOmit<ExtArgs> | null
+    /**
+     * The data used to create many InstitutionProfiles.
+     */
+    data: InstitutionProfileCreateManyInput | InstitutionProfileCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstitutionProfileIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * InstitutionProfile update
+   */
+  export type InstitutionProfileUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InstitutionProfile
+     */
+    select?: InstitutionProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InstitutionProfile
+     */
+    omit?: InstitutionProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstitutionProfileInclude<ExtArgs> | null
+    /**
+     * The data needed to update a InstitutionProfile.
+     */
+    data: XOR<InstitutionProfileUpdateInput, InstitutionProfileUncheckedUpdateInput>
+    /**
+     * Choose, which InstitutionProfile to update.
+     */
+    where: InstitutionProfileWhereUniqueInput
+  }
+
+  /**
+   * InstitutionProfile updateMany
+   */
+  export type InstitutionProfileUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update InstitutionProfiles.
+     */
+    data: XOR<InstitutionProfileUpdateManyMutationInput, InstitutionProfileUncheckedUpdateManyInput>
+    /**
+     * Filter which InstitutionProfiles to update
+     */
+    where?: InstitutionProfileWhereInput
+    /**
+     * Limit how many InstitutionProfiles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * InstitutionProfile updateManyAndReturn
+   */
+  export type InstitutionProfileUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InstitutionProfile
+     */
+    select?: InstitutionProfileSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the InstitutionProfile
+     */
+    omit?: InstitutionProfileOmit<ExtArgs> | null
+    /**
+     * The data used to update InstitutionProfiles.
+     */
+    data: XOR<InstitutionProfileUpdateManyMutationInput, InstitutionProfileUncheckedUpdateManyInput>
+    /**
+     * Filter which InstitutionProfiles to update
+     */
+    where?: InstitutionProfileWhereInput
+    /**
+     * Limit how many InstitutionProfiles to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstitutionProfileIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * InstitutionProfile upsert
+   */
+  export type InstitutionProfileUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InstitutionProfile
+     */
+    select?: InstitutionProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InstitutionProfile
+     */
+    omit?: InstitutionProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstitutionProfileInclude<ExtArgs> | null
+    /**
+     * The filter to search for the InstitutionProfile to update in case it exists.
+     */
+    where: InstitutionProfileWhereUniqueInput
+    /**
+     * In case the InstitutionProfile found by the `where` argument doesn't exist, create a new InstitutionProfile with this data.
+     */
+    create: XOR<InstitutionProfileCreateInput, InstitutionProfileUncheckedCreateInput>
+    /**
+     * In case the InstitutionProfile was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<InstitutionProfileUpdateInput, InstitutionProfileUncheckedUpdateInput>
+  }
+
+  /**
+   * InstitutionProfile delete
+   */
+  export type InstitutionProfileDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InstitutionProfile
+     */
+    select?: InstitutionProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InstitutionProfile
+     */
+    omit?: InstitutionProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstitutionProfileInclude<ExtArgs> | null
+    /**
+     * Filter which InstitutionProfile to delete.
+     */
+    where: InstitutionProfileWhereUniqueInput
+  }
+
+  /**
+   * InstitutionProfile deleteMany
+   */
+  export type InstitutionProfileDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which InstitutionProfiles to delete
+     */
+    where?: InstitutionProfileWhereInput
+    /**
+     * Limit how many InstitutionProfiles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * InstitutionProfile without action
+   */
+  export type InstitutionProfileDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InstitutionProfile
+     */
+    select?: InstitutionProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InstitutionProfile
+     */
+    omit?: InstitutionProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InstitutionProfileInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Santri
    */
 
@@ -10130,9 +11431,9 @@ export namespace Prisma {
     institutionName?: boolean
     isActive?: boolean
     createdAt?: boolean
-    authAccounts?: boolean | Santri$authAccountsArgs<ExtArgs>
-    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
     wali?: boolean | UsersDefaultArgs<ExtArgs>
+    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
+    authAccounts?: boolean | Santri$authAccountsArgs<ExtArgs>
     transactions?: boolean | Santri$transactionsArgs<ExtArgs>
     _count?: boolean | SantriCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["santri"]>
@@ -10149,8 +11450,8 @@ export namespace Prisma {
     institutionName?: boolean
     isActive?: boolean
     createdAt?: boolean
-    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
     wali?: boolean | UsersDefaultArgs<ExtArgs>
+    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["santri"]>
 
   export type SantriSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10165,8 +11466,8 @@ export namespace Prisma {
     institutionName?: boolean
     isActive?: boolean
     createdAt?: boolean
-    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
     wali?: boolean | UsersDefaultArgs<ExtArgs>
+    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["santri"]>
 
   export type SantriSelectScalar = {
@@ -10185,27 +11486,27 @@ export namespace Prisma {
 
   export type SantriOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nis" | "fullname" | "kelas" | "gender" | "waliId" | "institutionId" | "waliName" | "institutionName" | "isActive" | "createdAt", ExtArgs["result"]["santri"]>
   export type SantriInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    authAccounts?: boolean | Santri$authAccountsArgs<ExtArgs>
-    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
     wali?: boolean | UsersDefaultArgs<ExtArgs>
+    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
+    authAccounts?: boolean | Santri$authAccountsArgs<ExtArgs>
     transactions?: boolean | Santri$transactionsArgs<ExtArgs>
     _count?: boolean | SantriCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SantriIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
     wali?: boolean | UsersDefaultArgs<ExtArgs>
+    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
   }
   export type SantriIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
     wali?: boolean | UsersDefaultArgs<ExtArgs>
+    institution?: boolean | InstitutionDefaultArgs<ExtArgs>
   }
 
   export type $SantriPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Santri"
     objects: {
-      authAccounts: Prisma.$AuthAccountPayload<ExtArgs>[]
-      institution: Prisma.$InstitutionPayload<ExtArgs>
       wali: Prisma.$UsersPayload<ExtArgs>
+      institution: Prisma.$InstitutionPayload<ExtArgs>
+      authAccounts: Prisma.$AuthAccountPayload<ExtArgs>[]
       transactions: Prisma.$TransactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -10614,9 +11915,9 @@ export namespace Prisma {
    */
   export interface Prisma__SantriClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    authAccounts<T extends Santri$authAccountsArgs<ExtArgs> = {}>(args?: Subset<T, Santri$authAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuthAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    institution<T extends InstitutionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InstitutionDefaultArgs<ExtArgs>>): Prisma__InstitutionClient<$Result.GetResult<Prisma.$InstitutionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     wali<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    institution<T extends InstitutionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InstitutionDefaultArgs<ExtArgs>>): Prisma__InstitutionClient<$Result.GetResult<Prisma.$InstitutionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    authAccounts<T extends Santri$authAccountsArgs<ExtArgs> = {}>(args?: Subset<T, Santri$authAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuthAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     transactions<T extends Santri$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Santri$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -13799,6 +15100,24 @@ export namespace Prisma {
   export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
 
 
+  export const InstitutionProfileScalarFieldEnum: {
+    id: 'id',
+    institutionId: 'institutionId',
+    name: 'name',
+    address: 'address',
+    phone: 'phone',
+    email: 'email',
+    website: 'website',
+    logoUrl: 'logoUrl',
+    public_id: 'public_id',
+    description: 'description',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type InstitutionProfileScalarFieldEnum = (typeof InstitutionProfileScalarFieldEnum)[keyof typeof InstitutionProfileScalarFieldEnum]
+
+
   export const SantriScalarFieldEnum: {
     id: 'id',
     nis: 'nis',
@@ -14195,10 +15514,11 @@ export namespace Prisma {
     createdBy?: IntFilter<"Institution"> | number
     isActive?: BoolFilter<"Institution"> | boolean
     createdAt?: DateTimeFilter<"Institution"> | Date | string
+    users?: UsersListRelationFilter
+    profile?: XOR<InstitutionProfileNullableScalarRelationFilter, InstitutionProfileWhereInput> | null
     categories?: CategoryListRelationFilter
     admin?: XOR<UsersScalarRelationFilter, UsersWhereInput>
     santri?: SantriListRelationFilter
-    users?: UsersListRelationFilter
   }
 
   export type InstitutionOrderByWithRelationInput = {
@@ -14207,10 +15527,11 @@ export namespace Prisma {
     createdBy?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
+    users?: UsersOrderByRelationAggregateInput
+    profile?: InstitutionProfileOrderByWithRelationInput
     categories?: CategoryOrderByRelationAggregateInput
     admin?: UsersOrderByWithRelationInput
     santri?: SantriOrderByRelationAggregateInput
-    users?: UsersOrderByRelationAggregateInput
   }
 
   export type InstitutionWhereUniqueInput = Prisma.AtLeast<{
@@ -14222,10 +15543,11 @@ export namespace Prisma {
     createdBy?: IntFilter<"Institution"> | number
     isActive?: BoolFilter<"Institution"> | boolean
     createdAt?: DateTimeFilter<"Institution"> | Date | string
+    users?: UsersListRelationFilter
+    profile?: XOR<InstitutionProfileNullableScalarRelationFilter, InstitutionProfileWhereInput> | null
     categories?: CategoryListRelationFilter
     admin?: XOR<UsersScalarRelationFilter, UsersWhereInput>
     santri?: SantriListRelationFilter
-    users?: UsersListRelationFilter
   }, "id" | "name">
 
   export type InstitutionOrderByWithAggregationInput = {
@@ -14453,6 +15775,98 @@ export namespace Prisma {
     phone?: StringNullableWithAggregatesFilter<"Profile"> | string | null
   }
 
+  export type InstitutionProfileWhereInput = {
+    AND?: InstitutionProfileWhereInput | InstitutionProfileWhereInput[]
+    OR?: InstitutionProfileWhereInput[]
+    NOT?: InstitutionProfileWhereInput | InstitutionProfileWhereInput[]
+    id?: IntFilter<"InstitutionProfile"> | number
+    institutionId?: IntFilter<"InstitutionProfile"> | number
+    name?: StringNullableFilter<"InstitutionProfile"> | string | null
+    address?: StringNullableFilter<"InstitutionProfile"> | string | null
+    phone?: StringNullableFilter<"InstitutionProfile"> | string | null
+    email?: StringNullableFilter<"InstitutionProfile"> | string | null
+    website?: StringNullableFilter<"InstitutionProfile"> | string | null
+    logoUrl?: StringNullableFilter<"InstitutionProfile"> | string | null
+    public_id?: StringNullableFilter<"InstitutionProfile"> | string | null
+    description?: StringNullableFilter<"InstitutionProfile"> | string | null
+    createdAt?: DateTimeFilter<"InstitutionProfile"> | Date | string
+    updatedAt?: DateTimeFilter<"InstitutionProfile"> | Date | string
+    institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
+  }
+
+  export type InstitutionProfileOrderByWithRelationInput = {
+    id?: SortOrder
+    institutionId?: SortOrder
+    name?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    website?: SortOrderInput | SortOrder
+    logoUrl?: SortOrderInput | SortOrder
+    public_id?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    institution?: InstitutionOrderByWithRelationInput
+  }
+
+  export type InstitutionProfileWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    institutionId?: number
+    name?: string
+    AND?: InstitutionProfileWhereInput | InstitutionProfileWhereInput[]
+    OR?: InstitutionProfileWhereInput[]
+    NOT?: InstitutionProfileWhereInput | InstitutionProfileWhereInput[]
+    address?: StringNullableFilter<"InstitutionProfile"> | string | null
+    phone?: StringNullableFilter<"InstitutionProfile"> | string | null
+    email?: StringNullableFilter<"InstitutionProfile"> | string | null
+    website?: StringNullableFilter<"InstitutionProfile"> | string | null
+    logoUrl?: StringNullableFilter<"InstitutionProfile"> | string | null
+    public_id?: StringNullableFilter<"InstitutionProfile"> | string | null
+    description?: StringNullableFilter<"InstitutionProfile"> | string | null
+    createdAt?: DateTimeFilter<"InstitutionProfile"> | Date | string
+    updatedAt?: DateTimeFilter<"InstitutionProfile"> | Date | string
+    institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
+  }, "id" | "institutionId" | "name">
+
+  export type InstitutionProfileOrderByWithAggregationInput = {
+    id?: SortOrder
+    institutionId?: SortOrder
+    name?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    website?: SortOrderInput | SortOrder
+    logoUrl?: SortOrderInput | SortOrder
+    public_id?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: InstitutionProfileCountOrderByAggregateInput
+    _avg?: InstitutionProfileAvgOrderByAggregateInput
+    _max?: InstitutionProfileMaxOrderByAggregateInput
+    _min?: InstitutionProfileMinOrderByAggregateInput
+    _sum?: InstitutionProfileSumOrderByAggregateInput
+  }
+
+  export type InstitutionProfileScalarWhereWithAggregatesInput = {
+    AND?: InstitutionProfileScalarWhereWithAggregatesInput | InstitutionProfileScalarWhereWithAggregatesInput[]
+    OR?: InstitutionProfileScalarWhereWithAggregatesInput[]
+    NOT?: InstitutionProfileScalarWhereWithAggregatesInput | InstitutionProfileScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"InstitutionProfile"> | number
+    institutionId?: IntWithAggregatesFilter<"InstitutionProfile"> | number
+    name?: StringNullableWithAggregatesFilter<"InstitutionProfile"> | string | null
+    address?: StringNullableWithAggregatesFilter<"InstitutionProfile"> | string | null
+    phone?: StringNullableWithAggregatesFilter<"InstitutionProfile"> | string | null
+    email?: StringNullableWithAggregatesFilter<"InstitutionProfile"> | string | null
+    website?: StringNullableWithAggregatesFilter<"InstitutionProfile"> | string | null
+    logoUrl?: StringNullableWithAggregatesFilter<"InstitutionProfile"> | string | null
+    public_id?: StringNullableWithAggregatesFilter<"InstitutionProfile"> | string | null
+    description?: StringNullableWithAggregatesFilter<"InstitutionProfile"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"InstitutionProfile"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"InstitutionProfile"> | Date | string
+  }
+
   export type SantriWhereInput = {
     AND?: SantriWhereInput | SantriWhereInput[]
     OR?: SantriWhereInput[]
@@ -14468,9 +15882,9 @@ export namespace Prisma {
     institutionName?: StringNullableFilter<"Santri"> | string | null
     isActive?: BoolFilter<"Santri"> | boolean
     createdAt?: DateTimeFilter<"Santri"> | Date | string
-    authAccounts?: AuthAccountListRelationFilter
-    institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
     wali?: XOR<UsersScalarRelationFilter, UsersWhereInput>
+    institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
+    authAccounts?: AuthAccountListRelationFilter
     transactions?: TransactionListRelationFilter
   }
 
@@ -14486,15 +15900,16 @@ export namespace Prisma {
     institutionName?: SortOrderInput | SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
-    authAccounts?: AuthAccountOrderByRelationAggregateInput
-    institution?: InstitutionOrderByWithRelationInput
     wali?: UsersOrderByWithRelationInput
+    institution?: InstitutionOrderByWithRelationInput
+    authAccounts?: AuthAccountOrderByRelationAggregateInput
     transactions?: TransactionOrderByRelationAggregateInput
   }
 
   export type SantriWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     nis?: string
+    institutionId?: number
     AND?: SantriWhereInput | SantriWhereInput[]
     OR?: SantriWhereInput[]
     NOT?: SantriWhereInput | SantriWhereInput[]
@@ -14502,16 +15917,15 @@ export namespace Prisma {
     kelas?: StringFilter<"Santri"> | string
     gender?: StringFilter<"Santri"> | string
     waliId?: IntFilter<"Santri"> | number
-    institutionId?: IntFilter<"Santri"> | number
     waliName?: StringNullableFilter<"Santri"> | string | null
     institutionName?: StringNullableFilter<"Santri"> | string | null
     isActive?: BoolFilter<"Santri"> | boolean
     createdAt?: DateTimeFilter<"Santri"> | Date | string
-    authAccounts?: AuthAccountListRelationFilter
-    institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
     wali?: XOR<UsersScalarRelationFilter, UsersWhereInput>
+    institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
+    authAccounts?: AuthAccountListRelationFilter
     transactions?: TransactionListRelationFilter
-  }, "id" | "nis">
+  }, "id" | "nis" | "institutionId">
 
   export type SantriOrderByWithAggregationInput = {
     id?: SortOrder
@@ -14936,10 +16350,11 @@ export namespace Prisma {
     name: string
     isActive?: boolean
     createdAt?: Date | string
+    users?: UsersCreateNestedManyWithoutInstitutionInput
+    profile?: InstitutionProfileCreateNestedOneWithoutInstitutionInput
     categories?: CategoryCreateNestedManyWithoutInstitutionInput
     admin: UsersCreateNestedOneWithoutCreatedInstitutionsInput
     santri?: SantriCreateNestedManyWithoutInstitutionInput
-    users?: UsersCreateNestedManyWithoutInstitutionInput
   }
 
   export type InstitutionUncheckedCreateInput = {
@@ -14948,19 +16363,21 @@ export namespace Prisma {
     createdBy: number
     isActive?: boolean
     createdAt?: Date | string
+    users?: UsersUncheckedCreateNestedManyWithoutInstitutionInput
+    profile?: InstitutionProfileUncheckedCreateNestedOneWithoutInstitutionInput
     categories?: CategoryUncheckedCreateNestedManyWithoutInstitutionInput
     santri?: SantriUncheckedCreateNestedManyWithoutInstitutionInput
-    users?: UsersUncheckedCreateNestedManyWithoutInstitutionInput
   }
 
   export type InstitutionUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UsersUpdateManyWithoutInstitutionNestedInput
+    profile?: InstitutionProfileUpdateOneWithoutInstitutionNestedInput
     categories?: CategoryUpdateManyWithoutInstitutionNestedInput
     admin?: UsersUpdateOneRequiredWithoutCreatedInstitutionsNestedInput
     santri?: SantriUpdateManyWithoutInstitutionNestedInput
-    users?: UsersUpdateManyWithoutInstitutionNestedInput
   }
 
   export type InstitutionUncheckedUpdateInput = {
@@ -14969,9 +16386,10 @@ export namespace Prisma {
     createdBy?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UsersUncheckedUpdateManyWithoutInstitutionNestedInput
+    profile?: InstitutionProfileUncheckedUpdateOneWithoutInstitutionNestedInput
     categories?: CategoryUncheckedUpdateManyWithoutInstitutionNestedInput
     santri?: SantriUncheckedUpdateManyWithoutInstitutionNestedInput
-    users?: UsersUncheckedUpdateManyWithoutInstitutionNestedInput
   }
 
   export type InstitutionCreateManyInput = {
@@ -15194,6 +16612,107 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type InstitutionProfileCreateInput = {
+    name?: string | null
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    website?: string | null
+    logoUrl?: string | null
+    public_id?: string | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    institution: InstitutionCreateNestedOneWithoutProfileInput
+  }
+
+  export type InstitutionProfileUncheckedCreateInput = {
+    id?: number
+    institutionId: number
+    name?: string | null
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    website?: string | null
+    logoUrl?: string | null
+    public_id?: string | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InstitutionProfileUpdateInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    institution?: InstitutionUpdateOneRequiredWithoutProfileNestedInput
+  }
+
+  export type InstitutionProfileUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    institutionId?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InstitutionProfileCreateManyInput = {
+    id?: number
+    institutionId: number
+    name?: string | null
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    website?: string | null
+    logoUrl?: string | null
+    public_id?: string | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InstitutionProfileUpdateManyMutationInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InstitutionProfileUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    institutionId?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SantriCreateInput = {
     nis: string
     fullname: string
@@ -15203,9 +16722,9 @@ export namespace Prisma {
     institutionName?: string | null
     isActive?: boolean
     createdAt?: Date | string
-    authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
-    institution: InstitutionCreateNestedOneWithoutSantriInput
     wali: UsersCreateNestedOneWithoutSantriInput
+    institution: InstitutionCreateNestedOneWithoutSantriInput
+    authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
     transactions?: TransactionCreateNestedManyWithoutSantriInput
   }
 
@@ -15234,9 +16753,9 @@ export namespace Prisma {
     institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
-    institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
     wali?: UsersUpdateOneRequiredWithoutSantriNestedInput
+    institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
+    authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
     transactions?: TransactionUpdateManyWithoutSantriNestedInput
   }
 
@@ -15783,6 +17302,17 @@ export namespace Prisma {
     _max?: NestedEnumcategory_typeFilter<$PrismaModel>
   }
 
+  export type UsersListRelationFilter = {
+    every?: UsersWhereInput
+    some?: UsersWhereInput
+    none?: UsersWhereInput
+  }
+
+  export type InstitutionProfileNullableScalarRelationFilter = {
+    is?: InstitutionProfileWhereInput | null
+    isNot?: InstitutionProfileWhereInput | null
+  }
+
   export type CategoryListRelationFilter = {
     every?: CategoryWhereInput
     some?: CategoryWhereInput
@@ -15795,10 +17325,8 @@ export namespace Prisma {
     none?: SantriWhereInput
   }
 
-  export type UsersListRelationFilter = {
-    every?: UsersWhereInput
-    some?: UsersWhereInput
-    none?: UsersWhereInput
+  export type UsersOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type CategoryOrderByRelationAggregateInput = {
@@ -15806,10 +17334,6 @@ export namespace Prisma {
   }
 
   export type SantriOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type UsersOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -15998,6 +17522,61 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type InstitutionProfileCountOrderByAggregateInput = {
+    id?: SortOrder
+    institutionId?: SortOrder
+    name?: SortOrder
+    address?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    website?: SortOrder
+    logoUrl?: SortOrder
+    public_id?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type InstitutionProfileAvgOrderByAggregateInput = {
+    id?: SortOrder
+    institutionId?: SortOrder
+  }
+
+  export type InstitutionProfileMaxOrderByAggregateInput = {
+    id?: SortOrder
+    institutionId?: SortOrder
+    name?: SortOrder
+    address?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    website?: SortOrder
+    logoUrl?: SortOrder
+    public_id?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type InstitutionProfileMinOrderByAggregateInput = {
+    id?: SortOrder
+    institutionId?: SortOrder
+    name?: SortOrder
+    address?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    website?: SortOrder
+    logoUrl?: SortOrder
+    public_id?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type InstitutionProfileSumOrderByAggregateInput = {
+    id?: SortOrder
+    institutionId?: SortOrder
   }
 
   export type AuthAccountListRelationFilter = {
@@ -16401,6 +17980,19 @@ export namespace Prisma {
     deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
+  export type UsersCreateNestedManyWithoutInstitutionInput = {
+    create?: XOR<UsersCreateWithoutInstitutionInput, UsersUncheckedCreateWithoutInstitutionInput> | UsersCreateWithoutInstitutionInput[] | UsersUncheckedCreateWithoutInstitutionInput[]
+    connectOrCreate?: UsersCreateOrConnectWithoutInstitutionInput | UsersCreateOrConnectWithoutInstitutionInput[]
+    createMany?: UsersCreateManyInstitutionInputEnvelope
+    connect?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
+  }
+
+  export type InstitutionProfileCreateNestedOneWithoutInstitutionInput = {
+    create?: XOR<InstitutionProfileCreateWithoutInstitutionInput, InstitutionProfileUncheckedCreateWithoutInstitutionInput>
+    connectOrCreate?: InstitutionProfileCreateOrConnectWithoutInstitutionInput
+    connect?: InstitutionProfileWhereUniqueInput
+  }
+
   export type CategoryCreateNestedManyWithoutInstitutionInput = {
     create?: XOR<CategoryCreateWithoutInstitutionInput, CategoryUncheckedCreateWithoutInstitutionInput> | CategoryCreateWithoutInstitutionInput[] | CategoryUncheckedCreateWithoutInstitutionInput[]
     connectOrCreate?: CategoryCreateOrConnectWithoutInstitutionInput | CategoryCreateOrConnectWithoutInstitutionInput[]
@@ -16421,11 +18013,17 @@ export namespace Prisma {
     connect?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
   }
 
-  export type UsersCreateNestedManyWithoutInstitutionInput = {
+  export type UsersUncheckedCreateNestedManyWithoutInstitutionInput = {
     create?: XOR<UsersCreateWithoutInstitutionInput, UsersUncheckedCreateWithoutInstitutionInput> | UsersCreateWithoutInstitutionInput[] | UsersUncheckedCreateWithoutInstitutionInput[]
     connectOrCreate?: UsersCreateOrConnectWithoutInstitutionInput | UsersCreateOrConnectWithoutInstitutionInput[]
     createMany?: UsersCreateManyInstitutionInputEnvelope
     connect?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
+  }
+
+  export type InstitutionProfileUncheckedCreateNestedOneWithoutInstitutionInput = {
+    create?: XOR<InstitutionProfileCreateWithoutInstitutionInput, InstitutionProfileUncheckedCreateWithoutInstitutionInput>
+    connectOrCreate?: InstitutionProfileCreateOrConnectWithoutInstitutionInput
+    connect?: InstitutionProfileWhereUniqueInput
   }
 
   export type CategoryUncheckedCreateNestedManyWithoutInstitutionInput = {
@@ -16442,11 +18040,28 @@ export namespace Prisma {
     connect?: SantriWhereUniqueInput | SantriWhereUniqueInput[]
   }
 
-  export type UsersUncheckedCreateNestedManyWithoutInstitutionInput = {
+  export type UsersUpdateManyWithoutInstitutionNestedInput = {
     create?: XOR<UsersCreateWithoutInstitutionInput, UsersUncheckedCreateWithoutInstitutionInput> | UsersCreateWithoutInstitutionInput[] | UsersUncheckedCreateWithoutInstitutionInput[]
     connectOrCreate?: UsersCreateOrConnectWithoutInstitutionInput | UsersCreateOrConnectWithoutInstitutionInput[]
+    upsert?: UsersUpsertWithWhereUniqueWithoutInstitutionInput | UsersUpsertWithWhereUniqueWithoutInstitutionInput[]
     createMany?: UsersCreateManyInstitutionInputEnvelope
+    set?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
+    disconnect?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
+    delete?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
     connect?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
+    update?: UsersUpdateWithWhereUniqueWithoutInstitutionInput | UsersUpdateWithWhereUniqueWithoutInstitutionInput[]
+    updateMany?: UsersUpdateManyWithWhereWithoutInstitutionInput | UsersUpdateManyWithWhereWithoutInstitutionInput[]
+    deleteMany?: UsersScalarWhereInput | UsersScalarWhereInput[]
+  }
+
+  export type InstitutionProfileUpdateOneWithoutInstitutionNestedInput = {
+    create?: XOR<InstitutionProfileCreateWithoutInstitutionInput, InstitutionProfileUncheckedCreateWithoutInstitutionInput>
+    connectOrCreate?: InstitutionProfileCreateOrConnectWithoutInstitutionInput
+    upsert?: InstitutionProfileUpsertWithoutInstitutionInput
+    disconnect?: InstitutionProfileWhereInput | boolean
+    delete?: InstitutionProfileWhereInput | boolean
+    connect?: InstitutionProfileWhereUniqueInput
+    update?: XOR<XOR<InstitutionProfileUpdateToOneWithWhereWithoutInstitutionInput, InstitutionProfileUpdateWithoutInstitutionInput>, InstitutionProfileUncheckedUpdateWithoutInstitutionInput>
   }
 
   export type CategoryUpdateManyWithoutInstitutionNestedInput = {
@@ -16485,7 +18100,7 @@ export namespace Prisma {
     deleteMany?: SantriScalarWhereInput | SantriScalarWhereInput[]
   }
 
-  export type UsersUpdateManyWithoutInstitutionNestedInput = {
+  export type UsersUncheckedUpdateManyWithoutInstitutionNestedInput = {
     create?: XOR<UsersCreateWithoutInstitutionInput, UsersUncheckedCreateWithoutInstitutionInput> | UsersCreateWithoutInstitutionInput[] | UsersUncheckedCreateWithoutInstitutionInput[]
     connectOrCreate?: UsersCreateOrConnectWithoutInstitutionInput | UsersCreateOrConnectWithoutInstitutionInput[]
     upsert?: UsersUpsertWithWhereUniqueWithoutInstitutionInput | UsersUpsertWithWhereUniqueWithoutInstitutionInput[]
@@ -16497,6 +18112,16 @@ export namespace Prisma {
     update?: UsersUpdateWithWhereUniqueWithoutInstitutionInput | UsersUpdateWithWhereUniqueWithoutInstitutionInput[]
     updateMany?: UsersUpdateManyWithWhereWithoutInstitutionInput | UsersUpdateManyWithWhereWithoutInstitutionInput[]
     deleteMany?: UsersScalarWhereInput | UsersScalarWhereInput[]
+  }
+
+  export type InstitutionProfileUncheckedUpdateOneWithoutInstitutionNestedInput = {
+    create?: XOR<InstitutionProfileCreateWithoutInstitutionInput, InstitutionProfileUncheckedCreateWithoutInstitutionInput>
+    connectOrCreate?: InstitutionProfileCreateOrConnectWithoutInstitutionInput
+    upsert?: InstitutionProfileUpsertWithoutInstitutionInput
+    disconnect?: InstitutionProfileWhereInput | boolean
+    delete?: InstitutionProfileWhereInput | boolean
+    connect?: InstitutionProfileWhereUniqueInput
+    update?: XOR<XOR<InstitutionProfileUpdateToOneWithWhereWithoutInstitutionInput, InstitutionProfileUpdateWithoutInstitutionInput>, InstitutionProfileUncheckedUpdateWithoutInstitutionInput>
   }
 
   export type CategoryUncheckedUpdateManyWithoutInstitutionNestedInput = {
@@ -16525,20 +18150,6 @@ export namespace Prisma {
     update?: SantriUpdateWithWhereUniqueWithoutInstitutionInput | SantriUpdateWithWhereUniqueWithoutInstitutionInput[]
     updateMany?: SantriUpdateManyWithWhereWithoutInstitutionInput | SantriUpdateManyWithWhereWithoutInstitutionInput[]
     deleteMany?: SantriScalarWhereInput | SantriScalarWhereInput[]
-  }
-
-  export type UsersUncheckedUpdateManyWithoutInstitutionNestedInput = {
-    create?: XOR<UsersCreateWithoutInstitutionInput, UsersUncheckedCreateWithoutInstitutionInput> | UsersCreateWithoutInstitutionInput[] | UsersUncheckedCreateWithoutInstitutionInput[]
-    connectOrCreate?: UsersCreateOrConnectWithoutInstitutionInput | UsersCreateOrConnectWithoutInstitutionInput[]
-    upsert?: UsersUpsertWithWhereUniqueWithoutInstitutionInput | UsersUpsertWithWhereUniqueWithoutInstitutionInput[]
-    createMany?: UsersCreateManyInstitutionInputEnvelope
-    set?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
-    disconnect?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
-    delete?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
-    connect?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
-    update?: UsersUpdateWithWhereUniqueWithoutInstitutionInput | UsersUpdateWithWhereUniqueWithoutInstitutionInput[]
-    updateMany?: UsersUpdateManyWithWhereWithoutInstitutionInput | UsersUpdateManyWithWhereWithoutInstitutionInput[]
-    deleteMany?: UsersScalarWhereInput | UsersScalarWhereInput[]
   }
 
   export type UsersCreateNestedOneWithoutNotificationsInput = {
@@ -16587,11 +18198,24 @@ export namespace Prisma {
     update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutProfileInput, UsersUpdateWithoutProfileInput>, UsersUncheckedUpdateWithoutProfileInput>
   }
 
-  export type AuthAccountCreateNestedManyWithoutSantriInput = {
-    create?: XOR<AuthAccountCreateWithoutSantriInput, AuthAccountUncheckedCreateWithoutSantriInput> | AuthAccountCreateWithoutSantriInput[] | AuthAccountUncheckedCreateWithoutSantriInput[]
-    connectOrCreate?: AuthAccountCreateOrConnectWithoutSantriInput | AuthAccountCreateOrConnectWithoutSantriInput[]
-    createMany?: AuthAccountCreateManySantriInputEnvelope
-    connect?: AuthAccountWhereUniqueInput | AuthAccountWhereUniqueInput[]
+  export type InstitutionCreateNestedOneWithoutProfileInput = {
+    create?: XOR<InstitutionCreateWithoutProfileInput, InstitutionUncheckedCreateWithoutProfileInput>
+    connectOrCreate?: InstitutionCreateOrConnectWithoutProfileInput
+    connect?: InstitutionWhereUniqueInput
+  }
+
+  export type InstitutionUpdateOneRequiredWithoutProfileNestedInput = {
+    create?: XOR<InstitutionCreateWithoutProfileInput, InstitutionUncheckedCreateWithoutProfileInput>
+    connectOrCreate?: InstitutionCreateOrConnectWithoutProfileInput
+    upsert?: InstitutionUpsertWithoutProfileInput
+    connect?: InstitutionWhereUniqueInput
+    update?: XOR<XOR<InstitutionUpdateToOneWithWhereWithoutProfileInput, InstitutionUpdateWithoutProfileInput>, InstitutionUncheckedUpdateWithoutProfileInput>
+  }
+
+  export type UsersCreateNestedOneWithoutSantriInput = {
+    create?: XOR<UsersCreateWithoutSantriInput, UsersUncheckedCreateWithoutSantriInput>
+    connectOrCreate?: UsersCreateOrConnectWithoutSantriInput
+    connect?: UsersWhereUniqueInput
   }
 
   export type InstitutionCreateNestedOneWithoutSantriInput = {
@@ -16600,10 +18224,11 @@ export namespace Prisma {
     connect?: InstitutionWhereUniqueInput
   }
 
-  export type UsersCreateNestedOneWithoutSantriInput = {
-    create?: XOR<UsersCreateWithoutSantriInput, UsersUncheckedCreateWithoutSantriInput>
-    connectOrCreate?: UsersCreateOrConnectWithoutSantriInput
-    connect?: UsersWhereUniqueInput
+  export type AuthAccountCreateNestedManyWithoutSantriInput = {
+    create?: XOR<AuthAccountCreateWithoutSantriInput, AuthAccountUncheckedCreateWithoutSantriInput> | AuthAccountCreateWithoutSantriInput[] | AuthAccountUncheckedCreateWithoutSantriInput[]
+    connectOrCreate?: AuthAccountCreateOrConnectWithoutSantriInput | AuthAccountCreateOrConnectWithoutSantriInput[]
+    createMany?: AuthAccountCreateManySantriInputEnvelope
+    connect?: AuthAccountWhereUniqueInput | AuthAccountWhereUniqueInput[]
   }
 
   export type TransactionCreateNestedManyWithoutSantriInput = {
@@ -16627,6 +18252,22 @@ export namespace Prisma {
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
+  export type UsersUpdateOneRequiredWithoutSantriNestedInput = {
+    create?: XOR<UsersCreateWithoutSantriInput, UsersUncheckedCreateWithoutSantriInput>
+    connectOrCreate?: UsersCreateOrConnectWithoutSantriInput
+    upsert?: UsersUpsertWithoutSantriInput
+    connect?: UsersWhereUniqueInput
+    update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutSantriInput, UsersUpdateWithoutSantriInput>, UsersUncheckedUpdateWithoutSantriInput>
+  }
+
+  export type InstitutionUpdateOneRequiredWithoutSantriNestedInput = {
+    create?: XOR<InstitutionCreateWithoutSantriInput, InstitutionUncheckedCreateWithoutSantriInput>
+    connectOrCreate?: InstitutionCreateOrConnectWithoutSantriInput
+    upsert?: InstitutionUpsertWithoutSantriInput
+    connect?: InstitutionWhereUniqueInput
+    update?: XOR<XOR<InstitutionUpdateToOneWithWhereWithoutSantriInput, InstitutionUpdateWithoutSantriInput>, InstitutionUncheckedUpdateWithoutSantriInput>
+  }
+
   export type AuthAccountUpdateManyWithoutSantriNestedInput = {
     create?: XOR<AuthAccountCreateWithoutSantriInput, AuthAccountUncheckedCreateWithoutSantriInput> | AuthAccountCreateWithoutSantriInput[] | AuthAccountUncheckedCreateWithoutSantriInput[]
     connectOrCreate?: AuthAccountCreateOrConnectWithoutSantriInput | AuthAccountCreateOrConnectWithoutSantriInput[]
@@ -16639,22 +18280,6 @@ export namespace Prisma {
     update?: AuthAccountUpdateWithWhereUniqueWithoutSantriInput | AuthAccountUpdateWithWhereUniqueWithoutSantriInput[]
     updateMany?: AuthAccountUpdateManyWithWhereWithoutSantriInput | AuthAccountUpdateManyWithWhereWithoutSantriInput[]
     deleteMany?: AuthAccountScalarWhereInput | AuthAccountScalarWhereInput[]
-  }
-
-  export type InstitutionUpdateOneRequiredWithoutSantriNestedInput = {
-    create?: XOR<InstitutionCreateWithoutSantriInput, InstitutionUncheckedCreateWithoutSantriInput>
-    connectOrCreate?: InstitutionCreateOrConnectWithoutSantriInput
-    upsert?: InstitutionUpsertWithoutSantriInput
-    connect?: InstitutionWhereUniqueInput
-    update?: XOR<XOR<InstitutionUpdateToOneWithWhereWithoutSantriInput, InstitutionUpdateWithoutSantriInput>, InstitutionUncheckedUpdateWithoutSantriInput>
-  }
-
-  export type UsersUpdateOneRequiredWithoutSantriNestedInput = {
-    create?: XOR<UsersCreateWithoutSantriInput, UsersUncheckedCreateWithoutSantriInput>
-    connectOrCreate?: UsersCreateOrConnectWithoutSantriInput
-    upsert?: UsersUpsertWithoutSantriInput
-    connect?: UsersWhereUniqueInput
-    update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutSantriInput, UsersUpdateWithoutSantriInput>, UsersUncheckedUpdateWithoutSantriInput>
   }
 
   export type TransactionUpdateManyWithoutSantriNestedInput = {
@@ -17431,8 +19056,8 @@ export namespace Prisma {
     institutionName?: string | null
     isActive?: boolean
     createdAt?: Date | string
-    institution: InstitutionCreateNestedOneWithoutSantriInput
     wali: UsersCreateNestedOneWithoutSantriInput
+    institution: InstitutionCreateNestedOneWithoutSantriInput
     transactions?: TransactionCreateNestedManyWithoutSantriInput
   }
 
@@ -17518,8 +19143,8 @@ export namespace Prisma {
     institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
     wali?: UsersUpdateOneRequiredWithoutSantriNestedInput
+    institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
     transactions?: TransactionUpdateManyWithoutSantriNestedInput
   }
 
@@ -17590,9 +19215,10 @@ export namespace Prisma {
     name: string
     isActive?: boolean
     createdAt?: Date | string
+    users?: UsersCreateNestedManyWithoutInstitutionInput
+    profile?: InstitutionProfileCreateNestedOneWithoutInstitutionInput
     admin: UsersCreateNestedOneWithoutCreatedInstitutionsInput
     santri?: SantriCreateNestedManyWithoutInstitutionInput
-    users?: UsersCreateNestedManyWithoutInstitutionInput
   }
 
   export type InstitutionUncheckedCreateWithoutCategoriesInput = {
@@ -17601,8 +19227,9 @@ export namespace Prisma {
     createdBy: number
     isActive?: boolean
     createdAt?: Date | string
-    santri?: SantriUncheckedCreateNestedManyWithoutInstitutionInput
     users?: UsersUncheckedCreateNestedManyWithoutInstitutionInput
+    profile?: InstitutionProfileUncheckedCreateNestedOneWithoutInstitutionInput
+    santri?: SantriUncheckedCreateNestedManyWithoutInstitutionInput
   }
 
   export type InstitutionCreateOrConnectWithoutCategoriesInput = {
@@ -17658,9 +19285,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UsersUpdateManyWithoutInstitutionNestedInput
+    profile?: InstitutionProfileUpdateOneWithoutInstitutionNestedInput
     admin?: UsersUpdateOneRequiredWithoutCreatedInstitutionsNestedInput
     santri?: SantriUpdateManyWithoutInstitutionNestedInput
-    users?: UsersUpdateManyWithoutInstitutionNestedInput
   }
 
   export type InstitutionUncheckedUpdateWithoutCategoriesInput = {
@@ -17669,8 +19297,9 @@ export namespace Prisma {
     createdBy?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    santri?: SantriUncheckedUpdateManyWithoutInstitutionNestedInput
     users?: UsersUncheckedUpdateManyWithoutInstitutionNestedInput
+    profile?: InstitutionProfileUncheckedUpdateOneWithoutInstitutionNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutInstitutionNestedInput
   }
 
   export type TransactionUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -17703,6 +19332,85 @@ export namespace Prisma {
     createdBy?: IntFilter<"Transaction"> | number
     isDeleted?: BoolFilter<"Transaction"> | boolean
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
+  }
+
+  export type UsersCreateWithoutInstitutionInput = {
+    username: string
+    email: string
+    password: string
+    role: $Enums.user_role
+    isEmailVerified?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
+    emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
+    createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    passwordResets?: PasswordResetCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    santri?: SantriCreateNestedManyWithoutWaliInput
+    transactions?: TransactionCreateNestedManyWithoutAdminInput
+  }
+
+  export type UsersUncheckedCreateWithoutInstitutionInput = {
+    id?: number
+    username: string
+    email: string
+    password: string
+    role: $Enums.user_role
+    isEmailVerified?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
+    emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
+    createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    passwordResets?: PasswordResetUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
+  }
+
+  export type UsersCreateOrConnectWithoutInstitutionInput = {
+    where: UsersWhereUniqueInput
+    create: XOR<UsersCreateWithoutInstitutionInput, UsersUncheckedCreateWithoutInstitutionInput>
+  }
+
+  export type UsersCreateManyInstitutionInputEnvelope = {
+    data: UsersCreateManyInstitutionInput | UsersCreateManyInstitutionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type InstitutionProfileCreateWithoutInstitutionInput = {
+    name?: string | null
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    website?: string | null
+    logoUrl?: string | null
+    public_id?: string | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InstitutionProfileUncheckedCreateWithoutInstitutionInput = {
+    id?: number
+    name?: string | null
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    website?: string | null
+    logoUrl?: string | null
+    public_id?: string | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InstitutionProfileCreateOrConnectWithoutInstitutionInput = {
+    where: InstitutionProfileWhereUniqueInput
+    create: XOR<InstitutionProfileCreateWithoutInstitutionInput, InstitutionProfileUncheckedCreateWithoutInstitutionInput>
   }
 
   export type CategoryCreateWithoutInstitutionInput = {
@@ -17783,8 +19491,8 @@ export namespace Prisma {
     institutionName?: string | null
     isActive?: boolean
     createdAt?: Date | string
-    authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
     wali: UsersCreateNestedOneWithoutSantriInput
+    authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
     transactions?: TransactionCreateNestedManyWithoutSantriInput
   }
 
@@ -17813,51 +19521,73 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UsersCreateWithoutInstitutionInput = {
-    username: string
-    email: string
-    password: string
-    role: $Enums.user_role
-    isEmailVerified?: boolean
-    isActive?: boolean
-    createdAt?: Date | string
-    authAccounts?: AuthAccountCreateNestedManyWithoutUserInput
-    emailVerifications?: EmailVerificationCreateNestedManyWithoutUserInput
-    createdInstitutions?: InstitutionCreateNestedManyWithoutAdminInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    passwordResets?: PasswordResetCreateNestedManyWithoutUserInput
-    profile?: ProfileCreateNestedOneWithoutUserInput
-    santri?: SantriCreateNestedManyWithoutWaliInput
-    transactions?: TransactionCreateNestedManyWithoutAdminInput
-  }
-
-  export type UsersUncheckedCreateWithoutInstitutionInput = {
-    id?: number
-    username: string
-    email: string
-    password: string
-    role: $Enums.user_role
-    isEmailVerified?: boolean
-    isActive?: boolean
-    createdAt?: Date | string
-    authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutUserInput
-    emailVerifications?: EmailVerificationUncheckedCreateNestedManyWithoutUserInput
-    createdInstitutions?: InstitutionUncheckedCreateNestedManyWithoutAdminInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    passwordResets?: PasswordResetUncheckedCreateNestedManyWithoutUserInput
-    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
-    santri?: SantriUncheckedCreateNestedManyWithoutWaliInput
-    transactions?: TransactionUncheckedCreateNestedManyWithoutAdminInput
-  }
-
-  export type UsersCreateOrConnectWithoutInstitutionInput = {
+  export type UsersUpsertWithWhereUniqueWithoutInstitutionInput = {
     where: UsersWhereUniqueInput
+    update: XOR<UsersUpdateWithoutInstitutionInput, UsersUncheckedUpdateWithoutInstitutionInput>
     create: XOR<UsersCreateWithoutInstitutionInput, UsersUncheckedCreateWithoutInstitutionInput>
   }
 
-  export type UsersCreateManyInstitutionInputEnvelope = {
-    data: UsersCreateManyInstitutionInput | UsersCreateManyInstitutionInput[]
-    skipDuplicates?: boolean
+  export type UsersUpdateWithWhereUniqueWithoutInstitutionInput = {
+    where: UsersWhereUniqueInput
+    data: XOR<UsersUpdateWithoutInstitutionInput, UsersUncheckedUpdateWithoutInstitutionInput>
+  }
+
+  export type UsersUpdateManyWithWhereWithoutInstitutionInput = {
+    where: UsersScalarWhereInput
+    data: XOR<UsersUpdateManyMutationInput, UsersUncheckedUpdateManyWithoutInstitutionInput>
+  }
+
+  export type UsersScalarWhereInput = {
+    AND?: UsersScalarWhereInput | UsersScalarWhereInput[]
+    OR?: UsersScalarWhereInput[]
+    NOT?: UsersScalarWhereInput | UsersScalarWhereInput[]
+    id?: IntFilter<"Users"> | number
+    username?: StringFilter<"Users"> | string
+    email?: StringFilter<"Users"> | string
+    password?: StringFilter<"Users"> | string
+    role?: Enumuser_roleFilter<"Users"> | $Enums.user_role
+    institutionId?: IntNullableFilter<"Users"> | number | null
+    isEmailVerified?: BoolFilter<"Users"> | boolean
+    isActive?: BoolFilter<"Users"> | boolean
+    createdAt?: DateTimeFilter<"Users"> | Date | string
+  }
+
+  export type InstitutionProfileUpsertWithoutInstitutionInput = {
+    update: XOR<InstitutionProfileUpdateWithoutInstitutionInput, InstitutionProfileUncheckedUpdateWithoutInstitutionInput>
+    create: XOR<InstitutionProfileCreateWithoutInstitutionInput, InstitutionProfileUncheckedCreateWithoutInstitutionInput>
+    where?: InstitutionProfileWhereInput
+  }
+
+  export type InstitutionProfileUpdateToOneWithWhereWithoutInstitutionInput = {
+    where?: InstitutionProfileWhereInput
+    data: XOR<InstitutionProfileUpdateWithoutInstitutionInput, InstitutionProfileUncheckedUpdateWithoutInstitutionInput>
+  }
+
+  export type InstitutionProfileUpdateWithoutInstitutionInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InstitutionProfileUncheckedUpdateWithoutInstitutionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CategoryUpsertWithWhereUniqueWithoutInstitutionInput = {
@@ -17967,37 +19697,6 @@ export namespace Prisma {
     institutionName?: StringNullableFilter<"Santri"> | string | null
     isActive?: BoolFilter<"Santri"> | boolean
     createdAt?: DateTimeFilter<"Santri"> | Date | string
-  }
-
-  export type UsersUpsertWithWhereUniqueWithoutInstitutionInput = {
-    where: UsersWhereUniqueInput
-    update: XOR<UsersUpdateWithoutInstitutionInput, UsersUncheckedUpdateWithoutInstitutionInput>
-    create: XOR<UsersCreateWithoutInstitutionInput, UsersUncheckedCreateWithoutInstitutionInput>
-  }
-
-  export type UsersUpdateWithWhereUniqueWithoutInstitutionInput = {
-    where: UsersWhereUniqueInput
-    data: XOR<UsersUpdateWithoutInstitutionInput, UsersUncheckedUpdateWithoutInstitutionInput>
-  }
-
-  export type UsersUpdateManyWithWhereWithoutInstitutionInput = {
-    where: UsersScalarWhereInput
-    data: XOR<UsersUpdateManyMutationInput, UsersUncheckedUpdateManyWithoutInstitutionInput>
-  }
-
-  export type UsersScalarWhereInput = {
-    AND?: UsersScalarWhereInput | UsersScalarWhereInput[]
-    OR?: UsersScalarWhereInput[]
-    NOT?: UsersScalarWhereInput | UsersScalarWhereInput[]
-    id?: IntFilter<"Users"> | number
-    username?: StringFilter<"Users"> | string
-    email?: StringFilter<"Users"> | string
-    password?: StringFilter<"Users"> | string
-    role?: Enumuser_roleFilter<"Users"> | $Enums.user_role
-    institutionId?: IntNullableFilter<"Users"> | number | null
-    isEmailVerified?: BoolFilter<"Users"> | boolean
-    isActive?: BoolFilter<"Users"> | boolean
-    createdAt?: DateTimeFilter<"Users"> | Date | string
   }
 
   export type UsersCreateWithoutNotificationsInput = {
@@ -18270,57 +19969,62 @@ export namespace Prisma {
     transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
   }
 
-  export type AuthAccountCreateWithoutSantriInput = {
-    username: string
-    email: string
-    password: string
-    isActive?: boolean
-    createdAt?: Date | string
-    user: UsersCreateNestedOneWithoutAuthAccountsInput
-  }
-
-  export type AuthAccountUncheckedCreateWithoutSantriInput = {
-    id?: number
-    username: string
-    email: string
-    password: string
-    userId: number
-    isActive?: boolean
-    createdAt?: Date | string
-  }
-
-  export type AuthAccountCreateOrConnectWithoutSantriInput = {
-    where: AuthAccountWhereUniqueInput
-    create: XOR<AuthAccountCreateWithoutSantriInput, AuthAccountUncheckedCreateWithoutSantriInput>
-  }
-
-  export type AuthAccountCreateManySantriInputEnvelope = {
-    data: AuthAccountCreateManySantriInput | AuthAccountCreateManySantriInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type InstitutionCreateWithoutSantriInput = {
+  export type InstitutionCreateWithoutProfileInput = {
     name: string
     isActive?: boolean
     createdAt?: Date | string
+    users?: UsersCreateNestedManyWithoutInstitutionInput
     categories?: CategoryCreateNestedManyWithoutInstitutionInput
     admin: UsersCreateNestedOneWithoutCreatedInstitutionsInput
-    users?: UsersCreateNestedManyWithoutInstitutionInput
+    santri?: SantriCreateNestedManyWithoutInstitutionInput
   }
 
-  export type InstitutionUncheckedCreateWithoutSantriInput = {
+  export type InstitutionUncheckedCreateWithoutProfileInput = {
     id?: number
     name: string
     createdBy: number
     isActive?: boolean
     createdAt?: Date | string
-    categories?: CategoryUncheckedCreateNestedManyWithoutInstitutionInput
     users?: UsersUncheckedCreateNestedManyWithoutInstitutionInput
+    categories?: CategoryUncheckedCreateNestedManyWithoutInstitutionInput
+    santri?: SantriUncheckedCreateNestedManyWithoutInstitutionInput
   }
 
-  export type InstitutionCreateOrConnectWithoutSantriInput = {
+  export type InstitutionCreateOrConnectWithoutProfileInput = {
     where: InstitutionWhereUniqueInput
-    create: XOR<InstitutionCreateWithoutSantriInput, InstitutionUncheckedCreateWithoutSantriInput>
+    create: XOR<InstitutionCreateWithoutProfileInput, InstitutionUncheckedCreateWithoutProfileInput>
+  }
+
+  export type InstitutionUpsertWithoutProfileInput = {
+    update: XOR<InstitutionUpdateWithoutProfileInput, InstitutionUncheckedUpdateWithoutProfileInput>
+    create: XOR<InstitutionCreateWithoutProfileInput, InstitutionUncheckedCreateWithoutProfileInput>
+    where?: InstitutionWhereInput
+  }
+
+  export type InstitutionUpdateToOneWithWhereWithoutProfileInput = {
+    where?: InstitutionWhereInput
+    data: XOR<InstitutionUpdateWithoutProfileInput, InstitutionUncheckedUpdateWithoutProfileInput>
+  }
+
+  export type InstitutionUpdateWithoutProfileInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UsersUpdateManyWithoutInstitutionNestedInput
+    categories?: CategoryUpdateManyWithoutInstitutionNestedInput
+    admin?: UsersUpdateOneRequiredWithoutCreatedInstitutionsNestedInput
+    santri?: SantriUpdateManyWithoutInstitutionNestedInput
+  }
+
+  export type InstitutionUncheckedUpdateWithoutProfileInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    createdBy?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UsersUncheckedUpdateManyWithoutInstitutionNestedInput
+    categories?: CategoryUncheckedUpdateManyWithoutInstitutionNestedInput
+    santri?: SantriUncheckedUpdateManyWithoutInstitutionNestedInput
   }
 
   export type UsersCreateWithoutSantriInput = {
@@ -18365,6 +20069,61 @@ export namespace Prisma {
     create: XOR<UsersCreateWithoutSantriInput, UsersUncheckedCreateWithoutSantriInput>
   }
 
+  export type InstitutionCreateWithoutSantriInput = {
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    users?: UsersCreateNestedManyWithoutInstitutionInput
+    profile?: InstitutionProfileCreateNestedOneWithoutInstitutionInput
+    categories?: CategoryCreateNestedManyWithoutInstitutionInput
+    admin: UsersCreateNestedOneWithoutCreatedInstitutionsInput
+  }
+
+  export type InstitutionUncheckedCreateWithoutSantriInput = {
+    id?: number
+    name: string
+    createdBy: number
+    isActive?: boolean
+    createdAt?: Date | string
+    users?: UsersUncheckedCreateNestedManyWithoutInstitutionInput
+    profile?: InstitutionProfileUncheckedCreateNestedOneWithoutInstitutionInput
+    categories?: CategoryUncheckedCreateNestedManyWithoutInstitutionInput
+  }
+
+  export type InstitutionCreateOrConnectWithoutSantriInput = {
+    where: InstitutionWhereUniqueInput
+    create: XOR<InstitutionCreateWithoutSantriInput, InstitutionUncheckedCreateWithoutSantriInput>
+  }
+
+  export type AuthAccountCreateWithoutSantriInput = {
+    username: string
+    email: string
+    password: string
+    isActive?: boolean
+    createdAt?: Date | string
+    user: UsersCreateNestedOneWithoutAuthAccountsInput
+  }
+
+  export type AuthAccountUncheckedCreateWithoutSantriInput = {
+    id?: number
+    username: string
+    email: string
+    password: string
+    userId: number
+    isActive?: boolean
+    createdAt?: Date | string
+  }
+
+  export type AuthAccountCreateOrConnectWithoutSantriInput = {
+    where: AuthAccountWhereUniqueInput
+    create: XOR<AuthAccountCreateWithoutSantriInput, AuthAccountUncheckedCreateWithoutSantriInput>
+  }
+
+  export type AuthAccountCreateManySantriInputEnvelope = {
+    data: AuthAccountCreateManySantriInput | AuthAccountCreateManySantriInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TransactionCreateWithoutSantriInput = {
     type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
@@ -18396,66 +20155,6 @@ export namespace Prisma {
   export type TransactionCreateManySantriInputEnvelope = {
     data: TransactionCreateManySantriInput | TransactionCreateManySantriInput[]
     skipDuplicates?: boolean
-  }
-
-  export type AuthAccountUpsertWithWhereUniqueWithoutSantriInput = {
-    where: AuthAccountWhereUniqueInput
-    update: XOR<AuthAccountUpdateWithoutSantriInput, AuthAccountUncheckedUpdateWithoutSantriInput>
-    create: XOR<AuthAccountCreateWithoutSantriInput, AuthAccountUncheckedCreateWithoutSantriInput>
-  }
-
-  export type AuthAccountUpdateWithWhereUniqueWithoutSantriInput = {
-    where: AuthAccountWhereUniqueInput
-    data: XOR<AuthAccountUpdateWithoutSantriInput, AuthAccountUncheckedUpdateWithoutSantriInput>
-  }
-
-  export type AuthAccountUpdateManyWithWhereWithoutSantriInput = {
-    where: AuthAccountScalarWhereInput
-    data: XOR<AuthAccountUpdateManyMutationInput, AuthAccountUncheckedUpdateManyWithoutSantriInput>
-  }
-
-  export type AuthAccountScalarWhereInput = {
-    AND?: AuthAccountScalarWhereInput | AuthAccountScalarWhereInput[]
-    OR?: AuthAccountScalarWhereInput[]
-    NOT?: AuthAccountScalarWhereInput | AuthAccountScalarWhereInput[]
-    id?: IntFilter<"AuthAccount"> | number
-    username?: StringFilter<"AuthAccount"> | string
-    email?: StringFilter<"AuthAccount"> | string
-    password?: StringFilter<"AuthAccount"> | string
-    userId?: IntFilter<"AuthAccount"> | number
-    santriId?: IntNullableFilter<"AuthAccount"> | number | null
-    isActive?: BoolFilter<"AuthAccount"> | boolean
-    createdAt?: DateTimeFilter<"AuthAccount"> | Date | string
-  }
-
-  export type InstitutionUpsertWithoutSantriInput = {
-    update: XOR<InstitutionUpdateWithoutSantriInput, InstitutionUncheckedUpdateWithoutSantriInput>
-    create: XOR<InstitutionCreateWithoutSantriInput, InstitutionUncheckedCreateWithoutSantriInput>
-    where?: InstitutionWhereInput
-  }
-
-  export type InstitutionUpdateToOneWithWhereWithoutSantriInput = {
-    where?: InstitutionWhereInput
-    data: XOR<InstitutionUpdateWithoutSantriInput, InstitutionUncheckedUpdateWithoutSantriInput>
-  }
-
-  export type InstitutionUpdateWithoutSantriInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categories?: CategoryUpdateManyWithoutInstitutionNestedInput
-    admin?: UsersUpdateOneRequiredWithoutCreatedInstitutionsNestedInput
-    users?: UsersUpdateManyWithoutInstitutionNestedInput
-  }
-
-  export type InstitutionUncheckedUpdateWithoutSantriInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    createdBy?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categories?: CategoryUncheckedUpdateManyWithoutInstitutionNestedInput
-    users?: UsersUncheckedUpdateManyWithoutInstitutionNestedInput
   }
 
   export type UsersUpsertWithoutSantriInput = {
@@ -18504,6 +20203,68 @@ export namespace Prisma {
     passwordResets?: PasswordResetUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutAdminNestedInput
+  }
+
+  export type InstitutionUpsertWithoutSantriInput = {
+    update: XOR<InstitutionUpdateWithoutSantriInput, InstitutionUncheckedUpdateWithoutSantriInput>
+    create: XOR<InstitutionCreateWithoutSantriInput, InstitutionUncheckedCreateWithoutSantriInput>
+    where?: InstitutionWhereInput
+  }
+
+  export type InstitutionUpdateToOneWithWhereWithoutSantriInput = {
+    where?: InstitutionWhereInput
+    data: XOR<InstitutionUpdateWithoutSantriInput, InstitutionUncheckedUpdateWithoutSantriInput>
+  }
+
+  export type InstitutionUpdateWithoutSantriInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UsersUpdateManyWithoutInstitutionNestedInput
+    profile?: InstitutionProfileUpdateOneWithoutInstitutionNestedInput
+    categories?: CategoryUpdateManyWithoutInstitutionNestedInput
+    admin?: UsersUpdateOneRequiredWithoutCreatedInstitutionsNestedInput
+  }
+
+  export type InstitutionUncheckedUpdateWithoutSantriInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    createdBy?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UsersUncheckedUpdateManyWithoutInstitutionNestedInput
+    profile?: InstitutionProfileUncheckedUpdateOneWithoutInstitutionNestedInput
+    categories?: CategoryUncheckedUpdateManyWithoutInstitutionNestedInput
+  }
+
+  export type AuthAccountUpsertWithWhereUniqueWithoutSantriInput = {
+    where: AuthAccountWhereUniqueInput
+    update: XOR<AuthAccountUpdateWithoutSantriInput, AuthAccountUncheckedUpdateWithoutSantriInput>
+    create: XOR<AuthAccountCreateWithoutSantriInput, AuthAccountUncheckedCreateWithoutSantriInput>
+  }
+
+  export type AuthAccountUpdateWithWhereUniqueWithoutSantriInput = {
+    where: AuthAccountWhereUniqueInput
+    data: XOR<AuthAccountUpdateWithoutSantriInput, AuthAccountUncheckedUpdateWithoutSantriInput>
+  }
+
+  export type AuthAccountUpdateManyWithWhereWithoutSantriInput = {
+    where: AuthAccountScalarWhereInput
+    data: XOR<AuthAccountUpdateManyMutationInput, AuthAccountUncheckedUpdateManyWithoutSantriInput>
+  }
+
+  export type AuthAccountScalarWhereInput = {
+    AND?: AuthAccountScalarWhereInput | AuthAccountScalarWhereInput[]
+    OR?: AuthAccountScalarWhereInput[]
+    NOT?: AuthAccountScalarWhereInput | AuthAccountScalarWhereInput[]
+    id?: IntFilter<"AuthAccount"> | number
+    username?: StringFilter<"AuthAccount"> | string
+    email?: StringFilter<"AuthAccount"> | string
+    password?: StringFilter<"AuthAccount"> | string
+    userId?: IntFilter<"AuthAccount"> | number
+    santriId?: IntNullableFilter<"AuthAccount"> | number | null
+    isActive?: BoolFilter<"AuthAccount"> | boolean
+    createdAt?: DateTimeFilter<"AuthAccount"> | Date | string
   }
 
   export type TransactionUpsertWithWhereUniqueWithoutSantriInput = {
@@ -18595,9 +20356,9 @@ export namespace Prisma {
     institutionName?: string | null
     isActive?: boolean
     createdAt?: Date | string
-    authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
-    institution: InstitutionCreateNestedOneWithoutSantriInput
     wali: UsersCreateNestedOneWithoutSantriInput
+    institution: InstitutionCreateNestedOneWithoutSantriInput
+    authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
   }
 
   export type SantriUncheckedCreateWithoutTransactionsInput = {
@@ -18716,9 +20477,9 @@ export namespace Prisma {
     institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
-    institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
     wali?: UsersUpdateOneRequiredWithoutSantriNestedInput
+    institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
+    authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
   }
 
   export type SantriUncheckedUpdateWithoutTransactionsInput = {
@@ -18794,9 +20555,10 @@ export namespace Prisma {
     name: string
     isActive?: boolean
     createdAt?: Date | string
+    users?: UsersCreateNestedManyWithoutInstitutionInput
+    profile?: InstitutionProfileCreateNestedOneWithoutInstitutionInput
     categories?: CategoryCreateNestedManyWithoutInstitutionInput
     santri?: SantriCreateNestedManyWithoutInstitutionInput
-    users?: UsersCreateNestedManyWithoutInstitutionInput
   }
 
   export type InstitutionUncheckedCreateWithoutAdminInput = {
@@ -18804,9 +20566,10 @@ export namespace Prisma {
     name: string
     isActive?: boolean
     createdAt?: Date | string
+    users?: UsersUncheckedCreateNestedManyWithoutInstitutionInput
+    profile?: InstitutionProfileUncheckedCreateNestedOneWithoutInstitutionInput
     categories?: CategoryUncheckedCreateNestedManyWithoutInstitutionInput
     santri?: SantriUncheckedCreateNestedManyWithoutInstitutionInput
-    users?: UsersUncheckedCreateNestedManyWithoutInstitutionInput
   }
 
   export type InstitutionCreateOrConnectWithoutAdminInput = {
@@ -18904,8 +20667,8 @@ export namespace Prisma {
     institutionName?: string | null
     isActive?: boolean
     createdAt?: Date | string
-    authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
     institution: InstitutionCreateNestedOneWithoutSantriInput
+    authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
     transactions?: TransactionCreateNestedManyWithoutSantriInput
   }
 
@@ -18971,6 +20734,7 @@ export namespace Prisma {
     name: string
     isActive?: boolean
     createdAt?: Date | string
+    profile?: InstitutionProfileCreateNestedOneWithoutInstitutionInput
     categories?: CategoryCreateNestedManyWithoutInstitutionInput
     admin: UsersCreateNestedOneWithoutCreatedInstitutionsInput
     santri?: SantriCreateNestedManyWithoutInstitutionInput
@@ -18982,6 +20746,7 @@ export namespace Prisma {
     createdBy: number
     isActive?: boolean
     createdAt?: Date | string
+    profile?: InstitutionProfileUncheckedCreateNestedOneWithoutInstitutionInput
     categories?: CategoryUncheckedCreateNestedManyWithoutInstitutionInput
     santri?: SantriUncheckedCreateNestedManyWithoutInstitutionInput
   }
@@ -19197,6 +20962,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profile?: InstitutionProfileUpdateOneWithoutInstitutionNestedInput
     categories?: CategoryUpdateManyWithoutInstitutionNestedInput
     admin?: UsersUpdateOneRequiredWithoutCreatedInstitutionsNestedInput
     santri?: SantriUpdateManyWithoutInstitutionNestedInput
@@ -19208,6 +20974,7 @@ export namespace Prisma {
     createdBy?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profile?: InstitutionProfileUncheckedUpdateOneWithoutInstitutionNestedInput
     categories?: CategoryUncheckedUpdateManyWithoutInstitutionNestedInput
     santri?: SantriUncheckedUpdateManyWithoutInstitutionNestedInput
   }
@@ -19259,6 +21026,17 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UsersCreateManyInstitutionInput = {
+    id?: number
+    username: string
+    email: string
+    password: string
+    role: $Enums.user_role
+    isEmailVerified?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+  }
+
   export type CategoryCreateManyInstitutionInput = {
     id?: number
     name: string
@@ -19278,84 +21056,6 @@ export namespace Prisma {
     institutionName?: string | null
     isActive?: boolean
     createdAt?: Date | string
-  }
-
-  export type UsersCreateManyInstitutionInput = {
-    id?: number
-    username: string
-    email: string
-    password: string
-    role: $Enums.user_role
-    isEmailVerified?: boolean
-    isActive?: boolean
-    createdAt?: Date | string
-  }
-
-  export type CategoryUpdateWithoutInstitutionInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    transactions?: TransactionUpdateManyWithoutCategoryNestedInput
-  }
-
-  export type CategoryUncheckedUpdateWithoutInstitutionInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    transactions?: TransactionUncheckedUpdateManyWithoutCategoryNestedInput
-  }
-
-  export type CategoryUncheckedUpdateManyWithoutInstitutionInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SantriUpdateWithoutInstitutionInput = {
-    nis?: StringFieldUpdateOperationsInput | string
-    fullname?: StringFieldUpdateOperationsInput | string
-    kelas?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
-    waliName?: NullableStringFieldUpdateOperationsInput | string | null
-    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
-    wali?: UsersUpdateOneRequiredWithoutSantriNestedInput
-    transactions?: TransactionUpdateManyWithoutSantriNestedInput
-  }
-
-  export type SantriUncheckedUpdateWithoutInstitutionInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    nis?: StringFieldUpdateOperationsInput | string
-    fullname?: StringFieldUpdateOperationsInput | string
-    kelas?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
-    waliId?: IntFieldUpdateOperationsInput | number
-    waliName?: NullableStringFieldUpdateOperationsInput | string | null
-    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    authAccounts?: AuthAccountUncheckedUpdateManyWithoutSantriNestedInput
-    transactions?: TransactionUncheckedUpdateManyWithoutSantriNestedInput
-  }
-
-  export type SantriUncheckedUpdateManyWithoutInstitutionInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    nis?: StringFieldUpdateOperationsInput | string
-    fullname?: StringFieldUpdateOperationsInput | string
-    kelas?: StringFieldUpdateOperationsInput | string
-    gender?: StringFieldUpdateOperationsInput | string
-    waliId?: IntFieldUpdateOperationsInput | number
-    waliName?: NullableStringFieldUpdateOperationsInput | string | null
-    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UsersUpdateWithoutInstitutionInput = {
@@ -19402,6 +21102,73 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CategoryUpdateWithoutInstitutionInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionUpdateManyWithoutCategoryNestedInput
+  }
+
+  export type CategoryUncheckedUpdateWithoutInstitutionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionUncheckedUpdateManyWithoutCategoryNestedInput
+  }
+
+  export type CategoryUncheckedUpdateManyWithoutInstitutionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SantriUpdateWithoutInstitutionInput = {
+    nis?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wali?: UsersUpdateOneRequiredWithoutSantriNestedInput
+    authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
+    transactions?: TransactionUpdateManyWithoutSantriNestedInput
+  }
+
+  export type SantriUncheckedUpdateWithoutInstitutionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nis?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    waliId?: IntFieldUpdateOperationsInput | number
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authAccounts?: AuthAccountUncheckedUpdateManyWithoutSantriNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutSantriNestedInput
+  }
+
+  export type SantriUncheckedUpdateManyWithoutInstitutionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nis?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    waliId?: IntFieldUpdateOperationsInput | number
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19614,9 +21381,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UsersUpdateManyWithoutInstitutionNestedInput
+    profile?: InstitutionProfileUpdateOneWithoutInstitutionNestedInput
     categories?: CategoryUpdateManyWithoutInstitutionNestedInput
     santri?: SantriUpdateManyWithoutInstitutionNestedInput
-    users?: UsersUpdateManyWithoutInstitutionNestedInput
   }
 
   export type InstitutionUncheckedUpdateWithoutAdminInput = {
@@ -19624,9 +21392,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UsersUncheckedUpdateManyWithoutInstitutionNestedInput
+    profile?: InstitutionProfileUncheckedUpdateOneWithoutInstitutionNestedInput
     categories?: CategoryUncheckedUpdateManyWithoutInstitutionNestedInput
     santri?: SantriUncheckedUpdateManyWithoutInstitutionNestedInput
-    users?: UsersUncheckedUpdateManyWithoutInstitutionNestedInput
   }
 
   export type InstitutionUncheckedUpdateManyWithoutAdminInput = {
@@ -19691,8 +21460,8 @@ export namespace Prisma {
     institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
     institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
+    authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
     transactions?: TransactionUpdateManyWithoutSantriNestedInput
   }
 

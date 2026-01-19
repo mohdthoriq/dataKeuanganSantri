@@ -49,15 +49,18 @@ enum category_type {
 }
 
 model Institution {
-  id         Int        @id @default(autoincrement())
-  name       String     @unique
-  createdBy  Int
-  isActive   Boolean    @default(true)
-  createdAt  DateTime   @default(now())
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdBy Int
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  users Users[] @relation("InstitutionUsers")
+
+  profile    InstitutionProfile?
   categories Category[]
-  admin      Users      @relation("InstitutionAdmin", fields: [createdBy], references: [id])
+  admin      Users               @relation("InstitutionAdmin", fields: [createdBy], references: [id])
   santri     Santri[]
-  users      Users[]    @relation("InstitutionUsers")
 
   @@map("institution")
 }
@@ -101,23 +104,51 @@ model Profile {
   @@map("profile")
 }
 
+model InstitutionProfile {
+  id            Int @id @default(autoincrement())
+  institutionId Int @unique
+
+  name        String? @unique
+  address     String?
+  phone       String?
+  email       String?
+  website     String?
+  logoUrl     String?
+  public_id   String?
+  description String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // relations
+  institution Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
+}
+
 model Santri {
-  id              Int           @id @default(autoincrement())
-  nis             String        @unique
-  fullname        String
-  kelas           String
-  gender          String
-  waliId          Int
-  institutionId   Int
+  id       Int    @id @default(autoincrement())
+  nis      String @unique
+  fullname String
+  kelas    String
+  gender   String
+
+  waliId        Int
+  institutionId Int @unique
+
   waliName        String?
   institutionName String?
-  isActive        Boolean       @default(true)
-  createdAt       DateTime      @default(now())
-  authAccounts    AuthAccount[]
-  institution     Institution   @relation(fields: [institutionId], references: [id])
-  wali            Users         @relation("WaliSantri", fields: [waliId], references: [id])
-  transactions    Transaction[]
 
+<<<<<<< HEAD
+=======
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  wali        Users       @relation("WaliSantri", fields: [waliId], references: [id])
+  institution Institution @relation(fields: [institutionId], references: [id])
+
+  authAccounts AuthAccount[]
+  transactions Transaction[]
+
+>>>>>>> 28759af021b69e748e3c37446a9fdee6ca748b4b
   @@map("Santri")
 }
 

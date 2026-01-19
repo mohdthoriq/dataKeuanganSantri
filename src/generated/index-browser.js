@@ -187,6 +187,21 @@ exports.Prisma.ProfileScalarFieldEnum = {
   phone: 'phone'
 };
 
+exports.Prisma.InstitutionProfileScalarFieldEnum = {
+  id: 'id',
+  institutionId: 'institutionId',
+  name: 'name',
+  address: 'address',
+  phone: 'phone',
+  email: 'email',
+  website: 'website',
+  logoUrl: 'logoUrl',
+  public_id: 'public_id',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SantriScalarFieldEnum = {
   id: 'id',
   nis: 'nis',
@@ -258,6 +273,7 @@ exports.Prisma.ModelName = {
   Notification: 'Notification',
   PasswordReset: 'PasswordReset',
   Profile: 'Profile',
+  InstitutionProfile: 'InstitutionProfile',
   Santri: 'Santri',
   Transaction: 'Transaction',
   Users: 'Users'

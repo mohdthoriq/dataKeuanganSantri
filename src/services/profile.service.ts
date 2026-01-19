@@ -65,7 +65,7 @@ export class ProfileService implements IProfileService {
       public_id?: string;
     }>
   ): Promise<Profile> {
-    const profile = await this.profileRepo.findByUserId(id);
+    const profile = await this.profileRepo.findById(id);
     if (!profile) throw new Error("Profile tidak ditemukan");
 
     if (data.public_id && profile.public_id) {
@@ -76,7 +76,7 @@ export class ProfileService implements IProfileService {
   }
 
   async delete(id: number): Promise<void> {
-    const profile = await this.profileRepo.findByUserId(id);
+    const profile = await this.profileRepo.findById(id);
     if (!profile) throw new Error("Profile tidak ditemukan");
 
     if (profile.public_id) {

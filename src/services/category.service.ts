@@ -1,16 +1,16 @@
 // src/services/category.service.ts
-import type { category_type } from "../database";
 import type { ICategoryRepository, ICategoryListParams } from "../repository/category.repository";
 
 export interface ICreateCategoryPayload {
   name: string;
-  type: category_type;
+  type: "PEMASUKAN" | "PENGELUARAN";
   institutionId: number;
 }
 
 export interface IUpdateCategoryPayload {
   name?: string;
-  type?: category_type;
+  type?: "PEMASUKAN" | "PENGELUARAN";
+
   isActive?: boolean;
 }
 

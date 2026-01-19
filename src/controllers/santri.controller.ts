@@ -112,4 +112,14 @@ export class SantriController {
 
     successResponse(res, "Santri deleted successfully");
   };
+
+  getSantriByWali = async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    if (isNaN(id)) throw new Error("Invalid wali ID");
+
+    const santri = await this.santriService.getSantriByWali(id);
+
+    successResponse(res, "Santri list fetched successfully", santri);
+  };
 }
+

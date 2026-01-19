@@ -1,6 +1,6 @@
 import PrismaInstance from "../database";
 import bcrypt from "bcrypt";
-import type { Prisma, PrismaClient, Users, user_role } from "../database";
+import type { Prisma, PrismaClient, Users } from "../database";
 import type { RequestResetResult } from "./auth.repository";
 
 import type { IPaginatedResult, IPaginationParams } from "../types/common";
@@ -11,25 +11,26 @@ export interface ICreateUserPayload {
   username: string;
   email: string;
   password: string;
-  role: user_role;
+  role: "ADMIN" | "WALI_SANTRI";
   institutionId?: number;
 }
 
 export interface IUpdateUserPayload {
   username?: string;
   email?: string;
-  role?: user_role;
+  role?: "ADMIN" | "WALI_SANTRI";
   institutionId?: number | null;
 }
 
 export interface IUserListParams extends IPaginationParams {
   isActive?: boolean;
   institutionId?: number;
-  role?: user_role;
+  role?: "ADMIN" | "WALI_SANTRI";
 }
 
 export interface GetUsersResult extends RequestResetResult {
   success: boolean;
+
   data: Partial<Users> & { institution: { id: number; name: string } | null };
 }
 

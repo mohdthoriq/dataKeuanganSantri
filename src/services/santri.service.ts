@@ -39,4 +39,9 @@ export class SantriService {
   async deleteSantri(id: number): Promise<boolean> {
     return this.santriRepo.delete(id);
   }
+
+  async getSantriByWali(waliId: number): Promise<Santri[]> {
+    return this.santriRepo.getByWali(waliId);
+  }
 }
+

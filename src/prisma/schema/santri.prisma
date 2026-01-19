@@ -1,19 +1,25 @@
 model Santri {
-  id              Int           @id @default(autoincrement())
-  nis             String        @unique
-  fullname        String
-  kelas           String
-  gender          String
-  waliId          Int
-  institutionId   Int
+  id       Int    @id @default(autoincrement())
+  nis      String @unique
+  fullname String
+  kelas    String
+  gender   String
+
+  waliId        Int
+  institutionId Int @unique
+
   waliName        String?
   institutionName String?
-  isActive        Boolean       @default(true)
-  createdAt       DateTime      @default(now())
-  authAccounts    AuthAccount[]
-  institution     Institution   @relation(fields: [institutionId], references: [id])
-  wali            Users          @relation("WaliSantri", fields: [waliId], references: [id])
-  transactions    Transaction[]
+
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  wali        Users        @relation("WaliSantri", fields: [waliId], references: [id])
+  institution Institution @relation(fields: [institutionId], references: [id])
+
+  authAccounts AuthAccount[]
+  transactions Transaction[]
 
   @@map("Santri")
 }
+

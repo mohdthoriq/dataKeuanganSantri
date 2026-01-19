@@ -93,10 +93,11 @@ export class SantriRepository implements ISantriRepository {
         gender: payload.gender,
 
         waliId: waliId!,
-        // waliName removed - derived from relation
+        waliName: waliName!,
 
         institutionId: institutionId!,
-        // institutionName removed - derived from relation
+        institutionName: institutionName!,
+
       },
     });
   }
@@ -137,10 +138,8 @@ export class SantriRepository implements ISantriRepository {
     } else if (sortBy === "fullname") {
       orderBy.fullname = order;
     } else if (sortBy === "wali") {
-      // Sort by the related user's username
-      // orderBy.wali = { username: order };
-      // TODO: Re-enable when Prisma Adapter bug is fixed
-      orderBy.createdAt = order;
+      // Sort by the stored waliName field instead of relation
+      orderBy.waliName = order;
     } else {
       orderBy.createdAt = order;
     }
@@ -214,9 +213,15 @@ export class SantriRepository implements ISantriRepository {
 
     if (waliId && waliId !== santri.waliId) {
       updateData.wali = { connect: { id: waliId } };
-      // Verify wali exists
       const wali = await this.prisma.users.findUnique({
         where: { id: waliId },
+        select: { username: true },
+      });
+      if (!wali) throw new Error("Wali not found");
+      updateData.waliName = wali.username;
+    } else if (data.waliName && data.waliName !== santri.waliName) {
+      const wali = await this.prisma.users.findFirst({
+        where: { username: data.waliName },
         select: { id: true },
       });
       if (!wali) throw new Error("Wali not found");
@@ -228,25 +233,29 @@ export class SantriRepository implements ISantriRepository {
         select: { id: true },
       });
       if (!wali) throw new Error("Wali not found");
-      updateData.wali = { connect: { id: wali.id } };
+      updateData.wali = {
+        connect: { id: wali.id },
+      };
     }
 
     if (institutionId && institutionId !== santri.institutionId) {
       updateData.institution = { connect: { id: institutionId } };
-      // Verify institution exists
       const institution = await this.prisma.institution.findUnique({
         where: { id: institutionId },
-        select: { id: true },
+        select: { name: true },
       });
       if (!institution) throw new Error("Institution not found");
-    } else if (data.institutionName) {
-      // Logic for finding by name if needed
+      updateData.institutionName = institution.name;
+    } else if (data.institutionName && data.institutionName !== santri.institutionName) {
+
       const institution = await this.prisma.institution.findFirst({
         where: { name: data.institutionName },
         select: { id: true },
       });
       if (!institution) throw new Error("Institution not found");
-      updateData.institution = { connect: { id: institution.id } };
+      updateData.institution = {
+        connect: { id: institution.id },
+      };
     }
 
     return this.prisma.santri.update({
@@ -261,7 +270,21 @@ export class SantriRepository implements ISantriRepository {
   }
 
   async getByWali(waliId: number): Promise<Santri[]> {
-    return this.prisma.santri.findMany({ where: { waliId } });
+    return this.prisma.santri.findMany({
+      where: { waliId },
+      include: {
+        wali: {
+          select: {
+            username: true,
+          },
+        },
+        institution: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
   }
 
   async getStats(institutionId: number): Promise<{ totalSantri: number; activeSantri: number }> {
@@ -276,3 +299,4 @@ export class SantriRepository implements ISantriRepository {
     return { totalSantri, activeSantri };
   }
 }
+

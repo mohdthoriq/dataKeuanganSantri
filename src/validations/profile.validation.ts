@@ -19,11 +19,6 @@ export const createProfileValidation = [
     .withMessage("Address wajib diisi")
     .isLength({ min: 5, max: 100 })
     .withMessage("Address minimal 5 karakter dan maksimal 100"),
-  body("userId")
-    .notEmpty()
-    .withMessage("User ID wajib diisi")
-    .isInt({ gt: 0 })
-    .withMessage("User ID harus angka positif"),
 ];
 
 // Validasi buat update profile
@@ -47,10 +42,6 @@ export const updateProfileValidation = [
     .trim()
     .isLength({ min: 5, max: 100 })
     .withMessage("Address minimal 5 karakter dan maksimal 100"),
-  body("profile_picture_url")
-    .optional()
-    .isString()
-    .withMessage("Profile picture harus string URL"),
 ];
 
 // Validasi buat getById / param ID
