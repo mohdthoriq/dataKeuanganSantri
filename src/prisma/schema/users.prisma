@@ -3,7 +3,7 @@ model Users {
   username            String
   email               String              @unique
   password            String
-  role                user_role
+  role                user_role           @default(WALI_SANTRI)
   institutionId       Int?
   isEmailVerified     Boolean             @default(false)
   isActive            Boolean             @default(true)

@@ -1,9 +1,0 @@
-enum user_role {
-  ADMIN
-  WALI_SANTRI
-}
-
-enum category_type {
-  PEMASUKAN
-  PENGELUARAN
-}

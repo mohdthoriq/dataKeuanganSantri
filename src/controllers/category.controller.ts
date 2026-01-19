@@ -3,7 +3,6 @@ import type { Request, Response } from "express";
 import { successResponse } from "../utils/response";
 import type { CategoryService, ICreateCategoryPayload, IUpdateCategoryPayload } from "../services/category.service";
 import type { ICategoryListParams } from "../repository/category.repository";
-import type { $Enums } from "../database";
 
 export class CategoryController {
   constructor(private categoryService: CategoryService) { }
@@ -22,7 +21,7 @@ export class CategoryController {
 
     const params: ICategoryListParams = {
       institutionId: Number(institutionId),
-      ...(type && { type: type as $Enums.category_type }),
+      ...(type && { type: type as "PEMASUKAN" | "PENGELUARAN" }),
       ...(isActive !== undefined && { isActive: isActive === "true" }),
       ...(search && { search: search as string }),
       ...(page && { page: Number(page) }),

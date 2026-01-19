@@ -2,14 +2,13 @@
 import type { Request, Response } from "express";
 import { successResponse } from "../utils/response";
 import type { TransactionService } from "../services/transaction.service";
-import type { $Enums } from "../database";
 import type { ITransactionListParams } from "../repository/transaction.repository";
 import type { Decimal } from "../generated/runtime/client";
 
 export interface ICreateTransactionPayload {
     santriId?: number;
     categoryId?: number;
-    type?: $Enums.category_type;
+    type?: "PEMASUKAN" | "PENGELUARAN";
     amount?: number | Decimal;
     description?: string;
     transactionDate?: Date; // ⚡ sekarang bisa undefined
@@ -26,7 +25,7 @@ export class TransactionController {
         const transaction = await this.transactionService.createTransaction({
             santriId,
             categoryId,
-            type: type as $Enums.category_type,
+            type: type as "PEMASUKAN" | "PENGELUARAN",
             amount,
             description,
             transactionDate: new Date(transactionDate),
@@ -42,7 +41,7 @@ export class TransactionController {
         const params: ITransactionListParams = {
             ...(santriId && { santriId: Number(santriId) }),
             ...(categoryId && { categoryId: Number(categoryId) }),
-            ...(type && { type: type as $Enums.category_type }),
+            ...(type && { type: type as "PEMASUKAN" | "PENGELUARAN" }),
             ...(createdBy && { createdBy: Number(createdBy) }),
             ...(page && { page: Number(page) }),
             ...(limit && { limit: Number(limit) }),
@@ -77,7 +76,7 @@ export class TransactionController {
         const updatedTransaction = await this.transactionService.updateTransaction(id, {
             santriId,
             categoryId,
-            ...(type && { type: type as $Enums.category_type }),
+            ...(type && { type: type as "PEMASUKAN" | "PENGELUARAN" }),
             amount,
             description,
             ...(transactionDate && { transactionDate: new Date(transactionDate) }),
