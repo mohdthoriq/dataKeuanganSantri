@@ -24,6 +24,8 @@ export interface IUpdateUserPayload {
 
 export interface IUserListParams extends IPaginationParams {
   isActive?: boolean;
+  institutionId?: number;
+  role?: user_role;
 }
 
 export interface GetUsersResult extends RequestResetResult {
@@ -49,6 +51,8 @@ export class UserRepository implements IUserRepository {
       limit = 10,
       search,
       isActive,
+      institutionId,
+      role,
       sortBy,
       order = "desc",
     } = params;
@@ -62,6 +66,8 @@ export class UserRepository implements IUserRepository {
       ];
     }
     if (isActive !== undefined) where.isActive = isActive;
+    if (institutionId) where.institutionId = institutionId;
+    if (role) where.role = role;
 
     const orderBy: Prisma.UsersOrderByWithRelationInput = {};
     if (sortBy === "username") orderBy.username = order;
@@ -69,7 +75,7 @@ export class UserRepository implements IUserRepository {
     else orderBy.createdAt = order;
 
     const [data, total] = await this.prisma.$transaction([
-      prisma.users.findMany({
+      this.prisma.users.findMany({
         where,
         skip,
         take: limit,
@@ -79,12 +85,14 @@ export class UserRepository implements IUserRepository {
           username: true,
           email: true,
           role: true,
+          institutionId: true,
           isActive: true,
           isEmailVerified: true,
           createdAt: true,
+          institution: { select: { name: true } },
         },
       }),
-      prisma.users.count({ where }),
+      this.prisma.users.count({ where }),
     ]);
 
     return {
@@ -113,12 +121,12 @@ export class UserRepository implements IUserRepository {
   }
 
   async create(payload: ICreateUserPayload, admin: { institutionId: number }): Promise<Partial<Users>> {
-    const exists = await prisma.users.findUnique({ where: { email: payload.email } });
+    const exists = await this.prisma.users.findUnique({ where: { email: payload.email } });
     if (exists) throw new Error("Email already exists");
 
     const hashedPassword = await bcrypt.hash(payload.password, 10);
 
-    const user = await prisma.users.create({
+    const user = await this.prisma.users.create({
       data: {
         username: payload.username,
         email: payload.email,
