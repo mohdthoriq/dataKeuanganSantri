@@ -15,7 +15,7 @@ export const authenticate = (req: Request, res: Response, next: NextFunction) =>
     const token = authHeader?.split(' ')[1];
 
     try {
-        const payload = jwt.verify(token!, config.JWT_SECRET) as { id: number, role: string, institutionId: number, institutionName: string }
+        const payload = jwt.verify(token!, config.JWT_SECRET) as { id: string, role: string, institutionId: string, institutionName: string }
 
         req.user = payload
 
