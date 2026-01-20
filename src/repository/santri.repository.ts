@@ -155,7 +155,7 @@ export class SantriRepository implements ISantriRepository {
       orderBy.createdAt = order;
     }
 
-    const [data, total] = await this.prisma.$transaction([
+    const [data, total] = await Promise.all([
       this.prisma.santri.findMany({
         where,
         orderBy,

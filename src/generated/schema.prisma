@@ -136,7 +136,7 @@ model Santri {
   authAccounts AuthAccount[]
   transactions Transaction[]
 
-  @@map("santri")
+  @@map("Santri")
 }
 
 model Transaction {
