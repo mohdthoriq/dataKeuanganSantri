@@ -24,6 +24,14 @@ export class AuthService {
       institution,
     });
 
+    console.log("CREATE USER DATA:", {
+      username,
+      email,
+      password,
+      institution,
+    });
+
+
     const otpCode = result.data.otpCode;
 
     // Selalu kirim email jika ada otpCode
