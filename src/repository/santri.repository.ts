@@ -48,20 +48,40 @@ export class SantriRepository implements ISantriRepository {
     if (institutionId) {
       const institution = await this.prisma.institution.findUnique({
         where: { id: institutionId },
-        select: { name: true },
+        select: { id: true, name: true },
       });
-      if (!institution) throw new Error("Institution not found");
-      institutionName = institution.name;
-    } else if (institutionName) {
-      const institution = await this.prisma.institution.findFirst({
-        where: { name: institutionName },
-        select: { id: true },
-      });
-      if (!institution) throw new Error("Institution not found");
+
+      if (!institution) {
+        throw new Error("Institution not found");
+      }
+
       institutionId = institution.id;
-    } else {
+      institutionName = institution.name;
+    }
+    else if (institutionName) {
+      let institution = await this.prisma.institution.findFirst({
+        where: { name: institutionName },
+        select: { id: true, name: true },
+      });
+
+      // 🔥 AUTO CREATE KALO BELUM ADA
+      if (!institution) {
+        institution = await this.prisma.institution.create({
+          data: {
+            name: institutionName,
+            createdBy: 1, // admin default / from token
+          },
+          select: { id: true, name: true },
+        });
+      }
+
+      institutionId = institution.id;
+      institutionName = institution.name;
+    }
+    else {
       throw new Error("Institution ID or Name is required");
     }
+
 
     const exists = await this.prisma.santri.findFirst({
       where: {
@@ -102,11 +122,11 @@ export class SantriRepository implements ISantriRepository {
         kelas: payload.kelas,
         gender: payload.gender,
 
-        waliId: waliId!,
-        waliName: waliName!,
+        waliId,
+        waliName,
 
-        institutionId: institutionId!,
-        institutionName: institutionName!,
+        institutionId,
+        institutionName,
 
       },
     });
