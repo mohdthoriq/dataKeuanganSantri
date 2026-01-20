@@ -34,7 +34,7 @@ export class InstitutionController implements IInstitutionController {
     const { page, limit, search, sortBy, order } = req.query;
 
     const params: IInstitutionListParams = {
-      userId: req.user.id,
+      userId: req.user.id as string,
       ...(page && { page: Number(page) }),
       ...(limit && { limit: Number(limit) }),
       ...(search && { search: search as string }),
@@ -48,7 +48,7 @@ export class InstitutionController implements IInstitutionController {
   };
 
   getInstitutionById = async (req: Request, res: Response) => {
-    const id = req.params.id;
+    const id = req.params.id as string;
     if (!id) throw new Error("Invalid institution ID");
 
     const institution = await this.institutionService.getInstitutionById(id);
@@ -57,7 +57,7 @@ export class InstitutionController implements IInstitutionController {
   };
 
   updateInstitution = async (req: Request, res: Response) => {
-    const id = req.params.id;
+    const id = req.params.id as string;
     const { name } = req.body;
     if (!id || !name) throw new Error("Bad Request");
     if (!req.user?.id) throw new Error("Unauthorized");
@@ -68,7 +68,7 @@ export class InstitutionController implements IInstitutionController {
   };
 
   deleteInstitution = async (req: Request, res: Response) => {
-    const id = req.params.id;
+    const id = req.params.id as string;
     if (!id) throw new Error("Invalid institution ID");
 
     await this.institutionService.deleteInstitution(id);

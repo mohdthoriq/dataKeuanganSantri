@@ -39,10 +39,10 @@ export class TransactionController {
         const { santriId, categoryId, type, createdBy, skip, take, page, limit, search, sortBy, order } = req.query;
 
         const params: ITransactionListParams = {
-            ...(santriId && { santriId: Number(santriId) }),
-            ...(categoryId && { categoryId: Number(categoryId) }),
+            ...(santriId && { santriId: santriId as string }),
+            ...(categoryId && { categoryId: categoryId as string }),
             ...(type && { type: type as "PEMASUKAN" | "PENGELUARAN" }),
-            ...(createdBy && { createdBy: Number(createdBy) }),
+            ...(createdBy && { createdBy: createdBy as string }),
             ...(page && { page: Number(page) }),
             ...(limit && { limit: Number(limit) }),
             ...(search && { search: search as string }),
@@ -58,8 +58,8 @@ export class TransactionController {
 
 
     getTransactionById = async (req: Request, res: Response) => {
-        const id = Number(req.params.id);
-        if (isNaN(id)) throw new Error("Invalid transaction ID");
+        const id = req.params.id as string;
+        if (!id) throw new Error("Invalid transaction ID");
 
         const transaction = await this.transactionService.getTransactionById(id);
         if (!transaction) throw new Error("Transaction not found");
@@ -68,8 +68,8 @@ export class TransactionController {
     };
 
     updateTransaction = async (req: Request, res: Response) => {
-        const id = Number(req.params.id);
-        if (isNaN(id)) throw new Error("Invalid transaction ID");
+        const id = req.params.id as string;
+        if (!id) throw new Error("Invalid transaction ID");
 
         const { santriId, categoryId, type, amount, description, transactionDate } = req.body;
 
@@ -86,8 +86,8 @@ export class TransactionController {
     };
 
     deleteTransaction = async (req: Request, res: Response) => {
-        const id = Number(req.params.id);
-        if (isNaN(id)) throw new Error("Invalid transaction ID");
+        const id = req.params.id as string;
+        if (!id) throw new Error("Invalid transaction ID");
 
         const deletedTransaction = await this.transactionService.deleteTransaction(id);
 

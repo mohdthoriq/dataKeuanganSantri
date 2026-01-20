@@ -40,7 +40,7 @@ export class EmailVerificationController {
 
 
   resendOtp = async (req: Request, res: Response) => {
-    const userId = req.user?.id;
+    const userId = req.user?.id as string;
     if (!userId) throw new Error("Unauthorized");
 
     const otp = await this.emailVerificationService.resendOtp(userId);
@@ -52,7 +52,7 @@ export class EmailVerificationController {
       throw new Error("Not allowed");
     }
 
-    const userId = req.user?.id;
+    const userId = req.user?.id as string;
     if (!userId) throw new Error("Unauthorized");
 
     const otp = await this.emailVerificationService.getActiveOtp(userId);

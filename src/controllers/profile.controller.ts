@@ -18,7 +18,7 @@ export class ProfileController {
       address: String(address),
       profile_picture_url: file.path,
       public_id: file.filename,
-      userId: req.user.id,
+      userId: req.user.id as string,
     });
 
     successResponse(res, "Profile created successfully", profile);
@@ -35,8 +35,8 @@ export class ProfileController {
 
   // get profile by profile id
   getProfileById = async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
-    if (isNaN(id)) throw new Error("Invalid profile ID");
+    const id = req.params.id as string;
+    if (!id) throw new Error("Invalid profile ID");
 
     const profile = await this.profileService.getById(id);
 
@@ -45,8 +45,8 @@ export class ProfileController {
 
 // update profile
 updateProfile = async (req: Request, res: Response) => {
-  const id = Number(req.params.id);
-  if (isNaN(id)) throw new Error("Invalid profile ID");
+  const id = req.params.id as string;
+  if (!id) throw new Error("Invalid profile ID");
 
   const data: Partial<{
     name: string;
@@ -69,8 +69,8 @@ updateProfile = async (req: Request, res: Response) => {
 
   // delete profile
   deleteProfile = async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
-    if (isNaN(id)) throw new Error("Invalid profile ID");
+    const id = req.params.id as string;
+    if (!id) throw new Error("Invalid profile ID");
 
     await this.profileService.delete(id);
 

@@ -7,7 +7,7 @@ export class NotificationController {
   constructor(private notificationService: NotificationService) { }
 
   getMyNotifications = async (req: Request, res: Response) => {
-    const userId = req.user!.id;
+    const userId = req.user!.id as string;
     const { page, limit, sortBy, order } = req.query;
 
     const params: INotificationListParams = {
@@ -23,15 +23,15 @@ export class NotificationController {
   };
 
   readNotification = async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
-    if (isNaN(id)) throw new Error("Invalid notification ID");
+    const id = req.params.id as string;
+    if (!id) throw new Error("Invalid notification ID");
 
     const notification = await this.notificationService.markAsRead(id);
     successResponse(res, "Notification marked as read", notification);
   };
 
   readAllNotifications = async (req: Request, res: Response) => {
-    const userId = req.user!.id;
+    const userId = req.user!.id as string;
     await this.notificationService.markAllAsRead(userId);
     successResponse(res, "All notifications marked as read");
   };

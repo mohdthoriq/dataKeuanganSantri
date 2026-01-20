@@ -48,7 +48,7 @@ export class InstitutionProfileController {
   }
 
   async delete(req: Request, res: Response) {
-    const institutionId = Number(req.query.institutionId);
+    const institutionId = req.query.institutionId as string;
 
     const deletedProfile = await this.profileService.deleteProfile(institutionId);
 

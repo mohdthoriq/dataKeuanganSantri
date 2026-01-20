@@ -20,7 +20,7 @@ export class CategoryController {
     if (!institutionId) throw new Error("institutionId is required");
 
     const params: ICategoryListParams = {
-      institutionId: Number(institutionId),
+      institutionId: institutionId as string,
       ...(type && { type: type as "PEMASUKAN" | "PENGELUARAN" }),
       ...(isActive !== undefined && { isActive: isActive === "true" }),
       ...(search && { search: search as string }),
@@ -36,30 +36,34 @@ export class CategoryController {
 
 
   getCategoryById = async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const category = await this.categoryService.getCategoryById(Number(id));
+    const id = req.params.id as string;
+    if (!id) throw new Error("Invalid category id");
+    const category = await this.categoryService.getCategoryById(id);
     successResponse(res, "Get category detail success", category);
   };
 
   updateCategory = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const id = req.params.id as string;
+    if (!id) throw new Error("Invalid category id");
     const payload: IUpdateCategoryPayload = req.body;
-    const category = await this.categoryService.updateCategory(Number(id), payload);
+    const category = await this.categoryService.updateCategory(id, payload);
     successResponse(res, "Category updated successfully", category);
   };
 
   updateCategoryStatus = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const id = req.params.id as string;
+    if (!id) throw new Error("Invalid category id");
     const { isActive } = req.body;
     if (typeof isActive !== "boolean") throw new Error("Bad Request");
 
-    const category = await this.categoryService.updateCategoryStatus(Number(id), isActive);
+    const category = await this.categoryService.updateCategoryStatus(id, isActive);
     successResponse(res, "Category status updated successfully", category);
   };
 
   deleteCategory = async (req: Request, res: Response) => {
-    const { id } = req.params;
-    await this.categoryService.deleteCategory(Number(id));
+    const id = req.params.id as string;
+    if (!id) throw new Error("Invalid category id");
+    await this.categoryService.deleteCategory(id);
     successResponse(res, "Category deleted successfully", 200);
   };
 }
