@@ -12,6 +12,7 @@ export interface ICreateSantriPayload {
   institutionId?: number;
   waliName?: string;
   institutionName?: string;
+  isActive?: boolean;
 }
 
 export interface ISantriListParams extends IPaginationParams {
@@ -30,6 +31,15 @@ export interface ISantriRepository {
 
 export class SantriRepository implements ISantriRepository {
   constructor(private prisma: PrismaClient) { }
+
+  async findByNis(nis: string, institutionId: number) {
+    return this.prisma.santri.findFirst({
+      where: {
+        nis,
+        institutionId,
+      },
+    });
+  }
 
   async create(payload: ICreateSantriPayload): Promise<Santri> {
     let institutionId = payload.institutionId;

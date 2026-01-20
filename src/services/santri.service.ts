@@ -7,8 +7,31 @@ export class SantriService {
   constructor(private santriRepo: SantriRepository) { }
 
   async createSantri(payload: ICreateSantriPayload): Promise<Santri> {
-    return this.santriRepo.create(payload);
+    const { nis, institutionId, gender } = payload;
+
+    if (!institutionId) {
+      throw new Error("Institution ID is required");
+    }
+
+    const existing = await this.santriRepo.findByNis(
+      nis,
+      institutionId
+    );
+
+    if (existing) {
+      throw new Error("NIS already exists in this institution");
+    }
+
+    if (!["Laki-laki", "Perempuan"].includes(gender)) {
+      throw new Error("Invalid gender value");
+    }
+
+    return this.santriRepo.create({
+      ...payload,
+      isActive: true
+    });
   }
+
 
   async getSantriList(
     institutionId: number,

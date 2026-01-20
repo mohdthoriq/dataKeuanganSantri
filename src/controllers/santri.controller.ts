@@ -11,22 +11,16 @@ export class SantriController {
   ) { }
 
   createSantri = async (req: Request, res: Response) => {
-    const { nis, fullname, kelas, gender, waliName, institutionName } = req.body;
+    const user = req.user;
 
-    if (!nis || !fullname || !kelas || !gender || !waliName || !institutionName) {
-      throw new Error("Missing required fields");
+    if (!user?.institutionId) {
+      throw new Error("Institution not found in token");
     }
 
-    // Auto-create institution if it doesn't exist
-    let institution = await this.institutionService.getInstitutionByName(institutionName);
-    if (!institution) {
-      console.log(`Institution '${institutionName}' not found, creating new one...`);
+    const { nis, fullname, kelas, gender, waliName } = req.body;
 
-      // Use a default admin ID (1) for auto-created institutions
-      institution = await this.institutionService.createInstitution({
-        name: institutionName,
-        createdBy: 1
-      });
+    if (!nis || !fullname || !kelas || !gender || !waliName) {
+      throw new Error("Missing required fields");
     }
 
     const santri = await this.santriService.createSantri({
@@ -35,7 +29,7 @@ export class SantriController {
       kelas,
       gender,
       waliName,
-      institutionName
+      institutionId: user.institutionId,
     });
 
     successResponse(res, "Santri created successfully", santri);
@@ -43,19 +37,23 @@ export class SantriController {
 
   getSantriList = async (req: Request, res: Response) => {
     const user = req.user;
-    const institutionId = user?.institutionId;
-    if (!institutionId) {
-      throw new Error("Institution not found in authenticated user");
+
+    if (!user || !user.institutionId) {
+      throw new Error("Unauthorized");
     }
 
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 10;
     const search = req.query.search as string | undefined;
-    const sortBy = req.query.sortBy as string | undefined;
     const order = (req.query.order as "asc" | "desc") ?? "desc";
 
+    const allowedSort = ["createdAt", "fullname", "kelas"];
+    const sortBy = allowedSort.includes(String(req.query.sortBy))
+      ? String(req.query.sortBy)
+      : "createdAt";
+
     const result = await this.santriService.getSantriList(
-      institutionId,
+      user.institutionId,
       page,
       limit,
       search,
