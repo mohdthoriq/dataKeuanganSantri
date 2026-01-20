@@ -23,10 +23,6 @@ export const createSantriValidation = [
   body("waliName")
     .trim()
     .notEmpty().withMessage("Nama wali wajib diisi"),
-
-  body("institutionName")
-    .trim()
-    .notEmpty().withMessage("Nama institusi wajib diisi"),
 ];
 
 export const updateSantriValidation = [
