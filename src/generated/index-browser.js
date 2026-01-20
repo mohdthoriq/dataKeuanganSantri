@@ -132,12 +132,12 @@ exports.Prisma.EmailVerificationScalarFieldEnum = {
 exports.Prisma.AuthAccountScalarFieldEnum = {
   id: 'id',
   username: 'username',
-  email: 'email',
   password: 'password',
   userId: 'userId',
   santriId: 'santriId',
   isActive: 'isActive',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  email: 'email'
 };
 
 exports.Prisma.CategoryScalarFieldEnum = {

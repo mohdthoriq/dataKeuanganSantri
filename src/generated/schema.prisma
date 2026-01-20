@@ -13,12 +13,12 @@ model EmailVerification {
 model AuthAccount {
   id        String   @id @default(uuid())
   username  String
-  email     String   @unique
   password  String
   userId    String
   santriId  String?
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
+  email     String   @unique
   santri    Santri?  @relation(fields: [santriId], references: [id])
   user      Users    @relation(fields: [userId], references: [id])
 
@@ -39,18 +39,16 @@ model Category {
 }
 
 model Institution {
-  id        String   @id @default(uuid())
-  name      String   @unique
-  createdBy String
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
-
-  users Users[] @relation("InstitutionUsers")
-
+  id         String              @id @default(uuid())
+  name       String              @unique
+  createdBy  String
+  isActive   Boolean             @default(true)
+  createdAt  DateTime            @default(now())
   profile    InstitutionProfile?
   categories Category[]
   admin      Users               @relation("InstitutionAdmin", fields: [createdBy], references: [id])
   santri     Santri[]
+  users      Users[]             @relation("InstitutionUsers")
 
   @@map("institution")
 }
@@ -95,46 +93,37 @@ model Profile {
 }
 
 model InstitutionProfile {
-  id            String @id @default(uuid())
-  institutionId String @unique
-
-  name        String? @unique
-  address     String?
-  phone       String?
-  email       String?
-  website     String?
-  logoUrl     String?
-  public_id   String?
-  description String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // relations
-  institution Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
+  id            String      @id @default(uuid())
+  institutionId String      @unique
+  name          String?     @unique
+  address       String?
+  phone         String?
+  email         String?
+  website       String?
+  logoUrl       String?
+  public_id     String?
+  description   String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  institution   Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
 }
 
 model Santri {
-  id       String @id @default(uuid())
-  nis      String @unique
-  fullname String
-  kelas    String
-  gender   String
-
-  waliId        String
-  institutionId String
-
+  id              String        @id @default(uuid())
+  nis             String        @unique
+  fullname        String
+  kelas           String
+  gender          String
+  waliId          String
+  institutionId   String
   waliName        String?
   institutionName String?
-
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
-
-  wali        Users       @relation("WaliSantri", fields: [waliId], references: [id])
-  institution Institution @relation(fields: [institutionId], references: [id])
-
-  authAccounts AuthAccount[]
-  transactions Transaction[]
+  isActive        Boolean       @default(true)
+  createdAt       DateTime      @default(now())
+  authAccounts    AuthAccount[]
+  institution     Institution   @relation(fields: [institutionId], references: [id])
+  wali            Users         @relation("WaliSantri", fields: [waliId], references: [id])
+  transactions    Transaction[]
 
   @@map("santri")
 }
