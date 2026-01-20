@@ -9,13 +9,13 @@ export interface IProfileService {
     address: string;
     profile_picture_url?: string;
     public_id?: string;
-    userId: number;
+    userId: string;
   }): Promise<Profile>;
 
-  getByUserId(userId: number): Promise<Profile>;
-  getById(id: number): Promise<Profile>;
+  getByUserId(userId: string): Promise<Profile>;
+  getById(id: string): Promise<Profile>;
 
-  update(id: number, data: Partial<{
+  update(id: string, data: Partial<{
     name: string;
     gender: string;
     address: string;
@@ -23,7 +23,7 @@ export interface IProfileService {
     public_id?: string;
   }>): Promise<Profile>;
 
-  delete(id: number): Promise<void>;
+  delete(id: string): Promise<void>;
 }
 
 export class ProfileService implements IProfileService {
@@ -35,7 +35,7 @@ export class ProfileService implements IProfileService {
     address: string;
     profile_picture_url?: string;
     public_id?: string;
-    userId: number;
+    userId: string;
   }): Promise<Profile> {
     const exist = await this.profileRepo.findByUserId(data.userId);
     if (exist) throw new Error("Profile untuk user ini sudah ada");
@@ -43,20 +43,20 @@ export class ProfileService implements IProfileService {
     return this.profileRepo.create(data);
   }
 
-  async getByUserId(userId: number): Promise<Profile> {
+  async getByUserId(userId: string): Promise<Profile> {
     const profile = await this.profileRepo.findByUserId(userId);
     if (!profile) throw new Error("Profile tidak ditemukan");
     return profile;
   }
 
-  async getById(id: number): Promise<Profile> {
+  async getById(id: string): Promise<Profile> {
     const profile = await this.profileRepo.findById(id);
     if (!profile) throw new Error("Profile tidak ditemukan");
     return profile;
   }
 
   async update(
-    id: number,
+    id: string,
     data: Partial<{
       name: string;
       gender: string;
@@ -75,7 +75,7 @@ export class ProfileService implements IProfileService {
     return this.profileRepo.update(id, data);
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: string): Promise<void> {
     const profile = await this.profileRepo.findById(id);
     if (!profile) throw new Error("Profile tidak ditemukan");
 

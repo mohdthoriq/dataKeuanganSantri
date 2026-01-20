@@ -15,7 +15,7 @@ export type RegisterAdminResult = {
     success: boolean;
     message: string;
     data: {
-        userId: number;
+        userId: string;
         email: string;
         otpCode?: string;
     };
@@ -42,7 +42,7 @@ export interface IAuthRepository {
     registerAdmin(payload: RegisterAdminPayload): Promise<RegisterAdminResult>;
     login(email: string, password: string): Promise<LoginResult>;
     requestReset(email: string): Promise<RequestResetResult>;
-    resetPassword(userId: number, otpCode: string, newPassword: string): Promise<RequestResetResult>;
+    resetPassword(userId: string, otpCode: string, newPassword: string): Promise<RequestResetResult>;
 }
 
 export class AuthRepository implements IAuthRepository {
@@ -154,7 +154,7 @@ export class AuthRepository implements IAuthRepository {
 
         return { success: true, message: "OTP sent successfully", otpCode };
     }
-    async resetPassword(userId: number, otpCode: string, newPassword: string): Promise<RequestResetResult> {
+    async resetPassword(userId: string, otpCode: string, newPassword: string): Promise<RequestResetResult> {
         const record = await this.prisma.passwordReset.findFirst({
             where: { userId, otpCode, isUsed: false, expiredAt: { gte: new Date() } },
         });

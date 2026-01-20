@@ -13,15 +13,15 @@ export class TransactionService {
     return this.transactionRepo.getList(params);
   }
 
-  getTransactionById(id: number): Promise<Transaction | null> {
+  getTransactionById(id: string): Promise<Transaction | null> {
     return this.transactionRepo.getById(id);
   }
 
-  updateTransaction(id: number, data: Partial<ICreateTransactionPayload>): Promise<Transaction> {
+  updateTransaction(id: string, data: Partial<ICreateTransactionPayload>): Promise<Transaction> {
     return this.transactionRepo.update(id, data);
   }
 
-  deleteTransaction(id: number): Promise<Transaction> {
+  deleteTransaction(id: string): Promise<Transaction> {
     return this.transactionRepo.delete(id);
   }
 }

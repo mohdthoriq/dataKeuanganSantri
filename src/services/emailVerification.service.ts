@@ -47,7 +47,7 @@ export class EmailVerificationService {
     return { verified };
   }
 
-  async resendOtp(userId: number) {
+  async resendOtp(userId: string) {
     const user = await this.prisma.users.findUnique({
       where: { id: userId },
     });
@@ -73,7 +73,7 @@ export class EmailVerificationService {
     };
   }
 
-  async getActiveOtp(userId: number) {
+  async getActiveOtp(userId: string) {
     return this.repo.findActiveOtp(userId);
   }
 }

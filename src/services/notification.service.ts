@@ -9,15 +9,15 @@ export class NotificationService {
     return this.notificationRepo.getAll(params);
   }
 
-  markAsRead(id: number): Promise<Notification> {
+  markAsRead(id: string): Promise<Notification> {
     return this.notificationRepo.markAsRead(id);
   }
 
-  markAllAsRead(userId: number): Promise<void> {
+  markAllAsRead(userId: string): Promise<void> {
     return this.notificationRepo.markAllAsRead(userId);
   }
 
-  createNotification(userId: number, title: string, message: string): Promise<Notification> {
+  createNotification(userId: string, title: string, message: string): Promise<Notification> {
     return this.notificationRepo.create(userId, title, message);
   }
 }

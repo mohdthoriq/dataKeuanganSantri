@@ -4,13 +4,12 @@ import type { ICategoryRepository, ICategoryListParams } from "../repository/cat
 export interface ICreateCategoryPayload {
   name: string;
   type: "PEMASUKAN" | "PENGELUARAN";
-  institutionId: number;
+  institutionId: string;
 }
 
 export interface IUpdateCategoryPayload {
   name?: string;
   type?: "PEMASUKAN" | "PENGELUARAN";
-
   isActive?: boolean;
 }
 
@@ -25,19 +24,19 @@ export class CategoryService {
     return this.categoryRepo.getList(params);
   }
 
-  async getCategoryById(id: number) {
+  async getCategoryById(id: string) {
     return this.categoryRepo.getById(id);
   }
 
-  async updateCategory(id: number, payload: IUpdateCategoryPayload) {
+  async updateCategory(id: string, payload: IUpdateCategoryPayload) {
     return this.categoryRepo.updateById(id, payload);
   }
 
-  async updateCategoryStatus(id: number, isActive: boolean) {
+  async updateCategoryStatus(id: string, isActive: boolean) {
     return this.categoryRepo.updateStatusById(id, isActive);
   }
 
-  async deleteCategory(id: number) {
+  async deleteCategory(id: string) {
     return this.categoryRepo.deleteById(id);
   }
 }

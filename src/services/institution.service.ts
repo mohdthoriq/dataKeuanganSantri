@@ -7,7 +7,7 @@ export class InstitutionService {
     return this.institutionRepo.create(payload);
   }
 
-  async getInstitutionById(id: number) {
+  async getInstitutionById(id: string) {
     return this.institutionRepo.getById(id);
   }
 
@@ -15,11 +15,11 @@ export class InstitutionService {
     return this.institutionRepo.getByUser(params);
   }
 
-  async updateInstitution(id: number, name: string) {
+  async updateInstitution(id: string, name: string) {
     return this.institutionRepo.update(id, name);
   }
 
-  async deleteInstitution(id: number) {
+  async deleteInstitution(id: string) {
     return this.institutionRepo.delete(id);
   }
 

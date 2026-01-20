@@ -96,7 +96,6 @@ export class SantriController {
       kelas,
       gender,
       waliName,
-      institutionName
     });
 
     successResponse(res, "Santri updated successfully", santri);

@@ -3,19 +3,19 @@ import type { IPaginatedResult, IPaginationParams } from "../types/common";
 
 export interface ICreateInstitutionPayload {
   name: string;
-  createdBy: number;
+  createdBy: string;
 }
 
 export interface IInstitutionListParams extends IPaginationParams {
-  userId: number;
+  userId: string;
 }
 
 export interface IInstitutionRepository {
   create(payload: ICreateInstitutionPayload): Promise<Institution>;
-  getById(id: number): Promise<Institution>;
+  getById(id: string): Promise<Institution>;
   getByUser(params: IInstitutionListParams): Promise<IPaginatedResult<Institution>>;
-  update(id: number, name: string): Promise<Institution>;
-  delete(id: number): Promise<boolean>;
+  update(id: string, name: string): Promise<Institution>;
+  delete(id: string): Promise<boolean>;
 }
 
 export class InstitutionRepository implements IInstitutionRepository {
@@ -32,7 +32,7 @@ export class InstitutionRepository implements IInstitutionRepository {
     });
   }
 
-  async getById(id: number): Promise<Institution> {
+  async getById(id: string): Promise<Institution> {
     const institution = await this.prisma.institution.findUnique({ where: { id } });
     if (!institution) throw new Error("Institution not found");
     return institution;
@@ -77,14 +77,14 @@ export class InstitutionRepository implements IInstitutionRepository {
     };
   }
 
-  async update(id: number, name: string): Promise<Institution> {
+  async update(id: string, name: string): Promise<Institution> {
     return this.prisma.institution.update({
       where: { id },
       data: { name },
     });
   }
 
-  async delete(id: number): Promise<boolean> {
+  async delete(id: string): Promise<boolean> {
     await this.prisma.institution.delete({ where: { id } });
     return true;
   }

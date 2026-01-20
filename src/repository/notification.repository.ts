@@ -5,14 +5,14 @@ import PrismaInstance from "../database";
 const prisma = PrismaInstance;
 
 export interface INotificationListParams extends IPaginationParams {
-  userId: number;
+  userId: string;
 }
 
 export interface INotificationRepository {
   getAll(params: INotificationListParams): Promise<IPaginatedResult<Notification>>;
-  markAsRead(id: number): Promise<Notification>;
-  markAllAsRead(userId: number): Promise<void>;
-  create(userId: number, title: string, message: string): Promise<Notification>;
+  markAsRead(id: string): Promise<Notification>;
+  markAllAsRead(userId: string): Promise<void>;
+  create(userId: string, title: string, message: string): Promise<Notification>;
 }
 
 export class NotificationRepository implements INotificationRepository {
@@ -53,21 +53,21 @@ export class NotificationRepository implements INotificationRepository {
     };
   }
 
-  async markAsRead(id: number): Promise<Notification> {
+  async markAsRead(id: string): Promise<Notification> {
     return this.prisma.notification.update({
       where: { id },
       data: { isRead: true },
     });
   }
 
-  async markAllAsRead(userId: number): Promise<void> {
+  async markAllAsRead(userId: string): Promise<void> {
     await this.prisma.notification.updateMany({
       where: { userId, isRead: false },
       data: { isRead: true },
     });
   }
 
-  async create(userId: number, title: string, message: string): Promise<Notification> {
+  async create(userId: string, title: string, message: string): Promise<Notification> {
     return this.prisma.notification.create({
       data: { userId, title, message },
     });

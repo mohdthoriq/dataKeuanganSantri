@@ -5,8 +5,8 @@ export class InstitutionProfileService {
     private profileRepo: InstitutionProfileRepository
   ) {}
 
-  async getProfile(institutionId: number) {
-    if (!institutionId || isNaN(institutionId)) {
+  async getProfile(institutionId: string) {
+    if (!institutionId) {
       throw new Error("Invalid institutionId");
     }
 
@@ -20,7 +20,7 @@ export class InstitutionProfileService {
   }
 
   async createProfile(data: {
-  institutionId: number;
+  institutionId: string;
   name: string;
   address?: string;
   phone?: string;
@@ -39,7 +39,7 @@ export class InstitutionProfileService {
 }
 
   async updateProfile(payload: {
-    institutionId: number;
+    institutionId: string;
     address?: string;
     phone?: string;
     email?: string;
@@ -49,7 +49,7 @@ export class InstitutionProfileService {
   }) {
     const { institutionId, ...updateData } = payload;
 
-    if (!institutionId || isNaN(institutionId)) {
+    if (!institutionId) {
       throw new Error("Invalid institutionId");
     }
 
@@ -61,8 +61,8 @@ export class InstitutionProfileService {
     return this.profileRepo.updateByInstitutionId(institutionId, updateData);
   }
 
-  async deleteProfile(institutionId: number) {
-    if (!institutionId || isNaN(institutionId)) {
+  async deleteProfile(institutionId: string) {
+    if (!institutionId) {
       throw new Error("Invalid institutionId");
     }
 

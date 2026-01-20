@@ -5,16 +5,16 @@ import PrismaInstance from "../database";
 const prisma = PrismaInstance;
 
 export interface IEmailVerificationRepository {
-  generateOtp(userId: number): Promise<EmailVerification>;
-  verifyOtp(userId: number, otpCode: string): Promise<boolean>;
-  findActiveOtp(userId: number): Promise<EmailVerification | null>;
-  invalidateOtps(userId: number): Promise<void>;
+  generateOtp(userId: string): Promise<EmailVerification>;
+  verifyOtp(userId: string, otpCode: string): Promise<boolean>;
+  findActiveOtp(userId: string): Promise<EmailVerification | null>;
+  invalidateOtps(userId: string): Promise<void>;
 }
 
 export class EmailVerificationRepository implements IEmailVerificationRepository {
   constructor(private prisma: PrismaClient) { }
 
-  async generateOtp(userId: number): Promise<EmailVerification> {
+  async generateOtp(userId: string): Promise<EmailVerification> {
     // Hapus OTP lama yang belum dipakai
     await this.prisma.emailVerification.deleteMany({
       where: { userId, isUsed: false },
@@ -30,7 +30,7 @@ export class EmailVerificationRepository implements IEmailVerificationRepository
     return otp;
   }
 
-  async verifyOtp(userId: number, otpCode: string): Promise<boolean> {
+  async verifyOtp(userId: string, otpCode: string): Promise<boolean> {
     const record = await this.prisma.emailVerification.findFirst({
       where: {
         userId,
@@ -56,13 +56,13 @@ export class EmailVerificationRepository implements IEmailVerificationRepository
     return true;
   }
 
-  async findActiveOtp(userId: number): Promise<EmailVerification | null> {
+  async findActiveOtp(userId: string): Promise<EmailVerification | null> {
     return this.prisma.emailVerification.findFirst({
       where: { userId, isUsed: false, expiredAt: { gte: new Date() } },
     });
   }
 
-  async invalidateOtps(userId: number): Promise<void> {
+  async invalidateOtps(userId: string): Promise<void> {
     await this.prisma.emailVerification.updateMany({
       where: { userId, isUsed: false },
       data: { isUsed: true },

@@ -7,7 +7,7 @@ export class InstitutionProfileRepository {
     constructor(private prisma: PrismaClient) {}
 
   async findByInstitutionId(
-    institutionId: number
+    institutionId: string
   ): Promise<InstitutionProfile | null> {
     return prisma.institutionProfile.findUnique({
       where: {
@@ -20,7 +20,7 @@ export class InstitutionProfileRepository {
   }
 
  async create(data: {
-  institutionId: number;
+  institutionId: string;
   name: string;
   address?: string;
   phone?: string;
@@ -36,7 +36,7 @@ export class InstitutionProfileRepository {
 }
 
   async updateByInstitutionId(
-    institutionId: number,
+    institutionId: string,
     data: Partial<Omit<InstitutionProfile, "id" | "institutionId" | "createdAt" | "updatedAt">>
   ) {
     return prisma.institutionProfile.update({
@@ -45,7 +45,7 @@ export class InstitutionProfileRepository {
     });
   }
 
-  async deleteByInstitutionId(institutionId: number) {
+  async deleteByInstitutionId(institutionId: string) {
     return prisma.institutionProfile.delete({
       where: { institutionId },
     });

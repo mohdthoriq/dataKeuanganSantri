@@ -1,36 +1,36 @@
 import type { PrismaClient, Profile, Prisma } from "../database";
 
 export interface IProfileRepository {
-  findByUserId(userId: number): Promise<Profile | null>;
-  findById(id: number): Promise<Profile | null>;
+  findByUserId(userId: string): Promise<Profile | null>;
+  findById(id: string): Promise<Profile | null>;
   create(data: {
     name: string;
     gender: string;
     address: string;
     profile_picture_url?: string;
     public_id?: string;
-    userId: number;
+    userId: string;
   }): Promise<Profile>;
-  update(id: number, data: Partial<{
+  update(id: string, data: Partial<{
     name: string;
     gender: string;
     address: string;
     profile_picture_url?: string;
     public_id?: string;
   }>): Promise<Profile>;
-  delete(id: number): Promise<Profile>;
+  delete(id: string): Promise<Profile>;
 }
 
 export class ProfileRepository implements IProfileRepository {
   constructor(private prisma: PrismaClient) {}
 
-  async findByUserId(userId: number): Promise<Profile | null> {
+  async findByUserId(userId: string): Promise<Profile | null> {
     return this.prisma.profile.findUnique({
       where: { userId },
     });
   }
 
-  async findById(id: number): Promise<Profile | null> {
+  async findById(id: string): Promise<Profile | null> {
     return this.prisma.profile.findUnique({
       where: { id },
     });
@@ -42,7 +42,7 @@ export class ProfileRepository implements IProfileRepository {
     address: string;
     profile_picture_url?: string;
     public_id?: string;
-    userId: number;
+    userId: string;
   }): Promise<Profile> {
     return this.prisma.profile.create({
       data,
@@ -50,7 +50,7 @@ export class ProfileRepository implements IProfileRepository {
   }
 
   async update(
-    id: number,
+    id: string,
     data: Partial<{
       name: string;
       gender: string;
@@ -65,7 +65,7 @@ export class ProfileRepository implements IProfileRepository {
     });
   }
 
-  async delete(id: number): Promise<Profile> {
+  async delete(id: string): Promise<Profile> {
     return this.prisma.profile.delete({
       where: { id },
     });

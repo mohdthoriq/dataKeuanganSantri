@@ -34,7 +34,7 @@ export class SantriService {
 
 
   async getSantriList(
-    institutionId: number,
+    institutionId: string,
     page: number,
     limit: number,
     search?: string,
@@ -51,19 +51,19 @@ export class SantriService {
     });
   }
 
-  async getSantriById(id: number): Promise<Santri> {
+  async getSantriById(id: string): Promise<Santri> {
     return this.santriRepo.getById(id);
   }
 
-  async updateSantri(id: number, data: Partial<ICreateSantriPayload>): Promise<Santri> {
+  async updateSantri(id: string, data: Partial<ICreateSantriPayload>): Promise<Santri> {
     return this.santriRepo.update(id, data);
   }
 
-  async deleteSantri(id: number): Promise<boolean> {
+  async deleteSantri(id: string): Promise<boolean> {
     return this.santriRepo.delete(id);
   }
 
-  async getSantriByWali(waliId: number): Promise<Santri[]> {
+  async getSantriByWali(waliId: string): Promise<Santri[]> {
     return this.santriRepo.getByWali(waliId);
   }
 }

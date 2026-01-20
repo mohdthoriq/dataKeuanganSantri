@@ -76,7 +76,7 @@ export class AuthService {
     return result;
   }
 
-  async resetPassword(userId: number, otpCode: string, newPassword: string) {
+  async resetPassword(userId: string, otpCode: string, newPassword: string) {
     return this.authRepo.resetPassword(userId, otpCode, newPassword);
   }
 }

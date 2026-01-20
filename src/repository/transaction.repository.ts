@@ -4,28 +4,28 @@ import type { PrismaClient, Transaction, Prisma } from "../database";
 import type { IPaginatedResult, IPaginationParams } from "../types/common";
 
 export interface ICreateTransactionPayload {
-    santriId: number;
-    categoryId: number;
+    santriId: string;
+    categoryId: string;
     type: "PEMASUKAN" | "PENGELUARAN";
     amount: Prisma.Decimal | number;
     description?: string;
     transactionDate: Date;
-    createdBy: number;
+    createdBy: string;
 }
 
 export interface ITransactionListParams extends IPaginationParams {
-    santriId?: number;
-    categoryId?: number;
+    santriId?: string;
+    categoryId?: string;
     type?: "PEMASUKAN" | "PENGELUARAN";
-    createdBy?: number;
+    createdBy?: string;
 }
 
 export interface ITransactionRepository {
     create(payload: ICreateTransactionPayload): Promise<Transaction>;
     getList(params: ITransactionListParams): Promise<IPaginatedResult<Transaction>>;
-    getById(id: number): Promise<Transaction | null>;
-    update(id: number, data: Partial<ICreateTransactionPayload>): Promise<Transaction>;
-    delete(id: number): Promise<Transaction>;
+    getById(id: string): Promise<Transaction | null>;
+    update(id: string, data: Partial<ICreateTransactionPayload>): Promise<Transaction>;
+    delete(id: string): Promise<Transaction>;
 }
 
 export class TransactionRepository implements ITransactionRepository {
@@ -108,7 +108,7 @@ export class TransactionRepository implements ITransactionRepository {
         };
     }
 
-    async getById(id: number): Promise<Transaction | null> {
+    async getById(id: string): Promise<Transaction | null> {
         return this.prisma.transaction.findFirst({
             where: { id, isDeleted: false },
             include: { santri: true, category: true, admin: true },
@@ -116,7 +116,7 @@ export class TransactionRepository implements ITransactionRepository {
     }
 
     async update(
-        id: number,
+        id: string,
         payload: Partial<ICreateTransactionPayload>
     ): Promise<Transaction> {
         const data: Prisma.TransactionUpdateInput = {
@@ -135,7 +135,7 @@ export class TransactionRepository implements ITransactionRepository {
         });
     }
 
-    async delete(id: number): Promise<Transaction> {
+    async delete(id: string): Promise<Transaction> {
         return this.prisma.transaction.update({ where: { id }, data: { isDeleted: true } });
     }
 }
