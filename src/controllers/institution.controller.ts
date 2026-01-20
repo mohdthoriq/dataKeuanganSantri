@@ -48,8 +48,8 @@ export class InstitutionController implements IInstitutionController {
   };
 
   getInstitutionById = async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
-    if (isNaN(id)) throw new Error("Invalid institution ID");
+    const id = req.params.id;
+    if (!id) throw new Error("Invalid institution ID");
 
     const institution = await this.institutionService.getInstitutionById(id);
 
@@ -57,9 +57,9 @@ export class InstitutionController implements IInstitutionController {
   };
 
   updateInstitution = async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
+    const id = req.params.id;
     const { name } = req.body;
-    if (isNaN(id) || !name) throw new Error("Bad Request");
+    if (!id || !name) throw new Error("Bad Request");
     if (!req.user?.id) throw new Error("Unauthorized");
 
     const institution = await this.institutionService.updateInstitution(id, name);
@@ -68,8 +68,8 @@ export class InstitutionController implements IInstitutionController {
   };
 
   deleteInstitution = async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
-    if (isNaN(id)) throw new Error("Invalid institution ID");
+    const id = req.params.id;
+    if (!id) throw new Error("Invalid institution ID");
 
     await this.institutionService.deleteInstitution(id);
 

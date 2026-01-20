@@ -8,24 +8,24 @@ export class UserService {
     return this.userRepo.getAll(params);
   }
 
-  async getById(id: number) {
+  async getById(id: string) {
     return this.userRepo.getById(id);
   }
 
-  async create(payload: ICreateUserPayload, admin: { institutionId: number }) {
+  async create(payload: ICreateUserPayload, admin: { institutionId: string }) {
     // hashing is handled in repository
     return this.userRepo.create(payload, admin);
   }
 
-  async update(id: number, payload: IUpdateUserPayload) {
+  async update(id: string, payload: IUpdateUserPayload) {
     return this.userRepo.update(id, payload);
   }
 
-  async updateStatus(id: number, isActive: boolean) {
+  async updateStatus(id: string, isActive: boolean) {
     return this.userRepo.updateStatus(id, isActive);
   }
 
-  async deleteUser(id: number) {
+  async deleteUser(id: string) {
     return this.userRepo.deleteUser(id);
   }
 }

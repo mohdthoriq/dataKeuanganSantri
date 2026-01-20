@@ -6,9 +6,9 @@ declare global {
             startTime?: number;
             apiKey?: string;
             user?: {
-                id: number;
+                id: string;
                 role: string;
-                institutionId?: number;
+                institutionId?: string;
             }
 
         }

@@ -2011,25 +2011,13 @@ export namespace Prisma {
 
   export type AggregateEmailVerification = {
     _count: EmailVerificationCountAggregateOutputType | null
-    _avg: EmailVerificationAvgAggregateOutputType | null
-    _sum: EmailVerificationSumAggregateOutputType | null
     _min: EmailVerificationMinAggregateOutputType | null
     _max: EmailVerificationMaxAggregateOutputType | null
   }
 
-  export type EmailVerificationAvgAggregateOutputType = {
-    id: number | null
-    userId: number | null
-  }
-
-  export type EmailVerificationSumAggregateOutputType = {
-    id: number | null
-    userId: number | null
-  }
-
   export type EmailVerificationMinAggregateOutputType = {
-    id: number | null
-    userId: number | null
+    id: string | null
+    userId: string | null
     otpCode: string | null
     expiredAt: Date | null
     isUsed: boolean | null
@@ -2037,8 +2025,8 @@ export namespace Prisma {
   }
 
   export type EmailVerificationMaxAggregateOutputType = {
-    id: number | null
-    userId: number | null
+    id: string | null
+    userId: string | null
     otpCode: string | null
     expiredAt: Date | null
     isUsed: boolean | null
@@ -2055,16 +2043,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type EmailVerificationAvgAggregateInputType = {
-    id?: true
-    userId?: true
-  }
-
-  export type EmailVerificationSumAggregateInputType = {
-    id?: true
-    userId?: true
-  }
 
   export type EmailVerificationMinAggregateInputType = {
     id?: true
@@ -2132,18 +2110,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: EmailVerificationAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: EmailVerificationSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: EmailVerificationMinAggregateInputType
@@ -2174,22 +2140,18 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: EmailVerificationCountAggregateInputType | true
-    _avg?: EmailVerificationAvgAggregateInputType
-    _sum?: EmailVerificationSumAggregateInputType
     _min?: EmailVerificationMinAggregateInputType
     _max?: EmailVerificationMaxAggregateInputType
   }
 
   export type EmailVerificationGroupByOutputType = {
-    id: number
-    userId: number
+    id: string
+    userId: string
     otpCode: string
     expiredAt: Date
     isUsed: boolean
     createdAt: Date
     _count: EmailVerificationCountAggregateOutputType | null
-    _avg: EmailVerificationAvgAggregateOutputType | null
-    _sum: EmailVerificationSumAggregateOutputType | null
     _min: EmailVerificationMinAggregateOutputType | null
     _max: EmailVerificationMaxAggregateOutputType | null
   }
@@ -2264,8 +2226,8 @@ export namespace Prisma {
       user: Prisma.$UsersPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      userId: number
+      id: string
+      userId: string
       otpCode: string
       expiredAt: Date
       isUsed: boolean
@@ -2694,8 +2656,8 @@ export namespace Prisma {
    * Fields of the EmailVerification model
    */
   interface EmailVerificationFieldRefs {
-    readonly id: FieldRef<"EmailVerification", 'Int'>
-    readonly userId: FieldRef<"EmailVerification", 'Int'>
+    readonly id: FieldRef<"EmailVerification", 'String'>
+    readonly userId: FieldRef<"EmailVerification", 'String'>
     readonly otpCode: FieldRef<"EmailVerification", 'String'>
     readonly expiredAt: FieldRef<"EmailVerification", 'DateTime'>
     readonly isUsed: FieldRef<"EmailVerification", 'Boolean'>
@@ -3120,42 +3082,28 @@ export namespace Prisma {
 
   export type AggregateAuthAccount = {
     _count: AuthAccountCountAggregateOutputType | null
-    _avg: AuthAccountAvgAggregateOutputType | null
-    _sum: AuthAccountSumAggregateOutputType | null
     _min: AuthAccountMinAggregateOutputType | null
     _max: AuthAccountMaxAggregateOutputType | null
   }
 
-  export type AuthAccountAvgAggregateOutputType = {
-    id: number | null
-    userId: number | null
-    santriId: number | null
-  }
-
-  export type AuthAccountSumAggregateOutputType = {
-    id: number | null
-    userId: number | null
-    santriId: number | null
-  }
-
   export type AuthAccountMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     username: string | null
     email: string | null
     password: string | null
-    userId: number | null
-    santriId: number | null
+    userId: string | null
+    santriId: string | null
     isActive: boolean | null
     createdAt: Date | null
   }
 
   export type AuthAccountMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     username: string | null
     email: string | null
     password: string | null
-    userId: number | null
-    santriId: number | null
+    userId: string | null
+    santriId: string | null
     isActive: boolean | null
     createdAt: Date | null
   }
@@ -3172,18 +3120,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type AuthAccountAvgAggregateInputType = {
-    id?: true
-    userId?: true
-    santriId?: true
-  }
-
-  export type AuthAccountSumAggregateInputType = {
-    id?: true
-    userId?: true
-    santriId?: true
-  }
 
   export type AuthAccountMinAggregateInputType = {
     id?: true
@@ -3257,18 +3193,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: AuthAccountAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: AuthAccountSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: AuthAccountMinAggregateInputType
@@ -3299,24 +3223,20 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: AuthAccountCountAggregateInputType | true
-    _avg?: AuthAccountAvgAggregateInputType
-    _sum?: AuthAccountSumAggregateInputType
     _min?: AuthAccountMinAggregateInputType
     _max?: AuthAccountMaxAggregateInputType
   }
 
   export type AuthAccountGroupByOutputType = {
-    id: number
+    id: string
     username: string
     email: string
     password: string
-    userId: number
-    santriId: number | null
+    userId: string
+    santriId: string | null
     isActive: boolean
     createdAt: Date
     _count: AuthAccountCountAggregateOutputType | null
-    _avg: AuthAccountAvgAggregateOutputType | null
-    _sum: AuthAccountSumAggregateOutputType | null
     _min: AuthAccountMinAggregateOutputType | null
     _max: AuthAccountMaxAggregateOutputType | null
   }
@@ -3406,12 +3326,12 @@ export namespace Prisma {
       user: Prisma.$UsersPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       username: string
       email: string
       password: string
-      userId: number
-      santriId: number | null
+      userId: string
+      santriId: string | null
       isActive: boolean
       createdAt: Date
     }, ExtArgs["result"]["authAccount"]>
@@ -3839,12 +3759,12 @@ export namespace Prisma {
    * Fields of the AuthAccount model
    */
   interface AuthAccountFieldRefs {
-    readonly id: FieldRef<"AuthAccount", 'Int'>
+    readonly id: FieldRef<"AuthAccount", 'String'>
     readonly username: FieldRef<"AuthAccount", 'String'>
     readonly email: FieldRef<"AuthAccount", 'String'>
     readonly password: FieldRef<"AuthAccount", 'String'>
-    readonly userId: FieldRef<"AuthAccount", 'Int'>
-    readonly santriId: FieldRef<"AuthAccount", 'Int'>
+    readonly userId: FieldRef<"AuthAccount", 'String'>
+    readonly santriId: FieldRef<"AuthAccount", 'String'>
     readonly isActive: FieldRef<"AuthAccount", 'Boolean'>
     readonly createdAt: FieldRef<"AuthAccount", 'DateTime'>
   }
@@ -4286,36 +4206,24 @@ export namespace Prisma {
 
   export type AggregateCategory = {
     _count: CategoryCountAggregateOutputType | null
-    _avg: CategoryAvgAggregateOutputType | null
-    _sum: CategorySumAggregateOutputType | null
     _min: CategoryMinAggregateOutputType | null
     _max: CategoryMaxAggregateOutputType | null
   }
 
-  export type CategoryAvgAggregateOutputType = {
-    id: number | null
-    institutionId: number | null
-  }
-
-  export type CategorySumAggregateOutputType = {
-    id: number | null
-    institutionId: number | null
-  }
-
   export type CategoryMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: string | null
     type: $Enums.category_type | null
-    institutionId: number | null
+    institutionId: string | null
     isActive: boolean | null
     createdAt: Date | null
   }
 
   export type CategoryMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: string | null
     type: $Enums.category_type | null
-    institutionId: number | null
+    institutionId: string | null
     isActive: boolean | null
     createdAt: Date | null
   }
@@ -4330,16 +4238,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type CategoryAvgAggregateInputType = {
-    id?: true
-    institutionId?: true
-  }
-
-  export type CategorySumAggregateInputType = {
-    id?: true
-    institutionId?: true
-  }
 
   export type CategoryMinAggregateInputType = {
     id?: true
@@ -4407,18 +4305,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: CategoryAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: CategorySumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: CategoryMinAggregateInputType
@@ -4449,22 +4335,18 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: CategoryCountAggregateInputType | true
-    _avg?: CategoryAvgAggregateInputType
-    _sum?: CategorySumAggregateInputType
     _min?: CategoryMinAggregateInputType
     _max?: CategoryMaxAggregateInputType
   }
 
   export type CategoryGroupByOutputType = {
-    id: number
+    id: string
     name: string
     type: $Enums.category_type
-    institutionId: number
+    institutionId: string
     isActive: boolean
     createdAt: Date
     _count: CategoryCountAggregateOutputType | null
-    _avg: CategoryAvgAggregateOutputType | null
-    _sum: CategorySumAggregateOutputType | null
     _min: CategoryMinAggregateOutputType | null
     _max: CategoryMaxAggregateOutputType | null
   }
@@ -4544,10 +4426,10 @@ export namespace Prisma {
       transactions: Prisma.$TransactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       name: string
       type: $Enums.category_type
-      institutionId: number
+      institutionId: string
       isActive: boolean
       createdAt: Date
     }, ExtArgs["result"]["category"]>
@@ -4975,10 +4857,10 @@ export namespace Prisma {
    * Fields of the Category model
    */
   interface CategoryFieldRefs {
-    readonly id: FieldRef<"Category", 'Int'>
+    readonly id: FieldRef<"Category", 'String'>
     readonly name: FieldRef<"Category", 'String'>
     readonly type: FieldRef<"Category", 'category_type'>
-    readonly institutionId: FieldRef<"Category", 'Int'>
+    readonly institutionId: FieldRef<"Category", 'String'>
     readonly isActive: FieldRef<"Category", 'Boolean'>
     readonly createdAt: FieldRef<"Category", 'DateTime'>
   }
@@ -5425,34 +5307,22 @@ export namespace Prisma {
 
   export type AggregateInstitution = {
     _count: InstitutionCountAggregateOutputType | null
-    _avg: InstitutionAvgAggregateOutputType | null
-    _sum: InstitutionSumAggregateOutputType | null
     _min: InstitutionMinAggregateOutputType | null
     _max: InstitutionMaxAggregateOutputType | null
   }
 
-  export type InstitutionAvgAggregateOutputType = {
-    id: number | null
-    createdBy: number | null
-  }
-
-  export type InstitutionSumAggregateOutputType = {
-    id: number | null
-    createdBy: number | null
-  }
-
   export type InstitutionMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: string | null
-    createdBy: number | null
+    createdBy: string | null
     isActive: boolean | null
     createdAt: Date | null
   }
 
   export type InstitutionMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: string | null
-    createdBy: number | null
+    createdBy: string | null
     isActive: boolean | null
     createdAt: Date | null
   }
@@ -5466,16 +5336,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type InstitutionAvgAggregateInputType = {
-    id?: true
-    createdBy?: true
-  }
-
-  export type InstitutionSumAggregateInputType = {
-    id?: true
-    createdBy?: true
-  }
 
   export type InstitutionMinAggregateInputType = {
     id?: true
@@ -5540,18 +5400,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: InstitutionAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: InstitutionSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: InstitutionMinAggregateInputType
@@ -5582,21 +5430,17 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: InstitutionCountAggregateInputType | true
-    _avg?: InstitutionAvgAggregateInputType
-    _sum?: InstitutionSumAggregateInputType
     _min?: InstitutionMinAggregateInputType
     _max?: InstitutionMaxAggregateInputType
   }
 
   export type InstitutionGroupByOutputType = {
-    id: number
+    id: string
     name: string
-    createdBy: number
+    createdBy: string
     isActive: boolean
     createdAt: Date
     _count: InstitutionCountAggregateOutputType | null
-    _avg: InstitutionAvgAggregateOutputType | null
-    _sum: InstitutionSumAggregateOutputType | null
     _min: InstitutionMinAggregateOutputType | null
     _max: InstitutionMaxAggregateOutputType | null
   }
@@ -5681,9 +5525,9 @@ export namespace Prisma {
       santri: Prisma.$SantriPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       name: string
-      createdBy: number
+      createdBy: string
       isActive: boolean
       createdAt: Date
     }, ExtArgs["result"]["institution"]>
@@ -6114,9 +5958,9 @@ export namespace Prisma {
    * Fields of the Institution model
    */
   interface InstitutionFieldRefs {
-    readonly id: FieldRef<"Institution", 'Int'>
+    readonly id: FieldRef<"Institution", 'String'>
     readonly name: FieldRef<"Institution", 'String'>
-    readonly createdBy: FieldRef<"Institution", 'Int'>
+    readonly createdBy: FieldRef<"Institution", 'String'>
     readonly isActive: FieldRef<"Institution", 'Boolean'>
     readonly createdAt: FieldRef<"Institution", 'DateTime'>
   }
@@ -6630,25 +6474,13 @@ export namespace Prisma {
 
   export type AggregateNotification = {
     _count: NotificationCountAggregateOutputType | null
-    _avg: NotificationAvgAggregateOutputType | null
-    _sum: NotificationSumAggregateOutputType | null
     _min: NotificationMinAggregateOutputType | null
     _max: NotificationMaxAggregateOutputType | null
   }
 
-  export type NotificationAvgAggregateOutputType = {
-    id: number | null
-    userId: number | null
-  }
-
-  export type NotificationSumAggregateOutputType = {
-    id: number | null
-    userId: number | null
-  }
-
   export type NotificationMinAggregateOutputType = {
-    id: number | null
-    userId: number | null
+    id: string | null
+    userId: string | null
     title: string | null
     message: string | null
     isRead: boolean | null
@@ -6656,8 +6488,8 @@ export namespace Prisma {
   }
 
   export type NotificationMaxAggregateOutputType = {
-    id: number | null
-    userId: number | null
+    id: string | null
+    userId: string | null
     title: string | null
     message: string | null
     isRead: boolean | null
@@ -6674,16 +6506,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type NotificationAvgAggregateInputType = {
-    id?: true
-    userId?: true
-  }
-
-  export type NotificationSumAggregateInputType = {
-    id?: true
-    userId?: true
-  }
 
   export type NotificationMinAggregateInputType = {
     id?: true
@@ -6751,18 +6573,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: NotificationAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: NotificationSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: NotificationMinAggregateInputType
@@ -6793,22 +6603,18 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: NotificationCountAggregateInputType | true
-    _avg?: NotificationAvgAggregateInputType
-    _sum?: NotificationSumAggregateInputType
     _min?: NotificationMinAggregateInputType
     _max?: NotificationMaxAggregateInputType
   }
 
   export type NotificationGroupByOutputType = {
-    id: number
-    userId: number
+    id: string
+    userId: string
     title: string
     message: string
     isRead: boolean
     createdAt: Date
     _count: NotificationCountAggregateOutputType | null
-    _avg: NotificationAvgAggregateOutputType | null
-    _sum: NotificationSumAggregateOutputType | null
     _min: NotificationMinAggregateOutputType | null
     _max: NotificationMaxAggregateOutputType | null
   }
@@ -6883,8 +6689,8 @@ export namespace Prisma {
       user: Prisma.$UsersPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      userId: number
+      id: string
+      userId: string
       title: string
       message: string
       isRead: boolean
@@ -7313,8 +7119,8 @@ export namespace Prisma {
    * Fields of the Notification model
    */
   interface NotificationFieldRefs {
-    readonly id: FieldRef<"Notification", 'Int'>
-    readonly userId: FieldRef<"Notification", 'Int'>
+    readonly id: FieldRef<"Notification", 'String'>
+    readonly userId: FieldRef<"Notification", 'String'>
     readonly title: FieldRef<"Notification", 'String'>
     readonly message: FieldRef<"Notification", 'String'>
     readonly isRead: FieldRef<"Notification", 'Boolean'>
@@ -7739,25 +7545,13 @@ export namespace Prisma {
 
   export type AggregatePasswordReset = {
     _count: PasswordResetCountAggregateOutputType | null
-    _avg: PasswordResetAvgAggregateOutputType | null
-    _sum: PasswordResetSumAggregateOutputType | null
     _min: PasswordResetMinAggregateOutputType | null
     _max: PasswordResetMaxAggregateOutputType | null
   }
 
-  export type PasswordResetAvgAggregateOutputType = {
-    id: number | null
-    userId: number | null
-  }
-
-  export type PasswordResetSumAggregateOutputType = {
-    id: number | null
-    userId: number | null
-  }
-
   export type PasswordResetMinAggregateOutputType = {
-    id: number | null
-    userId: number | null
+    id: string | null
+    userId: string | null
     otpCode: string | null
     expiredAt: Date | null
     isUsed: boolean | null
@@ -7765,8 +7559,8 @@ export namespace Prisma {
   }
 
   export type PasswordResetMaxAggregateOutputType = {
-    id: number | null
-    userId: number | null
+    id: string | null
+    userId: string | null
     otpCode: string | null
     expiredAt: Date | null
     isUsed: boolean | null
@@ -7783,16 +7577,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type PasswordResetAvgAggregateInputType = {
-    id?: true
-    userId?: true
-  }
-
-  export type PasswordResetSumAggregateInputType = {
-    id?: true
-    userId?: true
-  }
 
   export type PasswordResetMinAggregateInputType = {
     id?: true
@@ -7860,18 +7644,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: PasswordResetAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: PasswordResetSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: PasswordResetMinAggregateInputType
@@ -7902,22 +7674,18 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: PasswordResetCountAggregateInputType | true
-    _avg?: PasswordResetAvgAggregateInputType
-    _sum?: PasswordResetSumAggregateInputType
     _min?: PasswordResetMinAggregateInputType
     _max?: PasswordResetMaxAggregateInputType
   }
 
   export type PasswordResetGroupByOutputType = {
-    id: number
-    userId: number
+    id: string
+    userId: string
     otpCode: string
     expiredAt: Date
     isUsed: boolean
     createdAt: Date
     _count: PasswordResetCountAggregateOutputType | null
-    _avg: PasswordResetAvgAggregateOutputType | null
-    _sum: PasswordResetSumAggregateOutputType | null
     _min: PasswordResetMinAggregateOutputType | null
     _max: PasswordResetMaxAggregateOutputType | null
   }
@@ -7992,8 +7760,8 @@ export namespace Prisma {
       user: Prisma.$UsersPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      userId: number
+      id: string
+      userId: string
       otpCode: string
       expiredAt: Date
       isUsed: boolean
@@ -8422,8 +8190,8 @@ export namespace Prisma {
    * Fields of the PasswordReset model
    */
   interface PasswordResetFieldRefs {
-    readonly id: FieldRef<"PasswordReset", 'Int'>
-    readonly userId: FieldRef<"PasswordReset", 'Int'>
+    readonly id: FieldRef<"PasswordReset", 'String'>
+    readonly userId: FieldRef<"PasswordReset", 'String'>
     readonly otpCode: FieldRef<"PasswordReset", 'String'>
     readonly expiredAt: FieldRef<"PasswordReset", 'DateTime'>
     readonly isUsed: FieldRef<"PasswordReset", 'Boolean'>
@@ -8848,42 +8616,30 @@ export namespace Prisma {
 
   export type AggregateProfile = {
     _count: ProfileCountAggregateOutputType | null
-    _avg: ProfileAvgAggregateOutputType | null
-    _sum: ProfileSumAggregateOutputType | null
     _min: ProfileMinAggregateOutputType | null
     _max: ProfileMaxAggregateOutputType | null
   }
 
-  export type ProfileAvgAggregateOutputType = {
-    id: number | null
-    userId: number | null
-  }
-
-  export type ProfileSumAggregateOutputType = {
-    id: number | null
-    userId: number | null
-  }
-
   export type ProfileMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: string | null
     gender: string | null
     address: string | null
     profile_picture_url: string | null
     public_id: string | null
-    userId: number | null
+    userId: string | null
     occupation: string | null
     phone: string | null
   }
 
   export type ProfileMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: string | null
     gender: string | null
     address: string | null
     profile_picture_url: string | null
     public_id: string | null
-    userId: number | null
+    userId: string | null
     occupation: string | null
     phone: string | null
   }
@@ -8901,16 +8657,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type ProfileAvgAggregateInputType = {
-    id?: true
-    userId?: true
-  }
-
-  export type ProfileSumAggregateInputType = {
-    id?: true
-    userId?: true
-  }
 
   export type ProfileMinAggregateInputType = {
     id?: true
@@ -8987,18 +8733,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: ProfileAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: ProfileSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: ProfileMinAggregateInputType
@@ -9029,25 +8763,21 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ProfileCountAggregateInputType | true
-    _avg?: ProfileAvgAggregateInputType
-    _sum?: ProfileSumAggregateInputType
     _min?: ProfileMinAggregateInputType
     _max?: ProfileMaxAggregateInputType
   }
 
   export type ProfileGroupByOutputType = {
-    id: number
+    id: string
     name: string
     gender: string | null
     address: string
     profile_picture_url: string | null
     public_id: string | null
-    userId: number
+    userId: string
     occupation: string | null
     phone: string | null
     _count: ProfileCountAggregateOutputType | null
-    _avg: ProfileAvgAggregateOutputType | null
-    _sum: ProfileSumAggregateOutputType | null
     _min: ProfileMinAggregateOutputType | null
     _max: ProfileMaxAggregateOutputType | null
   }
@@ -9134,13 +8864,13 @@ export namespace Prisma {
       user: Prisma.$UsersPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       name: string
       gender: string | null
       address: string
       profile_picture_url: string | null
       public_id: string | null
-      userId: number
+      userId: string
       occupation: string | null
       phone: string | null
     }, ExtArgs["result"]["profile"]>
@@ -9567,13 +9297,13 @@ export namespace Prisma {
    * Fields of the Profile model
    */
   interface ProfileFieldRefs {
-    readonly id: FieldRef<"Profile", 'Int'>
+    readonly id: FieldRef<"Profile", 'String'>
     readonly name: FieldRef<"Profile", 'String'>
     readonly gender: FieldRef<"Profile", 'String'>
     readonly address: FieldRef<"Profile", 'String'>
     readonly profile_picture_url: FieldRef<"Profile", 'String'>
     readonly public_id: FieldRef<"Profile", 'String'>
-    readonly userId: FieldRef<"Profile", 'Int'>
+    readonly userId: FieldRef<"Profile", 'String'>
     readonly occupation: FieldRef<"Profile", 'String'>
     readonly phone: FieldRef<"Profile", 'String'>
   }
@@ -9996,25 +9726,13 @@ export namespace Prisma {
 
   export type AggregateInstitutionProfile = {
     _count: InstitutionProfileCountAggregateOutputType | null
-    _avg: InstitutionProfileAvgAggregateOutputType | null
-    _sum: InstitutionProfileSumAggregateOutputType | null
     _min: InstitutionProfileMinAggregateOutputType | null
     _max: InstitutionProfileMaxAggregateOutputType | null
   }
 
-  export type InstitutionProfileAvgAggregateOutputType = {
-    id: number | null
-    institutionId: number | null
-  }
-
-  export type InstitutionProfileSumAggregateOutputType = {
-    id: number | null
-    institutionId: number | null
-  }
-
   export type InstitutionProfileMinAggregateOutputType = {
-    id: number | null
-    institutionId: number | null
+    id: string | null
+    institutionId: string | null
     name: string | null
     address: string | null
     phone: string | null
@@ -10028,8 +9746,8 @@ export namespace Prisma {
   }
 
   export type InstitutionProfileMaxAggregateOutputType = {
-    id: number | null
-    institutionId: number | null
+    id: string | null
+    institutionId: string | null
     name: string | null
     address: string | null
     phone: string | null
@@ -10058,16 +9776,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type InstitutionProfileAvgAggregateInputType = {
-    id?: true
-    institutionId?: true
-  }
-
-  export type InstitutionProfileSumAggregateInputType = {
-    id?: true
-    institutionId?: true
-  }
 
   export type InstitutionProfileMinAggregateInputType = {
     id?: true
@@ -10153,18 +9861,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: InstitutionProfileAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: InstitutionProfileSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: InstitutionProfileMinAggregateInputType
@@ -10195,15 +9891,13 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: InstitutionProfileCountAggregateInputType | true
-    _avg?: InstitutionProfileAvgAggregateInputType
-    _sum?: InstitutionProfileSumAggregateInputType
     _min?: InstitutionProfileMinAggregateInputType
     _max?: InstitutionProfileMaxAggregateInputType
   }
 
   export type InstitutionProfileGroupByOutputType = {
-    id: number
-    institutionId: number
+    id: string
+    institutionId: string
     name: string | null
     address: string | null
     phone: string | null
@@ -10215,8 +9909,6 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     _count: InstitutionProfileCountAggregateOutputType | null
-    _avg: InstitutionProfileAvgAggregateOutputType | null
-    _sum: InstitutionProfileSumAggregateOutputType | null
     _min: InstitutionProfileMinAggregateOutputType | null
     _max: InstitutionProfileMaxAggregateOutputType | null
   }
@@ -10315,8 +10007,8 @@ export namespace Prisma {
       institution: Prisma.$InstitutionPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      institutionId: number
+      id: string
+      institutionId: string
       name: string | null
       address: string | null
       phone: string | null
@@ -10751,8 +10443,8 @@ export namespace Prisma {
    * Fields of the InstitutionProfile model
    */
   interface InstitutionProfileFieldRefs {
-    readonly id: FieldRef<"InstitutionProfile", 'Int'>
-    readonly institutionId: FieldRef<"InstitutionProfile", 'Int'>
+    readonly id: FieldRef<"InstitutionProfile", 'String'>
+    readonly institutionId: FieldRef<"InstitutionProfile", 'String'>
     readonly name: FieldRef<"InstitutionProfile", 'String'>
     readonly address: FieldRef<"InstitutionProfile", 'String'>
     readonly phone: FieldRef<"InstitutionProfile", 'String'>
@@ -11183,32 +10875,18 @@ export namespace Prisma {
 
   export type AggregateSantri = {
     _count: SantriCountAggregateOutputType | null
-    _avg: SantriAvgAggregateOutputType | null
-    _sum: SantriSumAggregateOutputType | null
     _min: SantriMinAggregateOutputType | null
     _max: SantriMaxAggregateOutputType | null
   }
 
-  export type SantriAvgAggregateOutputType = {
-    id: number | null
-    waliId: number | null
-    institutionId: number | null
-  }
-
-  export type SantriSumAggregateOutputType = {
-    id: number | null
-    waliId: number | null
-    institutionId: number | null
-  }
-
   export type SantriMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     nis: string | null
     fullname: string | null
     kelas: string | null
     gender: string | null
-    waliId: number | null
-    institutionId: number | null
+    waliId: string | null
+    institutionId: string | null
     waliName: string | null
     institutionName: string | null
     isActive: boolean | null
@@ -11216,13 +10894,13 @@ export namespace Prisma {
   }
 
   export type SantriMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     nis: string | null
     fullname: string | null
     kelas: string | null
     gender: string | null
-    waliId: number | null
-    institutionId: number | null
+    waliId: string | null
+    institutionId: string | null
     waliName: string | null
     institutionName: string | null
     isActive: boolean | null
@@ -11244,18 +10922,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type SantriAvgAggregateInputType = {
-    id?: true
-    waliId?: true
-    institutionId?: true
-  }
-
-  export type SantriSumAggregateInputType = {
-    id?: true
-    waliId?: true
-    institutionId?: true
-  }
 
   export type SantriMinAggregateInputType = {
     id?: true
@@ -11338,18 +11004,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: SantriAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: SantriSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: SantriMinAggregateInputType
@@ -11380,27 +11034,23 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: SantriCountAggregateInputType | true
-    _avg?: SantriAvgAggregateInputType
-    _sum?: SantriSumAggregateInputType
     _min?: SantriMinAggregateInputType
     _max?: SantriMaxAggregateInputType
   }
 
   export type SantriGroupByOutputType = {
-    id: number
+    id: string
     nis: string
     fullname: string
     kelas: string
     gender: string
-    waliId: number
-    institutionId: number
+    waliId: string
+    institutionId: string
     waliName: string | null
     institutionName: string | null
     isActive: boolean
     createdAt: Date
     _count: SantriCountAggregateOutputType | null
-    _avg: SantriAvgAggregateOutputType | null
-    _sum: SantriSumAggregateOutputType | null
     _min: SantriMinAggregateOutputType | null
     _max: SantriMaxAggregateOutputType | null
   }
@@ -11510,13 +11160,13 @@ export namespace Prisma {
       transactions: Prisma.$TransactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       nis: string
       fullname: string
       kelas: string
       gender: string
-      waliId: number
-      institutionId: number
+      waliId: string
+      institutionId: string
       waliName: string | null
       institutionName: string | null
       isActive: boolean
@@ -11948,13 +11598,13 @@ export namespace Prisma {
    * Fields of the Santri model
    */
   interface SantriFieldRefs {
-    readonly id: FieldRef<"Santri", 'Int'>
+    readonly id: FieldRef<"Santri", 'String'>
     readonly nis: FieldRef<"Santri", 'String'>
     readonly fullname: FieldRef<"Santri", 'String'>
     readonly kelas: FieldRef<"Santri", 'String'>
     readonly gender: FieldRef<"Santri", 'String'>
-    readonly waliId: FieldRef<"Santri", 'Int'>
-    readonly institutionId: FieldRef<"Santri", 'Int'>
+    readonly waliId: FieldRef<"Santri", 'String'>
+    readonly institutionId: FieldRef<"Santri", 'String'>
     readonly waliName: FieldRef<"Santri", 'String'>
     readonly institutionName: FieldRef<"Santri", 'String'>
     readonly isActive: FieldRef<"Santri", 'Boolean'>
@@ -12434,43 +12084,35 @@ export namespace Prisma {
   }
 
   export type TransactionAvgAggregateOutputType = {
-    id: number | null
-    santriId: number | null
-    categoryId: number | null
     amount: Decimal | null
-    createdBy: number | null
   }
 
   export type TransactionSumAggregateOutputType = {
-    id: number | null
-    santriId: number | null
-    categoryId: number | null
     amount: Decimal | null
-    createdBy: number | null
   }
 
   export type TransactionMinAggregateOutputType = {
-    id: number | null
-    santriId: number | null
-    categoryId: number | null
+    id: string | null
+    santriId: string | null
+    categoryId: string | null
     type: $Enums.category_type | null
     amount: Decimal | null
     description: string | null
     transactionDate: Date | null
-    createdBy: number | null
+    createdBy: string | null
     isDeleted: boolean | null
     createdAt: Date | null
   }
 
   export type TransactionMaxAggregateOutputType = {
-    id: number | null
-    santriId: number | null
-    categoryId: number | null
+    id: string | null
+    santriId: string | null
+    categoryId: string | null
     type: $Enums.category_type | null
     amount: Decimal | null
     description: string | null
     transactionDate: Date | null
-    createdBy: number | null
+    createdBy: string | null
     isDeleted: boolean | null
     createdAt: Date | null
   }
@@ -12491,19 +12133,11 @@ export namespace Prisma {
 
 
   export type TransactionAvgAggregateInputType = {
-    id?: true
-    santriId?: true
-    categoryId?: true
     amount?: true
-    createdBy?: true
   }
 
   export type TransactionSumAggregateInputType = {
-    id?: true
-    santriId?: true
-    categoryId?: true
     amount?: true
-    createdBy?: true
   }
 
   export type TransactionMinAggregateInputType = {
@@ -12633,14 +12267,14 @@ export namespace Prisma {
   }
 
   export type TransactionGroupByOutputType = {
-    id: number
-    santriId: number
-    categoryId: number
+    id: string
+    santriId: string
+    categoryId: string
     type: $Enums.category_type
     amount: Decimal
     description: string | null
     transactionDate: Date
-    createdBy: number
+    createdBy: string
     isDeleted: boolean
     createdAt: Date
     _count: TransactionCountAggregateOutputType | null
@@ -12750,14 +12384,14 @@ export namespace Prisma {
       santri: Prisma.$SantriPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      santriId: number
-      categoryId: number
+      id: string
+      santriId: string
+      categoryId: string
       type: $Enums.category_type
       amount: Prisma.Decimal
       description: string | null
       transactionDate: Date
-      createdBy: number
+      createdBy: string
       isDeleted: boolean
       createdAt: Date
     }, ExtArgs["result"]["transaction"]>
@@ -13186,14 +12820,14 @@ export namespace Prisma {
    * Fields of the Transaction model
    */
   interface TransactionFieldRefs {
-    readonly id: FieldRef<"Transaction", 'Int'>
-    readonly santriId: FieldRef<"Transaction", 'Int'>
-    readonly categoryId: FieldRef<"Transaction", 'Int'>
+    readonly id: FieldRef<"Transaction", 'String'>
+    readonly santriId: FieldRef<"Transaction", 'String'>
+    readonly categoryId: FieldRef<"Transaction", 'String'>
     readonly type: FieldRef<"Transaction", 'category_type'>
     readonly amount: FieldRef<"Transaction", 'Decimal'>
     readonly description: FieldRef<"Transaction", 'String'>
     readonly transactionDate: FieldRef<"Transaction", 'DateTime'>
-    readonly createdBy: FieldRef<"Transaction", 'Int'>
+    readonly createdBy: FieldRef<"Transaction", 'String'>
     readonly isDeleted: FieldRef<"Transaction", 'Boolean'>
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
   }
@@ -13616,41 +13250,29 @@ export namespace Prisma {
 
   export type AggregateUsers = {
     _count: UsersCountAggregateOutputType | null
-    _avg: UsersAvgAggregateOutputType | null
-    _sum: UsersSumAggregateOutputType | null
     _min: UsersMinAggregateOutputType | null
     _max: UsersMaxAggregateOutputType | null
   }
 
-  export type UsersAvgAggregateOutputType = {
-    id: number | null
-    institutionId: number | null
-  }
-
-  export type UsersSumAggregateOutputType = {
-    id: number | null
-    institutionId: number | null
-  }
-
   export type UsersMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     username: string | null
     email: string | null
     password: string | null
     role: $Enums.user_role | null
-    institutionId: number | null
+    institutionId: string | null
     isEmailVerified: boolean | null
     isActive: boolean | null
     createdAt: Date | null
   }
 
   export type UsersMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     username: string | null
     email: string | null
     password: string | null
     role: $Enums.user_role | null
-    institutionId: number | null
+    institutionId: string | null
     isEmailVerified: boolean | null
     isActive: boolean | null
     createdAt: Date | null
@@ -13669,16 +13291,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type UsersAvgAggregateInputType = {
-    id?: true
-    institutionId?: true
-  }
-
-  export type UsersSumAggregateInputType = {
-    id?: true
-    institutionId?: true
-  }
 
   export type UsersMinAggregateInputType = {
     id?: true
@@ -13755,18 +13367,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: UsersAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: UsersSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: UsersMinAggregateInputType
@@ -13797,25 +13397,21 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UsersCountAggregateInputType | true
-    _avg?: UsersAvgAggregateInputType
-    _sum?: UsersSumAggregateInputType
     _min?: UsersMinAggregateInputType
     _max?: UsersMaxAggregateInputType
   }
 
   export type UsersGroupByOutputType = {
-    id: number
+    id: string
     username: string
     email: string
     password: string
     role: $Enums.user_role
-    institutionId: number | null
+    institutionId: string | null
     isEmailVerified: boolean
     isActive: boolean
     createdAt: Date
     _count: UsersCountAggregateOutputType | null
-    _avg: UsersAvgAggregateOutputType | null
-    _sum: UsersSumAggregateOutputType | null
     _min: UsersMinAggregateOutputType | null
     _max: UsersMaxAggregateOutputType | null
   }
@@ -13928,12 +13524,12 @@ export namespace Prisma {
       institution: Prisma.$InstitutionPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       username: string
       email: string
       password: string
       role: $Enums.user_role
-      institutionId: number | null
+      institutionId: string | null
       isEmailVerified: boolean
       isActive: boolean
       createdAt: Date
@@ -14369,12 +13965,12 @@ export namespace Prisma {
    * Fields of the Users model
    */
   interface UsersFieldRefs {
-    readonly id: FieldRef<"Users", 'Int'>
+    readonly id: FieldRef<"Users", 'String'>
     readonly username: FieldRef<"Users", 'String'>
     readonly email: FieldRef<"Users", 'String'>
     readonly password: FieldRef<"Users", 'String'>
     readonly role: FieldRef<"Users", 'user_role'>
-    readonly institutionId: FieldRef<"Users", 'Int'>
+    readonly institutionId: FieldRef<"Users", 'String'>
     readonly isEmailVerified: FieldRef<"Users", 'Boolean'>
     readonly isActive: FieldRef<"Users", 'Boolean'>
     readonly createdAt: FieldRef<"Users", 'DateTime'>
@@ -15196,20 +14792,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
@@ -15287,16 +14869,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Float'
+   * Reference to a field of type 'Int'
    */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 
   /**
-   * Reference to a field of type 'Float[]'
+   * Reference to a field of type 'Int[]'
    */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
   /**
    * Deep Input Types
@@ -15307,8 +14889,8 @@ export namespace Prisma {
     AND?: EmailVerificationWhereInput | EmailVerificationWhereInput[]
     OR?: EmailVerificationWhereInput[]
     NOT?: EmailVerificationWhereInput | EmailVerificationWhereInput[]
-    id?: IntFilter<"EmailVerification"> | number
-    userId?: IntFilter<"EmailVerification"> | number
+    id?: StringFilter<"EmailVerification"> | string
+    userId?: StringFilter<"EmailVerification"> | string
     otpCode?: StringFilter<"EmailVerification"> | string
     expiredAt?: DateTimeFilter<"EmailVerification"> | Date | string
     isUsed?: BoolFilter<"EmailVerification"> | boolean
@@ -15327,11 +14909,11 @@ export namespace Prisma {
   }
 
   export type EmailVerificationWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: EmailVerificationWhereInput | EmailVerificationWhereInput[]
     OR?: EmailVerificationWhereInput[]
     NOT?: EmailVerificationWhereInput | EmailVerificationWhereInput[]
-    userId?: IntFilter<"EmailVerification"> | number
+    userId?: StringFilter<"EmailVerification"> | string
     otpCode?: StringFilter<"EmailVerification"> | string
     expiredAt?: DateTimeFilter<"EmailVerification"> | Date | string
     isUsed?: BoolFilter<"EmailVerification"> | boolean
@@ -15347,18 +14929,16 @@ export namespace Prisma {
     isUsed?: SortOrder
     createdAt?: SortOrder
     _count?: EmailVerificationCountOrderByAggregateInput
-    _avg?: EmailVerificationAvgOrderByAggregateInput
     _max?: EmailVerificationMaxOrderByAggregateInput
     _min?: EmailVerificationMinOrderByAggregateInput
-    _sum?: EmailVerificationSumOrderByAggregateInput
   }
 
   export type EmailVerificationScalarWhereWithAggregatesInput = {
     AND?: EmailVerificationScalarWhereWithAggregatesInput | EmailVerificationScalarWhereWithAggregatesInput[]
     OR?: EmailVerificationScalarWhereWithAggregatesInput[]
     NOT?: EmailVerificationScalarWhereWithAggregatesInput | EmailVerificationScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"EmailVerification"> | number
-    userId?: IntWithAggregatesFilter<"EmailVerification"> | number
+    id?: StringWithAggregatesFilter<"EmailVerification"> | string
+    userId?: StringWithAggregatesFilter<"EmailVerification"> | string
     otpCode?: StringWithAggregatesFilter<"EmailVerification"> | string
     expiredAt?: DateTimeWithAggregatesFilter<"EmailVerification"> | Date | string
     isUsed?: BoolWithAggregatesFilter<"EmailVerification"> | boolean
@@ -15369,12 +14949,12 @@ export namespace Prisma {
     AND?: AuthAccountWhereInput | AuthAccountWhereInput[]
     OR?: AuthAccountWhereInput[]
     NOT?: AuthAccountWhereInput | AuthAccountWhereInput[]
-    id?: IntFilter<"AuthAccount"> | number
+    id?: StringFilter<"AuthAccount"> | string
     username?: StringFilter<"AuthAccount"> | string
     email?: StringFilter<"AuthAccount"> | string
     password?: StringFilter<"AuthAccount"> | string
-    userId?: IntFilter<"AuthAccount"> | number
-    santriId?: IntNullableFilter<"AuthAccount"> | number | null
+    userId?: StringFilter<"AuthAccount"> | string
+    santriId?: StringNullableFilter<"AuthAccount"> | string | null
     isActive?: BoolFilter<"AuthAccount"> | boolean
     createdAt?: DateTimeFilter<"AuthAccount"> | Date | string
     santri?: XOR<SantriNullableScalarRelationFilter, SantriWhereInput> | null
@@ -15395,15 +14975,15 @@ export namespace Prisma {
   }
 
   export type AuthAccountWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     email?: string
     AND?: AuthAccountWhereInput | AuthAccountWhereInput[]
     OR?: AuthAccountWhereInput[]
     NOT?: AuthAccountWhereInput | AuthAccountWhereInput[]
     username?: StringFilter<"AuthAccount"> | string
     password?: StringFilter<"AuthAccount"> | string
-    userId?: IntFilter<"AuthAccount"> | number
-    santriId?: IntNullableFilter<"AuthAccount"> | number | null
+    userId?: StringFilter<"AuthAccount"> | string
+    santriId?: StringNullableFilter<"AuthAccount"> | string | null
     isActive?: BoolFilter<"AuthAccount"> | boolean
     createdAt?: DateTimeFilter<"AuthAccount"> | Date | string
     santri?: XOR<SantriNullableScalarRelationFilter, SantriWhereInput> | null
@@ -15420,22 +15000,20 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     _count?: AuthAccountCountOrderByAggregateInput
-    _avg?: AuthAccountAvgOrderByAggregateInput
     _max?: AuthAccountMaxOrderByAggregateInput
     _min?: AuthAccountMinOrderByAggregateInput
-    _sum?: AuthAccountSumOrderByAggregateInput
   }
 
   export type AuthAccountScalarWhereWithAggregatesInput = {
     AND?: AuthAccountScalarWhereWithAggregatesInput | AuthAccountScalarWhereWithAggregatesInput[]
     OR?: AuthAccountScalarWhereWithAggregatesInput[]
     NOT?: AuthAccountScalarWhereWithAggregatesInput | AuthAccountScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"AuthAccount"> | number
+    id?: StringWithAggregatesFilter<"AuthAccount"> | string
     username?: StringWithAggregatesFilter<"AuthAccount"> | string
     email?: StringWithAggregatesFilter<"AuthAccount"> | string
     password?: StringWithAggregatesFilter<"AuthAccount"> | string
-    userId?: IntWithAggregatesFilter<"AuthAccount"> | number
-    santriId?: IntNullableWithAggregatesFilter<"AuthAccount"> | number | null
+    userId?: StringWithAggregatesFilter<"AuthAccount"> | string
+    santriId?: StringNullableWithAggregatesFilter<"AuthAccount"> | string | null
     isActive?: BoolWithAggregatesFilter<"AuthAccount"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"AuthAccount"> | Date | string
   }
@@ -15444,10 +15022,10 @@ export namespace Prisma {
     AND?: CategoryWhereInput | CategoryWhereInput[]
     OR?: CategoryWhereInput[]
     NOT?: CategoryWhereInput | CategoryWhereInput[]
-    id?: IntFilter<"Category"> | number
+    id?: StringFilter<"Category"> | string
     name?: StringFilter<"Category"> | string
     type?: Enumcategory_typeFilter<"Category"> | $Enums.category_type
-    institutionId?: IntFilter<"Category"> | number
+    institutionId?: StringFilter<"Category"> | string
     isActive?: BoolFilter<"Category"> | boolean
     createdAt?: DateTimeFilter<"Category"> | Date | string
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
@@ -15466,13 +15044,13 @@ export namespace Prisma {
   }
 
   export type CategoryWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: CategoryWhereInput | CategoryWhereInput[]
     OR?: CategoryWhereInput[]
     NOT?: CategoryWhereInput | CategoryWhereInput[]
     name?: StringFilter<"Category"> | string
     type?: Enumcategory_typeFilter<"Category"> | $Enums.category_type
-    institutionId?: IntFilter<"Category"> | number
+    institutionId?: StringFilter<"Category"> | string
     isActive?: BoolFilter<"Category"> | boolean
     createdAt?: DateTimeFilter<"Category"> | Date | string
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
@@ -15487,20 +15065,18 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     _count?: CategoryCountOrderByAggregateInput
-    _avg?: CategoryAvgOrderByAggregateInput
     _max?: CategoryMaxOrderByAggregateInput
     _min?: CategoryMinOrderByAggregateInput
-    _sum?: CategorySumOrderByAggregateInput
   }
 
   export type CategoryScalarWhereWithAggregatesInput = {
     AND?: CategoryScalarWhereWithAggregatesInput | CategoryScalarWhereWithAggregatesInput[]
     OR?: CategoryScalarWhereWithAggregatesInput[]
     NOT?: CategoryScalarWhereWithAggregatesInput | CategoryScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Category"> | number
+    id?: StringWithAggregatesFilter<"Category"> | string
     name?: StringWithAggregatesFilter<"Category"> | string
     type?: Enumcategory_typeWithAggregatesFilter<"Category"> | $Enums.category_type
-    institutionId?: IntWithAggregatesFilter<"Category"> | number
+    institutionId?: StringWithAggregatesFilter<"Category"> | string
     isActive?: BoolWithAggregatesFilter<"Category"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Category"> | Date | string
   }
@@ -15509,9 +15085,9 @@ export namespace Prisma {
     AND?: InstitutionWhereInput | InstitutionWhereInput[]
     OR?: InstitutionWhereInput[]
     NOT?: InstitutionWhereInput | InstitutionWhereInput[]
-    id?: IntFilter<"Institution"> | number
+    id?: StringFilter<"Institution"> | string
     name?: StringFilter<"Institution"> | string
-    createdBy?: IntFilter<"Institution"> | number
+    createdBy?: StringFilter<"Institution"> | string
     isActive?: BoolFilter<"Institution"> | boolean
     createdAt?: DateTimeFilter<"Institution"> | Date | string
     users?: UsersListRelationFilter
@@ -15535,12 +15111,12 @@ export namespace Prisma {
   }
 
   export type InstitutionWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     name?: string
     AND?: InstitutionWhereInput | InstitutionWhereInput[]
     OR?: InstitutionWhereInput[]
     NOT?: InstitutionWhereInput | InstitutionWhereInput[]
-    createdBy?: IntFilter<"Institution"> | number
+    createdBy?: StringFilter<"Institution"> | string
     isActive?: BoolFilter<"Institution"> | boolean
     createdAt?: DateTimeFilter<"Institution"> | Date | string
     users?: UsersListRelationFilter
@@ -15557,19 +15133,17 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     _count?: InstitutionCountOrderByAggregateInput
-    _avg?: InstitutionAvgOrderByAggregateInput
     _max?: InstitutionMaxOrderByAggregateInput
     _min?: InstitutionMinOrderByAggregateInput
-    _sum?: InstitutionSumOrderByAggregateInput
   }
 
   export type InstitutionScalarWhereWithAggregatesInput = {
     AND?: InstitutionScalarWhereWithAggregatesInput | InstitutionScalarWhereWithAggregatesInput[]
     OR?: InstitutionScalarWhereWithAggregatesInput[]
     NOT?: InstitutionScalarWhereWithAggregatesInput | InstitutionScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Institution"> | number
+    id?: StringWithAggregatesFilter<"Institution"> | string
     name?: StringWithAggregatesFilter<"Institution"> | string
-    createdBy?: IntWithAggregatesFilter<"Institution"> | number
+    createdBy?: StringWithAggregatesFilter<"Institution"> | string
     isActive?: BoolWithAggregatesFilter<"Institution"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Institution"> | Date | string
   }
@@ -15578,8 +15152,8 @@ export namespace Prisma {
     AND?: NotificationWhereInput | NotificationWhereInput[]
     OR?: NotificationWhereInput[]
     NOT?: NotificationWhereInput | NotificationWhereInput[]
-    id?: IntFilter<"Notification"> | number
-    userId?: IntFilter<"Notification"> | number
+    id?: StringFilter<"Notification"> | string
+    userId?: StringFilter<"Notification"> | string
     title?: StringFilter<"Notification"> | string
     message?: StringFilter<"Notification"> | string
     isRead?: BoolFilter<"Notification"> | boolean
@@ -15598,11 +15172,11 @@ export namespace Prisma {
   }
 
   export type NotificationWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: NotificationWhereInput | NotificationWhereInput[]
     OR?: NotificationWhereInput[]
     NOT?: NotificationWhereInput | NotificationWhereInput[]
-    userId?: IntFilter<"Notification"> | number
+    userId?: StringFilter<"Notification"> | string
     title?: StringFilter<"Notification"> | string
     message?: StringFilter<"Notification"> | string
     isRead?: BoolFilter<"Notification"> | boolean
@@ -15618,18 +15192,16 @@ export namespace Prisma {
     isRead?: SortOrder
     createdAt?: SortOrder
     _count?: NotificationCountOrderByAggregateInput
-    _avg?: NotificationAvgOrderByAggregateInput
     _max?: NotificationMaxOrderByAggregateInput
     _min?: NotificationMinOrderByAggregateInput
-    _sum?: NotificationSumOrderByAggregateInput
   }
 
   export type NotificationScalarWhereWithAggregatesInput = {
     AND?: NotificationScalarWhereWithAggregatesInput | NotificationScalarWhereWithAggregatesInput[]
     OR?: NotificationScalarWhereWithAggregatesInput[]
     NOT?: NotificationScalarWhereWithAggregatesInput | NotificationScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Notification"> | number
-    userId?: IntWithAggregatesFilter<"Notification"> | number
+    id?: StringWithAggregatesFilter<"Notification"> | string
+    userId?: StringWithAggregatesFilter<"Notification"> | string
     title?: StringWithAggregatesFilter<"Notification"> | string
     message?: StringWithAggregatesFilter<"Notification"> | string
     isRead?: BoolWithAggregatesFilter<"Notification"> | boolean
@@ -15640,8 +15212,8 @@ export namespace Prisma {
     AND?: PasswordResetWhereInput | PasswordResetWhereInput[]
     OR?: PasswordResetWhereInput[]
     NOT?: PasswordResetWhereInput | PasswordResetWhereInput[]
-    id?: IntFilter<"PasswordReset"> | number
-    userId?: IntFilter<"PasswordReset"> | number
+    id?: StringFilter<"PasswordReset"> | string
+    userId?: StringFilter<"PasswordReset"> | string
     otpCode?: StringFilter<"PasswordReset"> | string
     expiredAt?: DateTimeFilter<"PasswordReset"> | Date | string
     isUsed?: BoolFilter<"PasswordReset"> | boolean
@@ -15660,11 +15232,11 @@ export namespace Prisma {
   }
 
   export type PasswordResetWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: PasswordResetWhereInput | PasswordResetWhereInput[]
     OR?: PasswordResetWhereInput[]
     NOT?: PasswordResetWhereInput | PasswordResetWhereInput[]
-    userId?: IntFilter<"PasswordReset"> | number
+    userId?: StringFilter<"PasswordReset"> | string
     otpCode?: StringFilter<"PasswordReset"> | string
     expiredAt?: DateTimeFilter<"PasswordReset"> | Date | string
     isUsed?: BoolFilter<"PasswordReset"> | boolean
@@ -15680,18 +15252,16 @@ export namespace Prisma {
     isUsed?: SortOrder
     createdAt?: SortOrder
     _count?: PasswordResetCountOrderByAggregateInput
-    _avg?: PasswordResetAvgOrderByAggregateInput
     _max?: PasswordResetMaxOrderByAggregateInput
     _min?: PasswordResetMinOrderByAggregateInput
-    _sum?: PasswordResetSumOrderByAggregateInput
   }
 
   export type PasswordResetScalarWhereWithAggregatesInput = {
     AND?: PasswordResetScalarWhereWithAggregatesInput | PasswordResetScalarWhereWithAggregatesInput[]
     OR?: PasswordResetScalarWhereWithAggregatesInput[]
     NOT?: PasswordResetScalarWhereWithAggregatesInput | PasswordResetScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"PasswordReset"> | number
-    userId?: IntWithAggregatesFilter<"PasswordReset"> | number
+    id?: StringWithAggregatesFilter<"PasswordReset"> | string
+    userId?: StringWithAggregatesFilter<"PasswordReset"> | string
     otpCode?: StringWithAggregatesFilter<"PasswordReset"> | string
     expiredAt?: DateTimeWithAggregatesFilter<"PasswordReset"> | Date | string
     isUsed?: BoolWithAggregatesFilter<"PasswordReset"> | boolean
@@ -15702,13 +15272,13 @@ export namespace Prisma {
     AND?: ProfileWhereInput | ProfileWhereInput[]
     OR?: ProfileWhereInput[]
     NOT?: ProfileWhereInput | ProfileWhereInput[]
-    id?: IntFilter<"Profile"> | number
+    id?: StringFilter<"Profile"> | string
     name?: StringFilter<"Profile"> | string
     gender?: StringNullableFilter<"Profile"> | string | null
     address?: StringFilter<"Profile"> | string
     profile_picture_url?: StringNullableFilter<"Profile"> | string | null
     public_id?: StringNullableFilter<"Profile"> | string | null
-    userId?: IntFilter<"Profile"> | number
+    userId?: StringFilter<"Profile"> | string
     occupation?: StringNullableFilter<"Profile"> | string | null
     phone?: StringNullableFilter<"Profile"> | string | null
     user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
@@ -15728,8 +15298,8 @@ export namespace Prisma {
   }
 
   export type ProfileWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    userId?: number
+    id?: string
+    userId?: string
     AND?: ProfileWhereInput | ProfileWhereInput[]
     OR?: ProfileWhereInput[]
     NOT?: ProfileWhereInput | ProfileWhereInput[]
@@ -15754,23 +15324,21 @@ export namespace Prisma {
     occupation?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
     _count?: ProfileCountOrderByAggregateInput
-    _avg?: ProfileAvgOrderByAggregateInput
     _max?: ProfileMaxOrderByAggregateInput
     _min?: ProfileMinOrderByAggregateInput
-    _sum?: ProfileSumOrderByAggregateInput
   }
 
   export type ProfileScalarWhereWithAggregatesInput = {
     AND?: ProfileScalarWhereWithAggregatesInput | ProfileScalarWhereWithAggregatesInput[]
     OR?: ProfileScalarWhereWithAggregatesInput[]
     NOT?: ProfileScalarWhereWithAggregatesInput | ProfileScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Profile"> | number
+    id?: StringWithAggregatesFilter<"Profile"> | string
     name?: StringWithAggregatesFilter<"Profile"> | string
     gender?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     address?: StringWithAggregatesFilter<"Profile"> | string
     profile_picture_url?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     public_id?: StringNullableWithAggregatesFilter<"Profile"> | string | null
-    userId?: IntWithAggregatesFilter<"Profile"> | number
+    userId?: StringWithAggregatesFilter<"Profile"> | string
     occupation?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     phone?: StringNullableWithAggregatesFilter<"Profile"> | string | null
   }
@@ -15779,8 +15347,8 @@ export namespace Prisma {
     AND?: InstitutionProfileWhereInput | InstitutionProfileWhereInput[]
     OR?: InstitutionProfileWhereInput[]
     NOT?: InstitutionProfileWhereInput | InstitutionProfileWhereInput[]
-    id?: IntFilter<"InstitutionProfile"> | number
-    institutionId?: IntFilter<"InstitutionProfile"> | number
+    id?: StringFilter<"InstitutionProfile"> | string
+    institutionId?: StringFilter<"InstitutionProfile"> | string
     name?: StringNullableFilter<"InstitutionProfile"> | string | null
     address?: StringNullableFilter<"InstitutionProfile"> | string | null
     phone?: StringNullableFilter<"InstitutionProfile"> | string | null
@@ -15811,8 +15379,8 @@ export namespace Prisma {
   }
 
   export type InstitutionProfileWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    institutionId?: number
+    id?: string
+    institutionId?: string
     name?: string
     AND?: InstitutionProfileWhereInput | InstitutionProfileWhereInput[]
     OR?: InstitutionProfileWhereInput[]
@@ -15843,18 +15411,16 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: InstitutionProfileCountOrderByAggregateInput
-    _avg?: InstitutionProfileAvgOrderByAggregateInput
     _max?: InstitutionProfileMaxOrderByAggregateInput
     _min?: InstitutionProfileMinOrderByAggregateInput
-    _sum?: InstitutionProfileSumOrderByAggregateInput
   }
 
   export type InstitutionProfileScalarWhereWithAggregatesInput = {
     AND?: InstitutionProfileScalarWhereWithAggregatesInput | InstitutionProfileScalarWhereWithAggregatesInput[]
     OR?: InstitutionProfileScalarWhereWithAggregatesInput[]
     NOT?: InstitutionProfileScalarWhereWithAggregatesInput | InstitutionProfileScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"InstitutionProfile"> | number
-    institutionId?: IntWithAggregatesFilter<"InstitutionProfile"> | number
+    id?: StringWithAggregatesFilter<"InstitutionProfile"> | string
+    institutionId?: StringWithAggregatesFilter<"InstitutionProfile"> | string
     name?: StringNullableWithAggregatesFilter<"InstitutionProfile"> | string | null
     address?: StringNullableWithAggregatesFilter<"InstitutionProfile"> | string | null
     phone?: StringNullableWithAggregatesFilter<"InstitutionProfile"> | string | null
@@ -15871,13 +15437,13 @@ export namespace Prisma {
     AND?: SantriWhereInput | SantriWhereInput[]
     OR?: SantriWhereInput[]
     NOT?: SantriWhereInput | SantriWhereInput[]
-    id?: IntFilter<"Santri"> | number
+    id?: StringFilter<"Santri"> | string
     nis?: StringFilter<"Santri"> | string
     fullname?: StringFilter<"Santri"> | string
     kelas?: StringFilter<"Santri"> | string
     gender?: StringFilter<"Santri"> | string
-    waliId?: IntFilter<"Santri"> | number
-    institutionId?: IntFilter<"Santri"> | number
+    waliId?: StringFilter<"Santri"> | string
+    institutionId?: StringFilter<"Santri"> | string
     waliName?: StringNullableFilter<"Santri"> | string | null
     institutionName?: StringNullableFilter<"Santri"> | string | null
     isActive?: BoolFilter<"Santri"> | boolean
@@ -15907,7 +15473,7 @@ export namespace Prisma {
   }
 
   export type SantriWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     nis?: string
     AND?: SantriWhereInput | SantriWhereInput[]
     OR?: SantriWhereInput[]
@@ -15915,8 +15481,8 @@ export namespace Prisma {
     fullname?: StringFilter<"Santri"> | string
     kelas?: StringFilter<"Santri"> | string
     gender?: StringFilter<"Santri"> | string
-    waliId?: IntFilter<"Santri"> | number
-    institutionId?: IntFilter<"Santri"> | number
+    waliId?: StringFilter<"Santri"> | string
+    institutionId?: StringFilter<"Santri"> | string
     waliName?: StringNullableFilter<"Santri"> | string | null
     institutionName?: StringNullableFilter<"Santri"> | string | null
     isActive?: BoolFilter<"Santri"> | boolean
@@ -15940,23 +15506,21 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     _count?: SantriCountOrderByAggregateInput
-    _avg?: SantriAvgOrderByAggregateInput
     _max?: SantriMaxOrderByAggregateInput
     _min?: SantriMinOrderByAggregateInput
-    _sum?: SantriSumOrderByAggregateInput
   }
 
   export type SantriScalarWhereWithAggregatesInput = {
     AND?: SantriScalarWhereWithAggregatesInput | SantriScalarWhereWithAggregatesInput[]
     OR?: SantriScalarWhereWithAggregatesInput[]
     NOT?: SantriScalarWhereWithAggregatesInput | SantriScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Santri"> | number
+    id?: StringWithAggregatesFilter<"Santri"> | string
     nis?: StringWithAggregatesFilter<"Santri"> | string
     fullname?: StringWithAggregatesFilter<"Santri"> | string
     kelas?: StringWithAggregatesFilter<"Santri"> | string
     gender?: StringWithAggregatesFilter<"Santri"> | string
-    waliId?: IntWithAggregatesFilter<"Santri"> | number
-    institutionId?: IntWithAggregatesFilter<"Santri"> | number
+    waliId?: StringWithAggregatesFilter<"Santri"> | string
+    institutionId?: StringWithAggregatesFilter<"Santri"> | string
     waliName?: StringNullableWithAggregatesFilter<"Santri"> | string | null
     institutionName?: StringNullableWithAggregatesFilter<"Santri"> | string | null
     isActive?: BoolWithAggregatesFilter<"Santri"> | boolean
@@ -15967,14 +15531,14 @@ export namespace Prisma {
     AND?: TransactionWhereInput | TransactionWhereInput[]
     OR?: TransactionWhereInput[]
     NOT?: TransactionWhereInput | TransactionWhereInput[]
-    id?: IntFilter<"Transaction"> | number
-    santriId?: IntFilter<"Transaction"> | number
-    categoryId?: IntFilter<"Transaction"> | number
+    id?: StringFilter<"Transaction"> | string
+    santriId?: StringFilter<"Transaction"> | string
+    categoryId?: StringFilter<"Transaction"> | string
     type?: Enumcategory_typeFilter<"Transaction"> | $Enums.category_type
     amount?: DecimalFilter<"Transaction"> | Decimal | DecimalJsLike | number | string
     description?: StringNullableFilter<"Transaction"> | string | null
     transactionDate?: DateTimeFilter<"Transaction"> | Date | string
-    createdBy?: IntFilter<"Transaction"> | number
+    createdBy?: StringFilter<"Transaction"> | string
     isDeleted?: BoolFilter<"Transaction"> | boolean
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
@@ -15999,17 +15563,17 @@ export namespace Prisma {
   }
 
   export type TransactionWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: TransactionWhereInput | TransactionWhereInput[]
     OR?: TransactionWhereInput[]
     NOT?: TransactionWhereInput | TransactionWhereInput[]
-    santriId?: IntFilter<"Transaction"> | number
-    categoryId?: IntFilter<"Transaction"> | number
+    santriId?: StringFilter<"Transaction"> | string
+    categoryId?: StringFilter<"Transaction"> | string
     type?: Enumcategory_typeFilter<"Transaction"> | $Enums.category_type
     amount?: DecimalFilter<"Transaction"> | Decimal | DecimalJsLike | number | string
     description?: StringNullableFilter<"Transaction"> | string | null
     transactionDate?: DateTimeFilter<"Transaction"> | Date | string
-    createdBy?: IntFilter<"Transaction"> | number
+    createdBy?: StringFilter<"Transaction"> | string
     isDeleted?: BoolFilter<"Transaction"> | boolean
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
@@ -16039,14 +15603,14 @@ export namespace Prisma {
     AND?: TransactionScalarWhereWithAggregatesInput | TransactionScalarWhereWithAggregatesInput[]
     OR?: TransactionScalarWhereWithAggregatesInput[]
     NOT?: TransactionScalarWhereWithAggregatesInput | TransactionScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Transaction"> | number
-    santriId?: IntWithAggregatesFilter<"Transaction"> | number
-    categoryId?: IntWithAggregatesFilter<"Transaction"> | number
+    id?: StringWithAggregatesFilter<"Transaction"> | string
+    santriId?: StringWithAggregatesFilter<"Transaction"> | string
+    categoryId?: StringWithAggregatesFilter<"Transaction"> | string
     type?: Enumcategory_typeWithAggregatesFilter<"Transaction"> | $Enums.category_type
     amount?: DecimalWithAggregatesFilter<"Transaction"> | Decimal | DecimalJsLike | number | string
     description?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     transactionDate?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
-    createdBy?: IntWithAggregatesFilter<"Transaction"> | number
+    createdBy?: StringWithAggregatesFilter<"Transaction"> | string
     isDeleted?: BoolWithAggregatesFilter<"Transaction"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
   }
@@ -16055,12 +15619,12 @@ export namespace Prisma {
     AND?: UsersWhereInput | UsersWhereInput[]
     OR?: UsersWhereInput[]
     NOT?: UsersWhereInput | UsersWhereInput[]
-    id?: IntFilter<"Users"> | number
+    id?: StringFilter<"Users"> | string
     username?: StringFilter<"Users"> | string
     email?: StringFilter<"Users"> | string
     password?: StringFilter<"Users"> | string
     role?: Enumuser_roleFilter<"Users"> | $Enums.user_role
-    institutionId?: IntNullableFilter<"Users"> | number | null
+    institutionId?: StringNullableFilter<"Users"> | string | null
     isEmailVerified?: BoolFilter<"Users"> | boolean
     isActive?: BoolFilter<"Users"> | boolean
     createdAt?: DateTimeFilter<"Users"> | Date | string
@@ -16097,7 +15661,7 @@ export namespace Prisma {
   }
 
   export type UsersWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     email?: string
     AND?: UsersWhereInput | UsersWhereInput[]
     OR?: UsersWhereInput[]
@@ -16105,7 +15669,7 @@ export namespace Prisma {
     username?: StringFilter<"Users"> | string
     password?: StringFilter<"Users"> | string
     role?: Enumuser_roleFilter<"Users"> | $Enums.user_role
-    institutionId?: IntNullableFilter<"Users"> | number | null
+    institutionId?: StringNullableFilter<"Users"> | string | null
     isEmailVerified?: BoolFilter<"Users"> | boolean
     isActive?: BoolFilter<"Users"> | boolean
     createdAt?: DateTimeFilter<"Users"> | Date | string
@@ -16131,28 +15695,27 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     _count?: UsersCountOrderByAggregateInput
-    _avg?: UsersAvgOrderByAggregateInput
     _max?: UsersMaxOrderByAggregateInput
     _min?: UsersMinOrderByAggregateInput
-    _sum?: UsersSumOrderByAggregateInput
   }
 
   export type UsersScalarWhereWithAggregatesInput = {
     AND?: UsersScalarWhereWithAggregatesInput | UsersScalarWhereWithAggregatesInput[]
     OR?: UsersScalarWhereWithAggregatesInput[]
     NOT?: UsersScalarWhereWithAggregatesInput | UsersScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Users"> | number
+    id?: StringWithAggregatesFilter<"Users"> | string
     username?: StringWithAggregatesFilter<"Users"> | string
     email?: StringWithAggregatesFilter<"Users"> | string
     password?: StringWithAggregatesFilter<"Users"> | string
     role?: Enumuser_roleWithAggregatesFilter<"Users"> | $Enums.user_role
-    institutionId?: IntNullableWithAggregatesFilter<"Users"> | number | null
+    institutionId?: StringNullableWithAggregatesFilter<"Users"> | string | null
     isEmailVerified?: BoolWithAggregatesFilter<"Users"> | boolean
     isActive?: BoolWithAggregatesFilter<"Users"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Users"> | Date | string
   }
 
   export type EmailVerificationCreateInput = {
+    id?: string
     otpCode: string
     expiredAt: Date | string
     isUsed?: boolean
@@ -16161,8 +15724,8 @@ export namespace Prisma {
   }
 
   export type EmailVerificationUncheckedCreateInput = {
-    id?: number
-    userId: number
+    id?: string
+    userId: string
     otpCode: string
     expiredAt: Date | string
     isUsed?: boolean
@@ -16170,6 +15733,7 @@ export namespace Prisma {
   }
 
   export type EmailVerificationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     otpCode?: StringFieldUpdateOperationsInput | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isUsed?: BoolFieldUpdateOperationsInput | boolean
@@ -16178,8 +15742,8 @@ export namespace Prisma {
   }
 
   export type EmailVerificationUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     otpCode?: StringFieldUpdateOperationsInput | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isUsed?: BoolFieldUpdateOperationsInput | boolean
@@ -16187,8 +15751,8 @@ export namespace Prisma {
   }
 
   export type EmailVerificationCreateManyInput = {
-    id?: number
-    userId: number
+    id?: string
+    userId: string
     otpCode: string
     expiredAt: Date | string
     isUsed?: boolean
@@ -16196,6 +15760,7 @@ export namespace Prisma {
   }
 
   export type EmailVerificationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     otpCode?: StringFieldUpdateOperationsInput | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isUsed?: BoolFieldUpdateOperationsInput | boolean
@@ -16203,8 +15768,8 @@ export namespace Prisma {
   }
 
   export type EmailVerificationUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     otpCode?: StringFieldUpdateOperationsInput | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isUsed?: BoolFieldUpdateOperationsInput | boolean
@@ -16212,6 +15777,7 @@ export namespace Prisma {
   }
 
   export type AuthAccountCreateInput = {
+    id?: string
     username: string
     email: string
     password: string
@@ -16222,17 +15788,18 @@ export namespace Prisma {
   }
 
   export type AuthAccountUncheckedCreateInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     password: string
-    userId: number
-    santriId?: number | null
+    userId: string
+    santriId?: string | null
     isActive?: boolean
     createdAt?: Date | string
   }
 
   export type AuthAccountUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -16243,28 +15810,29 @@ export namespace Prisma {
   }
 
   export type AuthAccountUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    userId?: IntFieldUpdateOperationsInput | number
-    santriId?: NullableIntFieldUpdateOperationsInput | number | null
+    userId?: StringFieldUpdateOperationsInput | string
+    santriId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AuthAccountCreateManyInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     password: string
-    userId: number
-    santriId?: number | null
+    userId: string
+    santriId?: string | null
     isActive?: boolean
     createdAt?: Date | string
   }
 
   export type AuthAccountUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -16273,17 +15841,18 @@ export namespace Prisma {
   }
 
   export type AuthAccountUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    userId?: IntFieldUpdateOperationsInput | number
-    santriId?: NullableIntFieldUpdateOperationsInput | number | null
+    userId?: StringFieldUpdateOperationsInput | string
+    santriId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CategoryCreateInput = {
+    id?: string
     name: string
     type: $Enums.category_type
     isActive?: boolean
@@ -16293,16 +15862,17 @@ export namespace Prisma {
   }
 
   export type CategoryUncheckedCreateInput = {
-    id?: number
+    id?: string
     name: string
     type: $Enums.category_type
-    institutionId: number
+    institutionId: string
     isActive?: boolean
     createdAt?: Date | string
     transactions?: TransactionUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -16312,25 +15882,26 @@ export namespace Prisma {
   }
 
   export type CategoryUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
-    institutionId?: IntFieldUpdateOperationsInput | number
+    institutionId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: TransactionUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoryCreateManyInput = {
-    id?: number
+    id?: string
     name: string
     type: $Enums.category_type
-    institutionId: number
+    institutionId: string
     isActive?: boolean
     createdAt?: Date | string
   }
 
   export type CategoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -16338,15 +15909,16 @@ export namespace Prisma {
   }
 
   export type CategoryUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
-    institutionId?: IntFieldUpdateOperationsInput | number
+    institutionId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InstitutionCreateInput = {
+    id?: string
     name: string
     isActive?: boolean
     createdAt?: Date | string
@@ -16358,9 +15930,9 @@ export namespace Prisma {
   }
 
   export type InstitutionUncheckedCreateInput = {
-    id?: number
+    id?: string
     name: string
-    createdBy: number
+    createdBy: string
     isActive?: boolean
     createdAt?: Date | string
     users?: UsersUncheckedCreateNestedManyWithoutInstitutionInput
@@ -16370,6 +15942,7 @@ export namespace Prisma {
   }
 
   export type InstitutionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16381,9 +15954,9 @@ export namespace Prisma {
   }
 
   export type InstitutionUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    createdBy?: IntFieldUpdateOperationsInput | number
+    createdBy?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UsersUncheckedUpdateManyWithoutInstitutionNestedInput
@@ -16393,28 +15966,30 @@ export namespace Prisma {
   }
 
   export type InstitutionCreateManyInput = {
-    id?: number
+    id?: string
     name: string
-    createdBy: number
+    createdBy: string
     isActive?: boolean
     createdAt?: Date | string
   }
 
   export type InstitutionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InstitutionUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    createdBy?: IntFieldUpdateOperationsInput | number
+    createdBy?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotificationCreateInput = {
+    id?: string
     title: string
     message: string
     isRead?: boolean
@@ -16423,8 +15998,8 @@ export namespace Prisma {
   }
 
   export type NotificationUncheckedCreateInput = {
-    id?: number
-    userId: number
+    id?: string
+    userId: string
     title: string
     message: string
     isRead?: boolean
@@ -16432,6 +16007,7 @@ export namespace Prisma {
   }
 
   export type NotificationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
@@ -16440,8 +16016,8 @@ export namespace Prisma {
   }
 
   export type NotificationUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
@@ -16449,8 +16025,8 @@ export namespace Prisma {
   }
 
   export type NotificationCreateManyInput = {
-    id?: number
-    userId: number
+    id?: string
+    userId: string
     title: string
     message: string
     isRead?: boolean
@@ -16458,6 +16034,7 @@ export namespace Prisma {
   }
 
   export type NotificationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
@@ -16465,8 +16042,8 @@ export namespace Prisma {
   }
 
   export type NotificationUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
@@ -16474,6 +16051,7 @@ export namespace Prisma {
   }
 
   export type PasswordResetCreateInput = {
+    id?: string
     otpCode: string
     expiredAt: Date | string
     isUsed?: boolean
@@ -16482,8 +16060,8 @@ export namespace Prisma {
   }
 
   export type PasswordResetUncheckedCreateInput = {
-    id?: number
-    userId: number
+    id?: string
+    userId: string
     otpCode: string
     expiredAt: Date | string
     isUsed?: boolean
@@ -16491,6 +16069,7 @@ export namespace Prisma {
   }
 
   export type PasswordResetUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     otpCode?: StringFieldUpdateOperationsInput | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isUsed?: BoolFieldUpdateOperationsInput | boolean
@@ -16499,8 +16078,8 @@ export namespace Prisma {
   }
 
   export type PasswordResetUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     otpCode?: StringFieldUpdateOperationsInput | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isUsed?: BoolFieldUpdateOperationsInput | boolean
@@ -16508,8 +16087,8 @@ export namespace Prisma {
   }
 
   export type PasswordResetCreateManyInput = {
-    id?: number
-    userId: number
+    id?: string
+    userId: string
     otpCode: string
     expiredAt: Date | string
     isUsed?: boolean
@@ -16517,6 +16096,7 @@ export namespace Prisma {
   }
 
   export type PasswordResetUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     otpCode?: StringFieldUpdateOperationsInput | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isUsed?: BoolFieldUpdateOperationsInput | boolean
@@ -16524,8 +16104,8 @@ export namespace Prisma {
   }
 
   export type PasswordResetUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     otpCode?: StringFieldUpdateOperationsInput | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isUsed?: BoolFieldUpdateOperationsInput | boolean
@@ -16533,6 +16113,7 @@ export namespace Prisma {
   }
 
   export type ProfileCreateInput = {
+    id?: string
     name: string
     gender?: string | null
     address: string
@@ -16544,18 +16125,19 @@ export namespace Prisma {
   }
 
   export type ProfileUncheckedCreateInput = {
-    id?: number
+    id?: string
     name: string
     gender?: string | null
     address: string
     profile_picture_url?: string | null
     public_id?: string | null
-    userId: number
+    userId: string
     occupation?: string | null
     phone?: string | null
   }
 
   export type ProfileUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
@@ -16567,30 +16149,31 @@ export namespace Prisma {
   }
 
   export type ProfileUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
     profile_picture_url?: NullableStringFieldUpdateOperationsInput | string | null
     public_id?: NullableStringFieldUpdateOperationsInput | string | null
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     occupation?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProfileCreateManyInput = {
-    id?: number
+    id?: string
     name: string
     gender?: string | null
     address: string
     profile_picture_url?: string | null
     public_id?: string | null
-    userId: number
+    userId: string
     occupation?: string | null
     phone?: string | null
   }
 
   export type ProfileUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
@@ -16601,18 +16184,19 @@ export namespace Prisma {
   }
 
   export type ProfileUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
     profile_picture_url?: NullableStringFieldUpdateOperationsInput | string | null
     public_id?: NullableStringFieldUpdateOperationsInput | string | null
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     occupation?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type InstitutionProfileCreateInput = {
+    id?: string
     name?: string | null
     address?: string | null
     phone?: string | null
@@ -16627,8 +16211,8 @@ export namespace Prisma {
   }
 
   export type InstitutionProfileUncheckedCreateInput = {
-    id?: number
-    institutionId: number
+    id?: string
+    institutionId: string
     name?: string | null
     address?: string | null
     phone?: string | null
@@ -16642,6 +16226,7 @@ export namespace Prisma {
   }
 
   export type InstitutionProfileUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16656,8 +16241,8 @@ export namespace Prisma {
   }
 
   export type InstitutionProfileUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    institutionId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    institutionId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16671,8 +16256,8 @@ export namespace Prisma {
   }
 
   export type InstitutionProfileCreateManyInput = {
-    id?: number
-    institutionId: number
+    id?: string
+    institutionId: string
     name?: string | null
     address?: string | null
     phone?: string | null
@@ -16686,6 +16271,7 @@ export namespace Prisma {
   }
 
   export type InstitutionProfileUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16699,8 +16285,8 @@ export namespace Prisma {
   }
 
   export type InstitutionProfileUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    institutionId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    institutionId?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16714,6 +16300,7 @@ export namespace Prisma {
   }
 
   export type SantriCreateInput = {
+    id?: string
     nis: string
     fullname: string
     kelas: string
@@ -16729,13 +16316,13 @@ export namespace Prisma {
   }
 
   export type SantriUncheckedCreateInput = {
-    id?: number
+    id?: string
     nis: string
     fullname: string
     kelas: string
     gender: string
-    waliId: number
-    institutionId: number
+    waliId: string
+    institutionId: string
     waliName?: string | null
     institutionName?: string | null
     isActive?: boolean
@@ -16745,6 +16332,7 @@ export namespace Prisma {
   }
 
   export type SantriUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
@@ -16760,13 +16348,13 @@ export namespace Prisma {
   }
 
   export type SantriUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    waliId?: IntFieldUpdateOperationsInput | number
-    institutionId?: IntFieldUpdateOperationsInput | number
+    waliId?: StringFieldUpdateOperationsInput | string
+    institutionId?: StringFieldUpdateOperationsInput | string
     waliName?: NullableStringFieldUpdateOperationsInput | string | null
     institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -16776,13 +16364,13 @@ export namespace Prisma {
   }
 
   export type SantriCreateManyInput = {
-    id?: number
+    id?: string
     nis: string
     fullname: string
     kelas: string
     gender: string
-    waliId: number
-    institutionId: number
+    waliId: string
+    institutionId: string
     waliName?: string | null
     institutionName?: string | null
     isActive?: boolean
@@ -16790,6 +16378,7 @@ export namespace Prisma {
   }
 
   export type SantriUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
@@ -16801,13 +16390,13 @@ export namespace Prisma {
   }
 
   export type SantriUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    waliId?: IntFieldUpdateOperationsInput | number
-    institutionId?: IntFieldUpdateOperationsInput | number
+    waliId?: StringFieldUpdateOperationsInput | string
+    institutionId?: StringFieldUpdateOperationsInput | string
     waliName?: NullableStringFieldUpdateOperationsInput | string | null
     institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -16815,6 +16404,7 @@ export namespace Prisma {
   }
 
   export type TransactionCreateInput = {
+    id?: string
     type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
     description?: string | null
@@ -16827,19 +16417,20 @@ export namespace Prisma {
   }
 
   export type TransactionUncheckedCreateInput = {
-    id?: number
-    santriId: number
-    categoryId: number
+    id?: string
+    santriId: string
+    categoryId: string
     type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
     description?: string | null
     transactionDate: Date | string
-    createdBy: number
+    createdBy: string
     isDeleted?: boolean
     createdAt?: Date | string
   }
 
   export type TransactionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16852,32 +16443,33 @@ export namespace Prisma {
   }
 
   export type TransactionUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    santriId?: IntFieldUpdateOperationsInput | number
-    categoryId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    santriId?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: IntFieldUpdateOperationsInput | number
+    createdBy?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TransactionCreateManyInput = {
-    id?: number
-    santriId: number
-    categoryId: number
+    id?: string
+    santriId: string
+    categoryId: string
     type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
     description?: string | null
     transactionDate: Date | string
-    createdBy: number
+    createdBy: string
     isDeleted?: boolean
     createdAt?: Date | string
   }
 
   export type TransactionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16887,19 +16479,20 @@ export namespace Prisma {
   }
 
   export type TransactionUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    santriId?: IntFieldUpdateOperationsInput | number
-    categoryId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    santriId?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: IntFieldUpdateOperationsInput | number
+    createdBy?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UsersCreateInput = {
+    id?: string
     username: string
     email: string
     password: string
@@ -16919,12 +16512,12 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedCreateInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     password: string
     role?: $Enums.user_role
-    institutionId?: number | null
+    institutionId?: string | null
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
@@ -16939,6 +16532,7 @@ export namespace Prisma {
   }
 
   export type UsersUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -16958,12 +16552,12 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
-    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
+    institutionId?: NullableStringFieldUpdateOperationsInput | string | null
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16978,18 +16572,19 @@ export namespace Prisma {
   }
 
   export type UsersCreateManyInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     password: string
     role?: $Enums.user_role
-    institutionId?: number | null
+    institutionId?: string | null
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
   }
 
   export type UsersUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -17000,26 +16595,15 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
-    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
+    institutionId?: NullableStringFieldUpdateOperationsInput | string | null
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -17067,11 +16651,6 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type EmailVerificationAvgOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-  }
-
   export type EmailVerificationMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -17088,27 +16667,6 @@ export namespace Prisma {
     expiredAt?: SortOrder
     isUsed?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type EmailVerificationSumOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -17151,15 +16709,19 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type SantriNullableScalarRelationFilter = {
@@ -17181,12 +16743,6 @@ export namespace Prisma {
     santriId?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type AuthAccountAvgOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    santriId?: SortOrder
   }
 
   export type AuthAccountMaxOrderByAggregateInput = {
@@ -17211,26 +16767,22 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type AuthAccountSumOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    santriId?: SortOrder
-  }
-
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type Enumcategory_typeFilter<$PrismaModel = never> = {
@@ -17264,11 +16816,6 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type CategoryAvgOrderByAggregateInput = {
-    id?: SortOrder
-    institutionId?: SortOrder
-  }
-
   export type CategoryMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -17285,11 +16832,6 @@ export namespace Prisma {
     institutionId?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type CategorySumOrderByAggregateInput = {
-    id?: SortOrder
-    institutionId?: SortOrder
   }
 
   export type Enumcategory_typeWithAggregatesFilter<$PrismaModel = never> = {
@@ -17345,11 +16887,6 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type InstitutionAvgOrderByAggregateInput = {
-    id?: SortOrder
-    createdBy?: SortOrder
-  }
-
   export type InstitutionMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -17366,11 +16903,6 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type InstitutionSumOrderByAggregateInput = {
-    id?: SortOrder
-    createdBy?: SortOrder
-  }
-
   export type NotificationCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -17378,11 +16910,6 @@ export namespace Prisma {
     message?: SortOrder
     isRead?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type NotificationAvgOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
   }
 
   export type NotificationMaxOrderByAggregateInput = {
@@ -17403,11 +16930,6 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type NotificationSumOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-  }
-
   export type PasswordResetCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -17415,11 +16937,6 @@ export namespace Prisma {
     expiredAt?: SortOrder
     isUsed?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type PasswordResetAvgOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
   }
 
   export type PasswordResetMaxOrderByAggregateInput = {
@@ -17440,26 +16957,6 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type PasswordResetSumOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-  }
-
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type ProfileCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -17470,11 +16967,6 @@ export namespace Prisma {
     userId?: SortOrder
     occupation?: SortOrder
     phone?: SortOrder
-  }
-
-  export type ProfileAvgOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
   }
 
   export type ProfileMaxOrderByAggregateInput = {
@@ -17501,29 +16993,6 @@ export namespace Prisma {
     phone?: SortOrder
   }
 
-  export type ProfileSumOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type InstitutionProfileCountOrderByAggregateInput = {
     id?: SortOrder
     institutionId?: SortOrder
@@ -17537,11 +17006,6 @@ export namespace Prisma {
     description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type InstitutionProfileAvgOrderByAggregateInput = {
-    id?: SortOrder
-    institutionId?: SortOrder
   }
 
   export type InstitutionProfileMaxOrderByAggregateInput = {
@@ -17574,11 +17038,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type InstitutionProfileSumOrderByAggregateInput = {
-    id?: SortOrder
-    institutionId?: SortOrder
-  }
-
   export type AuthAccountListRelationFilter = {
     every?: AuthAccountWhereInput
     some?: AuthAccountWhereInput
@@ -17601,12 +17060,6 @@ export namespace Prisma {
     institutionName?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type SantriAvgOrderByAggregateInput = {
-    id?: SortOrder
-    waliId?: SortOrder
-    institutionId?: SortOrder
   }
 
   export type SantriMaxOrderByAggregateInput = {
@@ -17635,12 +17088,6 @@ export namespace Prisma {
     institutionName?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type SantriSumOrderByAggregateInput = {
-    id?: SortOrder
-    waliId?: SortOrder
-    institutionId?: SortOrder
   }
 
   export type DecimalFilter<$PrismaModel = never> = {
@@ -17678,11 +17125,7 @@ export namespace Prisma {
   }
 
   export type TransactionAvgOrderByAggregateInput = {
-    id?: SortOrder
-    santriId?: SortOrder
-    categoryId?: SortOrder
     amount?: SortOrder
-    createdBy?: SortOrder
   }
 
   export type TransactionMaxOrderByAggregateInput = {
@@ -17712,11 +17155,7 @@ export namespace Prisma {
   }
 
   export type TransactionSumOrderByAggregateInput = {
-    id?: SortOrder
-    santriId?: SortOrder
-    categoryId?: SortOrder
     amount?: SortOrder
-    createdBy?: SortOrder
   }
 
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -17804,11 +17243,6 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type UsersAvgOrderByAggregateInput = {
-    id?: SortOrder
-    institutionId?: SortOrder
-  }
-
   export type UsersMaxOrderByAggregateInput = {
     id?: SortOrder
     username?: SortOrder
@@ -17831,11 +17265,6 @@ export namespace Prisma {
     isEmailVerified?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type UsersSumOrderByAggregateInput = {
-    id?: SortOrder
-    institutionId?: SortOrder
   }
 
   export type Enumuser_roleWithAggregatesFilter<$PrismaModel = never> = {
@@ -17874,14 +17303,6 @@ export namespace Prisma {
     update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutEmailVerificationsInput, UsersUpdateWithoutEmailVerificationsInput>, UsersUncheckedUpdateWithoutEmailVerificationsInput>
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type SantriCreateNestedOneWithoutAuthAccountsInput = {
     create?: XOR<SantriCreateWithoutAuthAccountsInput, SantriUncheckedCreateWithoutAuthAccountsInput>
     connectOrCreate?: SantriCreateOrConnectWithoutAuthAccountsInput
@@ -17912,12 +17333,8 @@ export namespace Prisma {
     update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutAuthAccountsInput, UsersUpdateWithoutAuthAccountsInput>, UsersUncheckedUpdateWithoutAuthAccountsInput>
   }
 
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type InstitutionCreateNestedOneWithoutCategoriesInput = {
@@ -18184,10 +17601,6 @@ export namespace Prisma {
     create?: XOR<UsersCreateWithoutProfileInput, UsersUncheckedCreateWithoutProfileInput>
     connectOrCreate?: UsersCreateOrConnectWithoutProfileInput
     connect?: UsersWhereUniqueInput
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type UsersUpdateOneRequiredWithoutProfileNestedInput = {
@@ -18720,17 +18133,6 @@ export namespace Prisma {
     deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -18761,33 +18163,6 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -18803,6 +18178,17 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -18825,61 +18211,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedEnumcategory_typeFilter<$PrismaModel = never> = {
-    equals?: $Enums.category_type | Enumcategory_typeFieldRefInput<$PrismaModel>
-    in?: $Enums.category_type[] | ListEnumcategory_typeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.category_type[] | ListEnumcategory_typeFieldRefInput<$PrismaModel>
-    not?: NestedEnumcategory_typeFilter<$PrismaModel> | $Enums.category_type
-  }
-
-  export type NestedEnumcategory_typeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.category_type | Enumcategory_typeFieldRefInput<$PrismaModel>
-    in?: $Enums.category_type[] | ListEnumcategory_typeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.category_type[] | ListEnumcategory_typeFieldRefInput<$PrismaModel>
-    not?: NestedEnumcategory_typeWithAggregatesFilter<$PrismaModel> | $Enums.category_type
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumcategory_typeFilter<$PrismaModel>
-    _max?: NestedEnumcategory_typeFilter<$PrismaModel>
   }
 
   export type NestedStringNullableFilter<$PrismaModel = never> = {
@@ -18911,6 +18242,34 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumcategory_typeFilter<$PrismaModel = never> = {
+    equals?: $Enums.category_type | Enumcategory_typeFieldRefInput<$PrismaModel>
+    in?: $Enums.category_type[] | ListEnumcategory_typeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.category_type[] | ListEnumcategory_typeFieldRefInput<$PrismaModel>
+    not?: NestedEnumcategory_typeFilter<$PrismaModel> | $Enums.category_type
+  }
+
+  export type NestedEnumcategory_typeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.category_type | Enumcategory_typeFieldRefInput<$PrismaModel>
+    in?: $Enums.category_type[] | ListEnumcategory_typeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.category_type[] | ListEnumcategory_typeFieldRefInput<$PrismaModel>
+    not?: NestedEnumcategory_typeWithAggregatesFilter<$PrismaModel> | $Enums.category_type
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumcategory_typeFilter<$PrismaModel>
+    _max?: NestedEnumcategory_typeFilter<$PrismaModel>
   }
 
   export type NestedDecimalFilter<$PrismaModel = never> = {
@@ -18958,6 +18317,7 @@ export namespace Prisma {
   }
 
   export type UsersCreateWithoutEmailVerificationsInput = {
+    id?: string
     username: string
     email: string
     password: string
@@ -18976,12 +18336,12 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedCreateWithoutEmailVerificationsInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     password: string
     role?: $Enums.user_role
-    institutionId?: number | null
+    institutionId?: string | null
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
@@ -19011,6 +18371,7 @@ export namespace Prisma {
   }
 
   export type UsersUpdateWithoutEmailVerificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -19029,12 +18390,12 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedUpdateWithoutEmailVerificationsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
-    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
+    institutionId?: NullableStringFieldUpdateOperationsInput | string | null
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19048,6 +18409,7 @@ export namespace Prisma {
   }
 
   export type SantriCreateWithoutAuthAccountsInput = {
+    id?: string
     nis: string
     fullname: string
     kelas: string
@@ -19062,13 +18424,13 @@ export namespace Prisma {
   }
 
   export type SantriUncheckedCreateWithoutAuthAccountsInput = {
-    id?: number
+    id?: string
     nis: string
     fullname: string
     kelas: string
     gender: string
-    waliId: number
-    institutionId: number
+    waliId: string
+    institutionId: string
     waliName?: string | null
     institutionName?: string | null
     isActive?: boolean
@@ -19082,6 +18444,7 @@ export namespace Prisma {
   }
 
   export type UsersCreateWithoutAuthAccountsInput = {
+    id?: string
     username: string
     email: string
     password: string
@@ -19100,12 +18463,12 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedCreateWithoutAuthAccountsInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     password: string
     role?: $Enums.user_role
-    institutionId?: number | null
+    institutionId?: string | null
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
@@ -19135,6 +18498,7 @@ export namespace Prisma {
   }
 
   export type SantriUpdateWithoutAuthAccountsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
@@ -19149,13 +18513,13 @@ export namespace Prisma {
   }
 
   export type SantriUncheckedUpdateWithoutAuthAccountsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    waliId?: IntFieldUpdateOperationsInput | number
-    institutionId?: IntFieldUpdateOperationsInput | number
+    waliId?: StringFieldUpdateOperationsInput | string
+    institutionId?: StringFieldUpdateOperationsInput | string
     waliName?: NullableStringFieldUpdateOperationsInput | string | null
     institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -19175,6 +18539,7 @@ export namespace Prisma {
   }
 
   export type UsersUpdateWithoutAuthAccountsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -19193,12 +18558,12 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedUpdateWithoutAuthAccountsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
-    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
+    institutionId?: NullableStringFieldUpdateOperationsInput | string | null
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19212,6 +18577,7 @@ export namespace Prisma {
   }
 
   export type InstitutionCreateWithoutCategoriesInput = {
+    id?: string
     name: string
     isActive?: boolean
     createdAt?: Date | string
@@ -19222,9 +18588,9 @@ export namespace Prisma {
   }
 
   export type InstitutionUncheckedCreateWithoutCategoriesInput = {
-    id?: number
+    id?: string
     name: string
-    createdBy: number
+    createdBy: string
     isActive?: boolean
     createdAt?: Date | string
     users?: UsersUncheckedCreateNestedManyWithoutInstitutionInput
@@ -19238,6 +18604,7 @@ export namespace Prisma {
   }
 
   export type TransactionCreateWithoutCategoryInput = {
+    id?: string
     type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
     description?: string | null
@@ -19249,13 +18616,13 @@ export namespace Prisma {
   }
 
   export type TransactionUncheckedCreateWithoutCategoryInput = {
-    id?: number
-    santriId: number
+    id?: string
+    santriId: string
     type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
     description?: string | null
     transactionDate: Date | string
-    createdBy: number
+    createdBy: string
     isDeleted?: boolean
     createdAt?: Date | string
   }
@@ -19282,6 +18649,7 @@ export namespace Prisma {
   }
 
   export type InstitutionUpdateWithoutCategoriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19292,9 +18660,9 @@ export namespace Prisma {
   }
 
   export type InstitutionUncheckedUpdateWithoutCategoriesInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    createdBy?: IntFieldUpdateOperationsInput | number
+    createdBy?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UsersUncheckedUpdateManyWithoutInstitutionNestedInput
@@ -19322,19 +18690,20 @@ export namespace Prisma {
     AND?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
     OR?: TransactionScalarWhereInput[]
     NOT?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
-    id?: IntFilter<"Transaction"> | number
-    santriId?: IntFilter<"Transaction"> | number
-    categoryId?: IntFilter<"Transaction"> | number
+    id?: StringFilter<"Transaction"> | string
+    santriId?: StringFilter<"Transaction"> | string
+    categoryId?: StringFilter<"Transaction"> | string
     type?: Enumcategory_typeFilter<"Transaction"> | $Enums.category_type
     amount?: DecimalFilter<"Transaction"> | Decimal | DecimalJsLike | number | string
     description?: StringNullableFilter<"Transaction"> | string | null
     transactionDate?: DateTimeFilter<"Transaction"> | Date | string
-    createdBy?: IntFilter<"Transaction"> | number
+    createdBy?: StringFilter<"Transaction"> | string
     isDeleted?: BoolFilter<"Transaction"> | boolean
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
   }
 
   export type UsersCreateWithoutInstitutionInput = {
+    id?: string
     username: string
     email: string
     password: string
@@ -19353,7 +18722,7 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedCreateWithoutInstitutionInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     password: string
@@ -19382,6 +18751,7 @@ export namespace Prisma {
   }
 
   export type InstitutionProfileCreateWithoutInstitutionInput = {
+    id?: string
     name?: string | null
     address?: string | null
     phone?: string | null
@@ -19395,7 +18765,7 @@ export namespace Prisma {
   }
 
   export type InstitutionProfileUncheckedCreateWithoutInstitutionInput = {
-    id?: number
+    id?: string
     name?: string | null
     address?: string | null
     phone?: string | null
@@ -19414,6 +18784,7 @@ export namespace Prisma {
   }
 
   export type CategoryCreateWithoutInstitutionInput = {
+    id?: string
     name: string
     type: $Enums.category_type
     isActive?: boolean
@@ -19422,7 +18793,7 @@ export namespace Prisma {
   }
 
   export type CategoryUncheckedCreateWithoutInstitutionInput = {
-    id?: number
+    id?: string
     name: string
     type: $Enums.category_type
     isActive?: boolean
@@ -19441,6 +18812,7 @@ export namespace Prisma {
   }
 
   export type UsersCreateWithoutCreatedInstitutionsInput = {
+    id?: string
     username: string
     email: string
     password: string
@@ -19459,12 +18831,12 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedCreateWithoutCreatedInstitutionsInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     password: string
     role?: $Enums.user_role
-    institutionId?: number | null
+    institutionId?: string | null
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
@@ -19483,6 +18855,7 @@ export namespace Prisma {
   }
 
   export type SantriCreateWithoutInstitutionInput = {
+    id?: string
     nis: string
     fullname: string
     kelas: string
@@ -19497,12 +18870,12 @@ export namespace Prisma {
   }
 
   export type SantriUncheckedCreateWithoutInstitutionInput = {
-    id?: number
+    id?: string
     nis: string
     fullname: string
     kelas: string
     gender: string
-    waliId: number
+    waliId: string
     waliName?: string | null
     institutionName?: string | null
     isActive?: boolean
@@ -19541,12 +18914,12 @@ export namespace Prisma {
     AND?: UsersScalarWhereInput | UsersScalarWhereInput[]
     OR?: UsersScalarWhereInput[]
     NOT?: UsersScalarWhereInput | UsersScalarWhereInput[]
-    id?: IntFilter<"Users"> | number
+    id?: StringFilter<"Users"> | string
     username?: StringFilter<"Users"> | string
     email?: StringFilter<"Users"> | string
     password?: StringFilter<"Users"> | string
     role?: Enumuser_roleFilter<"Users"> | $Enums.user_role
-    institutionId?: IntNullableFilter<"Users"> | number | null
+    institutionId?: StringNullableFilter<"Users"> | string | null
     isEmailVerified?: BoolFilter<"Users"> | boolean
     isActive?: BoolFilter<"Users"> | boolean
     createdAt?: DateTimeFilter<"Users"> | Date | string
@@ -19564,6 +18937,7 @@ export namespace Prisma {
   }
 
   export type InstitutionProfileUpdateWithoutInstitutionInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19577,7 +18951,7 @@ export namespace Prisma {
   }
 
   export type InstitutionProfileUncheckedUpdateWithoutInstitutionInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19610,10 +18984,10 @@ export namespace Prisma {
     AND?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
     OR?: CategoryScalarWhereInput[]
     NOT?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
-    id?: IntFilter<"Category"> | number
+    id?: StringFilter<"Category"> | string
     name?: StringFilter<"Category"> | string
     type?: Enumcategory_typeFilter<"Category"> | $Enums.category_type
-    institutionId?: IntFilter<"Category"> | number
+    institutionId?: StringFilter<"Category"> | string
     isActive?: BoolFilter<"Category"> | boolean
     createdAt?: DateTimeFilter<"Category"> | Date | string
   }
@@ -19630,6 +19004,7 @@ export namespace Prisma {
   }
 
   export type UsersUpdateWithoutCreatedInstitutionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -19648,12 +19023,12 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedUpdateWithoutCreatedInstitutionsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
-    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
+    institutionId?: NullableStringFieldUpdateOperationsInput | string | null
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19686,13 +19061,13 @@ export namespace Prisma {
     AND?: SantriScalarWhereInput | SantriScalarWhereInput[]
     OR?: SantriScalarWhereInput[]
     NOT?: SantriScalarWhereInput | SantriScalarWhereInput[]
-    id?: IntFilter<"Santri"> | number
+    id?: StringFilter<"Santri"> | string
     nis?: StringFilter<"Santri"> | string
     fullname?: StringFilter<"Santri"> | string
     kelas?: StringFilter<"Santri"> | string
     gender?: StringFilter<"Santri"> | string
-    waliId?: IntFilter<"Santri"> | number
-    institutionId?: IntFilter<"Santri"> | number
+    waliId?: StringFilter<"Santri"> | string
+    institutionId?: StringFilter<"Santri"> | string
     waliName?: StringNullableFilter<"Santri"> | string | null
     institutionName?: StringNullableFilter<"Santri"> | string | null
     isActive?: BoolFilter<"Santri"> | boolean
@@ -19700,6 +19075,7 @@ export namespace Prisma {
   }
 
   export type UsersCreateWithoutNotificationsInput = {
+    id?: string
     username: string
     email: string
     password: string
@@ -19718,12 +19094,12 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedCreateWithoutNotificationsInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     password: string
     role?: $Enums.user_role
-    institutionId?: number | null
+    institutionId?: string | null
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
@@ -19753,6 +19129,7 @@ export namespace Prisma {
   }
 
   export type UsersUpdateWithoutNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -19771,12 +19148,12 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedUpdateWithoutNotificationsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
-    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
+    institutionId?: NullableStringFieldUpdateOperationsInput | string | null
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19790,6 +19167,7 @@ export namespace Prisma {
   }
 
   export type UsersCreateWithoutPasswordResetsInput = {
+    id?: string
     username: string
     email: string
     password: string
@@ -19808,12 +19186,12 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedCreateWithoutPasswordResetsInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     password: string
     role?: $Enums.user_role
-    institutionId?: number | null
+    institutionId?: string | null
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
@@ -19843,6 +19221,7 @@ export namespace Prisma {
   }
 
   export type UsersUpdateWithoutPasswordResetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -19861,12 +19240,12 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedUpdateWithoutPasswordResetsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
-    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
+    institutionId?: NullableStringFieldUpdateOperationsInput | string | null
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19880,6 +19259,7 @@ export namespace Prisma {
   }
 
   export type UsersCreateWithoutProfileInput = {
+    id?: string
     username: string
     email: string
     password: string
@@ -19898,12 +19278,12 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedCreateWithoutProfileInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     password: string
     role?: $Enums.user_role
-    institutionId?: number | null
+    institutionId?: string | null
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
@@ -19933,6 +19313,7 @@ export namespace Prisma {
   }
 
   export type UsersUpdateWithoutProfileInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -19951,12 +19332,12 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedUpdateWithoutProfileInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
-    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
+    institutionId?: NullableStringFieldUpdateOperationsInput | string | null
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19970,6 +19351,7 @@ export namespace Prisma {
   }
 
   export type InstitutionCreateWithoutProfileInput = {
+    id?: string
     name: string
     isActive?: boolean
     createdAt?: Date | string
@@ -19980,9 +19362,9 @@ export namespace Prisma {
   }
 
   export type InstitutionUncheckedCreateWithoutProfileInput = {
-    id?: number
+    id?: string
     name: string
-    createdBy: number
+    createdBy: string
     isActive?: boolean
     createdAt?: Date | string
     users?: UsersUncheckedCreateNestedManyWithoutInstitutionInput
@@ -20007,6 +19389,7 @@ export namespace Prisma {
   }
 
   export type InstitutionUpdateWithoutProfileInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20017,9 +19400,9 @@ export namespace Prisma {
   }
 
   export type InstitutionUncheckedUpdateWithoutProfileInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    createdBy?: IntFieldUpdateOperationsInput | number
+    createdBy?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UsersUncheckedUpdateManyWithoutInstitutionNestedInput
@@ -20028,6 +19411,7 @@ export namespace Prisma {
   }
 
   export type UsersCreateWithoutSantriInput = {
+    id?: string
     username: string
     email: string
     password: string
@@ -20046,12 +19430,12 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedCreateWithoutSantriInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     password: string
     role?: $Enums.user_role
-    institutionId?: number | null
+    institutionId?: string | null
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
@@ -20070,6 +19454,7 @@ export namespace Prisma {
   }
 
   export type InstitutionCreateWithoutSantriInput = {
+    id?: string
     name: string
     isActive?: boolean
     createdAt?: Date | string
@@ -20080,9 +19465,9 @@ export namespace Prisma {
   }
 
   export type InstitutionUncheckedCreateWithoutSantriInput = {
-    id?: number
+    id?: string
     name: string
-    createdBy: number
+    createdBy: string
     isActive?: boolean
     createdAt?: Date | string
     users?: UsersUncheckedCreateNestedManyWithoutInstitutionInput
@@ -20096,6 +19481,7 @@ export namespace Prisma {
   }
 
   export type AuthAccountCreateWithoutSantriInput = {
+    id?: string
     username: string
     email: string
     password: string
@@ -20105,11 +19491,11 @@ export namespace Prisma {
   }
 
   export type AuthAccountUncheckedCreateWithoutSantriInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     password: string
-    userId: number
+    userId: string
     isActive?: boolean
     createdAt?: Date | string
   }
@@ -20125,6 +19511,7 @@ export namespace Prisma {
   }
 
   export type TransactionCreateWithoutSantriInput = {
+    id?: string
     type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
     description?: string | null
@@ -20136,13 +19523,13 @@ export namespace Prisma {
   }
 
   export type TransactionUncheckedCreateWithoutSantriInput = {
-    id?: number
-    categoryId: number
+    id?: string
+    categoryId: string
     type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
     description?: string | null
     transactionDate: Date | string
-    createdBy: number
+    createdBy: string
     isDeleted?: boolean
     createdAt?: Date | string
   }
@@ -20169,6 +19556,7 @@ export namespace Prisma {
   }
 
   export type UsersUpdateWithoutSantriInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -20187,12 +19575,12 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedUpdateWithoutSantriInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
-    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
+    institutionId?: NullableStringFieldUpdateOperationsInput | string | null
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20217,6 +19605,7 @@ export namespace Prisma {
   }
 
   export type InstitutionUpdateWithoutSantriInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20227,9 +19616,9 @@ export namespace Prisma {
   }
 
   export type InstitutionUncheckedUpdateWithoutSantriInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    createdBy?: IntFieldUpdateOperationsInput | number
+    createdBy?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UsersUncheckedUpdateManyWithoutInstitutionNestedInput
@@ -20257,12 +19646,12 @@ export namespace Prisma {
     AND?: AuthAccountScalarWhereInput | AuthAccountScalarWhereInput[]
     OR?: AuthAccountScalarWhereInput[]
     NOT?: AuthAccountScalarWhereInput | AuthAccountScalarWhereInput[]
-    id?: IntFilter<"AuthAccount"> | number
+    id?: StringFilter<"AuthAccount"> | string
     username?: StringFilter<"AuthAccount"> | string
     email?: StringFilter<"AuthAccount"> | string
     password?: StringFilter<"AuthAccount"> | string
-    userId?: IntFilter<"AuthAccount"> | number
-    santriId?: IntNullableFilter<"AuthAccount"> | number | null
+    userId?: StringFilter<"AuthAccount"> | string
+    santriId?: StringNullableFilter<"AuthAccount"> | string | null
     isActive?: BoolFilter<"AuthAccount"> | boolean
     createdAt?: DateTimeFilter<"AuthAccount"> | Date | string
   }
@@ -20284,6 +19673,7 @@ export namespace Prisma {
   }
 
   export type CategoryCreateWithoutTransactionsInput = {
+    id?: string
     name: string
     type: $Enums.category_type
     isActive?: boolean
@@ -20292,10 +19682,10 @@ export namespace Prisma {
   }
 
   export type CategoryUncheckedCreateWithoutTransactionsInput = {
-    id?: number
+    id?: string
     name: string
     type: $Enums.category_type
-    institutionId: number
+    institutionId: string
     isActive?: boolean
     createdAt?: Date | string
   }
@@ -20306,6 +19696,7 @@ export namespace Prisma {
   }
 
   export type UsersCreateWithoutTransactionsInput = {
+    id?: string
     username: string
     email: string
     password: string
@@ -20324,12 +19715,12 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedCreateWithoutTransactionsInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     password: string
     role?: $Enums.user_role
-    institutionId?: number | null
+    institutionId?: string | null
     isEmailVerified?: boolean
     isActive?: boolean
     createdAt?: Date | string
@@ -20348,6 +19739,7 @@ export namespace Prisma {
   }
 
   export type SantriCreateWithoutTransactionsInput = {
+    id?: string
     nis: string
     fullname: string
     kelas: string
@@ -20362,13 +19754,13 @@ export namespace Prisma {
   }
 
   export type SantriUncheckedCreateWithoutTransactionsInput = {
-    id?: number
+    id?: string
     nis: string
     fullname: string
     kelas: string
     gender: string
-    waliId: number
-    institutionId: number
+    waliId: string
+    institutionId: string
     waliName?: string | null
     institutionName?: string | null
     isActive?: boolean
@@ -20393,6 +19785,7 @@ export namespace Prisma {
   }
 
   export type CategoryUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -20401,10 +19794,10 @@ export namespace Prisma {
   }
 
   export type CategoryUncheckedUpdateWithoutTransactionsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
-    institutionId?: IntFieldUpdateOperationsInput | number
+    institutionId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20421,6 +19814,7 @@ export namespace Prisma {
   }
 
   export type UsersUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -20439,12 +19833,12 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedUpdateWithoutTransactionsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: Enumuser_roleFieldUpdateOperationsInput | $Enums.user_role
-    institutionId?: NullableIntFieldUpdateOperationsInput | number | null
+    institutionId?: NullableStringFieldUpdateOperationsInput | string | null
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20469,6 +19863,7 @@ export namespace Prisma {
   }
 
   export type SantriUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
@@ -20483,13 +19878,13 @@ export namespace Prisma {
   }
 
   export type SantriUncheckedUpdateWithoutTransactionsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    waliId?: IntFieldUpdateOperationsInput | number
-    institutionId?: IntFieldUpdateOperationsInput | number
+    waliId?: StringFieldUpdateOperationsInput | string
+    institutionId?: StringFieldUpdateOperationsInput | string
     waliName?: NullableStringFieldUpdateOperationsInput | string | null
     institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -20498,6 +19893,7 @@ export namespace Prisma {
   }
 
   export type AuthAccountCreateWithoutUserInput = {
+    id?: string
     username: string
     email: string
     password: string
@@ -20507,11 +19903,11 @@ export namespace Prisma {
   }
 
   export type AuthAccountUncheckedCreateWithoutUserInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     password: string
-    santriId?: number | null
+    santriId?: string | null
     isActive?: boolean
     createdAt?: Date | string
   }
@@ -20527,6 +19923,7 @@ export namespace Prisma {
   }
 
   export type EmailVerificationCreateWithoutUserInput = {
+    id?: string
     otpCode: string
     expiredAt: Date | string
     isUsed?: boolean
@@ -20534,7 +19931,7 @@ export namespace Prisma {
   }
 
   export type EmailVerificationUncheckedCreateWithoutUserInput = {
-    id?: number
+    id?: string
     otpCode: string
     expiredAt: Date | string
     isUsed?: boolean
@@ -20552,6 +19949,7 @@ export namespace Prisma {
   }
 
   export type InstitutionCreateWithoutAdminInput = {
+    id?: string
     name: string
     isActive?: boolean
     createdAt?: Date | string
@@ -20562,7 +19960,7 @@ export namespace Prisma {
   }
 
   export type InstitutionUncheckedCreateWithoutAdminInput = {
-    id?: number
+    id?: string
     name: string
     isActive?: boolean
     createdAt?: Date | string
@@ -20583,6 +19981,7 @@ export namespace Prisma {
   }
 
   export type NotificationCreateWithoutUserInput = {
+    id?: string
     title: string
     message: string
     isRead?: boolean
@@ -20590,7 +19989,7 @@ export namespace Prisma {
   }
 
   export type NotificationUncheckedCreateWithoutUserInput = {
-    id?: number
+    id?: string
     title: string
     message: string
     isRead?: boolean
@@ -20608,6 +20007,7 @@ export namespace Prisma {
   }
 
   export type PasswordResetCreateWithoutUserInput = {
+    id?: string
     otpCode: string
     expiredAt: Date | string
     isUsed?: boolean
@@ -20615,7 +20015,7 @@ export namespace Prisma {
   }
 
   export type PasswordResetUncheckedCreateWithoutUserInput = {
-    id?: number
+    id?: string
     otpCode: string
     expiredAt: Date | string
     isUsed?: boolean
@@ -20633,6 +20033,7 @@ export namespace Prisma {
   }
 
   export type ProfileCreateWithoutUserInput = {
+    id?: string
     name: string
     gender?: string | null
     address: string
@@ -20643,7 +20044,7 @@ export namespace Prisma {
   }
 
   export type ProfileUncheckedCreateWithoutUserInput = {
-    id?: number
+    id?: string
     name: string
     gender?: string | null
     address: string
@@ -20659,6 +20060,7 @@ export namespace Prisma {
   }
 
   export type SantriCreateWithoutWaliInput = {
+    id?: string
     nis: string
     fullname: string
     kelas: string
@@ -20673,12 +20075,12 @@ export namespace Prisma {
   }
 
   export type SantriUncheckedCreateWithoutWaliInput = {
-    id?: number
+    id?: string
     nis: string
     fullname: string
     kelas: string
     gender: string
-    institutionId: number
+    institutionId: string
     waliName?: string | null
     institutionName?: string | null
     isActive?: boolean
@@ -20698,6 +20100,7 @@ export namespace Prisma {
   }
 
   export type TransactionCreateWithoutAdminInput = {
+    id?: string
     type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
     description?: string | null
@@ -20709,9 +20112,9 @@ export namespace Prisma {
   }
 
   export type TransactionUncheckedCreateWithoutAdminInput = {
-    id?: number
-    santriId: number
-    categoryId: number
+    id?: string
+    santriId: string
+    categoryId: string
     type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
     description?: string | null
@@ -20731,6 +20134,7 @@ export namespace Prisma {
   }
 
   export type InstitutionCreateWithoutUsersInput = {
+    id?: string
     name: string
     isActive?: boolean
     createdAt?: Date | string
@@ -20741,9 +20145,9 @@ export namespace Prisma {
   }
 
   export type InstitutionUncheckedCreateWithoutUsersInput = {
-    id?: number
+    id?: string
     name: string
-    createdBy: number
+    createdBy: string
     isActive?: boolean
     createdAt?: Date | string
     profile?: InstitutionProfileUncheckedCreateNestedOneWithoutInstitutionInput
@@ -20792,8 +20196,8 @@ export namespace Prisma {
     AND?: EmailVerificationScalarWhereInput | EmailVerificationScalarWhereInput[]
     OR?: EmailVerificationScalarWhereInput[]
     NOT?: EmailVerificationScalarWhereInput | EmailVerificationScalarWhereInput[]
-    id?: IntFilter<"EmailVerification"> | number
-    userId?: IntFilter<"EmailVerification"> | number
+    id?: StringFilter<"EmailVerification"> | string
+    userId?: StringFilter<"EmailVerification"> | string
     otpCode?: StringFilter<"EmailVerification"> | string
     expiredAt?: DateTimeFilter<"EmailVerification"> | Date | string
     isUsed?: BoolFilter<"EmailVerification"> | boolean
@@ -20820,9 +20224,9 @@ export namespace Prisma {
     AND?: InstitutionScalarWhereInput | InstitutionScalarWhereInput[]
     OR?: InstitutionScalarWhereInput[]
     NOT?: InstitutionScalarWhereInput | InstitutionScalarWhereInput[]
-    id?: IntFilter<"Institution"> | number
+    id?: StringFilter<"Institution"> | string
     name?: StringFilter<"Institution"> | string
-    createdBy?: IntFilter<"Institution"> | number
+    createdBy?: StringFilter<"Institution"> | string
     isActive?: BoolFilter<"Institution"> | boolean
     createdAt?: DateTimeFilter<"Institution"> | Date | string
   }
@@ -20847,8 +20251,8 @@ export namespace Prisma {
     AND?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
     OR?: NotificationScalarWhereInput[]
     NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
-    id?: IntFilter<"Notification"> | number
-    userId?: IntFilter<"Notification"> | number
+    id?: StringFilter<"Notification"> | string
+    userId?: StringFilter<"Notification"> | string
     title?: StringFilter<"Notification"> | string
     message?: StringFilter<"Notification"> | string
     isRead?: BoolFilter<"Notification"> | boolean
@@ -20875,8 +20279,8 @@ export namespace Prisma {
     AND?: PasswordResetScalarWhereInput | PasswordResetScalarWhereInput[]
     OR?: PasswordResetScalarWhereInput[]
     NOT?: PasswordResetScalarWhereInput | PasswordResetScalarWhereInput[]
-    id?: IntFilter<"PasswordReset"> | number
-    userId?: IntFilter<"PasswordReset"> | number
+    id?: StringFilter<"PasswordReset"> | string
+    userId?: StringFilter<"PasswordReset"> | string
     otpCode?: StringFilter<"PasswordReset"> | string
     expiredAt?: DateTimeFilter<"PasswordReset"> | Date | string
     isUsed?: BoolFilter<"PasswordReset"> | boolean
@@ -20895,6 +20299,7 @@ export namespace Prisma {
   }
 
   export type ProfileUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
@@ -20905,7 +20310,7 @@ export namespace Prisma {
   }
 
   export type ProfileUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     address?: StringFieldUpdateOperationsInput | string
@@ -20959,6 +20364,7 @@ export namespace Prisma {
   }
 
   export type InstitutionUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20969,9 +20375,9 @@ export namespace Prisma {
   }
 
   export type InstitutionUncheckedUpdateWithoutUsersInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    createdBy?: IntFieldUpdateOperationsInput | number
+    createdBy?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     profile?: InstitutionProfileUncheckedUpdateOneWithoutInstitutionNestedInput
@@ -20980,18 +20386,19 @@ export namespace Prisma {
   }
 
   export type TransactionCreateManyCategoryInput = {
-    id?: number
-    santriId: number
+    id?: string
+    santriId: string
     type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
     description?: string | null
     transactionDate: Date | string
-    createdBy: number
+    createdBy: string
     isDeleted?: boolean
     createdAt?: Date | string
   }
 
   export type TransactionUpdateWithoutCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21003,31 +20410,31 @@ export namespace Prisma {
   }
 
   export type TransactionUncheckedUpdateWithoutCategoryInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    santriId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    santriId?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: IntFieldUpdateOperationsInput | number
+    createdBy?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TransactionUncheckedUpdateManyWithoutCategoryInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    santriId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    santriId?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: IntFieldUpdateOperationsInput | number
+    createdBy?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UsersCreateManyInstitutionInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     password: string
@@ -21038,7 +20445,7 @@ export namespace Prisma {
   }
 
   export type CategoryCreateManyInstitutionInput = {
-    id?: number
+    id?: string
     name: string
     type: $Enums.category_type
     isActive?: boolean
@@ -21046,12 +20453,12 @@ export namespace Prisma {
   }
 
   export type SantriCreateManyInstitutionInput = {
-    id?: number
+    id?: string
     nis: string
     fullname: string
     kelas: string
     gender: string
-    waliId: number
+    waliId: string
     waliName?: string | null
     institutionName?: string | null
     isActive?: boolean
@@ -21059,6 +20466,7 @@ export namespace Prisma {
   }
 
   export type UsersUpdateWithoutInstitutionInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -21077,7 +20485,7 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedUpdateWithoutInstitutionInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -21096,7 +20504,7 @@ export namespace Prisma {
   }
 
   export type UsersUncheckedUpdateManyWithoutInstitutionInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -21107,6 +20515,7 @@ export namespace Prisma {
   }
 
   export type CategoryUpdateWithoutInstitutionInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -21115,7 +20524,7 @@ export namespace Prisma {
   }
 
   export type CategoryUncheckedUpdateWithoutInstitutionInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -21124,7 +20533,7 @@ export namespace Prisma {
   }
 
   export type CategoryUncheckedUpdateManyWithoutInstitutionInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -21132,6 +20541,7 @@ export namespace Prisma {
   }
 
   export type SantriUpdateWithoutInstitutionInput = {
+    id?: StringFieldUpdateOperationsInput | string
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
@@ -21146,12 +20556,12 @@ export namespace Prisma {
   }
 
   export type SantriUncheckedUpdateWithoutInstitutionInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    waliId?: IntFieldUpdateOperationsInput | number
+    waliId?: StringFieldUpdateOperationsInput | string
     waliName?: NullableStringFieldUpdateOperationsInput | string | null
     institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -21161,12 +20571,12 @@ export namespace Prisma {
   }
 
   export type SantriUncheckedUpdateManyWithoutInstitutionInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    waliId?: IntFieldUpdateOperationsInput | number
+    waliId?: StringFieldUpdateOperationsInput | string
     waliName?: NullableStringFieldUpdateOperationsInput | string | null
     institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -21174,28 +20584,29 @@ export namespace Prisma {
   }
 
   export type AuthAccountCreateManySantriInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     password: string
-    userId: number
+    userId: string
     isActive?: boolean
     createdAt?: Date | string
   }
 
   export type TransactionCreateManySantriInput = {
-    id?: number
-    categoryId: number
+    id?: string
+    categoryId: string
     type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
     description?: string | null
     transactionDate: Date | string
-    createdBy: number
+    createdBy: string
     isDeleted?: boolean
     createdAt?: Date | string
   }
 
   export type AuthAccountUpdateWithoutSantriInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -21205,26 +20616,27 @@ export namespace Prisma {
   }
 
   export type AuthAccountUncheckedUpdateWithoutSantriInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AuthAccountUncheckedUpdateManyWithoutSantriInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TransactionUpdateWithoutSantriInput = {
+    id?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21236,41 +20648,41 @@ export namespace Prisma {
   }
 
   export type TransactionUncheckedUpdateWithoutSantriInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    categoryId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: IntFieldUpdateOperationsInput | number
+    createdBy?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TransactionUncheckedUpdateManyWithoutSantriInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    categoryId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: IntFieldUpdateOperationsInput | number
+    createdBy?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AuthAccountCreateManyUserInput = {
-    id?: number
+    id?: string
     username: string
     email: string
     password: string
-    santriId?: number | null
+    santriId?: string | null
     isActive?: boolean
     createdAt?: Date | string
   }
 
   export type EmailVerificationCreateManyUserInput = {
-    id?: number
+    id?: string
     otpCode: string
     expiredAt: Date | string
     isUsed?: boolean
@@ -21278,14 +20690,14 @@ export namespace Prisma {
   }
 
   export type InstitutionCreateManyAdminInput = {
-    id?: number
+    id?: string
     name: string
     isActive?: boolean
     createdAt?: Date | string
   }
 
   export type NotificationCreateManyUserInput = {
-    id?: number
+    id?: string
     title: string
     message: string
     isRead?: boolean
@@ -21293,7 +20705,7 @@ export namespace Prisma {
   }
 
   export type PasswordResetCreateManyUserInput = {
-    id?: number
+    id?: string
     otpCode: string
     expiredAt: Date | string
     isUsed?: boolean
@@ -21301,12 +20713,12 @@ export namespace Prisma {
   }
 
   export type SantriCreateManyWaliInput = {
-    id?: number
+    id?: string
     nis: string
     fullname: string
     kelas: string
     gender: string
-    institutionId: number
+    institutionId: string
     waliName?: string | null
     institutionName?: string | null
     isActive?: boolean
@@ -21314,9 +20726,9 @@ export namespace Prisma {
   }
 
   export type TransactionCreateManyAdminInput = {
-    id?: number
-    santriId: number
-    categoryId: number
+    id?: string
+    santriId: string
+    categoryId: string
     type: $Enums.category_type
     amount: Decimal | DecimalJsLike | number | string
     description?: string | null
@@ -21326,6 +20738,7 @@ export namespace Prisma {
   }
 
   export type AuthAccountUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -21335,26 +20748,27 @@ export namespace Prisma {
   }
 
   export type AuthAccountUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    santriId?: NullableIntFieldUpdateOperationsInput | number | null
+    santriId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AuthAccountUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    santriId?: NullableIntFieldUpdateOperationsInput | number | null
+    santriId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EmailVerificationUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
     otpCode?: StringFieldUpdateOperationsInput | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isUsed?: BoolFieldUpdateOperationsInput | boolean
@@ -21362,7 +20776,7 @@ export namespace Prisma {
   }
 
   export type EmailVerificationUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     otpCode?: StringFieldUpdateOperationsInput | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isUsed?: BoolFieldUpdateOperationsInput | boolean
@@ -21370,7 +20784,7 @@ export namespace Prisma {
   }
 
   export type EmailVerificationUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     otpCode?: StringFieldUpdateOperationsInput | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isUsed?: BoolFieldUpdateOperationsInput | boolean
@@ -21378,6 +20792,7 @@ export namespace Prisma {
   }
 
   export type InstitutionUpdateWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21388,7 +20803,7 @@ export namespace Prisma {
   }
 
   export type InstitutionUncheckedUpdateWithoutAdminInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21399,13 +20814,14 @@ export namespace Prisma {
   }
 
   export type InstitutionUncheckedUpdateManyWithoutAdminInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotificationUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
@@ -21413,7 +20829,7 @@ export namespace Prisma {
   }
 
   export type NotificationUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
@@ -21421,7 +20837,7 @@ export namespace Prisma {
   }
 
   export type NotificationUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
@@ -21429,6 +20845,7 @@ export namespace Prisma {
   }
 
   export type PasswordResetUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
     otpCode?: StringFieldUpdateOperationsInput | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isUsed?: BoolFieldUpdateOperationsInput | boolean
@@ -21436,7 +20853,7 @@ export namespace Prisma {
   }
 
   export type PasswordResetUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     otpCode?: StringFieldUpdateOperationsInput | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isUsed?: BoolFieldUpdateOperationsInput | boolean
@@ -21444,7 +20861,7 @@ export namespace Prisma {
   }
 
   export type PasswordResetUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     otpCode?: StringFieldUpdateOperationsInput | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isUsed?: BoolFieldUpdateOperationsInput | boolean
@@ -21452,6 +20869,7 @@ export namespace Prisma {
   }
 
   export type SantriUpdateWithoutWaliInput = {
+    id?: StringFieldUpdateOperationsInput | string
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
@@ -21466,12 +20884,12 @@ export namespace Prisma {
   }
 
   export type SantriUncheckedUpdateWithoutWaliInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    institutionId?: IntFieldUpdateOperationsInput | number
+    institutionId?: StringFieldUpdateOperationsInput | string
     waliName?: NullableStringFieldUpdateOperationsInput | string | null
     institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -21481,12 +20899,12 @@ export namespace Prisma {
   }
 
   export type SantriUncheckedUpdateManyWithoutWaliInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     nis?: StringFieldUpdateOperationsInput | string
     fullname?: StringFieldUpdateOperationsInput | string
     kelas?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
-    institutionId?: IntFieldUpdateOperationsInput | number
+    institutionId?: StringFieldUpdateOperationsInput | string
     waliName?: NullableStringFieldUpdateOperationsInput | string | null
     institutionName?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -21494,6 +20912,7 @@ export namespace Prisma {
   }
 
   export type TransactionUpdateWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21505,9 +20924,9 @@ export namespace Prisma {
   }
 
   export type TransactionUncheckedUpdateWithoutAdminInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    santriId?: IntFieldUpdateOperationsInput | number
-    categoryId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    santriId?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21517,9 +20936,9 @@ export namespace Prisma {
   }
 
   export type TransactionUncheckedUpdateManyWithoutAdminInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    santriId?: IntFieldUpdateOperationsInput | number
-    categoryId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    santriId?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: NullableStringFieldUpdateOperationsInput | string | null

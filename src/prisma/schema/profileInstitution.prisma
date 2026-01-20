@@ -1,18 +1,18 @@
 model InstitutionProfile {
-  id             Int      @id @default(autoincrement())
-  institutionId  Int      @unique
+  id            String @id @default(uuid())
+  institutionId String @unique
 
-  name           String?   @unique
-  address        String?
-  phone          String?
-  email          String?
-  website        String?
-  logoUrl        String?
-  public_id      String?
-  description    String?
+  name        String? @unique
+  address     String?
+  phone       String?
+  email       String?
+  website     String?
+  logoUrl     String?
+  public_id   String?
+  description String?
 
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // relations
   institution Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)

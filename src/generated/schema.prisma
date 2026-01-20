@@ -1,6 +1,6 @@
 model EmailVerification {
-  id        Int      @id @default(autoincrement())
-  userId    Int
+  id        String   @id @default(uuid())
+  userId    String
   otpCode   String
   expiredAt DateTime
   isUsed    Boolean  @default(false)
@@ -11,12 +11,12 @@ model EmailVerification {
 }
 
 model AuthAccount {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   username  String
   email     String   @unique
   password  String
-  userId    Int
-  santriId  Int?
+  userId    String
+  santriId  String?
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
   santri    Santri?  @relation(fields: [santriId], references: [id])
@@ -26,10 +26,10 @@ model AuthAccount {
 }
 
 model Category {
-  id            Int           @id @default(autoincrement())
+  id            String        @id @default(uuid())
   name          String
   type          category_type
-  institutionId Int
+  institutionId String
   isActive      Boolean       @default(true)
   createdAt     DateTime      @default(now())
   institution   Institution   @relation(fields: [institutionId], references: [id])
@@ -39,9 +39,9 @@ model Category {
 }
 
 model Institution {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   name      String   @unique
-  createdBy Int
+  createdBy String
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
 
@@ -56,8 +56,8 @@ model Institution {
 }
 
 model Notification {
-  id        Int      @id @default(autoincrement())
-  userId    Int
+  id        String   @id @default(uuid())
+  userId    String
   title     String
   message   String
   isRead    Boolean  @default(false)
@@ -68,8 +68,8 @@ model Notification {
 }
 
 model PasswordReset {
-  id        Int      @id @default(autoincrement())
-  userId    Int
+  id        String   @id @default(uuid())
+  userId    String
   otpCode   String
   expiredAt DateTime
   isUsed    Boolean  @default(false)
@@ -80,13 +80,13 @@ model PasswordReset {
 }
 
 model Profile {
-  id                  Int     @id @default(autoincrement())
+  id                  String  @id @default(uuid())
   name                String
   gender              String?
   address             String
   profile_picture_url String?
   public_id           String?
-  userId              Int     @unique
+  userId              String  @unique
   occupation          String?
   phone               String?
   user                Users   @relation(fields: [userId], references: [id])
@@ -95,8 +95,8 @@ model Profile {
 }
 
 model InstitutionProfile {
-  id            Int @id @default(autoincrement())
-  institutionId Int @unique
+  id            String @id @default(uuid())
+  institutionId String @unique
 
   name        String? @unique
   address     String?
@@ -115,14 +115,14 @@ model InstitutionProfile {
 }
 
 model Santri {
-  id       Int    @id @default(autoincrement())
+  id       String @id @default(uuid())
   nis      String @unique
   fullname String
   kelas    String
   gender   String
 
-  waliId        Int
-  institutionId Int
+  waliId        String
+  institutionId String
 
   waliName        String?
   institutionName String?
@@ -140,14 +140,14 @@ model Santri {
 }
 
 model Transaction {
-  id              Int           @id @default(autoincrement())
-  santriId        Int
-  categoryId      Int
+  id              String        @id @default(uuid())
+  santriId        String
+  categoryId      String
   type            category_type
   amount          Decimal
   description     String?
   transactionDate DateTime
-  createdBy       Int
+  createdBy       String
   isDeleted       Boolean       @default(false)
   createdAt       DateTime      @default(now())
   category        Category      @relation(fields: [categoryId], references: [id])
@@ -158,12 +158,12 @@ model Transaction {
 }
 
 model Users {
-  id                  Int                 @id @default(autoincrement())
+  id                  String              @id @default(uuid())
   username            String
   email               String              @unique
   password            String
   role                user_role           @default(WALI_SANTRI)
-  institutionId       Int?
+  institutionId       String?
   isEmailVerified     Boolean             @default(false)
   isActive            Boolean             @default(true)
   createdAt           DateTime            @default(now())

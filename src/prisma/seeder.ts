@@ -115,7 +115,7 @@ async function main() {
     const institution = await prisma.institution.create({
       data: {
         name: institutionNames[i] as string,
-        createdBy: admin.id as number,
+        createdBy: admin.id,
         isActive: true,
       }
     });

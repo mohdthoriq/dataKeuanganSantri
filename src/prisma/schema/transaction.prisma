@@ -1,17 +1,17 @@
 model Transaction {
-  id              Int          @id @default(autoincrement())
-  santriId        Int
-  categoryId      Int
+  id              String        @id @default(uuid())
+  santriId        String
+  categoryId      String
   type            category_type
   amount          Decimal
   description     String?
   transactionDate DateTime
-  createdBy       Int
-  isDeleted       Boolean      @default(false)
-  createdAt       DateTime     @default(now())
-  category        Category     @relation(fields: [categoryId], references: [id])
+  createdBy       String
+  isDeleted       Boolean       @default(false)
+  createdAt       DateTime      @default(now())
+  category        Category      @relation(fields: [categoryId], references: [id])
   admin           Users         @relation("AdminTransactions", fields: [createdBy], references: [id])
-  santri          Santri       @relation(fields: [santriId], references: [id])
+  santri          Santri        @relation(fields: [santriId], references: [id])
 
   @@map("transaction")
 }

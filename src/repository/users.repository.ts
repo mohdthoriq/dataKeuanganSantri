@@ -12,35 +12,35 @@ export interface ICreateUserPayload {
   email: string;
   password: string;
   role: "ADMIN" | "WALI_SANTRI";
-  institutionId?: number;
+  institutionId?: string;
 }
 
 export interface IUpdateUserPayload {
   username?: string;
   email?: string;
   role?: "ADMIN" | "WALI_SANTRI";
-  institutionId?: number | null;
+  institutionId?: string | null;
 }
 
 export interface IUserListParams extends IPaginationParams {
   isActive?: boolean;
-  institutionId?: number;
+  institutionId?: string;
   role?: "ADMIN" | "WALI_SANTRI";
 }
 
 export interface GetUsersResult extends RequestResetResult {
   success: boolean;
 
-  data: Partial<Users> & { institution: { id: number; name: string } | null };
+  data: Partial<Users> & { institution: { id: string; name: string } | null };
 }
 
 export interface IUserRepository {
   getAll(params: IUserListParams): Promise<IPaginatedResult<Partial<Users>>>;
-  getById(id: number): Promise<GetUsersResult>;
-  create(payload: ICreateUserPayload, admin: { institutionId: number }): Promise<Partial<Users>>;
-  update(id: number, payload: IUpdateUserPayload): Promise<Partial<Users>>;
-  updateStatus(id: number, isActive: boolean): Promise<Partial<Users>>;
-  deleteUser(id: number): Promise<boolean>;
+  getById(id: string): Promise<GetUsersResult>;
+  create(payload: ICreateUserPayload, admin: { institutionId: string }): Promise<Partial<Users>>;
+  update(id: string, payload: IUpdateUserPayload): Promise<Partial<Users>>;
+  updateStatus(id: string, isActive: boolean): Promise<Partial<Users>>;
+  deleteUser(id: string): Promise<boolean>;
 }
 
 export class UserRepository implements IUserRepository {
@@ -102,7 +102,7 @@ export class UserRepository implements IUserRepository {
     };
   }
 
-  async getById(id: number): Promise<GetUsersResult> {
+  async getById(id: string): Promise<GetUsersResult> {
     const user = await this.prisma.users.findFirst({
       where: { id },
       select: {
@@ -121,7 +121,7 @@ export class UserRepository implements IUserRepository {
     return { success: true, data: user };
   }
 
-  async create(payload: ICreateUserPayload, admin: { institutionId: number }): Promise<Partial<Users>> {
+  async create(payload: ICreateUserPayload, admin: { institutionId: string }): Promise<Partial<Users>> {
     const exists = await this.prisma.users.findUnique({ where: { email: payload.email } });
     if (exists) throw new Error("Email already exists");
 
@@ -150,7 +150,7 @@ export class UserRepository implements IUserRepository {
     return user;
   }
 
-  async update(id: number, payload: IUpdateUserPayload): Promise<Partial<Users>> {
+  async update(id: string, payload: IUpdateUserPayload): Promise<Partial<Users>> {
     const user = await this.prisma.users.findUnique({ where: { id } });
     if (!user) throw new Error("User not found");
 
@@ -176,7 +176,7 @@ export class UserRepository implements IUserRepository {
     return updatedUser;
   }
 
-  async updateStatus(id: number, isActive: boolean): Promise<Partial<Users>> {
+  async updateStatus(id: string, isActive: boolean): Promise<Partial<Users>> {
     const user = await this.prisma.users.findUnique({ where: { id } });
     if (!user) throw new Error("User not found");
 
@@ -197,7 +197,7 @@ export class UserRepository implements IUserRepository {
     return updatedUser;
   }
 
-  async deleteUser(id: number): Promise<boolean> {
+  async deleteUser(id: string): Promise<boolean> {
     const user = await this.prisma.users.findUnique({ where: { id } });
     if (!user) throw new Error("User not found");
 

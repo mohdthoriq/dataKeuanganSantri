@@ -8,31 +8,31 @@ export interface ICreateSantriPayload {
   fullname: string;
   kelas: string;
   gender: string;
-  waliId?: number;
-  institutionId?: number;
+  waliId?: string;
+  institutionId?: string;
   waliName?: string;
   institutionName?: string;
   isActive?: boolean;
 }
 
 export interface ISantriListParams extends IPaginationParams {
-  institutionId: number;
+  institutionId: string;
 }
 
 export interface ISantriRepository {
   create(payload: ICreateSantriPayload): Promise<Santri>;
   getList(params: ISantriListParams): Promise<IPaginatedResult<Santri>>;
-  getById(id: number): Promise<Santri>;
-  update(id: number, data: Partial<ICreateSantriPayload>): Promise<Santri>;
-  delete(id: number): Promise<boolean>;
-  getByWali(waliId: number): Promise<Santri[]>;
-  getStats(institutionId: number): Promise<{ totalSantri: number; activeSantri: number }>;
+  getById(id: string): Promise<Santri>;
+  update(id: string, data: Partial<ICreateSantriPayload>): Promise<Santri>;
+  delete(id: string): Promise<boolean>;
+  getByWali(waliId: string): Promise<Santri[]>;
+  getStats(institutionId: string): Promise<{ totalSantri: number; activeSantri: number }>;
 }
 
 export class SantriRepository implements ISantriRepository {
   constructor(private prisma: PrismaClient) { }
 
-  async findByNis(nis: string, institutionId: number) {
+  async findByNis(nis: string, institutionId: string) {
     return this.prisma.santri.findFirst({
       where: {
         nis,
@@ -69,7 +69,7 @@ export class SantriRepository implements ISantriRepository {
         institution = await this.prisma.institution.create({
           data: {
             name: institutionName,
-            createdBy: 1, // admin default / from token
+            createdBy: "1", // admin default / from token - TODO: fix this to use real admin ID
           },
           select: { id: true, name: true },
         });
@@ -216,7 +216,7 @@ export class SantriRepository implements ISantriRepository {
     };
   }
 
-  async getById(id: number): Promise<Santri> {
+  async getById(id: string): Promise<Santri> {
     const santri = await this.prisma.santri.findUnique({
       where: { id },
       include: {
@@ -241,7 +241,7 @@ export class SantriRepository implements ISantriRepository {
     return santri;
   }
 
-  async update(id: number, data: Partial<ICreateSantriPayload>): Promise<Santri> {
+  async update(id: string, data: Partial<ICreateSantriPayload>): Promise<Santri> {
     const santri = await this.prisma.santri.findUnique({
       where: { id },
       include: { wali: { select: { username: true } } }
@@ -306,12 +306,12 @@ export class SantriRepository implements ISantriRepository {
     });
   }
 
-  async delete(id: number): Promise<boolean> {
+  async delete(id: string): Promise<boolean> {
     await this.prisma.santri.delete({ where: { id } });
     return true;
   }
 
-  async getByWali(waliId: number): Promise<Santri[]> {
+  async getByWali(waliId: string): Promise<Santri[]> {
     return this.prisma.santri.findMany({
       where: { waliId },
       include: {
@@ -329,7 +329,7 @@ export class SantriRepository implements ISantriRepository {
     });
   }
 
-  async getStats(institutionId: number): Promise<{ totalSantri: number; activeSantri: number }> {
+  async getStats(institutionId: string): Promise<{ totalSantri: number; activeSantri: number }> {
     const totalSantri = await this.prisma.santri.count({
       where: { institutionId },
     });

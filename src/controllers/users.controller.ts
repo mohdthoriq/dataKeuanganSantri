@@ -34,7 +34,7 @@ export class UsersController implements IUsersController {
 
 
   getUserById = async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
+    const id = req.params.id;
     if (!id) throw new Error("Invalid user id");
 
     const user = await this.usersService.getById(id);
@@ -64,7 +64,7 @@ export class UsersController implements IUsersController {
   };
 
   updateUser = async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
+    const id = req.params.id;
     if (!id) throw new Error("Invalid user id");
 
     const { username, email, role, institutionId } = req.body;
@@ -74,7 +74,7 @@ export class UsersController implements IUsersController {
   };
 
   updateUserStatus = async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
+    const id = req.params.id;
     const { isActive } = req.body;
 
     if (!id) throw new Error("Invalid user id");
@@ -85,7 +85,7 @@ export class UsersController implements IUsersController {
   };
 
   deleteUser = async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
+    const id = req.params.id;
     if (!id) throw new Error("Invalid user id");
 
     await this.usersService.deleteUser(id);

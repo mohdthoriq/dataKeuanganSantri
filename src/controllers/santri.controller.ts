@@ -65,8 +65,8 @@ export class SantriController {
   };
 
   getSantriById = async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
-    if (isNaN(id)) throw new Error("Invalid santri ID");
+    const id = req.params.id;
+    if (!id) throw new Error("Invalid santri ID");
 
     const santri = await this.santriService.getSantriById(id);
 
@@ -74,8 +74,8 @@ export class SantriController {
   };
 
   updateSantri = async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
-    if (isNaN(id)) throw new Error("Invalid santri ID");
+    const id = req.params.id;
+    if (!id) throw new Error("Invalid santri ID");
 
     const { nis, fullname, kelas, gender, waliName, institutionName } = req.body;
 
@@ -103,8 +103,8 @@ export class SantriController {
   };
 
   deleteSantri = async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
-    if (isNaN(id)) throw new Error("Invalid santri ID");
+    const id = req.params.id;
+    if (!id) throw new Error("Invalid santri ID");
 
     await this.santriService.deleteSantri(id);
 
@@ -112,8 +112,8 @@ export class SantriController {
   };
 
   getSantriByWali = async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
-    if (isNaN(id)) throw new Error("Invalid wali ID");
+    const id = req.params.id;
+    if (!id) throw new Error("Invalid wali ID");
 
     const santri = await this.santriService.getSantriByWali(id);
 

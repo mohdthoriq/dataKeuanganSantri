@@ -1,14 +1,14 @@
 model AuthAccount {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   username  String
   email     String   @unique
   password  String
-  userId    Int
-  santriId  Int?
+  userId    String
+  santriId  String?
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
   santri    Santri?  @relation(fields: [santriId], references: [id])
-  user      Users     @relation(fields: [userId], references: [id])
+  user      Users    @relation(fields: [userId], references: [id])
 
   @@map("auth_account")
 }

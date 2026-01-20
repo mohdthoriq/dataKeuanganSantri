@@ -1,16 +1,15 @@
 model Institution {
-  id         Int        @id @default(autoincrement())
-  name       String     @unique
-  createdBy  Int
-  isActive   Boolean  @default(true)
-  createdAt  DateTime @default(now())
-
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdBy String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
 
   users Users[] @relation("InstitutionUsers")
 
-  profile InstitutionProfile?
+  profile    InstitutionProfile?
   categories Category[]
-  admin      Users       @relation("InstitutionAdmin", fields: [createdBy], references: [id])
+  admin      Users               @relation("InstitutionAdmin", fields: [createdBy], references: [id])
   santri     Santri[]
 
   @@map("institution")

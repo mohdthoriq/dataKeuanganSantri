@@ -3,27 +3,27 @@ import type { PrismaClient, Category, Prisma } from "../database";
 import type { IPaginatedResult, IPaginationParams } from "../types/common";
 
 export interface ICategoryListParams extends IPaginationParams {
-  institutionId: number;
+  institutionId: string;
   type?: "PEMASUKAN" | "PENGELUARAN";
   isActive?: boolean;
 }
 
 export interface ICategoryRepository {
-  create(data: { name: string; type: "PEMASUKAN" | "PENGELUARAN"; institutionId: number }): Promise<Category>;
+  create(data: { name: string; type: "PEMASUKAN" | "PENGELUARAN"; institutionId: string }): Promise<Category>;
   getList(params: ICategoryListParams): Promise<IPaginatedResult<Category>>;
-  getById(id: number): Promise<Category>;
+  getById(id: string): Promise<Category>;
   updateById(
-    id: number,
+    id: string,
     payload: { name?: string; type?: "PEMASUKAN" | "PENGELUARAN"; isActive?: boolean }
   ): Promise<Category>;
-  updateStatusById(id: number, isActive: boolean): Promise<Category>;
-  deleteById(id: number): Promise<Category>;
+  updateStatusById(id: string, isActive: boolean): Promise<Category>;
+  deleteById(id: string): Promise<Category>;
 }
 
 export class CategoryRepository implements ICategoryRepository {
   constructor(private prisma: PrismaClient) { }
 
-  async create(data: { name: string; type: "PEMASUKAN" | "PENGELUARAN"; institutionId: number }) {
+  async create(data: { name: string; type: "PEMASUKAN" | "PENGELUARAN"; institutionId: string }) {
     const exist = await this.prisma.category.findFirst({
       where: { name: data.name, institutionId: data.institutionId },
     });
@@ -80,7 +80,7 @@ export class CategoryRepository implements ICategoryRepository {
     };
   }
 
-  async getById(id: number) {
+  async getById(id: string) {
     const category = await this.prisma.category.findUnique({
       where: { id },
       include: { institution: true, transactions: true },
@@ -90,7 +90,7 @@ export class CategoryRepository implements ICategoryRepository {
   }
 
 
-  async updateById(id: number, payload: { name?: string; type?: "PEMASUKAN" | "PENGELUARAN"; isActive?: boolean }) {
+  async updateById(id: string, payload: { name?: string; type?: "PEMASUKAN" | "PENGELUARAN"; isActive?: boolean }) {
     const exists = await this.prisma.category.findUnique({ where: { id } });
     if (!exists) throw new Error("Category not found");
 
@@ -103,14 +103,14 @@ export class CategoryRepository implements ICategoryRepository {
     return this.prisma.category.update({ where: { id }, data });
   }
 
-  async updateStatusById(id: number, isActive: boolean) {
+  async updateStatusById(id: string, isActive: boolean) {
     const exists = await this.prisma.category.findUnique({ where: { id } });
     if (!exists) throw new Error("Category not found");
 
     return this.prisma.category.update({ where: { id }, data: { isActive } });
   }
 
-  async deleteById(id: number) {
+  async deleteById(id: string) {
     const exists = await this.prisma.category.findUnique({ where: { id } });
     if (!exists) throw new Error("Category not found");
 

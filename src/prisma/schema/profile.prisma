@@ -1,14 +1,14 @@
 model Profile {
-  id                  Int     @id @default(autoincrement())
+  id                  String  @id @default(uuid())
   name                String
   gender              String?
   address             String
   profile_picture_url String?
   public_id           String?
-  userId              Int     @unique
+  userId              String  @unique
   occupation          String?
   phone               String?
-  user                Users    @relation(fields: [userId], references: [id])
+  user                Users   @relation(fields: [userId], references: [id])
 
   @@map("profile")
 }

@@ -1,12 +1,12 @@
 model Santri {
-  id       Int    @id @default(autoincrement())
+  id       String @id @default(uuid())
   nis      String @unique
   fullname String
   kelas    String
   gender   String
 
-  waliId        Int
-  institutionId Int
+  waliId        String
+  institutionId String
 
   waliName        String?
   institutionName String?
