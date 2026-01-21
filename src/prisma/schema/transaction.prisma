@@ -5,8 +5,15 @@ model Transaction {
   type            category_type
   amount          Decimal
   description     String?
+
+  orderId         String?       @unique
+
+  source          String? // PAYMENT | MANUAL | ADJUSTMENT
+  sourceId        String? // paymentId / invoiceId
+
   transactionDate DateTime
   createdBy       String
+
   isDeleted       Boolean       @default(false)
   createdAt       DateTime      @default(now())
   category        Category      @relation(fields: [categoryId], references: [id])

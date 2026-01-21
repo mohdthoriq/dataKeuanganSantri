@@ -27,7 +27,7 @@ export const createSantriValidation = [
 
 export const updateSantriValidation = [
   param("id")
-    .isInt().withMessage("Santri ID tidak valid"),
+    .notEmpty().withMessage("Santri ID wajib diisi"),
 
   body("nis").optional().trim().notEmpty().isNumeric().isLength({ min: 6, max: 10 }).withMessage("NIS harus 6–10 digit"),
   body("fullname").optional().trim().notEmpty(),
@@ -39,5 +39,5 @@ export const updateSantriValidation = [
 
 export const santriIdValidation = [
   param("id")
-    .isInt().withMessage("Santri ID harus berupa angka"),
+    .notEmpty().withMessage("Santri ID wajib diisi"),
 ];

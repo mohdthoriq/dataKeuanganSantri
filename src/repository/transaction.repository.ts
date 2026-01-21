@@ -32,18 +32,8 @@ export class TransactionRepository implements ITransactionRepository {
     constructor(private prisma: PrismaClient) { }
 
     async create(payload: ICreateTransactionPayload): Promise<Transaction> {
-        const { santriId, categoryId, type, amount, transactionDate, createdBy, description } = payload;
-
         return this.prisma.transaction.create({
-            data: {
-                santriId,
-                categoryId,
-                type,
-                amount,
-                transactionDate,
-                createdBy,
-                ...(description !== undefined && { description }),
-            },
+            data: payload,
         });
     }
 

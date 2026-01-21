@@ -1,0 +1,13 @@
+model SubscriptionPlan {
+  id        String   @id @default(uuid())
+  name      String
+  price     Decimal
+  duration  Int      // hari
+  createdAt DateTime @default(now())
+
+  invoices  Invoice[]
+  userSubscriptions UserSubscription[]
+
+
+  @@map("subscription_plan")
+}

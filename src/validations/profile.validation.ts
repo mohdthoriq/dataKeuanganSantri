@@ -25,9 +25,7 @@ export const createProfileValidation = [
 export const updateProfileValidation = [
   param("id")
     .notEmpty()
-    .withMessage("Profile ID wajib diisi")
-    .isInt({ gt: 0 })
-    .withMessage("Profile ID harus angka positif"),
+    .withMessage("Profile ID wajib diisi"),
   body("name")
     .optional()
     .trim()
@@ -48,7 +46,5 @@ export const updateProfileValidation = [
 export const getProfileByIdValidation = [
   param("id")
     .notEmpty()
-    .withMessage("Profile ID wajib diisi")
-    .isInt({ gt: 0 })
-    .withMessage("Profile ID harus angka positif"),
+    .withMessage("Profile ID wajib diisi"),
 ];

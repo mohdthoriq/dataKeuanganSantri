@@ -15,13 +15,13 @@ export const createInstitutionValidation = [
 /* ================= GET BY ID ================= */
 export const institutionIdValidation = [
   param("id")
-    .isInt().withMessage("Institution ID harus angka"),
+    .notEmpty().withMessage("Institution ID wajib diisi"),
 ];
 
 /* ================= UPDATE ================= */
 export const updateInstitutionValidation = [
   param("id")
-    .isInt().withMessage("Institution ID harus angka"),
+    .notEmpty().withMessage("Institution ID wajib diisi"),
 
   body("name")
     .optional()

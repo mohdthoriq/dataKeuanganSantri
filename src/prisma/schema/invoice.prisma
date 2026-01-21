@@ -1,0 +1,19 @@
+model Invoice {
+  id            String   @id @default(uuid())
+  userId        String
+  planId        String?
+
+  totalAmount   Decimal
+  paidAmount    Decimal  @default(0)
+
+  status        InvoiceStatus
+  dueDate       DateTime
+
+  createdAt     DateTime @default(now())
+
+  payments      Payment[]
+  user          Users     @relation(fields: [userId], references: [id])
+  plan          SubscriptionPlan? @relation(fields: [planId], references: [id])
+
+  @@map("invoice")
+}

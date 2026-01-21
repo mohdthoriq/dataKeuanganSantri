@@ -13,10 +13,13 @@ model Users {
   createdInstitutions Institution[]       @relation("InstitutionAdmin")
   notifications       Notification[]
   passwordResets      PasswordReset[]
+  userSubscriptions   UserSubscription[]
+  invoices            Invoice[]
   profile             Profile?
   santri              Santri[]            @relation("WaliSantri")
   transactions        Transaction[]       @relation("AdminTransactions")
   institution         Institution?        @relation("InstitutionUsers", fields: [institutionId], references: [id])
+
 
   @@map("users")
 }
