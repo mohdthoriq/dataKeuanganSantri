@@ -2,10 +2,10 @@ import { body, param, query } from "express-validator";
 
 export const createTransactionValidation = [
   body("santriId")
-    .isInt().withMessage("santriId harus angka"),
+    .isUUID().withMessage("santriId harus UUID"),
 
   body("categoryId")
-    .isInt().withMessage("categoryId harus angka"),
+    .isUUID().withMessage("categoryId harus UUID"),
 
   body("type")
     .isIn(["PEMASUKAN", "PENGELUARAN"])
@@ -22,10 +22,10 @@ export const createTransactionValidation = [
 
 export const updateTransactionValidation = [
   param("id")
-    .isInt().withMessage("Transaction ID tidak valid"),
+    .isUUID().withMessage("Transaction ID harus UUID"),
 
-  body("santriId").optional().isInt(),
-  body("categoryId").optional().isInt(),
+  body("santriId").optional().isUUID(),
+  body("categoryId").optional().isUUID(),
 
   body("type")
     .optional()
@@ -47,12 +47,12 @@ export const updateTransactionValidation = [
 
 export const transactionIdValidation = [
   param("id")
-    .isInt().withMessage("Transaction ID harus angka"),
+    .isUUID().withMessage("Transaction ID harus UUID"),
 ];
 
 export const getTransactionsValidation = [
-  query("santriId").optional().isInt(),
-  query("categoryId").optional().isInt(),
+  query("santriId").optional().isUUID(),
+  query("categoryId").optional().isUUID(),
   query("createdBy").optional().isInt(),
 
   query("type")

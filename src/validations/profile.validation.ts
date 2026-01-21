@@ -26,8 +26,8 @@ export const updateProfileValidation = [
   param("id")
     .notEmpty()
     .withMessage("Profile ID wajib diisi")
-    .isInt({ gt: 0 })
-    .withMessage("Profile ID harus angka positif"),
+    .isUUID()
+    .withMessage("Profile ID harus UUID"),
   body("name")
     .optional()
     .trim()
@@ -49,6 +49,6 @@ export const getProfileByIdValidation = [
   param("id")
     .notEmpty()
     .withMessage("Profile ID wajib diisi")
-    .isInt({ gt: 0 })
-    .withMessage("Profile ID harus angka positif"),
+    .isUUID()
+    .withMessage("Profile ID harus UUID"),
 ];

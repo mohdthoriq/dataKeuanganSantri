@@ -4,8 +4,7 @@ export const createSantriValidation = [
   body("nis")
     .trim()
     .notEmpty().withMessage("NIS wajib diisi")
-    .isLength({ min: 6, max: 10 }).withMessage("NIS harus 6–10 digit")
-    .isNumeric().withMessage("NIS harus berupa angka"),
+    .isLength({ min: 6, max: 10 }).withMessage("NIS harus 6–10 digit"),
 
   body("fullname")
     .trim()
@@ -27,9 +26,9 @@ export const createSantriValidation = [
 
 export const updateSantriValidation = [
   param("id")
-    .isInt().withMessage("Santri ID tidak valid"),
+    .isUUID().withMessage("Santri ID harus UUID"),
 
-  body("nis").optional().trim().notEmpty().isNumeric().isLength({ min: 6, max: 10 }).withMessage("NIS harus 6–10 digit"),
+  body("nis").optional().trim().notEmpty().isLength({ min: 6, max: 10 }).withMessage("NIS harus 6–10 digit"),
   body("fullname").optional().trim().notEmpty(),
   body("kelas").optional().trim().notEmpty(),
   body("gender").optional().isIn(["Laki-laki", "Perempuan"]).withMessage("Gender harus Laki-laki atau Perempuan"),
@@ -39,5 +38,5 @@ export const updateSantriValidation = [
 
 export const santriIdValidation = [
   param("id")
-    .isInt().withMessage("Santri ID harus berupa angka"),
+    .isUUID().withMessage("Santri ID harus UUID"),
 ];
