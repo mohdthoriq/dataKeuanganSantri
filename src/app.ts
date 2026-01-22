@@ -20,9 +20,9 @@ import categoryRouter from "./routes/category.router";
 import notificationRouter from "./routes/notification.router";
 import profileRouter from "./routes/profile.router";
 import profileInstitutionRouter from "./routes/profileInstitution.router";
-import subscriptionPlanRouter from "routes/subscriptionPlan.router";
-import invoiceRouter from "routes/invoice.router";
-import subscriptionRouter from "routes/userSubscription.router";
+import subscriptionPlanRouter from "./routes/subscriptionPlan.router";
+import invoiceRouter from "./routes/invoice.router";
+import subscriptionRouter from "./routes/userSubscription.router";
 
 
 const app: Application = express()

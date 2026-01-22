@@ -1,6 +1,6 @@
-import type { PaymentService } from "services/payment.service";
+import type { PaymentService } from "../services/payment.service";
 import type { Request, Response } from "express";
-import { successResponse } from "utils/response";
+import { successResponse } from "../utils/response";
 import config from "../utils/env";
 
 export class PaymentController {

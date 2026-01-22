@@ -1,13 +1,13 @@
 import { PaymentController } from "controllers/payment.controller";
 import PrismaInstance from "database";
 import { Router } from "express";
-import { authenticate } from "middlewares/auth.middleware";
-import { InvoiceRepository } from "repository/invoice.repository";
-import { PaymentRepository } from "repository/payment.repository";
-import { SubscriptionPlanRepository } from "repository/subscriptionPlan.repository";
-import { UserSubscriptionRepository } from "repository/usersubscription.repository";
-import { PaymentService } from "services/payment.service";
-import { UserSubscriptionService } from "services/usersubscription.service";
+import { authenticate } from "../middlewares/auth.middleware";
+import { InvoiceRepository } from "../repository/invoice.repository";
+import { PaymentRepository } from "../repository/payment.repository";
+import { SubscriptionPlanRepository } from "../repository/subscriptionPlan.repository";
+import { UserSubscriptionRepository } from "../repository/usersubscription.repository";
+import { PaymentService } from "../services/payment.service";
+import { UserSubscriptionService } from "../services/usersubscription.service";
 
 const router = Router();
 

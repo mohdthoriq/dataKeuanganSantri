@@ -1,7 +1,7 @@
 // userSubscription.controller.ts
 import type { Request, Response } from "express";
 import type { UserSubscriptionService } from "../services/usersubscription.service";
-import { successResponse } from "utils/response";
+import { successResponse } from "../utils/response";
 
 export class UserSubscriptionController {
   constructor(private service: UserSubscriptionService) {}

@@ -1,9 +1,9 @@
 import { Router } from "express";
-import PrismaInstance from "database";
-import { UserSubscriptionController } from "controllers/userSubscription.controller";
-import { SubscriptionPlanRepository } from "repository/subscriptionPlan.repository";
-import { UserSubscriptionRepository } from "repository/usersubscription.repository";
-import { UserSubscriptionService } from "services/usersubscription.service";
+import PrismaInstance from "../database";
+import { UserSubscriptionController } from "../controllers/userSubscription.controller";
+import { SubscriptionPlanRepository } from "../repository/subscriptionPlan.repository";
+import { UserSubscriptionRepository } from "../repository/usersubscription.repository";
+import { UserSubscriptionService } from "../services/usersubscription.service";
 
 const router = Router()
 

@@ -1,7 +1,7 @@
 // invoice.controller.ts
 import type { Request, Response } from "express";
 import type { InvoiceService } from "../services/invoice.service";
-import { successResponse } from "utils/response";
+import { successResponse } from "../utils/response";
 
 export class InvoiceController {
     constructor(private invoiceService: InvoiceService) { }

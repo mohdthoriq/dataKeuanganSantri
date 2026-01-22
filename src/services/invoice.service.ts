@@ -1,6 +1,6 @@
 // invoice.service.ts
-import type { InvoiceRepository } from "repository/invoice.repository";
-import type { SubscriptionPlanRepository } from "repository/subscriptionPlan.repository";
+import type { InvoiceRepository } from "../repository/invoice.repository";
+import type { SubscriptionPlanRepository } from "../repository/subscriptionPlan.repository";
 
 
 export class InvoiceService {

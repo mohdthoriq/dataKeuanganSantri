@@ -1,9 +1,9 @@
-import { InvoiceController } from "controllers/invoice.controller";
-import PrismaInstance from "database";
+import { InvoiceController } from "../controllers/invoice.controller";
+import PrismaInstance from "../database";
 import { Router } from "express";
-import { InvoiceRepository } from "repository/invoice.repository";
-import { SubscriptionPlanRepository } from "repository/subscriptionPlan.repository";
-import { InvoiceService } from "services/invoice.service";
+import { InvoiceRepository } from "../repository/invoice.repository";
+import { SubscriptionPlanRepository } from "../repository/subscriptionPlan.repository";
+import { InvoiceService } from "../services/invoice.service";
 
 const router = Router()
 
