@@ -1,4 +1,4 @@
-import type { PaymentStatus } from "generated";
+import type { PaymentStatus } from "../generated";
 import type { Prisma, PrismaClient } from "../database";
 
 export interface ICreatePaymentTransactionPayload {
@@ -18,7 +18,7 @@ export class PaymentRepository {
         });
     }
 
-    createPayment(payload: {
+    async createPayment(payload: {
         invoiceId: string;
         orderId: string;
         amount: Prisma.Decimal | number;
