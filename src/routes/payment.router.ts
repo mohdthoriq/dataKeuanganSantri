@@ -1,6 +1,6 @@
-import { PaymentController } from "controllers/payment.controller";
-import PrismaInstance from "database";
 import { Router } from "express";
+import PrismaInstance from "../database";
+import { PaymentController } from "../controllers/payment.controller";
 import { authenticate } from "../middlewares/auth.middleware";
 import { InvoiceRepository } from "../repository/invoice.repository";
 import { PaymentRepository } from "../repository/payment.repository";
