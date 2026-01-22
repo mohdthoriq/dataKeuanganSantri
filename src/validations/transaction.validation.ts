@@ -2,10 +2,12 @@ import { body, param, query } from "express-validator";
 
 export const createTransactionValidation = [
   body("santriId")
-    .notEmpty().withMessage("santriId harus diisi"),
+    .isUUID()
+    .withMessage("ID harus UUID"),
 
   body("categoryId")
-    .notEmpty().withMessage("categoryId harus diisi"),
+    .isUUID()
+    .withMessage("ID harus UUID"),
 
   body("type")
     .isIn(["PEMASUKAN", "PENGELUARAN"])
@@ -22,10 +24,11 @@ export const createTransactionValidation = [
 
 export const updateTransactionValidation = [
   param("id")
-    .notEmpty().withMessage("Transaction ID wajib diisi"),
+    .isUUID()
+    .withMessage("ID harus UUID"),
 
-  body("santriId").optional().notEmpty(),
-  body("categoryId").optional().notEmpty(),
+  body("santriId").optional().isUUID().withMessage("ID harus UUID"),
+  body("categoryId").optional().isUUID().withMessage("ID harus UUID"),
 
   body("type")
     .optional()
@@ -47,13 +50,14 @@ export const updateTransactionValidation = [
 
 export const transactionIdValidation = [
   param("id")
-    .notEmpty().withMessage("Transaction ID wajib diisi"),
+    .isUUID()
+    .withMessage("ID harus UUID"),
 ];
 
 export const getTransactionsValidation = [
-  query("santriId").optional().notEmpty(),
-  query("categoryId").optional().notEmpty(),
-  query("createdBy").optional().notEmpty(),
+  query("santriId").optional().isUUID().withMessage("ID harus UUID"),
+  query("categoryId").optional().isUUID().withMessage("ID harus UUID"),
+  query("createdBy").optional().isUUID().withMessage("ID harus UUID"),
 
   query("type")
     .optional()

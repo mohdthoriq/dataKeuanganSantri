@@ -5,17 +5,13 @@ model Transaction {
   type            category_type
   amount          Decimal
   description     String?
-
-  orderId         String?       @unique
-
-  source          String? // PAYMENT | MANUAL | ADJUSTMENT
-  sourceId        String? // paymentId / invoiceId
-
   transactionDate DateTime
   createdBy       String
-
   isDeleted       Boolean       @default(false)
   createdAt       DateTime      @default(now())
+  orderId         String?       @unique
+  source          String?
+  sourceId        String?
   category        Category      @relation(fields: [categoryId], references: [id])
   admin           Users         @relation("AdminTransactions", fields: [createdBy], references: [id])
   santri          Santri        @relation(fields: [santriId], references: [id])

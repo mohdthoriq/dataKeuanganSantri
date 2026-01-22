@@ -24,19 +24,19 @@ export class CategoryService {
     return this.categoryRepo.getList(params);
   }
 
-  async getCategoryById(id: string) {
-    return this.categoryRepo.getById(id);
+  async getCategoryById(id: string, institutionId: string) {
+    return this.categoryRepo.getById(id, institutionId);
   }
 
-  async updateCategory(id: string, payload: IUpdateCategoryPayload) {
-    return this.categoryRepo.updateById(id, payload);
+  async updateCategory(id: string, institutionId: string, payload: IUpdateCategoryPayload) {
+    return this.categoryRepo.updateById(id, institutionId, payload);
   }
 
-  async updateCategoryStatus(id: string, isActive: boolean) {
-    return this.categoryRepo.updateStatusById(id, isActive);
+  async updateCategoryStatus(id: string, institutionId: string, isActive: boolean) {
+    return this.categoryRepo.updateStatusById(id, institutionId, isActive);
   }
 
-  async deleteCategory(id: string) {
-    return this.categoryRepo.deleteById(id);
+  async deleteCategory(id: string, institutionId: string) {
+    return this.categoryRepo.deleteById(id, institutionId);
   }
 }

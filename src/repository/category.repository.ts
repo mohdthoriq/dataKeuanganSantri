@@ -11,13 +11,14 @@ export interface ICategoryListParams extends IPaginationParams {
 export interface ICategoryRepository {
   create(data: { name: string; type: "PEMASUKAN" | "PENGELUARAN"; institutionId: string }): Promise<Category>;
   getList(params: ICategoryListParams): Promise<IPaginatedResult<Category>>;
-  getById(id: string): Promise<Category>;
+  getById(id: string, institutionId: string): Promise<Category>;
   updateById(
     id: string,
+    institutionId: string,
     payload: { name?: string; type?: "PEMASUKAN" | "PENGELUARAN"; isActive?: boolean }
   ): Promise<Category>;
-  updateStatusById(id: string, isActive: boolean): Promise<Category>;
-  deleteById(id: string): Promise<Category>;
+  updateStatusById(id: string, institutionId: string, isActive: boolean): Promise<Category>;
+  deleteById(id: string, institutionId: string): Promise<Category>;
 }
 
 export class CategoryRepository implements ICategoryRepository {
@@ -80,19 +81,19 @@ export class CategoryRepository implements ICategoryRepository {
     };
   }
 
-  async getById(id: string) {
-    const category = await this.prisma.category.findUnique({
-      where: { id },
+  async getById(id: string, institutionId: string) {
+    const category = await this.prisma.category.findFirst({
+      where: { id, institutionId },
       include: { institution: true, transactions: true },
     });
-    if (!category) throw new Error("Category not found");
+    if (!category) throw new Error("Category not found or unauthorized");
     return category;
   }
 
 
-  async updateById(id: string, payload: { name?: string; type?: "PEMASUKAN" | "PENGELUARAN"; isActive?: boolean }) {
-    const exists = await this.prisma.category.findUnique({ where: { id } });
-    if (!exists) throw new Error("Category not found");
+  async updateById(id: string, institutionId: string, payload: { name?: string; type?: "PEMASUKAN" | "PENGELUARAN"; isActive?: boolean }) {
+    const exists = await this.prisma.category.findFirst({ where: { id, institutionId } });
+    if (!exists) throw new Error("Category not found or unauthorized");
 
     const data: Partial<{ name: string; type: "PEMASUKAN" | "PENGELUARAN"; isActive: boolean }> = {};
 
@@ -103,16 +104,16 @@ export class CategoryRepository implements ICategoryRepository {
     return this.prisma.category.update({ where: { id }, data });
   }
 
-  async updateStatusById(id: string, isActive: boolean) {
-    const exists = await this.prisma.category.findUnique({ where: { id } });
-    if (!exists) throw new Error("Category not found");
+  async updateStatusById(id: string, institutionId: string, isActive: boolean) {
+    const exists = await this.prisma.category.findFirst({ where: { id, institutionId } });
+    if (!exists) throw new Error("Category not found or unauthorized");
 
     return this.prisma.category.update({ where: { id }, data: { isActive } });
   }
 
-  async deleteById(id: string) {
-    const exists = await this.prisma.category.findUnique({ where: { id } });
-    if (!exists) throw new Error("Category not found");
+  async deleteById(id: string, institutionId: string) {
+    const exists = await this.prisma.category.findFirst({ where: { id, institutionId } });
+    if (!exists) throw new Error("Category not found or unauthorized");
 
     return this.prisma.category.delete({ where: { id } });
   }

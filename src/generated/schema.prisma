@@ -54,21 +54,17 @@ model Institution {
 }
 
 model Invoice {
-  id     String  @id @default(uuid())
-  userId String
-  planId String?
-
+  id          String            @id @default(uuid())
+  userId      String
+  planId      String?
   totalAmount Decimal
-  paidAmount  Decimal @default(0)
-
-  status  InvoiceStatus
-  dueDate DateTime
-
-  createdAt DateTime @default(now())
-
-  payments Payment[]
-  user     Users             @relation(fields: [userId], references: [id])
-  plan     SubscriptionPlan? @relation(fields: [planId], references: [id])
+  paidAmount  Decimal           @default(0)
+  status      InvoiceStatus
+  dueDate     DateTime
+  createdAt   DateTime          @default(now())
+  plan        SubscriptionPlan? @relation(fields: [planId], references: [id])
+  user        Users             @relation(fields: [userId], references: [id])
+  payments    Payment[]
 
   @@map("invoice")
 }
@@ -98,19 +94,15 @@ model PasswordReset {
 }
 
 model Payment {
-  id        String @id @default(uuid())
+  id        String        @id @default(uuid())
   invoiceId String
-  orderId   String @unique
-
-  amount Decimal
-  status PaymentStatus
-
-  gateway String // MIDTRANS
-  method  String? // qris, va, gopay
-
-  createdAt DateTime @default(now())
-
-  invoice Invoice @relation(fields: [invoiceId], references: [id])
+  orderId   String        @unique
+  amount    Decimal
+  status    PaymentStatus
+  gateway   String
+  method    String?
+  createdAt DateTime      @default(now())
+  invoice   Invoice       @relation(fields: [invoiceId], references: [id])
 
   @@map("payment")
 }
@@ -167,39 +159,37 @@ model Santri {
 }
 
 model SubscriptionPlan {
-  id        String   @id @default(uuid())
-  name      String
-  price     Decimal
-  duration  Int // hari
-  createdAt DateTime @default(now())
-
+  id                String             @id @default(uuid())
+  name              String
+  price             Decimal
+  interval          PlanInterval
+  description       String?
+  createdAt         DateTime           @default(now())
   invoices          Invoice[]
   userSubscriptions UserSubscription[]
+
+  isActive Boolean @default(true)
 
   @@map("subscription_plan")
 }
 
 model Transaction {
-  id          String        @id @default(uuid())
-  santriId    String
-  categoryId  String
-  type        category_type
-  amount      Decimal
-  description String?
-
-  orderId String? @unique
-
-  source   String? // PAYMENT | MANUAL | ADJUSTMENT
-  sourceId String? // paymentId / invoiceId
-
+  id              String        @id @default(uuid())
+  santriId        String
+  categoryId      String
+  type            category_type
+  amount          Decimal
+  description     String?
   transactionDate DateTime
   createdBy       String
-
-  isDeleted Boolean  @default(false)
-  createdAt DateTime @default(now())
-  category  Category @relation(fields: [categoryId], references: [id])
-  admin     Users    @relation("AdminTransactions", fields: [createdBy], references: [id])
-  santri    Santri   @relation(fields: [santriId], references: [id])
+  isDeleted       Boolean       @default(false)
+  createdAt       DateTime      @default(now())
+  orderId         String?       @unique
+  source          String?
+  sourceId        String?
+  category        Category      @relation(fields: [categoryId], references: [id])
+  admin           Users         @relation("AdminTransactions", fields: [createdBy], references: [id])
+  santri          Santri        @relation(fields: [santriId], references: [id])
 
   @@map("transaction")
 }
@@ -217,13 +207,13 @@ model Users {
   authAccounts        AuthAccount[]
   emailVerifications  EmailVerification[]
   createdInstitutions Institution[]       @relation("InstitutionAdmin")
+  invoices            Invoice[]
   notifications       Notification[]
   passwordResets      PasswordReset[]
-  userSubscriptions   UserSubscription[]
-  invoices            Invoice[]
   profile             Profile?
   santri              Santri[]            @relation("WaliSantri")
   transactions        Transaction[]       @relation("AdminTransactions")
+  userSubscriptions   UserSubscription[]
   institution         Institution?        @relation("InstitutionUsers", fields: [institutionId], references: [id])
 
   @@map("users")
@@ -234,14 +224,14 @@ model UserSubscription {
   userId String
   planId String
 
-  startAt  DateTime
-  endAt    DateTime
-  isActive Boolean
+  status SubscriptionStatus
 
-  createdAt DateTime @default(now())
-
-  user Users            @relation(fields: [userId], references: [id])
-  plan SubscriptionPlan @relation(fields: [planId], references: [id])
+  startAt   DateTime
+  endAt     DateTime
+  isActive  Boolean
+  createdAt DateTime         @default(now())
+  plan      SubscriptionPlan @relation(fields: [planId], references: [id])
+  user      Users            @relation(fields: [userId], references: [id])
 
   @@map("user_subscription")
 }
@@ -277,4 +267,15 @@ enum InvoiceStatus {
   PARTIAL
   PAID
   EXPIRED
+}
+
+enum PlanInterval {
+  MONTHLY
+  YEARLY
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  EXPIRED
+  CANCELED
 }

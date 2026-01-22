@@ -18,14 +18,15 @@ export interface ITransactionListParams extends IPaginationParams {
     categoryId?: string;
     type?: "PEMASUKAN" | "PENGELUARAN";
     createdBy?: string;
+    institutionId: string;
 }
 
 export interface ITransactionRepository {
     create(payload: ICreateTransactionPayload): Promise<Transaction>;
     getList(params: ITransactionListParams): Promise<IPaginatedResult<Transaction>>;
-    getById(id: string): Promise<Transaction | null>;
-    update(id: string, data: Partial<ICreateTransactionPayload>): Promise<Transaction>;
-    delete(id: string): Promise<Transaction>;
+    getById(id: string, institutionId: string): Promise<Transaction | null>;
+    update(id: string, institutionId: string, data: Partial<ICreateTransactionPayload>): Promise<Transaction>;
+    delete(id: string, institutionId: string): Promise<Transaction>;
 }
 
 export class TransactionRepository implements ITransactionRepository {
@@ -43,6 +44,7 @@ export class TransactionRepository implements ITransactionRepository {
             categoryId,
             type,
             createdBy,
+            institutionId,
             page = 1,
             limit = 10,
             search,
@@ -57,6 +59,7 @@ export class TransactionRepository implements ITransactionRepository {
             ...(categoryId !== undefined && { categoryId: categoryId }),
             ...(type !== undefined && { type: type }),
             ...(createdBy !== undefined && { createdBy: createdBy }),
+            santri: { institutionId },
             isDeleted: false,
         };
 
@@ -98,17 +101,27 @@ export class TransactionRepository implements ITransactionRepository {
         };
     }
 
-    async getById(id: string): Promise<Transaction | null> {
+    async getById(id: string, institutionId: string): Promise<Transaction | null> {
         return this.prisma.transaction.findFirst({
-            where: { id, isDeleted: false },
+            where: {
+                id,
+                isDeleted: false,
+                santri: { institutionId }
+            },
             include: { santri: true, category: true, admin: true },
         });
     }
 
     async update(
         id: string,
+        institutionId: string,
         payload: Partial<ICreateTransactionPayload>
     ): Promise<Transaction> {
+        const trans = await this.prisma.transaction.findFirst({
+            where: { id, santri: { institutionId } }
+        });
+        if (!trans) throw new Error("Transaction not found or unauthorized");
+
         const data: Prisma.TransactionUpdateInput = {
             ...(payload.santriId !== undefined && { santriId: payload.santriId }),
             ...(payload.categoryId !== undefined && { categoryId: payload.categoryId }),
@@ -125,7 +138,12 @@ export class TransactionRepository implements ITransactionRepository {
         });
     }
 
-    async delete(id: string): Promise<Transaction> {
+    async delete(id: string, institutionId: string): Promise<Transaction> {
+        const trans = await this.prisma.transaction.findFirst({
+            where: { id, santri: { institutionId } }
+        });
+        if (!trans) throw new Error("Transaction not found or unauthorized");
+
         return this.prisma.transaction.update({ where: { id }, data: { isDeleted: true } });
     }
 }

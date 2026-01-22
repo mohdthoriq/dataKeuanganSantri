@@ -242,8 +242,10 @@ exports.Prisma.SubscriptionPlanScalarFieldEnum = {
   id: 'id',
   name: 'name',
   price: 'price',
-  duration: 'duration',
-  createdAt: 'createdAt'
+  interval: 'interval',
+  description: 'description',
+  createdAt: 'createdAt',
+  isActive: 'isActive'
 };
 
 exports.Prisma.TransactionScalarFieldEnum = {
@@ -253,13 +255,13 @@ exports.Prisma.TransactionScalarFieldEnum = {
   type: 'type',
   amount: 'amount',
   description: 'description',
-  orderId: 'orderId',
-  source: 'source',
-  sourceId: 'sourceId',
   transactionDate: 'transactionDate',
   createdBy: 'createdBy',
   isDeleted: 'isDeleted',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  orderId: 'orderId',
+  source: 'source',
+  sourceId: 'sourceId'
 };
 
 exports.Prisma.UsersScalarFieldEnum = {
@@ -278,6 +280,7 @@ exports.Prisma.UserSubscriptionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   planId: 'planId',
+  status: 'status',
   startAt: 'startAt',
   endAt: 'endAt',
   isActive: 'isActive',
@@ -317,9 +320,20 @@ exports.PaymentStatus = exports.$Enums.PaymentStatus = {
   EXPIRED: 'EXPIRED'
 };
 
+exports.PlanInterval = exports.$Enums.PlanInterval = {
+  MONTHLY: 'MONTHLY',
+  YEARLY: 'YEARLY'
+};
+
 exports.user_role = exports.$Enums.user_role = {
   ADMIN: 'ADMIN',
   WALI_SANTRI: 'WALI_SANTRI'
+};
+
+exports.SubscriptionStatus = exports.$Enums.SubscriptionStatus = {
+  ACTIVE: 'ACTIVE',
+  EXPIRED: 'EXPIRED',
+  CANCELED: 'CANCELED'
 };
 
 exports.Prisma.ModelName = {

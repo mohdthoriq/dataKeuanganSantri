@@ -4,10 +4,10 @@ import type { InstitutionProfileService } from "../services/profileInstitution.s
 
 
 export class InstitutionProfileController {
-    constructor(private profileService: InstitutionProfileService ) {}
-   getProfile = async(req: Request, res: Response) => {
-      const institutionId = req.user?.institutionId;
-      if (!institutionId) throw new Error("Invalid institutionId");
+  constructor(private profileService: InstitutionProfileService) { }
+  getProfile = async (req: Request, res: Response) => {
+    const institutionId = req.user?.institutionId;
+    if (!institutionId) throw new Error("Invalid institutionId");
 
     const profile = await this.profileService.getProfile(institutionId);
 
@@ -18,11 +18,11 @@ export class InstitutionProfileController {
     );
   }
 
-   create = async(req: Request, res: Response) => {
+  create = async (req: Request, res: Response) => {
     if (!req.user) throw new Error("Unauthorized");
     const file = req.file;
     if (!file) throw new Error("Logo image is required")
-      
+
     const profile = await this.profileService.createProfile({
       institutionId: req.user?.institutionId!,
       ...req.body,
@@ -38,7 +38,13 @@ export class InstitutionProfileController {
   }
 
   async update(req: Request, res: Response) {
-    const profile = await this.profileService.updateProfile(req.body);
+    const institutionId = req.user?.institutionId;
+    if (!institutionId) throw new Error("Unauthorized: Institution ID missing");
+
+    const profile = await this.profileService.updateProfile({
+      ...req.body,
+      institutionId // Force update to be for user's own institution
+    });
 
     successResponse(
       res,
@@ -48,7 +54,8 @@ export class InstitutionProfileController {
   }
 
   async delete(req: Request, res: Response) {
-    const institutionId = req.query.institutionId as string;
+    const institutionId = req.user?.institutionId;
+    if (!institutionId) throw new Error("Unauthorized: Institution ID missing");
 
     const deletedProfile = await this.profileService.deleteProfile(institutionId);
 

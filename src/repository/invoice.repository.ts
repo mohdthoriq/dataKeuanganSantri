@@ -30,4 +30,11 @@ export class InvoiceRepository {
       },
     });
   }
+
+    update(id: string, data: Prisma.InvoiceUncheckedUpdateInput) {
+    return this.prisma.invoice.update({
+      where: { id },
+      data,
+    });
+  }
 }

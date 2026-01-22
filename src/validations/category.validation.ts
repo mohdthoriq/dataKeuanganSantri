@@ -14,17 +14,15 @@ export const createCategoryValidation = [
     .isIn(["PEMASUKAN", "PENGELUARAN"])
     .withMessage("type harus PEMASUKAN atau PENGELUARAN"),
   body("institutionId")
-    .notEmpty()
-    .withMessage("institutionId wajib diisi")
-    .isInt({ gt: 0 })
-    .withMessage("institutionId harus angka positif"),
+    .isUUID()
+    .withMessage("institutionId harus UUID"),
 ];
 
 // Validasi untuk update category
 export const updateCategoryValidation = [
   param("id")
-    .notEmpty()
-    .withMessage("ID wajib diisi"),
+    .isUUID()
+    .withMessage("ID harus UUID"),
   body("name")
     .optional()
     .trim()
@@ -43,16 +41,16 @@ export const updateCategoryValidation = [
 // Validasi untuk get category by ID
 export const getCategoryByIdValidation = [
   param("id")
-    .notEmpty()
-    .withMessage("ID wajib diisi"),
+    .isUUID()
+    .withMessage("ID harus UUID"),
 ];
 
 // Validasi untuk query list category
 export const getCategoriesValidation = [
   query("institutionId")
     .optional()
-    .notEmpty()
-    .withMessage("institutionId wajib diisi"),
+    .isUUID()
+    .withMessage("institutionId harus UUID"),
   query("type")
     .optional()
     .isIn(["PEMASUKAN", "PENGELUARAN"])
@@ -71,8 +69,8 @@ export const getCategoriesValidation = [
 // Validasi untuk update status
 export const updateCategoryStatusValidation = [
   param("id")
-    .notEmpty()
-    .withMessage("ID wajib diisi"),
+    .isUUID()
+    .withMessage("ID harus UUID"),
   body("isActive")
     .notEmpty()
     .withMessage("isActive wajib diisi")

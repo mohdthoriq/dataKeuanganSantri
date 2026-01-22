@@ -2,10 +2,11 @@ import type { InvoiceRepository } from "repository/invoice.repository";
 import midtransRepository from "repository/midtrans.repository";
 import type { PaymentRepository } from "repository/payment.repository";
 import { mapMidtransStatus, verifyMidtransSignature } from "utils/midTrans";
+import type { UserSubscriptionService } from "./usersubscription.service";
 
 
 export class PaymentService {
-    constructor(private paymentRepo: PaymentRepository, private invoiceRepo: InvoiceRepository) { }
+    constructor(private paymentRepo: PaymentRepository, private invoiceRepo: InvoiceRepository, private userSubService: UserSubscriptionService) { }
 
     async createPayment(payload: {
         invoiceId: string;
@@ -55,12 +56,10 @@ export class PaymentService {
             throw new Error("Invalid Midtrans signature");
         }
 
-        const transaction = await this.paymentRepo.findByOrderId(
-            payload.order_id
-        );
+        const payment = await this.paymentRepo.findByOrderId(payload.order_id);
 
-        if (!transaction) {
-            throw new Error("Transaction not found");
+        if (!payment) {
+            throw new Error("Payment not found");
         }
 
         const paymentStatus = mapMidtransStatus(payload.transaction_status);
@@ -70,6 +69,34 @@ export class PaymentService {
             status: paymentStatus,
             method: payload.payment_type,
         });
+
+        if (paymentStatus !== "PAID") {
+            return { received: true };
+        }
+
+        const invoice = await this.invoiceRepo.findById(payment.invoiceId);
+        if (!invoice) throw new Error("Invoice not found");
+
+        const newPaidAmount =
+            invoice.paidAmount.toNumber() + Number(payload.gross_amount);
+
+        let invoiceStatus: "UNPAID" | "PARTIAL" | "PAID" = "PARTIAL";
+
+        if (newPaidAmount >= invoice.totalAmount.toNumber()) {
+            invoiceStatus = "PAID";
+        }
+
+        await this.invoiceRepo.update(invoice.id, {
+            paidAmount: newPaidAmount,
+            status: invoiceStatus,
+        });
+
+        if (invoiceStatus === "PAID") {
+            await this.userSubService.activateSubscription({
+                userId: invoice.userId,
+                planId: invoice.planId!,
+            });
+        }
 
         return { received: true };
     }

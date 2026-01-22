@@ -11,15 +11,14 @@ model Users {
   authAccounts        AuthAccount[]
   emailVerifications  EmailVerification[]
   createdInstitutions Institution[]       @relation("InstitutionAdmin")
+  invoices            Invoice[]
   notifications       Notification[]
   passwordResets      PasswordReset[]
-  userSubscriptions   UserSubscription[]
-  invoices            Invoice[]
   profile             Profile?
   santri              Santri[]            @relation("WaliSantri")
   transactions        Transaction[]       @relation("AdminTransactions")
+  userSubscriptions   UserSubscription[]
   institution         Institution?        @relation("InstitutionUsers", fields: [institutionId], references: [id])
-
 
   @@map("users")
 }

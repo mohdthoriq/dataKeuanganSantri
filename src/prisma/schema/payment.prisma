@@ -1,17 +1,13 @@
 model Payment {
-  id            String   @id @default(uuid())
-  invoiceId     String
-  orderId       String   @unique
-
-  amount        Decimal
-  status        PaymentStatus
-
-  gateway       String   // MIDTRANS
-  method        String?  // qris, va, gopay
-
-  createdAt     DateTime @default(now())
-
-  invoice       Invoice  @relation(fields: [invoiceId], references: [id])
+  id        String        @id @default(uuid())
+  invoiceId String
+  orderId   String        @unique
+  amount    Decimal
+  status    PaymentStatus
+  gateway   String
+  method    String?
+  createdAt DateTime      @default(now())
+  invoice   Invoice       @relation(fields: [invoiceId], references: [id])
 
   @@map("payment")
 }

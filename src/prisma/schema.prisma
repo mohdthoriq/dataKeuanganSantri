@@ -30,3 +30,14 @@ enum InvoiceStatus {
   PAID
   EXPIRED
 }
+
+enum PlanInterval {
+  MONTHLY
+  YEARLY
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  EXPIRED
+  CANCELED
+}

@@ -21,7 +21,8 @@ export const institutionIdValidation = [
 /* ================= UPDATE ================= */
 export const updateInstitutionValidation = [
   param("id")
-    .notEmpty().withMessage("Institution ID wajib diisi"),
+    .isUUID()
+    .withMessage("ID harus UUID"),
 
   body("name")
     .optional()
