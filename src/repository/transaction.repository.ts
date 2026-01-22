@@ -18,6 +18,7 @@ export interface ITransactionListParams extends IPaginationParams {
     categoryId?: string;
     type?: "PEMASUKAN" | "PENGELUARAN";
     createdBy?: string;
+    institutionId?: string; // Add strict filter
 }
 
 export interface ITransactionRepository {
@@ -53,6 +54,7 @@ export class TransactionRepository implements ITransactionRepository {
             categoryId,
             type,
             createdBy,
+            institutionId,
             page = 1,
             limit = 10,
             search,
@@ -67,6 +69,11 @@ export class TransactionRepository implements ITransactionRepository {
             ...(categoryId !== undefined && { categoryId: categoryId }),
             ...(type !== undefined && { type: type }),
             ...(createdBy !== undefined && { createdBy: createdBy }),
+            ...(institutionId !== undefined && {
+                santri: {
+                    institutionId: institutionId
+                }
+            }),
             isDeleted: false,
         };
 

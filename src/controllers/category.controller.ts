@@ -8,19 +8,33 @@ export class CategoryController {
   constructor(private categoryService: CategoryService) { }
 
   createCategory = async (req: Request, res: Response) => {
-    const payload: ICreateCategoryPayload = req.body;
-    if (!payload.name || !payload.type || !payload.institutionId) throw new Error("name, type, and institutionId are required");
+    // STRICT: Force use of user's institutionId
+    const user = req.user;
+    if (!user || !user.institutionId) {
+      throw new Error("Unauthorized: User must belong to an institution");
+    }
+
+    const payload: ICreateCategoryPayload = {
+      ...req.body,
+      institutionId: user.institutionId
+    };
+
+    if (!payload.name || !payload.type) throw new Error("name and type are required");
 
     const category = await this.categoryService.createCategory(payload);
     successResponse(res, "Category created successfully", category);
   };
 
   getCategories = async (req: Request, res: Response) => {
-    const { institutionId, type, isActive, search, page, limit, sortBy, order } = req.query;
-    if (!institutionId) throw new Error("institutionId is required");
+    const { type, isActive, search, page, limit, sortBy, order } = req.query;
+    const user = req.user;
+
+    if (!user || !user.institutionId) {
+      throw new Error("Unauthorized: User must belong to an institution");
+    }
 
     const params: ICategoryListParams = {
-      institutionId: institutionId as string,
+      institutionId: user.institutionId,
       ...(type && { type: type as "PEMASUKAN" | "PENGELUARAN" }),
       ...(isActive !== undefined && { isActive: isActive === "true" }),
       ...(search && { search: search as string }),

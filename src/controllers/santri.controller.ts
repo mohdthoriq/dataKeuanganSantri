@@ -13,10 +13,11 @@ export class SantriController {
   createSantri = async (req: Request, res: Response) => {
     const user = req.user;
 
-    if (!user?.institutionId) {
-      throw new Error("Institution not found in token");
+    if (!user || !user.institutionId) {
+      throw new Error("Unauthorized: User must belong to an institution to create Santri");
     }
 
+    // STRICT: Ignore body institutionId, force use of user's institutionId
     const { nis, fullname, kelas, gender, waliName } = req.body;
 
     if (!nis || !fullname || !kelas || !gender || !waliName) {
@@ -30,6 +31,10 @@ export class SantriController {
       gender,
       waliName,
       institutionId: user.institutionId,
+      // institutionName is not needed if we pass valid ID, repo handles it or we pass name of auth user's institution if known
+      // For now, passing ID is enough for the Repo if it looks up by ID.
+      // If repo logic relies on name for auto-create, we should check repo logic.
+      // Current Repo implementation tries to find by ID first.
     });
 
     successResponse(res, "Santri created successfully", santri);
@@ -52,6 +57,7 @@ export class SantriController {
       ? String(req.query.sortBy)
       : "createdAt";
 
+    // STRICT: Always pass user.institutionId
     const result = await this.santriService.getSantriList(
       user.institutionId,
       page,
