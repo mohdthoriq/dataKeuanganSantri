@@ -24,8 +24,8 @@ export interface IUpdateUserPayload {
 
 export interface IUserListParams extends IPaginationParams {
   isActive?: boolean;
-  institutionId?: string;
-  role?: "ADMIN" | "WALI_SANTRI";
+  institutionId: string;
+  role: "ADMIN" | "WALI_SANTRI";
 }
 
 export interface GetUsersResult extends RequestResetResult {
@@ -51,9 +51,6 @@ export class UserRepository implements IUserRepository {
       page = 1,
       limit = 10,
       search,
-      isActive,
-      institutionId,
-      role,
       sortBy,
       order = "desc",
     } = params;
@@ -66,9 +63,9 @@ export class UserRepository implements IUserRepository {
         { email: { contains: search, mode: "insensitive" } },
       ];
     }
-    if (isActive !== undefined) where.isActive = isActive;
-    if (institutionId) where.institutionId = institutionId;
-    if (role) where.role = role;
+    if (params.isActive !== undefined) where.isActive = params.isActive;
+    if (params.institutionId) where.institutionId = params.institutionId;
+    if (params.role) where.role = params.role;
 
     const orderBy: Prisma.UsersOrderByWithRelationInput = {};
     if (sortBy === "username") orderBy.username = order;

@@ -25,6 +25,8 @@ export class UsersController implements IUsersController {
       ...(isActive !== undefined && { isActive: isActive === "true" }),
       ...(sortBy && { sortBy: sortBy as string }),
       ...(order && { order: order as "asc" | "desc" }),
+      institutionId: req.user!.institutionId!,
+      role: "WALI_SANTRI"
     };
 
     const result = await this.usersService.getAll(params);
@@ -46,12 +48,7 @@ export class UsersController implements IUsersController {
     if (!admin?.institutionId) throw new Error("Unauthorized");
 
     const { username, email, password } = req.body;
-    // Default role 'WALI_SANTRI' if not provided, or force it? 
-    // User requested "default role WALI_SANTRI".
-    // Code accepts role from body, we can default it here or frontend sends it.
-    // Frontend logic sends role: 'WALI_SANTRI'.
-    // We strictly extract what we need.
-    const role = req.body.role || 'WALI_SANTRI';
+    const role = 'WALI_SANTRI';
 
     if (!username || !email || !password) throw new Error("username, email, and password are required");
 
