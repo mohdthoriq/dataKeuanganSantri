@@ -6,7 +6,7 @@ import helmet from "helmet";
 import { successResponse } from "./utils/response";
 import { errorHandler } from "./middlewares/error.handler";
 import { requestLogger } from "./middlewares/logging.middleware";
-import { authenticate } from "./middlewares/auth.middlleware";
+import { authenticate } from "./middlewares/auth.middleware";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./utils/swagger";
 import authRouter from "./routes/auth.router";
@@ -52,7 +52,7 @@ app.get('/', (_req: Request, res: Response) => {
     )
 })
 
-app.use('/api/auth',authRouter)
+app.use('/api/auth', authRouter)
 app.use('/api/profile', authenticate, profileRouter)
 app.use('/api/users', authenticate, usersRouter)
 app.use('/api/email-verification', emailVerificationRouter)
@@ -62,7 +62,7 @@ app.use('/api/santri', authenticate, santriRouter)
 app.use('/api/transaction', authenticate, transactionRouter)
 app.use('/api/subscription-plan', authenticate, subscriptionPlanRouter)
 app.use('/api/invoice', authenticate, invoiceRouter)
-app.use('api/subscription', authenticate, subscriptionRouter)   
+app.use('api/subscription', authenticate, subscriptionRouter)
 app.use('/api/payment', paymentRouter)
 app.use('/api/category', authenticate, categoryRouter)
 app.use('/api/notification', authenticate, notificationRouter)

@@ -3,7 +3,7 @@ import PrismaInstance from "../database";
 import { SantriRepository } from "../repository/santri.repository";
 import { SantriService } from "../services/santri.service";
 import { SantriController } from "../controllers/santri.controller";
-import { authenticate } from "../middlewares/auth.middlleware";
+import { authenticate } from "../middlewares/auth.middleware";
 import { validate } from "../utils/validator";
 import { createSantriValidation, santriIdValidation, updateSantriValidation } from "../validations/santri.validation";
 import { InstitutionService } from "../services/institution.service";

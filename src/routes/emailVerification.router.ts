@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { authenticate } from "../middlewares/auth.middlleware";
+import { authenticate } from "../middlewares/auth.middleware";
 import { EmailVerificationRepository } from "../repository/emailVerification.repository";
 import PrismaInstance from "../database";
 import { EmailVerificationService } from "../services/emailVerification.service";

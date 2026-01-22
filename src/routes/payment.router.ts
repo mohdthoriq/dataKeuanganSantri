@@ -1,7 +1,7 @@
 import { PaymentController } from "controllers/payment.controller";
 import PrismaInstance from "database";
 import { Router } from "express";
-import { authenticate } from "middlewares/auth.middlleware";
+import { authenticate } from "middlewares/auth.middleware";
 import { InvoiceRepository } from "repository/invoice.repository";
 import { PaymentRepository } from "repository/payment.repository";
 import { SubscriptionPlanRepository } from "repository/subscriptionPlan.repository";

@@ -3,7 +3,7 @@ import PrismaInstance from "../database";
 import { ProfileRepository } from "../repository/profile.repository";
 import { ProfileService } from "../services/profile.service";
 import { ProfileController } from "../controllers/profile.controller";
-import { authenticate } from "../middlewares/auth.middlleware";
+import { authenticate } from "../middlewares/auth.middleware";
 import { upload } from "../middlewares/upload.middleware";
 import { validate } from "../utils/validator";
 import { createProfileValidation, getProfileByIdValidation, updateProfileValidation } from "../validations/profile.validation";
@@ -152,8 +152,8 @@ const controller = new ProfileController(service)
  */
 
 router.get('/:id', validate(getProfileByIdValidation), controller.getProfileById)
-router.post('/',authenticate, upload.single('profile_picture'), validate(createProfileValidation), controller.createProfile)
-router.put("/:id",authenticate, upload.single("profile_picture"), validate(updateProfileValidation),controller.updateProfile);
+router.post('/', authenticate, upload.single('profile_picture'), validate(createProfileValidation), controller.createProfile)
+router.put("/:id", authenticate, upload.single("profile_picture"), validate(updateProfileValidation), controller.updateProfile);
 router.delete('/:id', controller.deleteProfile)
 
 export default router

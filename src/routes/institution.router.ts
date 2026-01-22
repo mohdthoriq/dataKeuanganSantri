@@ -5,7 +5,7 @@ import { InstitutionController } from "../controllers/institution.controller";
 import PrismaInstance from "../database";
 import { validate } from "../utils/validator";
 import { createInstitutionValidation, institutionIdValidation, updateInstitutionValidation } from "../validations/institution.validation";
-import { authenticate } from "../middlewares/auth.middlleware";
+import { authenticate } from "../middlewares/auth.middleware";
 
 const router = Router();
 
@@ -137,7 +137,7 @@ const controller = new InstitutionController(service);
  */
 
 
-router.post("/",authenticate, validate(createInstitutionValidation), controller.createInstitution);
+router.post("/", authenticate, validate(createInstitutionValidation), controller.createInstitution);
 router.get("/my", controller.getInstitutionsByUser);
 router.get("/:id", validate(institutionIdValidation), controller.getInstitutionById);
 router.put("/:id", validate(updateInstitutionValidation), controller.updateInstitution);
