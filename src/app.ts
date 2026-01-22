@@ -20,6 +20,9 @@ import categoryRouter from "./routes/category.router";
 import notificationRouter from "./routes/notification.router";
 import profileRouter from "./routes/profile.router";
 import profileInstitutionRouter from "./routes/profileInstitution.router";
+import subscriptionPlanRouter from "routes/subscriptionPlan.router";
+import invoiceRouter from "routes/invoice.router";
+import subscriptionRouter from "routes/userSubscription.router";
 
 
 const app: Application = express()
@@ -57,6 +60,9 @@ app.use('/api/institution', institutionRouter)
 app.use('/api/profileinstitution', authenticate, profileInstitutionRouter);
 app.use('/api/santri', authenticate, santriRouter)
 app.use('/api/transaction', authenticate, transactionRouter)
+app.use('/api/subscription-plan', authenticate, subscriptionPlanRouter)
+app.use('/api/invoice', authenticate, invoiceRouter)
+app.use('api/subscription', authenticate, subscriptionRouter)   
 app.use('/api/payment', paymentRouter)
 app.use('/api/category', authenticate, categoryRouter)
 app.use('/api/notification', authenticate, notificationRouter)

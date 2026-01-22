@@ -55,16 +55,11 @@ export class TransactionController {
 
     getTransactions = async (req: Request, res: Response) => {
         const { santriId, categoryId, type, createdBy, page, limit, search, sortBy, order } = req.query;
-<<<<<<< HEAD
-        const institutionId = req.user?.institutionId;
-        if (!institutionId) throw new Error("Unauthorized: Institution ID missing");
-=======
         const user = req.user;
 
         if (!user || !user.institutionId) {
             throw new Error("Unauthorized: Missing institution context");
         }
->>>>>>> d77b9291b54c32e151cf860a5efa93983980e75e
 
         const params: ITransactionListParams = {
             ...(santriId && { santriId: santriId as string }),
@@ -76,12 +71,7 @@ export class TransactionController {
             ...(search && { search: search as string }),
             ...(sortBy && { sortBy: sortBy as string }),
             ...(order && { order: order as "asc" | "desc" }),
-<<<<<<< HEAD
-            institutionId,
-=======
-            // ENFORCE INSTITUTION
             institutionId: user.institutionId
->>>>>>> d77b9291b54c32e151cf860a5efa93983980e75e
         };
 
         const result = await this.transactionService.getTransactions(params);

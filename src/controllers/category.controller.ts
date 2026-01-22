@@ -8,14 +8,6 @@ export class CategoryController {
   constructor(private categoryService: CategoryService) { }
 
   createCategory = async (req: Request, res: Response) => {
-<<<<<<< HEAD
-    const user = req.user;
-    if (!user?.institutionId) throw new Error("Unauthorized: Institution ID missing");
-
-    const payload: ICreateCategoryPayload = {
-      ...req.body,
-      institutionId: user.institutionId,
-=======
     // STRICT: Force use of user's institutionId
     const user = req.user;
     if (!user || !user.institutionId) {
@@ -25,7 +17,6 @@ export class CategoryController {
     const payload: ICreateCategoryPayload = {
       ...req.body,
       institutionId: user.institutionId
->>>>>>> d77b9291b54c32e151cf860a5efa93983980e75e
     };
 
     if (!payload.name || !payload.type) throw new Error("name and type are required");
@@ -35,20 +26,12 @@ export class CategoryController {
   };
 
   getCategories = async (req: Request, res: Response) => {
-<<<<<<< HEAD
-    const institutionId = req.user?.institutionId;
-    if (!institutionId) throw new Error("Unauthorized: Institution ID missing");
-
-    const { type, isActive, search, page, limit, sortBy, order } = req.query;
-=======
     const { type, isActive, search, page, limit, sortBy, order } = req.query;
     const user = req.user;
 
     if (!user || !user.institutionId) {
       throw new Error("Unauthorized: User must belong to an institution");
     }
->>>>>>> d77b9291b54c32e151cf860a5efa93983980e75e
-
     const params: ICategoryListParams = {
       institutionId: user.institutionId,
       ...(type && { type: type as "PEMASUKAN" | "PENGELUARAN" }),
