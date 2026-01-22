@@ -65,15 +65,21 @@ export class SantriController {
   };
 
   getSantriById = async (req: Request, res: Response) => {
+    const user = req.user;
+    if (!user?.institutionId) throw new Error("Unauthorized: Institution ID missing");
+
     const id = req.params.id as string;
     if (!id) throw new Error("Invalid santri ID");
 
-    const santri = await this.santriService.getSantriById(id);
+    const santri = await this.santriService.getSantriById(id, user.institutionId);
 
     successResponse(res, "Santri detail fetched successfully", santri);
   };
 
   updateSantri = async (req: Request, res: Response) => {
+    const user = req.user;
+    if (!user?.institutionId) throw new Error("Unauthorized: Institution ID missing");
+
     const id = req.params.id as string;
     if (!id) throw new Error("Invalid santri ID");
 
@@ -85,12 +91,12 @@ export class SantriController {
       if (!institution) {
         institution = await this.institutionService.createInstitution({
           name: institutionName,
-          createdBy: "1"
+          createdBy: user.id!
         });
       }
     }
 
-    const santri = await this.santriService.updateSantri(id, {
+    const santri = await this.santriService.updateSantri(id, user.institutionId, {
       nis,
       fullname,
       kelas,
@@ -102,10 +108,13 @@ export class SantriController {
   };
 
   deleteSantri = async (req: Request, res: Response) => {
+    const user = req.user;
+    if (!user?.institutionId) throw new Error("Unauthorized: Institution ID missing");
+
     const id = req.params.id as string;
     if (!id) throw new Error("Invalid santri ID");
 
-    await this.santriService.deleteSantri(id);
+    await this.santriService.deleteSantri(id, user.institutionId);
 
     successResponse(res, "Santri deleted successfully");
   };

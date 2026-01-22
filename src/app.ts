@@ -15,6 +15,7 @@ import emailVerificationRouter from "./routes/emailVerification.router";
 import institutionRouter from "./routes/institution.router";
 import santriRouter from "./routes/santri.router";
 import transactionRouter from "./routes/transaction.router";
+import paymentRouter from "./routes/payment.router";
 import categoryRouter from "./routes/category.router";
 import notificationRouter from "./routes/notification.router";
 import profileRouter from "./routes/profile.router";
@@ -56,6 +57,7 @@ app.use('/api/institution', institutionRouter)
 app.use('/api/profileinstitution', authenticate, profileInstitutionRouter);
 app.use('/api/santri', authenticate, santriRouter)
 app.use('/api/transaction', authenticate, transactionRouter)
+app.use('/api/payment', paymentRouter)
 app.use('/api/category', authenticate, categoryRouter)
 app.use('/api/notification', authenticate, notificationRouter)
 

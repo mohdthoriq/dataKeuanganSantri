@@ -2,10 +2,12 @@ import { body, param, query } from "express-validator";
 
 export const createTransactionValidation = [
   body("santriId")
-    .isUUID().withMessage("santriId harus UUID"),
+    .isUUID()
+    .withMessage("ID harus UUID"),
 
   body("categoryId")
-    .isUUID().withMessage("categoryId harus UUID"),
+    .isUUID()
+    .withMessage("ID harus UUID"),
 
   body("type")
     .isIn(["PEMASUKAN", "PENGELUARAN"])
@@ -22,10 +24,11 @@ export const createTransactionValidation = [
 
 export const updateTransactionValidation = [
   param("id")
-    .isUUID().withMessage("Transaction ID harus UUID"),
+    .isUUID()
+    .withMessage("ID harus UUID"),
 
-  body("santriId").optional().isUUID(),
-  body("categoryId").optional().isUUID(),
+  body("santriId").optional().isUUID().withMessage("ID harus UUID"),
+  body("categoryId").optional().isUUID().withMessage("ID harus UUID"),
 
   body("type")
     .optional()

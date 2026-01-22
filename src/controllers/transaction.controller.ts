@@ -36,7 +36,9 @@ export class TransactionController {
     };
 
     getTransactions = async (req: Request, res: Response) => {
-        const { santriId, categoryId, type, createdBy, skip, take, page, limit, search, sortBy, order } = req.query;
+        const { santriId, categoryId, type, createdBy, page, limit, search, sortBy, order } = req.query;
+        const institutionId = req.user?.institutionId;
+        if (!institutionId) throw new Error("Unauthorized: Institution ID missing");
 
         const params: ITransactionListParams = {
             ...(santriId && { santriId: santriId as string }),
@@ -48,6 +50,7 @@ export class TransactionController {
             ...(search && { search: search as string }),
             ...(sortBy && { sortBy: sortBy as string }),
             ...(order && { order: order as "asc" | "desc" }),
+            institutionId,
         };
 
         const result = await this.transactionService.getTransactions(params);
@@ -61,7 +64,10 @@ export class TransactionController {
         const id = req.params.id as string;
         if (!id) throw new Error("Invalid transaction ID");
 
-        const transaction = await this.transactionService.getTransactionById(id);
+        const institutionId = req.user?.institutionId;
+        if (!institutionId) throw new Error("Unauthorized: Institution ID missing");
+
+        const transaction = await this.transactionService.getTransactionById(id, institutionId);
         if (!transaction) throw new Error("Transaction not found");
 
         successResponse(res, "Get transaction successfully", transaction);
@@ -71,9 +77,12 @@ export class TransactionController {
         const id = req.params.id as string;
         if (!id) throw new Error("Invalid transaction ID");
 
+        const institutionId = req.user?.institutionId;
+        if (!institutionId) throw new Error("Unauthorized: Institution ID missing");
+
         const { santriId, categoryId, type, amount, description, transactionDate } = req.body;
 
-        const updatedTransaction = await this.transactionService.updateTransaction(id, {
+        const updatedTransaction = await this.transactionService.updateTransaction(id, institutionId, {
             santriId,
             categoryId,
             ...(type && { type: type as "PEMASUKAN" | "PENGELUARAN" }),
@@ -89,7 +98,10 @@ export class TransactionController {
         const id = req.params.id as string;
         if (!id) throw new Error("Invalid transaction ID");
 
-        const deletedTransaction = await this.transactionService.deleteTransaction(id);
+        const institutionId = req.user?.institutionId;
+        if (!institutionId) throw new Error("Unauthorized: Institution ID missing");
+
+        const deletedTransaction = await this.transactionService.deleteTransaction(id, institutionId);
 
         successResponse(res, "Transaction deleted successfully", deletedTransaction);
     };

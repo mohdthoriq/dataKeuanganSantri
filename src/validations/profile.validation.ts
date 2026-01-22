@@ -24,10 +24,8 @@ export const createProfileValidation = [
 // Validasi buat update profile
 export const updateProfileValidation = [
   param("id")
-    .notEmpty()
-    .withMessage("Profile ID wajib diisi")
     .isUUID()
-    .withMessage("Profile ID harus UUID"),
+    .withMessage("ID harus UUID"),
   body("name")
     .optional()
     .trim()
@@ -47,8 +45,13 @@ export const updateProfileValidation = [
 // Validasi buat getById / param ID
 export const getProfileByIdValidation = [
   param("id")
-    .notEmpty()
-    .withMessage("Profile ID wajib diisi")
     .isUUID()
-    .withMessage("Profile ID harus UUID"),
+    .withMessage("ID harus UUID"),
+];
+
+// Validasi buat query list profile
+export const getProfilesValidation = [
+  param("id")
+    .isUUID()
+    .withMessage("ID harus UUID"),
 ];

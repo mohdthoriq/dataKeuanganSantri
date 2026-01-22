@@ -51,16 +51,16 @@ export class SantriService {
     });
   }
 
-  async getSantriById(id: string): Promise<Santri> {
-    return this.santriRepo.getById(id);
+  async getSantriById(id: string, institutionId: string): Promise<Santri> {
+    return this.santriRepo.getById(id, institutionId);
   }
 
-  async updateSantri(id: string, data: Partial<ICreateSantriPayload>): Promise<Santri> {
-    return this.santriRepo.update(id, data);
+  async updateSantri(id: string, institutionId: string, data: Partial<ICreateSantriPayload>): Promise<Santri> {
+    return this.santriRepo.update(id, institutionId, data);
   }
 
-  async deleteSantri(id: string): Promise<boolean> {
-    return this.santriRepo.delete(id);
+  async deleteSantri(id: string, institutionId: string): Promise<boolean> {
+    return this.santriRepo.delete(id, institutionId);
   }
 
   async getSantriByWali(waliId: string): Promise<Santri[]> {

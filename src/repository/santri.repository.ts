@@ -22,9 +22,9 @@ export interface ISantriListParams extends IPaginationParams {
 export interface ISantriRepository {
   create(payload: ICreateSantriPayload): Promise<Santri>;
   getList(params: ISantriListParams): Promise<IPaginatedResult<Santri>>;
-  getById(id: string): Promise<Santri>;
-  update(id: string, data: Partial<ICreateSantriPayload>): Promise<Santri>;
-  delete(id: string): Promise<boolean>;
+  getById(id: string, institutionId: string): Promise<Santri>;
+  update(id: string, institutionId: string, data: Partial<ICreateSantriPayload>): Promise<Santri>;
+  delete(id: string, institutionId: string): Promise<boolean>;
   getByWali(waliId: string): Promise<Santri[]>;
   getStats(institutionId: string): Promise<{ totalSantri: number; activeSantri: number }>;
 }
@@ -216,9 +216,9 @@ export class SantriRepository implements ISantriRepository {
     };
   }
 
-  async getById(id: string): Promise<Santri> {
-    const santri = await this.prisma.santri.findUnique({
-      where: { id },
+  async getById(id: string, institutionId: string): Promise<Santri> {
+    const santri = await this.prisma.santri.findFirst({
+      where: { id, institutionId },
       include: {
         wali: {
           select: {
@@ -236,21 +236,21 @@ export class SantriRepository implements ISantriRepository {
       },
     });
     if (!santri) {
-      throw new Error("Santri not found");
+      throw new Error("Santri not found or unauthorized");
     }
     return santri;
   }
 
-  async update(id: string, data: Partial<ICreateSantriPayload>): Promise<Santri> {
-    const santri = await this.prisma.santri.findUnique({
-      where: { id },
+  async update(id: string, institutionId: string, data: Partial<ICreateSantriPayload>): Promise<Santri> {
+    const santri = await this.prisma.santri.findFirst({
+      where: { id, institutionId },
       include: { wali: { select: { username: true } } }
     });
     if (!santri) {
-      throw new Error("Santri not found");
+      throw new Error("Santri not found or unauthorized");
     }
 
-    const { waliId, institutionId, ...otherData } = data;
+    const { waliId, institutionId: payloadInstitutionId, ...otherData } = data;
     const updateData: Prisma.SantriUpdateInput = { ...otherData };
 
     if (waliId && waliId !== santri.waliId) {
@@ -306,7 +306,14 @@ export class SantriRepository implements ISantriRepository {
     });
   }
 
-  async delete(id: string): Promise<boolean> {
+  async delete(id: string, institutionId: string): Promise<boolean> {
+    const santri = await this.prisma.santri.findFirst({
+      where: { id, institutionId }
+    });
+    if (!santri) {
+      throw new Error("Santri not found or unauthorized");
+    }
+
     await this.prisma.santri.delete({ where: { id } });
     return true;
   }

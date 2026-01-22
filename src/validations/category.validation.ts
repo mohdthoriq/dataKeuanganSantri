@@ -14,10 +14,8 @@ export const createCategoryValidation = [
     .isIn(["PEMASUKAN", "PENGELUARAN"])
     .withMessage("type harus PEMASUKAN atau PENGELUARAN"),
   body("institutionId")
-    .notEmpty()
-    .withMessage("institutionId wajib diisi")
-    .isInt({ gt: 0 })
-    .withMessage("institutionId harus angka positif"),
+    .isUUID()
+    .withMessage("institutionId harus UUID"),
 ];
 
 // Validasi untuk update category

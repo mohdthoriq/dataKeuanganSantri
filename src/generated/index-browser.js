@@ -157,6 +157,17 @@ exports.Prisma.InstitutionScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.InvoiceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  planId: 'planId',
+  totalAmount: 'totalAmount',
+  paidAmount: 'paidAmount',
+  status: 'status',
+  dueDate: 'dueDate',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -172,6 +183,17 @@ exports.Prisma.PasswordResetScalarFieldEnum = {
   otpCode: 'otpCode',
   expiredAt: 'expiredAt',
   isUsed: 'isUsed',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PaymentScalarFieldEnum = {
+  id: 'id',
+  invoiceId: 'invoiceId',
+  orderId: 'orderId',
+  amount: 'amount',
+  status: 'status',
+  gateway: 'gateway',
+  method: 'method',
   createdAt: 'createdAt'
 };
 
@@ -216,6 +238,16 @@ exports.Prisma.SantriScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.SubscriptionPlanScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  price: 'price',
+  interval: 'interval',
+  description: 'description',
+  createdAt: 'createdAt',
+  isActive: 'isActive'
+};
+
 exports.Prisma.TransactionScalarFieldEnum = {
   id: 'id',
   santriId: 'santriId',
@@ -226,7 +258,10 @@ exports.Prisma.TransactionScalarFieldEnum = {
   transactionDate: 'transactionDate',
   createdBy: 'createdBy',
   isDeleted: 'isDeleted',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  orderId: 'orderId',
+  source: 'source',
+  sourceId: 'sourceId'
 };
 
 exports.Prisma.UsersScalarFieldEnum = {
@@ -237,6 +272,17 @@ exports.Prisma.UsersScalarFieldEnum = {
   role: 'role',
   institutionId: 'institutionId',
   isEmailVerified: 'isEmailVerified',
+  isActive: 'isActive',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.UserSubscriptionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  planId: 'planId',
+  status: 'status',
+  startAt: 'startAt',
+  endAt: 'endAt',
   isActive: 'isActive',
   createdAt: 'createdAt'
 };
@@ -260,9 +306,34 @@ exports.category_type = exports.$Enums.category_type = {
   PENGELUARAN: 'PENGELUARAN'
 };
 
+exports.InvoiceStatus = exports.$Enums.InvoiceStatus = {
+  UNPAID: 'UNPAID',
+  PARTIAL: 'PARTIAL',
+  PAID: 'PAID',
+  EXPIRED: 'EXPIRED'
+};
+
+exports.PaymentStatus = exports.$Enums.PaymentStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  FAILED: 'FAILED',
+  EXPIRED: 'EXPIRED'
+};
+
+exports.PlanInterval = exports.$Enums.PlanInterval = {
+  MONTHLY: 'MONTHLY',
+  YEARLY: 'YEARLY'
+};
+
 exports.user_role = exports.$Enums.user_role = {
   ADMIN: 'ADMIN',
   WALI_SANTRI: 'WALI_SANTRI'
+};
+
+exports.SubscriptionStatus = exports.$Enums.SubscriptionStatus = {
+  ACTIVE: 'ACTIVE',
+  EXPIRED: 'EXPIRED',
+  CANCELED: 'CANCELED'
 };
 
 exports.Prisma.ModelName = {
@@ -270,13 +341,17 @@ exports.Prisma.ModelName = {
   AuthAccount: 'AuthAccount',
   Category: 'Category',
   Institution: 'Institution',
+  Invoice: 'Invoice',
   Notification: 'Notification',
   PasswordReset: 'PasswordReset',
+  Payment: 'Payment',
   Profile: 'Profile',
   InstitutionProfile: 'InstitutionProfile',
   Santri: 'Santri',
+  SubscriptionPlan: 'SubscriptionPlan',
   Transaction: 'Transaction',
-  Users: 'Users'
+  Users: 'Users',
+  UserSubscription: 'UserSubscription'
 };
 
 /**
