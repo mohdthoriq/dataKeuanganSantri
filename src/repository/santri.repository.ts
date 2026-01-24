@@ -16,7 +16,9 @@ export interface ICreateSantriPayload {
 }
 
 export interface ISantriListParams extends IPaginationParams {
+  isActive?: boolean;
   institutionId: string;
+  role?: "WALI_SANTRI"
 }
 
 export interface ISantriRepository {
@@ -106,11 +108,12 @@ export class SantriRepository implements ISantriRepository {
       waliName = wali.username;
     } else if (waliName) {
       const wali = await this.prisma.users.findFirst({
-        where: { username: waliName },
-        select: { id: true },
+        where: { username: waliName, role: "WALI_SANTRI" },
+        select: { id: true, username: true},
       });
-      if (!wali) throw new Error("Wali not found");
+      if (!wali) throw new Error("Wali must be a user with role WALI_SANTRI");
       waliId = wali.id;
+      waliName = wali.username;
     } else {
       throw new Error("Wali ID or Name is required");
     }
@@ -163,6 +166,9 @@ export class SantriRepository implements ISantriRepository {
         },
       ];
     }
+
+    if (params.isActive !== undefined) where.isActive = params.isActive;
+    if (params.institutionId) where.institutionId = params.institutionId;
 
     const orderBy: Prisma.SantriOrderByWithRelationInput = {};
     if (sortBy === "nis") {
