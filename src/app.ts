@@ -27,7 +27,13 @@ import subscriptionRouter from "./routes/userSubscription.router";
 
 const app: Application = express()
 
-app.use(express.json())
+app.use(
+  express.json({
+    verify: (req: any, res, buf) => {
+      req.rawBody = buf.toString();
+    },
+  })
+);
 app.use(express.static('public'))
 app.set('query parser', 'extended')
 app.use(morgan('dev')) // Middleware logging HTTP request

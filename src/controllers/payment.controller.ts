@@ -24,6 +24,7 @@ export class PaymentController {
 
 
     handleWebhook = async (req: Request, res: Response) => {
+        console.log("WEBHOOK BODY:", req.body);
         const result = await this.paymentService.handleWebhook(req.body);
         successResponse(res, "Webhook handled successfully", result);
     }

@@ -6,8 +6,8 @@ export const createTransactionValidation = [
     .withMessage("ID harus UUID"),
 
   body("categoryId")
-    .isUUID()
-    .withMessage("ID harus UUID"),
+    .isString()
+    .withMessage("ID harus string"),
 
   body("type")
     .isIn(["PEMASUKAN", "PENGELUARAN"])
@@ -28,7 +28,7 @@ export const updateTransactionValidation = [
     .withMessage("ID harus UUID"),
 
   body("santriId").optional().isUUID().withMessage("ID harus UUID"),
-  body("categoryId").optional().isUUID().withMessage("ID harus UUID"),
+  body("categoryId").optional().isString().withMessage("ID harus string"),
 
   body("type")
     .optional()
@@ -55,7 +55,7 @@ export const transactionIdValidation = [
 
 export const getTransactionsValidation = [
   query("santriId").optional().isUUID(),
-  query("categoryId").optional().isUUID(),
+  query("categoryId").optional().isString(),
   query("createdBy").optional().isInt(),
 
   query("type")

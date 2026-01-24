@@ -11,6 +11,8 @@ export function verifyMidtransSignature(payload: { order_id: string; status_code
     .update(order_id + status_code + gross_amount + serverKey)
     .digest('hex');
 
+    console.log("SIGNATURE KEY:", signature_key);
+
   return hash === signature_key;
 }
 
