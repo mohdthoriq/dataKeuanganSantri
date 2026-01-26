@@ -25,21 +25,7 @@ export class TransactionController {
         if (!user || !user.id || !user.institutionId) {
             throw new Error("Unauthorized: Missing institution context");
         }
-
-        // TODO: Validate that santriId belongs to user.institutionId 
-        // We rely on service/repo or logic here. Ideally, we should check:
-        // const santri = await this.santriService.getById(santriId);
-        // if (santri.institutionId !== user.institutionId) throw new Error("Forbidden");
-
-        // For strictness requested:
-        // Note: transactionService/Repository needs to be aware or we check here.
-        // Since we don't have direct access to santriRepo here easily without injecting, 
-        // we might leave it for now or assume the "View" isolation is the first step, 
-        // BUT user asked "bukan hanya tidak melihat tapi tidak bisa akses apa pun... create wali dan santri"
-        // Let's ensure the created transaction is linked to the creator.
-        // The repository update enforces VIEWING. 
-        // To enforce CREATING for valid santri only, we should ideally check existence.
-
+        
         const transaction = await this.transactionService.createTransaction({
             santriId,
             categoryId,

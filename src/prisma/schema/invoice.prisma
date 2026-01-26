@@ -1,14 +1,17 @@
 model Invoice {
-  id          String            @id @default(uuid())
+  id          String        @id @default(uuid())
   userId      String
-  planId      String?
+  santriId    String
+  categoryId  String
+  description String?
   totalAmount Decimal
-  paidAmount  Decimal           @default(0)
+  paidAmount  Decimal       @default(0)
   status      InvoiceStatus
   dueDate     DateTime
-  createdAt   DateTime          @default(now())
-  plan        SubscriptionPlan? @relation(fields: [planId], references: [id])
-  user        Users             @relation(fields: [userId], references: [id])
+  createdAt   DateTime      @default(now())
+  santri      Santri        @relation(fields: [santriId], references: [id])
+  category    Category      @relation(fields: [categoryId], references: [id])
+  user        Users         @relation(fields: [userId], references: [id])
   payments    Payment[]
 
   @@map("invoice")

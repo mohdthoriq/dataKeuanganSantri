@@ -2,12 +2,14 @@ import type { InvoiceRepository } from "../repository/invoice.repository";
 import midtransRepository from "../repository/midtrans.repository";
 import type { PaymentRepository } from "../repository/payment.repository";
 import { mapMidtransStatus, verifyMidtransSignature } from "../utils/midTrans";
-import type { UserSubscriptionService } from "./usersubscription.service";
 import { NotificationUtil } from "../utils/notification.util";
+import type { TransactionRepository } from "repository/transaction.repository";
 
 
 export class PaymentService {
-    constructor(private paymentRepo: PaymentRepository, private invoiceRepo: InvoiceRepository, private userSubService: UserSubscriptionService) { }
+    constructor(private paymentRepo: PaymentRepository,
+        private invoiceRepo: InvoiceRepository,
+        private transactionRepo: TransactionRepository) { }
 
     async createPayment(payload: {
         invoiceId: string;
@@ -92,17 +94,21 @@ export class PaymentService {
             status: invoiceStatus,
         });
 
-        if (invoiceStatus === "PAID") {
-            await this.userSubService.activateSubscription({
-                userId: invoice.userId,
-                planId: invoice.planId!,
-            });
+        await this.transactionRepo.create({
+            santriId: invoice.santriId!,
+            categoryId: invoice.categoryId!,
+            amount: Number(payload.gross_amount),
+            type: "PEMASUKAN",
+            description: `Pembayaran invoice ${invoice.id}`,
+            transactionDate: new Date(),
+            createdBy: invoice.userId,
+        });
 
-            // Notify User
-            NotificationUtil.notifyPaymentSuccess(invoice.userId, Number(payload.gross_amount), invoice.id).catch(err => {
-                console.error("Failed to send payment success notification:", err);
-            });
-        }
+        NotificationUtil.notifyPaymentSuccess(
+            invoice.userId,
+            Number(payload.gross_amount),
+            invoice.id
+        ).catch(err => console.error(err));
 
         return { received: true };
     }

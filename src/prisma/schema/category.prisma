@@ -7,6 +7,7 @@ model Category {
   createdAt     DateTime      @default(now())
   institution   Institution   @relation(fields: [institutionId], references: [id])
   transactions  Transaction[]
+  invoices      Invoice[]
 
   @@map("category")
 }

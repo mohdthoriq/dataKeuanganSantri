@@ -160,7 +160,9 @@ exports.Prisma.InstitutionScalarFieldEnum = {
 exports.Prisma.InvoiceScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  planId: 'planId',
+  santriId: 'santriId',
+  categoryId: 'categoryId',
+  description: 'description',
   totalAmount: 'totalAmount',
   paidAmount: 'paidAmount',
   status: 'status',

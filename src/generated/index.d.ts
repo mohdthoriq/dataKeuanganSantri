@@ -2219,10 +2219,12 @@ export namespace Prisma {
 
   export type CategoryCountOutputType = {
     transactions: number
+    invoices: number
   }
 
   export type CategoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     transactions?: boolean | CategoryCountOutputTypeCountTransactionsArgs
+    invoices?: boolean | CategoryCountOutputTypeCountInvoicesArgs
   }
 
   // Custom InputTypes
@@ -2241,6 +2243,13 @@ export namespace Prisma {
    */
   export type CategoryCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TransactionWhereInput
+  }
+
+  /**
+   * CategoryCountOutputType without action
+   */
+  export type CategoryCountOutputTypeCountInvoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvoiceWhereInput
   }
 
 
@@ -2331,11 +2340,13 @@ export namespace Prisma {
   export type SantriCountOutputType = {
     authAccounts: number
     transactions: number
+    invoices: number
   }
 
   export type SantriCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     authAccounts?: boolean | SantriCountOutputTypeCountAuthAccountsArgs
     transactions?: boolean | SantriCountOutputTypeCountTransactionsArgs
+    invoices?: boolean | SantriCountOutputTypeCountInvoicesArgs
   }
 
   // Custom InputTypes
@@ -2363,18 +2374,23 @@ export namespace Prisma {
     where?: TransactionWhereInput
   }
 
+  /**
+   * SantriCountOutputType without action
+   */
+  export type SantriCountOutputTypeCountInvoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvoiceWhereInput
+  }
+
 
   /**
    * Count Type SubscriptionPlanCountOutputType
    */
 
   export type SubscriptionPlanCountOutputType = {
-    invoices: number
     userSubscriptions: number
   }
 
   export type SubscriptionPlanCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    invoices?: boolean | SubscriptionPlanCountOutputTypeCountInvoicesArgs
     userSubscriptions?: boolean | SubscriptionPlanCountOutputTypeCountUserSubscriptionsArgs
   }
 
@@ -2387,13 +2403,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the SubscriptionPlanCountOutputType
      */
     select?: SubscriptionPlanCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * SubscriptionPlanCountOutputType without action
-   */
-  export type SubscriptionPlanCountOutputTypeCountInvoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: InvoiceWhereInput
   }
 
   /**
@@ -4880,6 +4889,7 @@ export namespace Prisma {
     createdAt?: boolean
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
     transactions?: boolean | Category$transactionsArgs<ExtArgs>
+    invoices?: boolean | Category$invoicesArgs<ExtArgs>
     _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["category"]>
 
@@ -4916,6 +4926,7 @@ export namespace Prisma {
   export type CategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
     transactions?: boolean | Category$transactionsArgs<ExtArgs>
+    invoices?: boolean | Category$invoicesArgs<ExtArgs>
     _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4930,6 +4941,7 @@ export namespace Prisma {
     objects: {
       institution: Prisma.$InstitutionPayload<ExtArgs>
       transactions: Prisma.$TransactionPayload<ExtArgs>[]
+      invoices: Prisma.$InvoicePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5334,6 +5346,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     institution<T extends InstitutionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InstitutionDefaultArgs<ExtArgs>>): Prisma__InstitutionClient<$Result.GetResult<Prisma.$InstitutionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     transactions<T extends Category$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Category$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    invoices<T extends Category$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, Category$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5786,6 +5799,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+  }
+
+  /**
+   * Category.invoices
+   */
+  export type Category$invoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    where?: InvoiceWhereInput
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    cursor?: InvoiceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
   }
 
   /**
@@ -6999,7 +7036,9 @@ export namespace Prisma {
   export type InvoiceMinAggregateOutputType = {
     id: string | null
     userId: string | null
-    planId: string | null
+    santriId: string | null
+    categoryId: string | null
+    description: string | null
     totalAmount: Decimal | null
     paidAmount: Decimal | null
     status: $Enums.InvoiceStatus | null
@@ -7010,7 +7049,9 @@ export namespace Prisma {
   export type InvoiceMaxAggregateOutputType = {
     id: string | null
     userId: string | null
-    planId: string | null
+    santriId: string | null
+    categoryId: string | null
+    description: string | null
     totalAmount: Decimal | null
     paidAmount: Decimal | null
     status: $Enums.InvoiceStatus | null
@@ -7021,7 +7062,9 @@ export namespace Prisma {
   export type InvoiceCountAggregateOutputType = {
     id: number
     userId: number
-    planId: number
+    santriId: number
+    categoryId: number
+    description: number
     totalAmount: number
     paidAmount: number
     status: number
@@ -7044,7 +7087,9 @@ export namespace Prisma {
   export type InvoiceMinAggregateInputType = {
     id?: true
     userId?: true
-    planId?: true
+    santriId?: true
+    categoryId?: true
+    description?: true
     totalAmount?: true
     paidAmount?: true
     status?: true
@@ -7055,7 +7100,9 @@ export namespace Prisma {
   export type InvoiceMaxAggregateInputType = {
     id?: true
     userId?: true
-    planId?: true
+    santriId?: true
+    categoryId?: true
+    description?: true
     totalAmount?: true
     paidAmount?: true
     status?: true
@@ -7066,7 +7113,9 @@ export namespace Prisma {
   export type InvoiceCountAggregateInputType = {
     id?: true
     userId?: true
-    planId?: true
+    santriId?: true
+    categoryId?: true
+    description?: true
     totalAmount?: true
     paidAmount?: true
     status?: true
@@ -7164,7 +7213,9 @@ export namespace Prisma {
   export type InvoiceGroupByOutputType = {
     id: string
     userId: string
-    planId: string | null
+    santriId: string
+    categoryId: string
+    description: string | null
     totalAmount: Decimal
     paidAmount: Decimal
     status: $Enums.InvoiceStatus
@@ -7194,13 +7245,16 @@ export namespace Prisma {
   export type InvoiceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    planId?: boolean
+    santriId?: boolean
+    categoryId?: boolean
+    description?: boolean
     totalAmount?: boolean
     paidAmount?: boolean
     status?: boolean
     dueDate?: boolean
     createdAt?: boolean
-    plan?: boolean | Invoice$planArgs<ExtArgs>
+    santri?: boolean | SantriDefaultArgs<ExtArgs>
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
     payments?: boolean | Invoice$paymentsArgs<ExtArgs>
     _count?: boolean | InvoiceCountOutputTypeDefaultArgs<ExtArgs>
@@ -7209,33 +7263,41 @@ export namespace Prisma {
   export type InvoiceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    planId?: boolean
+    santriId?: boolean
+    categoryId?: boolean
+    description?: boolean
     totalAmount?: boolean
     paidAmount?: boolean
     status?: boolean
     dueDate?: boolean
     createdAt?: boolean
-    plan?: boolean | Invoice$planArgs<ExtArgs>
+    santri?: boolean | SantriDefaultArgs<ExtArgs>
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["invoice"]>
 
   export type InvoiceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    planId?: boolean
+    santriId?: boolean
+    categoryId?: boolean
+    description?: boolean
     totalAmount?: boolean
     paidAmount?: boolean
     status?: boolean
     dueDate?: boolean
     createdAt?: boolean
-    plan?: boolean | Invoice$planArgs<ExtArgs>
+    santri?: boolean | SantriDefaultArgs<ExtArgs>
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["invoice"]>
 
   export type InvoiceSelectScalar = {
     id?: boolean
     userId?: boolean
-    planId?: boolean
+    santriId?: boolean
+    categoryId?: boolean
+    description?: boolean
     totalAmount?: boolean
     paidAmount?: boolean
     status?: boolean
@@ -7243,33 +7305,39 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type InvoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "planId" | "totalAmount" | "paidAmount" | "status" | "dueDate" | "createdAt", ExtArgs["result"]["invoice"]>
+  export type InvoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "santriId" | "categoryId" | "description" | "totalAmount" | "paidAmount" | "status" | "dueDate" | "createdAt", ExtArgs["result"]["invoice"]>
   export type InvoiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    plan?: boolean | Invoice$planArgs<ExtArgs>
+    santri?: boolean | SantriDefaultArgs<ExtArgs>
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
     payments?: boolean | Invoice$paymentsArgs<ExtArgs>
     _count?: boolean | InvoiceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type InvoiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    plan?: boolean | Invoice$planArgs<ExtArgs>
+    santri?: boolean | SantriDefaultArgs<ExtArgs>
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
   }
   export type InvoiceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    plan?: boolean | Invoice$planArgs<ExtArgs>
+    santri?: boolean | SantriDefaultArgs<ExtArgs>
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
   }
 
   export type $InvoicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Invoice"
     objects: {
-      plan: Prisma.$SubscriptionPlanPayload<ExtArgs> | null
+      santri: Prisma.$SantriPayload<ExtArgs>
+      category: Prisma.$CategoryPayload<ExtArgs>
       user: Prisma.$UsersPayload<ExtArgs>
       payments: Prisma.$PaymentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
-      planId: string | null
+      santriId: string
+      categoryId: string
+      description: string | null
       totalAmount: Prisma.Decimal
       paidAmount: Prisma.Decimal
       status: $Enums.InvoiceStatus
@@ -7669,7 +7737,8 @@ export namespace Prisma {
    */
   export interface Prisma__InvoiceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    plan<T extends Invoice$planArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$planArgs<ExtArgs>>): Prisma__SubscriptionPlanClient<$Result.GetResult<Prisma.$SubscriptionPlanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    santri<T extends SantriDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SantriDefaultArgs<ExtArgs>>): Prisma__SantriClient<$Result.GetResult<Prisma.$SantriPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    category<T extends CategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoryDefaultArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     user<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     payments<T extends Invoice$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -7703,7 +7772,9 @@ export namespace Prisma {
   interface InvoiceFieldRefs {
     readonly id: FieldRef<"Invoice", 'String'>
     readonly userId: FieldRef<"Invoice", 'String'>
-    readonly planId: FieldRef<"Invoice", 'String'>
+    readonly santriId: FieldRef<"Invoice", 'String'>
+    readonly categoryId: FieldRef<"Invoice", 'String'>
+    readonly description: FieldRef<"Invoice", 'String'>
     readonly totalAmount: FieldRef<"Invoice", 'Decimal'>
     readonly paidAmount: FieldRef<"Invoice", 'Decimal'>
     readonly status: FieldRef<"Invoice", 'InvoiceStatus'>
@@ -8102,25 +8173,6 @@ export namespace Prisma {
      * Limit how many Invoices to delete.
      */
     limit?: number
-  }
-
-  /**
-   * Invoice.plan
-   */
-  export type Invoice$planArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SubscriptionPlan
-     */
-    select?: SubscriptionPlanSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the SubscriptionPlan
-     */
-    omit?: SubscriptionPlanOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionPlanInclude<ExtArgs> | null
-    where?: SubscriptionPlanWhereInput
   }
 
   /**
@@ -13914,6 +13966,7 @@ export namespace Prisma {
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
     wali?: boolean | UsersDefaultArgs<ExtArgs>
     transactions?: boolean | Santri$transactionsArgs<ExtArgs>
+    invoices?: boolean | Santri$invoicesArgs<ExtArgs>
     _count?: boolean | SantriCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["santri"]>
 
@@ -13969,6 +14022,7 @@ export namespace Prisma {
     institution?: boolean | InstitutionDefaultArgs<ExtArgs>
     wali?: boolean | UsersDefaultArgs<ExtArgs>
     transactions?: boolean | Santri$transactionsArgs<ExtArgs>
+    invoices?: boolean | Santri$invoicesArgs<ExtArgs>
     _count?: boolean | SantriCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SantriIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13987,6 +14041,7 @@ export namespace Prisma {
       institution: Prisma.$InstitutionPayload<ExtArgs>
       wali: Prisma.$UsersPayload<ExtArgs>
       transactions: Prisma.$TransactionPayload<ExtArgs>[]
+      invoices: Prisma.$InvoicePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -14398,6 +14453,7 @@ export namespace Prisma {
     institution<T extends InstitutionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InstitutionDefaultArgs<ExtArgs>>): Prisma__InstitutionClient<$Result.GetResult<Prisma.$InstitutionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     wali<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     transactions<T extends Santri$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Santri$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    invoices<T extends Santri$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, Santri$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14882,6 +14938,30 @@ export namespace Prisma {
   }
 
   /**
+   * Santri.invoices
+   */
+  export type Santri$invoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Invoice
+     */
+    omit?: InvoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    where?: InvoiceWhereInput
+    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
+    cursor?: InvoiceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
+  }
+
+  /**
    * Santri without action
    */
   export type SantriDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15114,7 +15194,6 @@ export namespace Prisma {
     description?: boolean
     createdAt?: boolean
     isActive?: boolean
-    invoices?: boolean | SubscriptionPlan$invoicesArgs<ExtArgs>
     userSubscriptions?: boolean | SubscriptionPlan$userSubscriptionsArgs<ExtArgs>
     _count?: boolean | SubscriptionPlanCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["subscriptionPlan"]>
@@ -15151,7 +15230,6 @@ export namespace Prisma {
 
   export type SubscriptionPlanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "price" | "interval" | "description" | "createdAt" | "isActive", ExtArgs["result"]["subscriptionPlan"]>
   export type SubscriptionPlanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    invoices?: boolean | SubscriptionPlan$invoicesArgs<ExtArgs>
     userSubscriptions?: boolean | SubscriptionPlan$userSubscriptionsArgs<ExtArgs>
     _count?: boolean | SubscriptionPlanCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -15161,7 +15239,6 @@ export namespace Prisma {
   export type $SubscriptionPlanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "SubscriptionPlan"
     objects: {
-      invoices: Prisma.$InvoicePayload<ExtArgs>[]
       userSubscriptions: Prisma.$UserSubscriptionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -15566,7 +15643,6 @@ export namespace Prisma {
    */
   export interface Prisma__SubscriptionPlanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    invoices<T extends SubscriptionPlan$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, SubscriptionPlan$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     userSubscriptions<T extends SubscriptionPlan$userSubscriptionsArgs<ExtArgs> = {}>(args?: Subset<T, SubscriptionPlan$userSubscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserSubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -15989,30 +16065,6 @@ export namespace Prisma {
      * Limit how many SubscriptionPlans to delete.
      */
     limit?: number
-  }
-
-  /**
-   * SubscriptionPlan.invoices
-   */
-  export type SubscriptionPlan$invoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Invoice
-     */
-    select?: InvoiceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Invoice
-     */
-    omit?: InvoiceOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: InvoiceInclude<ExtArgs> | null
-    where?: InvoiceWhereInput
-    orderBy?: InvoiceOrderByWithRelationInput | InvoiceOrderByWithRelationInput[]
-    cursor?: InvoiceWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
   }
 
   /**
@@ -19847,7 +19899,9 @@ export namespace Prisma {
   export const InvoiceScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
-    planId: 'planId',
+    santriId: 'santriId',
+    categoryId: 'categoryId',
+    description: 'description',
     totalAmount: 'totalAmount',
     paidAmount: 'paidAmount',
     status: 'status',
@@ -20331,6 +20385,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Category"> | Date | string
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
     transactions?: TransactionListRelationFilter
+    invoices?: InvoiceListRelationFilter
   }
 
   export type CategoryOrderByWithRelationInput = {
@@ -20342,6 +20397,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     institution?: InstitutionOrderByWithRelationInput
     transactions?: TransactionOrderByRelationAggregateInput
+    invoices?: InvoiceOrderByRelationAggregateInput
   }
 
   export type CategoryWhereUniqueInput = Prisma.AtLeast<{
@@ -20356,6 +20412,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Category"> | Date | string
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
     transactions?: TransactionListRelationFilter
+    invoices?: InvoiceListRelationFilter
   }, "id">
 
   export type CategoryOrderByWithAggregationInput = {
@@ -20455,13 +20512,16 @@ export namespace Prisma {
     NOT?: InvoiceWhereInput | InvoiceWhereInput[]
     id?: StringFilter<"Invoice"> | string
     userId?: StringFilter<"Invoice"> | string
-    planId?: StringNullableFilter<"Invoice"> | string | null
+    santriId?: StringFilter<"Invoice"> | string
+    categoryId?: StringFilter<"Invoice"> | string
+    description?: StringNullableFilter<"Invoice"> | string | null
     totalAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
     dueDate?: DateTimeFilter<"Invoice"> | Date | string
     createdAt?: DateTimeFilter<"Invoice"> | Date | string
-    plan?: XOR<SubscriptionPlanNullableScalarRelationFilter, SubscriptionPlanWhereInput> | null
+    santri?: XOR<SantriScalarRelationFilter, SantriWhereInput>
+    category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
     payments?: PaymentListRelationFilter
   }
@@ -20469,13 +20529,16 @@ export namespace Prisma {
   export type InvoiceOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    planId?: SortOrderInput | SortOrder
+    santriId?: SortOrder
+    categoryId?: SortOrder
+    description?: SortOrderInput | SortOrder
     totalAmount?: SortOrder
     paidAmount?: SortOrder
     status?: SortOrder
     dueDate?: SortOrder
     createdAt?: SortOrder
-    plan?: SubscriptionPlanOrderByWithRelationInput
+    santri?: SantriOrderByWithRelationInput
+    category?: CategoryOrderByWithRelationInput
     user?: UsersOrderByWithRelationInput
     payments?: PaymentOrderByRelationAggregateInput
   }
@@ -20486,13 +20549,16 @@ export namespace Prisma {
     OR?: InvoiceWhereInput[]
     NOT?: InvoiceWhereInput | InvoiceWhereInput[]
     userId?: StringFilter<"Invoice"> | string
-    planId?: StringNullableFilter<"Invoice"> | string | null
+    santriId?: StringFilter<"Invoice"> | string
+    categoryId?: StringFilter<"Invoice"> | string
+    description?: StringNullableFilter<"Invoice"> | string | null
     totalAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
     dueDate?: DateTimeFilter<"Invoice"> | Date | string
     createdAt?: DateTimeFilter<"Invoice"> | Date | string
-    plan?: XOR<SubscriptionPlanNullableScalarRelationFilter, SubscriptionPlanWhereInput> | null
+    santri?: XOR<SantriScalarRelationFilter, SantriWhereInput>
+    category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
     payments?: PaymentListRelationFilter
   }, "id">
@@ -20500,7 +20566,9 @@ export namespace Prisma {
   export type InvoiceOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    planId?: SortOrderInput | SortOrder
+    santriId?: SortOrder
+    categoryId?: SortOrder
+    description?: SortOrderInput | SortOrder
     totalAmount?: SortOrder
     paidAmount?: SortOrder
     status?: SortOrder
@@ -20519,7 +20587,9 @@ export namespace Prisma {
     NOT?: InvoiceScalarWhereWithAggregatesInput | InvoiceScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Invoice"> | string
     userId?: StringWithAggregatesFilter<"Invoice"> | string
-    planId?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
+    santriId?: StringWithAggregatesFilter<"Invoice"> | string
+    categoryId?: StringWithAggregatesFilter<"Invoice"> | string
+    description?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
     totalAmount?: DecimalWithAggregatesFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalWithAggregatesFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusWithAggregatesFilter<"Invoice"> | $Enums.InvoiceStatus
@@ -20903,6 +20973,7 @@ export namespace Prisma {
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
     wali?: XOR<UsersScalarRelationFilter, UsersWhereInput>
     transactions?: TransactionListRelationFilter
+    invoices?: InvoiceListRelationFilter
   }
 
   export type SantriOrderByWithRelationInput = {
@@ -20921,6 +20992,7 @@ export namespace Prisma {
     institution?: InstitutionOrderByWithRelationInput
     wali?: UsersOrderByWithRelationInput
     transactions?: TransactionOrderByRelationAggregateInput
+    invoices?: InvoiceOrderByRelationAggregateInput
   }
 
   export type SantriWhereUniqueInput = Prisma.AtLeast<{
@@ -20942,6 +21014,7 @@ export namespace Prisma {
     institution?: XOR<InstitutionScalarRelationFilter, InstitutionWhereInput>
     wali?: XOR<UsersScalarRelationFilter, UsersWhereInput>
     transactions?: TransactionListRelationFilter
+    invoices?: InvoiceListRelationFilter
   }, "id" | "nis">
 
   export type SantriOrderByWithAggregationInput = {
@@ -20989,7 +21062,6 @@ export namespace Prisma {
     description?: StringNullableFilter<"SubscriptionPlan"> | string | null
     createdAt?: DateTimeFilter<"SubscriptionPlan"> | Date | string
     isActive?: BoolFilter<"SubscriptionPlan"> | boolean
-    invoices?: InvoiceListRelationFilter
     userSubscriptions?: UserSubscriptionListRelationFilter
   }
 
@@ -21001,7 +21073,6 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     isActive?: SortOrder
-    invoices?: InvoiceOrderByRelationAggregateInput
     userSubscriptions?: UserSubscriptionOrderByRelationAggregateInput
   }
 
@@ -21016,7 +21087,6 @@ export namespace Prisma {
     description?: StringNullableFilter<"SubscriptionPlan"> | string | null
     createdAt?: DateTimeFilter<"SubscriptionPlan"> | Date | string
     isActive?: BoolFilter<"SubscriptionPlan"> | boolean
-    invoices?: InvoiceListRelationFilter
     userSubscriptions?: UserSubscriptionListRelationFilter
   }, "id">
 
@@ -21474,6 +21544,7 @@ export namespace Prisma {
     createdAt?: Date | string
     institution: InstitutionCreateNestedOneWithoutCategoriesInput
     transactions?: TransactionCreateNestedManyWithoutCategoryInput
+    invoices?: InvoiceCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoryUncheckedCreateInput = {
@@ -21484,6 +21555,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     transactions?: TransactionUncheckedCreateNestedManyWithoutCategoryInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoryUpdateInput = {
@@ -21494,6 +21566,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     institution?: InstitutionUpdateOneRequiredWithoutCategoriesNestedInput
     transactions?: TransactionUpdateManyWithoutCategoryNestedInput
+    invoices?: InvoiceUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoryUncheckedUpdateInput = {
@@ -21504,6 +21577,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: TransactionUncheckedUpdateManyWithoutCategoryNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoryCreateManyInput = {
@@ -21605,12 +21679,14 @@ export namespace Prisma {
 
   export type InvoiceCreateInput = {
     id?: string
+    description?: string | null
     totalAmount: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     status: $Enums.InvoiceStatus
     dueDate: Date | string
     createdAt?: Date | string
-    plan?: SubscriptionPlanCreateNestedOneWithoutInvoicesInput
+    santri: SantriCreateNestedOneWithoutInvoicesInput
+    category: CategoryCreateNestedOneWithoutInvoicesInput
     user: UsersCreateNestedOneWithoutInvoicesInput
     payments?: PaymentCreateNestedManyWithoutInvoiceInput
   }
@@ -21618,7 +21694,9 @@ export namespace Prisma {
   export type InvoiceUncheckedCreateInput = {
     id?: string
     userId: string
-    planId?: string | null
+    santriId: string
+    categoryId: string
+    description?: string | null
     totalAmount: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     status: $Enums.InvoiceStatus
@@ -21629,12 +21707,14 @@ export namespace Prisma {
 
   export type InvoiceUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    plan?: SubscriptionPlanUpdateOneWithoutInvoicesNestedInput
+    santri?: SantriUpdateOneRequiredWithoutInvoicesNestedInput
+    category?: CategoryUpdateOneRequiredWithoutInvoicesNestedInput
     user?: UsersUpdateOneRequiredWithoutInvoicesNestedInput
     payments?: PaymentUpdateManyWithoutInvoiceNestedInput
   }
@@ -21642,7 +21722,9 @@ export namespace Prisma {
   export type InvoiceUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    planId?: NullableStringFieldUpdateOperationsInput | string | null
+    santriId?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
@@ -21654,7 +21736,9 @@ export namespace Prisma {
   export type InvoiceCreateManyInput = {
     id?: string
     userId: string
-    planId?: string | null
+    santriId: string
+    categoryId: string
+    description?: string | null
     totalAmount: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     status: $Enums.InvoiceStatus
@@ -21664,6 +21748,7 @@ export namespace Prisma {
 
   export type InvoiceUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
@@ -21674,7 +21759,9 @@ export namespace Prisma {
   export type InvoiceUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    planId?: NullableStringFieldUpdateOperationsInput | string | null
+    santriId?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
@@ -22083,6 +22170,7 @@ export namespace Prisma {
     institution: InstitutionCreateNestedOneWithoutSantriInput
     wali: UsersCreateNestedOneWithoutSantriInput
     transactions?: TransactionCreateNestedManyWithoutSantriInput
+    invoices?: InvoiceCreateNestedManyWithoutSantriInput
   }
 
   export type SantriUncheckedCreateInput = {
@@ -22099,6 +22187,7 @@ export namespace Prisma {
     createdAt?: Date | string
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutSantriInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutSantriInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutSantriInput
   }
 
   export type SantriUpdateInput = {
@@ -22115,6 +22204,7 @@ export namespace Prisma {
     institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
     wali?: UsersUpdateOneRequiredWithoutSantriNestedInput
     transactions?: TransactionUpdateManyWithoutSantriNestedInput
+    invoices?: InvoiceUpdateManyWithoutSantriNestedInput
   }
 
   export type SantriUncheckedUpdateInput = {
@@ -22131,6 +22221,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutSantriNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutSantriNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutSantriNestedInput
   }
 
   export type SantriCreateManyInput = {
@@ -22181,7 +22272,6 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     isActive?: boolean
-    invoices?: InvoiceCreateNestedManyWithoutPlanInput
     userSubscriptions?: UserSubscriptionCreateNestedManyWithoutPlanInput
   }
 
@@ -22193,7 +22283,6 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     isActive?: boolean
-    invoices?: InvoiceUncheckedCreateNestedManyWithoutPlanInput
     userSubscriptions?: UserSubscriptionUncheckedCreateNestedManyWithoutPlanInput
   }
 
@@ -22205,7 +22294,6 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    invoices?: InvoiceUpdateManyWithoutPlanNestedInput
     userSubscriptions?: UserSubscriptionUpdateManyWithoutPlanNestedInput
   }
 
@@ -22217,7 +22305,6 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    invoices?: InvoiceUncheckedUpdateManyWithoutPlanNestedInput
     userSubscriptions?: UserSubscriptionUncheckedUpdateManyWithoutPlanNestedInput
   }
 
@@ -22755,7 +22842,17 @@ export namespace Prisma {
     none?: TransactionWhereInput
   }
 
+  export type InvoiceListRelationFilter = {
+    every?: InvoiceWhereInput
+    some?: InvoiceWhereInput
+    none?: InvoiceWhereInput
+  }
+
   export type TransactionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type InvoiceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -22873,9 +22970,14 @@ export namespace Prisma {
     not?: NestedEnumInvoiceStatusFilter<$PrismaModel> | $Enums.InvoiceStatus
   }
 
-  export type SubscriptionPlanNullableScalarRelationFilter = {
-    is?: SubscriptionPlanWhereInput | null
-    isNot?: SubscriptionPlanWhereInput | null
+  export type SantriScalarRelationFilter = {
+    is?: SantriWhereInput
+    isNot?: SantriWhereInput
+  }
+
+  export type CategoryScalarRelationFilter = {
+    is?: CategoryWhereInput
+    isNot?: CategoryWhereInput
   }
 
   export type PaymentListRelationFilter = {
@@ -22891,7 +22993,9 @@ export namespace Prisma {
   export type InvoiceCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    planId?: SortOrder
+    santriId?: SortOrder
+    categoryId?: SortOrder
+    description?: SortOrder
     totalAmount?: SortOrder
     paidAmount?: SortOrder
     status?: SortOrder
@@ -22907,7 +23011,9 @@ export namespace Prisma {
   export type InvoiceMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    planId?: SortOrder
+    santriId?: SortOrder
+    categoryId?: SortOrder
+    description?: SortOrder
     totalAmount?: SortOrder
     paidAmount?: SortOrder
     status?: SortOrder
@@ -22918,7 +23024,9 @@ export namespace Prisma {
   export type InvoiceMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    planId?: SortOrder
+    santriId?: SortOrder
+    categoryId?: SortOrder
+    description?: SortOrder
     totalAmount?: SortOrder
     paidAmount?: SortOrder
     status?: SortOrder
@@ -23214,20 +23322,10 @@ export namespace Prisma {
     not?: NestedEnumPlanIntervalFilter<$PrismaModel> | $Enums.PlanInterval
   }
 
-  export type InvoiceListRelationFilter = {
-    every?: InvoiceWhereInput
-    some?: InvoiceWhereInput
-    none?: InvoiceWhereInput
-  }
-
   export type UserSubscriptionListRelationFilter = {
     every?: UserSubscriptionWhereInput
     some?: UserSubscriptionWhereInput
     none?: UserSubscriptionWhereInput
-  }
-
-  export type InvoiceOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type UserSubscriptionOrderByRelationAggregateInput = {
@@ -23280,16 +23378,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPlanIntervalFilter<$PrismaModel>
     _max?: NestedEnumPlanIntervalFilter<$PrismaModel>
-  }
-
-  export type CategoryScalarRelationFilter = {
-    is?: CategoryWhereInput
-    isNot?: CategoryWhereInput
-  }
-
-  export type SantriScalarRelationFilter = {
-    is?: SantriWhereInput
-    isNot?: SantriWhereInput
   }
 
   export type TransactionCountOrderByAggregateInput = {
@@ -23579,11 +23667,25 @@ export namespace Prisma {
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
+  export type InvoiceCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<InvoiceCreateWithoutCategoryInput, InvoiceUncheckedCreateWithoutCategoryInput> | InvoiceCreateWithoutCategoryInput[] | InvoiceUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutCategoryInput | InvoiceCreateOrConnectWithoutCategoryInput[]
+    createMany?: InvoiceCreateManyCategoryInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+  }
+
   export type TransactionUncheckedCreateNestedManyWithoutCategoryInput = {
     create?: XOR<TransactionCreateWithoutCategoryInput, TransactionUncheckedCreateWithoutCategoryInput> | TransactionCreateWithoutCategoryInput[] | TransactionUncheckedCreateWithoutCategoryInput[]
     connectOrCreate?: TransactionCreateOrConnectWithoutCategoryInput | TransactionCreateOrConnectWithoutCategoryInput[]
     createMany?: TransactionCreateManyCategoryInputEnvelope
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  }
+
+  export type InvoiceUncheckedCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<InvoiceCreateWithoutCategoryInput, InvoiceUncheckedCreateWithoutCategoryInput> | InvoiceCreateWithoutCategoryInput[] | InvoiceUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutCategoryInput | InvoiceCreateOrConnectWithoutCategoryInput[]
+    createMany?: InvoiceCreateManyCategoryInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
   }
 
   export type Enumcategory_typeFieldUpdateOperationsInput = {
@@ -23612,6 +23714,20 @@ export namespace Prisma {
     deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
+  export type InvoiceUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<InvoiceCreateWithoutCategoryInput, InvoiceUncheckedCreateWithoutCategoryInput> | InvoiceCreateWithoutCategoryInput[] | InvoiceUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutCategoryInput | InvoiceCreateOrConnectWithoutCategoryInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutCategoryInput | InvoiceUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: InvoiceCreateManyCategoryInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutCategoryInput | InvoiceUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutCategoryInput | InvoiceUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+  }
+
   export type TransactionUncheckedUpdateManyWithoutCategoryNestedInput = {
     create?: XOR<TransactionCreateWithoutCategoryInput, TransactionUncheckedCreateWithoutCategoryInput> | TransactionCreateWithoutCategoryInput[] | TransactionUncheckedCreateWithoutCategoryInput[]
     connectOrCreate?: TransactionCreateOrConnectWithoutCategoryInput | TransactionCreateOrConnectWithoutCategoryInput[]
@@ -23624,6 +23740,20 @@ export namespace Prisma {
     update?: TransactionUpdateWithWhereUniqueWithoutCategoryInput | TransactionUpdateWithWhereUniqueWithoutCategoryInput[]
     updateMany?: TransactionUpdateManyWithWhereWithoutCategoryInput | TransactionUpdateManyWithWhereWithoutCategoryInput[]
     deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  }
+
+  export type InvoiceUncheckedUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<InvoiceCreateWithoutCategoryInput, InvoiceUncheckedCreateWithoutCategoryInput> | InvoiceCreateWithoutCategoryInput[] | InvoiceUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutCategoryInput | InvoiceCreateOrConnectWithoutCategoryInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutCategoryInput | InvoiceUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: InvoiceCreateManyCategoryInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutCategoryInput | InvoiceUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutCategoryInput | InvoiceUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
   }
 
   export type InstitutionProfileCreateNestedOneWithoutInstitutionInput = {
@@ -23798,10 +23928,16 @@ export namespace Prisma {
     deleteMany?: UsersScalarWhereInput | UsersScalarWhereInput[]
   }
 
-  export type SubscriptionPlanCreateNestedOneWithoutInvoicesInput = {
-    create?: XOR<SubscriptionPlanCreateWithoutInvoicesInput, SubscriptionPlanUncheckedCreateWithoutInvoicesInput>
-    connectOrCreate?: SubscriptionPlanCreateOrConnectWithoutInvoicesInput
-    connect?: SubscriptionPlanWhereUniqueInput
+  export type SantriCreateNestedOneWithoutInvoicesInput = {
+    create?: XOR<SantriCreateWithoutInvoicesInput, SantriUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: SantriCreateOrConnectWithoutInvoicesInput
+    connect?: SantriWhereUniqueInput
+  }
+
+  export type CategoryCreateNestedOneWithoutInvoicesInput = {
+    create?: XOR<CategoryCreateWithoutInvoicesInput, CategoryUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: CategoryCreateOrConnectWithoutInvoicesInput
+    connect?: CategoryWhereUniqueInput
   }
 
   export type UsersCreateNestedOneWithoutInvoicesInput = {
@@ -23836,14 +23972,20 @@ export namespace Prisma {
     set?: $Enums.InvoiceStatus
   }
 
-  export type SubscriptionPlanUpdateOneWithoutInvoicesNestedInput = {
-    create?: XOR<SubscriptionPlanCreateWithoutInvoicesInput, SubscriptionPlanUncheckedCreateWithoutInvoicesInput>
-    connectOrCreate?: SubscriptionPlanCreateOrConnectWithoutInvoicesInput
-    upsert?: SubscriptionPlanUpsertWithoutInvoicesInput
-    disconnect?: SubscriptionPlanWhereInput | boolean
-    delete?: SubscriptionPlanWhereInput | boolean
-    connect?: SubscriptionPlanWhereUniqueInput
-    update?: XOR<XOR<SubscriptionPlanUpdateToOneWithWhereWithoutInvoicesInput, SubscriptionPlanUpdateWithoutInvoicesInput>, SubscriptionPlanUncheckedUpdateWithoutInvoicesInput>
+  export type SantriUpdateOneRequiredWithoutInvoicesNestedInput = {
+    create?: XOR<SantriCreateWithoutInvoicesInput, SantriUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: SantriCreateOrConnectWithoutInvoicesInput
+    upsert?: SantriUpsertWithoutInvoicesInput
+    connect?: SantriWhereUniqueInput
+    update?: XOR<XOR<SantriUpdateToOneWithWhereWithoutInvoicesInput, SantriUpdateWithoutInvoicesInput>, SantriUncheckedUpdateWithoutInvoicesInput>
+  }
+
+  export type CategoryUpdateOneRequiredWithoutInvoicesNestedInput = {
+    create?: XOR<CategoryCreateWithoutInvoicesInput, CategoryUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: CategoryCreateOrConnectWithoutInvoicesInput
+    upsert?: CategoryUpsertWithoutInvoicesInput
+    connect?: CategoryWhereUniqueInput
+    update?: XOR<XOR<CategoryUpdateToOneWithWhereWithoutInvoicesInput, CategoryUpdateWithoutInvoicesInput>, CategoryUncheckedUpdateWithoutInvoicesInput>
   }
 
   export type UsersUpdateOneRequiredWithoutInvoicesNestedInput = {
@@ -23982,6 +24124,13 @@ export namespace Prisma {
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
+  export type InvoiceCreateNestedManyWithoutSantriInput = {
+    create?: XOR<InvoiceCreateWithoutSantriInput, InvoiceUncheckedCreateWithoutSantriInput> | InvoiceCreateWithoutSantriInput[] | InvoiceUncheckedCreateWithoutSantriInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutSantriInput | InvoiceCreateOrConnectWithoutSantriInput[]
+    createMany?: InvoiceCreateManySantriInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+  }
+
   export type AuthAccountUncheckedCreateNestedManyWithoutSantriInput = {
     create?: XOR<AuthAccountCreateWithoutSantriInput, AuthAccountUncheckedCreateWithoutSantriInput> | AuthAccountCreateWithoutSantriInput[] | AuthAccountUncheckedCreateWithoutSantriInput[]
     connectOrCreate?: AuthAccountCreateOrConnectWithoutSantriInput | AuthAccountCreateOrConnectWithoutSantriInput[]
@@ -23994,6 +24143,13 @@ export namespace Prisma {
     connectOrCreate?: TransactionCreateOrConnectWithoutSantriInput | TransactionCreateOrConnectWithoutSantriInput[]
     createMany?: TransactionCreateManySantriInputEnvelope
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  }
+
+  export type InvoiceUncheckedCreateNestedManyWithoutSantriInput = {
+    create?: XOR<InvoiceCreateWithoutSantriInput, InvoiceUncheckedCreateWithoutSantriInput> | InvoiceCreateWithoutSantriInput[] | InvoiceUncheckedCreateWithoutSantriInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutSantriInput | InvoiceCreateOrConnectWithoutSantriInput[]
+    createMany?: InvoiceCreateManySantriInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
   }
 
   export type AuthAccountUpdateManyWithoutSantriNestedInput = {
@@ -24040,6 +24196,20 @@ export namespace Prisma {
     deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
+  export type InvoiceUpdateManyWithoutSantriNestedInput = {
+    create?: XOR<InvoiceCreateWithoutSantriInput, InvoiceUncheckedCreateWithoutSantriInput> | InvoiceCreateWithoutSantriInput[] | InvoiceUncheckedCreateWithoutSantriInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutSantriInput | InvoiceCreateOrConnectWithoutSantriInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutSantriInput | InvoiceUpsertWithWhereUniqueWithoutSantriInput[]
+    createMany?: InvoiceCreateManySantriInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutSantriInput | InvoiceUpdateWithWhereUniqueWithoutSantriInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutSantriInput | InvoiceUpdateManyWithWhereWithoutSantriInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+  }
+
   export type AuthAccountUncheckedUpdateManyWithoutSantriNestedInput = {
     create?: XOR<AuthAccountCreateWithoutSantriInput, AuthAccountUncheckedCreateWithoutSantriInput> | AuthAccountCreateWithoutSantriInput[] | AuthAccountUncheckedCreateWithoutSantriInput[]
     connectOrCreate?: AuthAccountCreateOrConnectWithoutSantriInput | AuthAccountCreateOrConnectWithoutSantriInput[]
@@ -24068,11 +24238,18 @@ export namespace Prisma {
     deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
-  export type InvoiceCreateNestedManyWithoutPlanInput = {
-    create?: XOR<InvoiceCreateWithoutPlanInput, InvoiceUncheckedCreateWithoutPlanInput> | InvoiceCreateWithoutPlanInput[] | InvoiceUncheckedCreateWithoutPlanInput[]
-    connectOrCreate?: InvoiceCreateOrConnectWithoutPlanInput | InvoiceCreateOrConnectWithoutPlanInput[]
-    createMany?: InvoiceCreateManyPlanInputEnvelope
+  export type InvoiceUncheckedUpdateManyWithoutSantriNestedInput = {
+    create?: XOR<InvoiceCreateWithoutSantriInput, InvoiceUncheckedCreateWithoutSantriInput> | InvoiceCreateWithoutSantriInput[] | InvoiceUncheckedCreateWithoutSantriInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutSantriInput | InvoiceCreateOrConnectWithoutSantriInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutSantriInput | InvoiceUpsertWithWhereUniqueWithoutSantriInput[]
+    createMany?: InvoiceCreateManySantriInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
     connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutSantriInput | InvoiceUpdateWithWhereUniqueWithoutSantriInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutSantriInput | InvoiceUpdateManyWithWhereWithoutSantriInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
   }
 
   export type UserSubscriptionCreateNestedManyWithoutPlanInput = {
@@ -24080,13 +24257,6 @@ export namespace Prisma {
     connectOrCreate?: UserSubscriptionCreateOrConnectWithoutPlanInput | UserSubscriptionCreateOrConnectWithoutPlanInput[]
     createMany?: UserSubscriptionCreateManyPlanInputEnvelope
     connect?: UserSubscriptionWhereUniqueInput | UserSubscriptionWhereUniqueInput[]
-  }
-
-  export type InvoiceUncheckedCreateNestedManyWithoutPlanInput = {
-    create?: XOR<InvoiceCreateWithoutPlanInput, InvoiceUncheckedCreateWithoutPlanInput> | InvoiceCreateWithoutPlanInput[] | InvoiceUncheckedCreateWithoutPlanInput[]
-    connectOrCreate?: InvoiceCreateOrConnectWithoutPlanInput | InvoiceCreateOrConnectWithoutPlanInput[]
-    createMany?: InvoiceCreateManyPlanInputEnvelope
-    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
   }
 
   export type UserSubscriptionUncheckedCreateNestedManyWithoutPlanInput = {
@@ -24098,20 +24268,6 @@ export namespace Prisma {
 
   export type EnumPlanIntervalFieldUpdateOperationsInput = {
     set?: $Enums.PlanInterval
-  }
-
-  export type InvoiceUpdateManyWithoutPlanNestedInput = {
-    create?: XOR<InvoiceCreateWithoutPlanInput, InvoiceUncheckedCreateWithoutPlanInput> | InvoiceCreateWithoutPlanInput[] | InvoiceUncheckedCreateWithoutPlanInput[]
-    connectOrCreate?: InvoiceCreateOrConnectWithoutPlanInput | InvoiceCreateOrConnectWithoutPlanInput[]
-    upsert?: InvoiceUpsertWithWhereUniqueWithoutPlanInput | InvoiceUpsertWithWhereUniqueWithoutPlanInput[]
-    createMany?: InvoiceCreateManyPlanInputEnvelope
-    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
-    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
-    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
-    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
-    update?: InvoiceUpdateWithWhereUniqueWithoutPlanInput | InvoiceUpdateWithWhereUniqueWithoutPlanInput[]
-    updateMany?: InvoiceUpdateManyWithWhereWithoutPlanInput | InvoiceUpdateManyWithWhereWithoutPlanInput[]
-    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
   }
 
   export type UserSubscriptionUpdateManyWithoutPlanNestedInput = {
@@ -24126,20 +24282,6 @@ export namespace Prisma {
     update?: UserSubscriptionUpdateWithWhereUniqueWithoutPlanInput | UserSubscriptionUpdateWithWhereUniqueWithoutPlanInput[]
     updateMany?: UserSubscriptionUpdateManyWithWhereWithoutPlanInput | UserSubscriptionUpdateManyWithWhereWithoutPlanInput[]
     deleteMany?: UserSubscriptionScalarWhereInput | UserSubscriptionScalarWhereInput[]
-  }
-
-  export type InvoiceUncheckedUpdateManyWithoutPlanNestedInput = {
-    create?: XOR<InvoiceCreateWithoutPlanInput, InvoiceUncheckedCreateWithoutPlanInput> | InvoiceCreateWithoutPlanInput[] | InvoiceUncheckedCreateWithoutPlanInput[]
-    connectOrCreate?: InvoiceCreateOrConnectWithoutPlanInput | InvoiceCreateOrConnectWithoutPlanInput[]
-    upsert?: InvoiceUpsertWithWhereUniqueWithoutPlanInput | InvoiceUpsertWithWhereUniqueWithoutPlanInput[]
-    createMany?: InvoiceCreateManyPlanInputEnvelope
-    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
-    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
-    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
-    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
-    update?: InvoiceUpdateWithWhereUniqueWithoutPlanInput | InvoiceUpdateWithWhereUniqueWithoutPlanInput[]
-    updateMany?: InvoiceUpdateManyWithWhereWithoutPlanInput | InvoiceUpdateManyWithWhereWithoutPlanInput[]
-    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
   }
 
   export type UserSubscriptionUncheckedUpdateManyWithoutPlanNestedInput = {
@@ -25024,6 +25166,7 @@ export namespace Prisma {
     institution: InstitutionCreateNestedOneWithoutSantriInput
     wali: UsersCreateNestedOneWithoutSantriInput
     transactions?: TransactionCreateNestedManyWithoutSantriInput
+    invoices?: InvoiceCreateNestedManyWithoutSantriInput
   }
 
   export type SantriUncheckedCreateWithoutAuthAccountsInput = {
@@ -25039,6 +25182,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     transactions?: TransactionUncheckedCreateNestedManyWithoutSantriInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutSantriInput
   }
 
   export type SantriCreateOrConnectWithoutAuthAccountsInput = {
@@ -25117,6 +25261,7 @@ export namespace Prisma {
     institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
     wali?: UsersUpdateOneRequiredWithoutSantriNestedInput
     transactions?: TransactionUpdateManyWithoutSantriNestedInput
+    invoices?: InvoiceUpdateManyWithoutSantriNestedInput
   }
 
   export type SantriUncheckedUpdateWithoutAuthAccountsInput = {
@@ -25132,6 +25277,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: TransactionUncheckedUpdateManyWithoutSantriNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutSantriNestedInput
   }
 
   export type UsersUpsertWithoutAuthAccountsInput = {
@@ -25254,6 +25400,42 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type InvoiceCreateWithoutCategoryInput = {
+    id?: string
+    description?: string | null
+    totalAmount: Decimal | DecimalJsLike | number | string
+    paidAmount?: Decimal | DecimalJsLike | number | string
+    status: $Enums.InvoiceStatus
+    dueDate: Date | string
+    createdAt?: Date | string
+    santri: SantriCreateNestedOneWithoutInvoicesInput
+    user: UsersCreateNestedOneWithoutInvoicesInput
+    payments?: PaymentCreateNestedManyWithoutInvoiceInput
+  }
+
+  export type InvoiceUncheckedCreateWithoutCategoryInput = {
+    id?: string
+    userId: string
+    santriId: string
+    description?: string | null
+    totalAmount: Decimal | DecimalJsLike | number | string
+    paidAmount?: Decimal | DecimalJsLike | number | string
+    status: $Enums.InvoiceStatus
+    dueDate: Date | string
+    createdAt?: Date | string
+    payments?: PaymentUncheckedCreateNestedManyWithoutInvoiceInput
+  }
+
+  export type InvoiceCreateOrConnectWithoutCategoryInput = {
+    where: InvoiceWhereUniqueInput
+    create: XOR<InvoiceCreateWithoutCategoryInput, InvoiceUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type InvoiceCreateManyCategoryInputEnvelope = {
+    data: InvoiceCreateManyCategoryInput | InvoiceCreateManyCategoryInput[]
+    skipDuplicates?: boolean
+  }
+
   export type InstitutionUpsertWithoutCategoriesInput = {
     update: XOR<InstitutionUpdateWithoutCategoriesInput, InstitutionUncheckedUpdateWithoutCategoriesInput>
     create: XOR<InstitutionCreateWithoutCategoriesInput, InstitutionUncheckedCreateWithoutCategoriesInput>
@@ -25322,6 +25504,38 @@ export namespace Prisma {
     sourceId?: StringNullableFilter<"Transaction"> | string | null
   }
 
+  export type InvoiceUpsertWithWhereUniqueWithoutCategoryInput = {
+    where: InvoiceWhereUniqueInput
+    update: XOR<InvoiceUpdateWithoutCategoryInput, InvoiceUncheckedUpdateWithoutCategoryInput>
+    create: XOR<InvoiceCreateWithoutCategoryInput, InvoiceUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type InvoiceUpdateWithWhereUniqueWithoutCategoryInput = {
+    where: InvoiceWhereUniqueInput
+    data: XOR<InvoiceUpdateWithoutCategoryInput, InvoiceUncheckedUpdateWithoutCategoryInput>
+  }
+
+  export type InvoiceUpdateManyWithWhereWithoutCategoryInput = {
+    where: InvoiceScalarWhereInput
+    data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyWithoutCategoryInput>
+  }
+
+  export type InvoiceScalarWhereInput = {
+    AND?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+    OR?: InvoiceScalarWhereInput[]
+    NOT?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+    id?: StringFilter<"Invoice"> | string
+    userId?: StringFilter<"Invoice"> | string
+    santriId?: StringFilter<"Invoice"> | string
+    categoryId?: StringFilter<"Invoice"> | string
+    description?: StringNullableFilter<"Invoice"> | string | null
+    totalAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    paidAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
+    status?: EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
+    dueDate?: DateTimeFilter<"Invoice"> | Date | string
+    createdAt?: DateTimeFilter<"Invoice"> | Date | string
+  }
+
   export type InstitutionProfileCreateWithoutInstitutionInput = {
     id?: string
     name?: string | null
@@ -25362,6 +25576,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     transactions?: TransactionCreateNestedManyWithoutCategoryInput
+    invoices?: InvoiceCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoryUncheckedCreateWithoutInstitutionInput = {
@@ -25371,6 +25586,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     transactions?: TransactionUncheckedCreateNestedManyWithoutCategoryInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoryCreateOrConnectWithoutInstitutionInput = {
@@ -25443,6 +25659,7 @@ export namespace Prisma {
     authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
     wali: UsersCreateNestedOneWithoutSantriInput
     transactions?: TransactionCreateNestedManyWithoutSantriInput
+    invoices?: InvoiceCreateNestedManyWithoutSantriInput
   }
 
   export type SantriUncheckedCreateWithoutInstitutionInput = {
@@ -25458,6 +25675,7 @@ export namespace Prisma {
     createdAt?: Date | string
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutSantriInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutSantriInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutSantriInput
   }
 
   export type SantriCreateOrConnectWithoutInstitutionInput = {
@@ -25706,31 +25924,66 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Users"> | Date | string
   }
 
-  export type SubscriptionPlanCreateWithoutInvoicesInput = {
+  export type SantriCreateWithoutInvoicesInput = {
     id?: string
-    name: string
-    price: Decimal | DecimalJsLike | number | string
-    interval: $Enums.PlanInterval
-    description?: string | null
-    createdAt?: Date | string
+    nis: string
+    fullname: string
+    kelas: string
+    gender: string
+    waliName?: string | null
+    institutionName?: string | null
     isActive?: boolean
-    userSubscriptions?: UserSubscriptionCreateNestedManyWithoutPlanInput
+    createdAt?: Date | string
+    authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
+    institution: InstitutionCreateNestedOneWithoutSantriInput
+    wali: UsersCreateNestedOneWithoutSantriInput
+    transactions?: TransactionCreateNestedManyWithoutSantriInput
   }
 
-  export type SubscriptionPlanUncheckedCreateWithoutInvoicesInput = {
+  export type SantriUncheckedCreateWithoutInvoicesInput = {
     id?: string
-    name: string
-    price: Decimal | DecimalJsLike | number | string
-    interval: $Enums.PlanInterval
-    description?: string | null
-    createdAt?: Date | string
+    nis: string
+    fullname: string
+    kelas: string
+    gender: string
+    waliId: string
+    institutionId: string
+    waliName?: string | null
+    institutionName?: string | null
     isActive?: boolean
-    userSubscriptions?: UserSubscriptionUncheckedCreateNestedManyWithoutPlanInput
+    createdAt?: Date | string
+    authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutSantriInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutSantriInput
   }
 
-  export type SubscriptionPlanCreateOrConnectWithoutInvoicesInput = {
-    where: SubscriptionPlanWhereUniqueInput
-    create: XOR<SubscriptionPlanCreateWithoutInvoicesInput, SubscriptionPlanUncheckedCreateWithoutInvoicesInput>
+  export type SantriCreateOrConnectWithoutInvoicesInput = {
+    where: SantriWhereUniqueInput
+    create: XOR<SantriCreateWithoutInvoicesInput, SantriUncheckedCreateWithoutInvoicesInput>
+  }
+
+  export type CategoryCreateWithoutInvoicesInput = {
+    id?: string
+    name: string
+    type: $Enums.category_type
+    isActive?: boolean
+    createdAt?: Date | string
+    institution: InstitutionCreateNestedOneWithoutCategoriesInput
+    transactions?: TransactionCreateNestedManyWithoutCategoryInput
+  }
+
+  export type CategoryUncheckedCreateWithoutInvoicesInput = {
+    id?: string
+    name: string
+    type: $Enums.category_type
+    institutionId: string
+    isActive?: boolean
+    createdAt?: Date | string
+    transactions?: TransactionUncheckedCreateNestedManyWithoutCategoryInput
+  }
+
+  export type CategoryCreateOrConnectWithoutInvoicesInput = {
+    where: CategoryWhereUniqueInput
+    create: XOR<CategoryCreateWithoutInvoicesInput, CategoryUncheckedCreateWithoutInvoicesInput>
   }
 
   export type UsersCreateWithoutInvoicesInput = {
@@ -25810,37 +26063,78 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type SubscriptionPlanUpsertWithoutInvoicesInput = {
-    update: XOR<SubscriptionPlanUpdateWithoutInvoicesInput, SubscriptionPlanUncheckedUpdateWithoutInvoicesInput>
-    create: XOR<SubscriptionPlanCreateWithoutInvoicesInput, SubscriptionPlanUncheckedCreateWithoutInvoicesInput>
-    where?: SubscriptionPlanWhereInput
+  export type SantriUpsertWithoutInvoicesInput = {
+    update: XOR<SantriUpdateWithoutInvoicesInput, SantriUncheckedUpdateWithoutInvoicesInput>
+    create: XOR<SantriCreateWithoutInvoicesInput, SantriUncheckedCreateWithoutInvoicesInput>
+    where?: SantriWhereInput
   }
 
-  export type SubscriptionPlanUpdateToOneWithWhereWithoutInvoicesInput = {
-    where?: SubscriptionPlanWhereInput
-    data: XOR<SubscriptionPlanUpdateWithoutInvoicesInput, SubscriptionPlanUncheckedUpdateWithoutInvoicesInput>
+  export type SantriUpdateToOneWithWhereWithoutInvoicesInput = {
+    where?: SantriWhereInput
+    data: XOR<SantriUpdateWithoutInvoicesInput, SantriUncheckedUpdateWithoutInvoicesInput>
   }
 
-  export type SubscriptionPlanUpdateWithoutInvoicesInput = {
+  export type SantriUpdateWithoutInvoicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nis?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
+    institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
+    wali?: UsersUpdateOneRequiredWithoutSantriNestedInput
+    transactions?: TransactionUpdateManyWithoutSantriNestedInput
+  }
+
+  export type SantriUncheckedUpdateWithoutInvoicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nis?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    kelas?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    waliId?: StringFieldUpdateOperationsInput | string
+    institutionId?: StringFieldUpdateOperationsInput | string
+    waliName?: NullableStringFieldUpdateOperationsInput | string | null
+    institutionName?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authAccounts?: AuthAccountUncheckedUpdateManyWithoutSantriNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutSantriNestedInput
+  }
+
+  export type CategoryUpsertWithoutInvoicesInput = {
+    update: XOR<CategoryUpdateWithoutInvoicesInput, CategoryUncheckedUpdateWithoutInvoicesInput>
+    create: XOR<CategoryCreateWithoutInvoicesInput, CategoryUncheckedCreateWithoutInvoicesInput>
+    where?: CategoryWhereInput
+  }
+
+  export type CategoryUpdateToOneWithWhereWithoutInvoicesInput = {
+    where?: CategoryWhereInput
+    data: XOR<CategoryUpdateWithoutInvoicesInput, CategoryUncheckedUpdateWithoutInvoicesInput>
+  }
+
+  export type CategoryUpdateWithoutInvoicesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    interval?: EnumPlanIntervalFieldUpdateOperationsInput | $Enums.PlanInterval
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    userSubscriptions?: UserSubscriptionUpdateManyWithoutPlanNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    institution?: InstitutionUpdateOneRequiredWithoutCategoriesNestedInput
+    transactions?: TransactionUpdateManyWithoutCategoryNestedInput
   }
 
-  export type SubscriptionPlanUncheckedUpdateWithoutInvoicesInput = {
+  export type CategoryUncheckedUpdateWithoutInvoicesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    interval?: EnumPlanIntervalFieldUpdateOperationsInput | $Enums.PlanInterval
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
+    institutionId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    userSubscriptions?: UserSubscriptionUncheckedUpdateManyWithoutPlanNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type UsersUpsertWithoutInvoicesInput = {
@@ -26128,19 +26422,23 @@ export namespace Prisma {
 
   export type InvoiceCreateWithoutPaymentsInput = {
     id?: string
+    description?: string | null
     totalAmount: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     status: $Enums.InvoiceStatus
     dueDate: Date | string
     createdAt?: Date | string
-    plan?: SubscriptionPlanCreateNestedOneWithoutInvoicesInput
+    santri: SantriCreateNestedOneWithoutInvoicesInput
+    category: CategoryCreateNestedOneWithoutInvoicesInput
     user: UsersCreateNestedOneWithoutInvoicesInput
   }
 
   export type InvoiceUncheckedCreateWithoutPaymentsInput = {
     id?: string
     userId: string
-    planId?: string | null
+    santriId: string
+    categoryId: string
+    description?: string | null
     totalAmount: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     status: $Enums.InvoiceStatus
@@ -26166,19 +26464,23 @@ export namespace Prisma {
 
   export type InvoiceUpdateWithoutPaymentsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    plan?: SubscriptionPlanUpdateOneWithoutInvoicesNestedInput
+    santri?: SantriUpdateOneRequiredWithoutInvoicesNestedInput
+    category?: CategoryUpdateOneRequiredWithoutInvoicesNestedInput
     user?: UsersUpdateOneRequiredWithoutInvoicesNestedInput
   }
 
   export type InvoiceUncheckedUpdateWithoutPaymentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    planId?: NullableStringFieldUpdateOperationsInput | string | null
+    santriId?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
@@ -26490,6 +26792,42 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type InvoiceCreateWithoutSantriInput = {
+    id?: string
+    description?: string | null
+    totalAmount: Decimal | DecimalJsLike | number | string
+    paidAmount?: Decimal | DecimalJsLike | number | string
+    status: $Enums.InvoiceStatus
+    dueDate: Date | string
+    createdAt?: Date | string
+    category: CategoryCreateNestedOneWithoutInvoicesInput
+    user: UsersCreateNestedOneWithoutInvoicesInput
+    payments?: PaymentCreateNestedManyWithoutInvoiceInput
+  }
+
+  export type InvoiceUncheckedCreateWithoutSantriInput = {
+    id?: string
+    userId: string
+    categoryId: string
+    description?: string | null
+    totalAmount: Decimal | DecimalJsLike | number | string
+    paidAmount?: Decimal | DecimalJsLike | number | string
+    status: $Enums.InvoiceStatus
+    dueDate: Date | string
+    createdAt?: Date | string
+    payments?: PaymentUncheckedCreateNestedManyWithoutInvoiceInput
+  }
+
+  export type InvoiceCreateOrConnectWithoutSantriInput = {
+    where: InvoiceWhereUniqueInput
+    create: XOR<InvoiceCreateWithoutSantriInput, InvoiceUncheckedCreateWithoutSantriInput>
+  }
+
+  export type InvoiceCreateManySantriInputEnvelope = {
+    data: InvoiceCreateManySantriInput | InvoiceCreateManySantriInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AuthAccountUpsertWithWhereUniqueWithoutSantriInput = {
     where: AuthAccountWhereUniqueInput
     update: XOR<AuthAccountUpdateWithoutSantriInput, AuthAccountUncheckedUpdateWithoutSantriInput>
@@ -26622,36 +26960,20 @@ export namespace Prisma {
     data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutSantriInput>
   }
 
-  export type InvoiceCreateWithoutPlanInput = {
-    id?: string
-    totalAmount: Decimal | DecimalJsLike | number | string
-    paidAmount?: Decimal | DecimalJsLike | number | string
-    status: $Enums.InvoiceStatus
-    dueDate: Date | string
-    createdAt?: Date | string
-    user: UsersCreateNestedOneWithoutInvoicesInput
-    payments?: PaymentCreateNestedManyWithoutInvoiceInput
-  }
-
-  export type InvoiceUncheckedCreateWithoutPlanInput = {
-    id?: string
-    userId: string
-    totalAmount: Decimal | DecimalJsLike | number | string
-    paidAmount?: Decimal | DecimalJsLike | number | string
-    status: $Enums.InvoiceStatus
-    dueDate: Date | string
-    createdAt?: Date | string
-    payments?: PaymentUncheckedCreateNestedManyWithoutInvoiceInput
-  }
-
-  export type InvoiceCreateOrConnectWithoutPlanInput = {
+  export type InvoiceUpsertWithWhereUniqueWithoutSantriInput = {
     where: InvoiceWhereUniqueInput
-    create: XOR<InvoiceCreateWithoutPlanInput, InvoiceUncheckedCreateWithoutPlanInput>
+    update: XOR<InvoiceUpdateWithoutSantriInput, InvoiceUncheckedUpdateWithoutSantriInput>
+    create: XOR<InvoiceCreateWithoutSantriInput, InvoiceUncheckedCreateWithoutSantriInput>
   }
 
-  export type InvoiceCreateManyPlanInputEnvelope = {
-    data: InvoiceCreateManyPlanInput | InvoiceCreateManyPlanInput[]
-    skipDuplicates?: boolean
+  export type InvoiceUpdateWithWhereUniqueWithoutSantriInput = {
+    where: InvoiceWhereUniqueInput
+    data: XOR<InvoiceUpdateWithoutSantriInput, InvoiceUncheckedUpdateWithoutSantriInput>
+  }
+
+  export type InvoiceUpdateManyWithWhereWithoutSantriInput = {
+    where: InvoiceScalarWhereInput
+    data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyWithoutSantriInput>
   }
 
   export type UserSubscriptionCreateWithoutPlanInput = {
@@ -26682,36 +27004,6 @@ export namespace Prisma {
   export type UserSubscriptionCreateManyPlanInputEnvelope = {
     data: UserSubscriptionCreateManyPlanInput | UserSubscriptionCreateManyPlanInput[]
     skipDuplicates?: boolean
-  }
-
-  export type InvoiceUpsertWithWhereUniqueWithoutPlanInput = {
-    where: InvoiceWhereUniqueInput
-    update: XOR<InvoiceUpdateWithoutPlanInput, InvoiceUncheckedUpdateWithoutPlanInput>
-    create: XOR<InvoiceCreateWithoutPlanInput, InvoiceUncheckedCreateWithoutPlanInput>
-  }
-
-  export type InvoiceUpdateWithWhereUniqueWithoutPlanInput = {
-    where: InvoiceWhereUniqueInput
-    data: XOR<InvoiceUpdateWithoutPlanInput, InvoiceUncheckedUpdateWithoutPlanInput>
-  }
-
-  export type InvoiceUpdateManyWithWhereWithoutPlanInput = {
-    where: InvoiceScalarWhereInput
-    data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyWithoutPlanInput>
-  }
-
-  export type InvoiceScalarWhereInput = {
-    AND?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
-    OR?: InvoiceScalarWhereInput[]
-    NOT?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
-    id?: StringFilter<"Invoice"> | string
-    userId?: StringFilter<"Invoice"> | string
-    planId?: StringNullableFilter<"Invoice"> | string | null
-    totalAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
-    paidAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
-    status?: EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
-    dueDate?: DateTimeFilter<"Invoice"> | Date | string
-    createdAt?: DateTimeFilter<"Invoice"> | Date | string
   }
 
   export type UserSubscriptionUpsertWithWhereUniqueWithoutPlanInput = {
@@ -26751,6 +27043,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     institution: InstitutionCreateNestedOneWithoutCategoriesInput
+    invoices?: InvoiceCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoryUncheckedCreateWithoutTransactionsInput = {
@@ -26760,6 +27053,7 @@ export namespace Prisma {
     institutionId: string
     isActive?: boolean
     createdAt?: Date | string
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoryCreateOrConnectWithoutTransactionsInput = {
@@ -26827,6 +27121,7 @@ export namespace Prisma {
     authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
     institution: InstitutionCreateNestedOneWithoutSantriInput
     wali: UsersCreateNestedOneWithoutSantriInput
+    invoices?: InvoiceCreateNestedManyWithoutSantriInput
   }
 
   export type SantriUncheckedCreateWithoutTransactionsInput = {
@@ -26842,6 +27137,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutSantriInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutSantriInput
   }
 
   export type SantriCreateOrConnectWithoutTransactionsInput = {
@@ -26867,6 +27163,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     institution?: InstitutionUpdateOneRequiredWithoutCategoriesNestedInput
+    invoices?: InvoiceUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoryUncheckedUpdateWithoutTransactionsInput = {
@@ -26876,6 +27173,7 @@ export namespace Prisma {
     institutionId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoices?: InvoiceUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type UsersUpsertWithoutTransactionsInput = {
@@ -26955,6 +27253,7 @@ export namespace Prisma {
     authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
     institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
     wali?: UsersUpdateOneRequiredWithoutSantriNestedInput
+    invoices?: InvoiceUpdateManyWithoutSantriNestedInput
   }
 
   export type SantriUncheckedUpdateWithoutTransactionsInput = {
@@ -26970,6 +27269,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutSantriNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutSantriNestedInput
   }
 
   export type AuthAccountCreateWithoutUserInput = {
@@ -27062,18 +27362,22 @@ export namespace Prisma {
 
   export type InvoiceCreateWithoutUserInput = {
     id?: string
+    description?: string | null
     totalAmount: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     status: $Enums.InvoiceStatus
     dueDate: Date | string
     createdAt?: Date | string
-    plan?: SubscriptionPlanCreateNestedOneWithoutInvoicesInput
+    santri: SantriCreateNestedOneWithoutInvoicesInput
+    category: CategoryCreateNestedOneWithoutInvoicesInput
     payments?: PaymentCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceUncheckedCreateWithoutUserInput = {
     id?: string
-    planId?: string | null
+    santriId: string
+    categoryId: string
+    description?: string | null
     totalAmount: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     status: $Enums.InvoiceStatus
@@ -27184,6 +27488,7 @@ export namespace Prisma {
     authAccounts?: AuthAccountCreateNestedManyWithoutSantriInput
     institution: InstitutionCreateNestedOneWithoutSantriInput
     transactions?: TransactionCreateNestedManyWithoutSantriInput
+    invoices?: InvoiceCreateNestedManyWithoutSantriInput
   }
 
   export type SantriUncheckedCreateWithoutWaliInput = {
@@ -27199,6 +27504,7 @@ export namespace Prisma {
     createdAt?: Date | string
     authAccounts?: AuthAccountUncheckedCreateNestedManyWithoutSantriInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutSantriInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutSantriInput
   }
 
   export type SantriCreateOrConnectWithoutWaliInput = {
@@ -27573,7 +27879,6 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     isActive?: boolean
-    invoices?: InvoiceCreateNestedManyWithoutPlanInput
   }
 
   export type SubscriptionPlanUncheckedCreateWithoutUserSubscriptionsInput = {
@@ -27584,7 +27889,6 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     isActive?: boolean
-    invoices?: InvoiceUncheckedCreateNestedManyWithoutPlanInput
   }
 
   export type SubscriptionPlanCreateOrConnectWithoutUserSubscriptionsInput = {
@@ -27658,7 +27962,6 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    invoices?: InvoiceUpdateManyWithoutPlanNestedInput
   }
 
   export type SubscriptionPlanUncheckedUpdateWithoutUserSubscriptionsInput = {
@@ -27669,7 +27972,6 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    invoices?: InvoiceUncheckedUpdateManyWithoutPlanNestedInput
   }
 
   export type UsersUpsertWithoutUserSubscriptionsInput = {
@@ -27740,6 +28042,18 @@ export namespace Prisma {
     sourceId?: string | null
   }
 
+  export type InvoiceCreateManyCategoryInput = {
+    id?: string
+    userId: string
+    santriId: string
+    description?: string | null
+    totalAmount: Decimal | DecimalJsLike | number | string
+    paidAmount?: Decimal | DecimalJsLike | number | string
+    status: $Enums.InvoiceStatus
+    dueDate: Date | string
+    createdAt?: Date | string
+  }
+
   export type TransactionUpdateWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: Enumcategory_typeFieldUpdateOperationsInput | $Enums.category_type
@@ -27785,6 +28099,44 @@ export namespace Prisma {
     sourceId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type InvoiceUpdateWithoutCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    santri?: SantriUpdateOneRequiredWithoutInvoicesNestedInput
+    user?: UsersUpdateOneRequiredWithoutInvoicesNestedInput
+    payments?: PaymentUpdateManyWithoutInvoiceNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateWithoutCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    santriId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payments?: PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateManyWithoutCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    santriId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CategoryCreateManyInstitutionInput = {
     id?: string
     name: string
@@ -27824,6 +28176,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: TransactionUpdateManyWithoutCategoryNestedInput
+    invoices?: InvoiceUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoryUncheckedUpdateWithoutInstitutionInput = {
@@ -27833,6 +28186,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: TransactionUncheckedUpdateManyWithoutCategoryNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoryUncheckedUpdateManyWithoutInstitutionInput = {
@@ -27856,6 +28210,7 @@ export namespace Prisma {
     authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
     wali?: UsersUpdateOneRequiredWithoutSantriNestedInput
     transactions?: TransactionUpdateManyWithoutSantriNestedInput
+    invoices?: InvoiceUpdateManyWithoutSantriNestedInput
   }
 
   export type SantriUncheckedUpdateWithoutInstitutionInput = {
@@ -27871,6 +28226,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutSantriNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutSantriNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutSantriNestedInput
   }
 
   export type SantriUncheckedUpdateManyWithoutInstitutionInput = {
@@ -28004,6 +28360,18 @@ export namespace Prisma {
     sourceId?: string | null
   }
 
+  export type InvoiceCreateManySantriInput = {
+    id?: string
+    userId: string
+    categoryId: string
+    description?: string | null
+    totalAmount: Decimal | DecimalJsLike | number | string
+    paidAmount?: Decimal | DecimalJsLike | number | string
+    status: $Enums.InvoiceStatus
+    dueDate: Date | string
+    createdAt?: Date | string
+  }
+
   export type AuthAccountUpdateWithoutSantriInput = {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
@@ -28079,14 +28447,42 @@ export namespace Prisma {
     sourceId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type InvoiceCreateManyPlanInput = {
-    id?: string
-    userId: string
-    totalAmount: Decimal | DecimalJsLike | number | string
-    paidAmount?: Decimal | DecimalJsLike | number | string
-    status: $Enums.InvoiceStatus
-    dueDate: Date | string
-    createdAt?: Date | string
+  export type InvoiceUpdateWithoutSantriInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: CategoryUpdateOneRequiredWithoutInvoicesNestedInput
+    user?: UsersUpdateOneRequiredWithoutInvoicesNestedInput
+    payments?: PaymentUpdateManyWithoutInvoiceNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateWithoutSantriInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payments?: PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateManyWithoutSantriInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserSubscriptionCreateManyPlanInput = {
@@ -28097,38 +28493,6 @@ export namespace Prisma {
     endAt: Date | string
     isActive: boolean
     createdAt?: Date | string
-  }
-
-  export type InvoiceUpdateWithoutPlanInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
-    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UsersUpdateOneRequiredWithoutInvoicesNestedInput
-    payments?: PaymentUpdateManyWithoutInvoiceNestedInput
-  }
-
-  export type InvoiceUncheckedUpdateWithoutPlanInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
-    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    payments?: PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
-  }
-
-  export type InvoiceUncheckedUpdateManyWithoutPlanInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
-    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserSubscriptionUpdateWithoutPlanInput = {
@@ -28188,7 +28552,9 @@ export namespace Prisma {
 
   export type InvoiceCreateManyUserInput = {
     id?: string
-    planId?: string | null
+    santriId: string
+    categoryId: string
+    description?: string | null
     totalAmount: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     status: $Enums.InvoiceStatus
@@ -28335,18 +28701,22 @@ export namespace Prisma {
 
   export type InvoiceUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    plan?: SubscriptionPlanUpdateOneWithoutInvoicesNestedInput
+    santri?: SantriUpdateOneRequiredWithoutInvoicesNestedInput
+    category?: CategoryUpdateOneRequiredWithoutInvoicesNestedInput
     payments?: PaymentUpdateManyWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    planId?: NullableStringFieldUpdateOperationsInput | string | null
+    santriId?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
@@ -28357,7 +28727,9 @@ export namespace Prisma {
 
   export type InvoiceUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    planId?: NullableStringFieldUpdateOperationsInput | string | null
+    santriId?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
@@ -28426,6 +28798,7 @@ export namespace Prisma {
     authAccounts?: AuthAccountUpdateManyWithoutSantriNestedInput
     institution?: InstitutionUpdateOneRequiredWithoutSantriNestedInput
     transactions?: TransactionUpdateManyWithoutSantriNestedInput
+    invoices?: InvoiceUpdateManyWithoutSantriNestedInput
   }
 
   export type SantriUncheckedUpdateWithoutWaliInput = {
@@ -28441,6 +28814,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authAccounts?: AuthAccountUncheckedUpdateManyWithoutSantriNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutSantriNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutSantriNestedInput
   }
 
   export type SantriUncheckedUpdateManyWithoutWaliInput = {

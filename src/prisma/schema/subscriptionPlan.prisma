@@ -5,10 +5,9 @@ model SubscriptionPlan {
   interval          PlanInterval
   description       String?
   createdAt         DateTime           @default(now())
-  invoices          Invoice[]
   userSubscriptions UserSubscription[]
 
-  isActive    Boolean  @default(true) 
+  isActive Boolean @default(true)
 
   @@map("subscription_plan")
 }

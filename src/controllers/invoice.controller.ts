@@ -7,12 +7,15 @@ export class InvoiceController {
     constructor(private invoiceService: InvoiceService) { }
 
     createInvoice = async (req: Request, res: Response) => {
-        const { planId } = req.body;
+        const { santriId, categoryId, amount, description } = req.body;
         const userId = req.user!.id;
 
         const invoice = await this.invoiceService.createInvoice({
             userId,
-            planId,
+            santriId,
+            categoryId,
+            amount,
+            description,
         });
 
         successResponse(res, "Invoice created successfully", invoice);
