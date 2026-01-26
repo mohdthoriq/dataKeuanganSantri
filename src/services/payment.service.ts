@@ -3,6 +3,7 @@ import midtransRepository from "../repository/midtrans.repository";
 import type { PaymentRepository } from "../repository/payment.repository";
 import { mapMidtransStatus, verifyMidtransSignature } from "../utils/midTrans";
 import type { UserSubscriptionService } from "./usersubscription.service";
+import { NotificationUtil } from "../utils/notification.util";
 
 
 export class PaymentService {
@@ -51,8 +52,6 @@ export class PaymentService {
             gross_amount: payload.gross_amount,
             signature_key: payload.signature_key,
         });
-        
-        console.log("IS VALID:", isValid);
 
         if (!isValid) {
             throw new Error("Invalid Midtrans signature");
@@ -97,6 +96,11 @@ export class PaymentService {
             await this.userSubService.activateSubscription({
                 userId: invoice.userId,
                 planId: invoice.planId!,
+            });
+
+            // Notify User
+            NotificationUtil.notifyPaymentSuccess(invoice.userId, Number(payload.gross_amount), invoice.id).catch(err => {
+                console.error("Failed to send payment success notification:", err);
             });
         }
 

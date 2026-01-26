@@ -23,19 +23,31 @@ export class AuthService {
       password,
       institution,
     });
-
-    const otpCode = result.data.otpCode;
-
-    // Selalu kirim email jika ada otpCode
+  // Selalu kirim email jika ada otpCode
     if (result.data.otpCode) {
+      const styledHtml = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e1e1e1; border-radius: 8px; overflow: hidden;">
+          <div style="background-color: #3b82f6; color: white; padding: 20px; text-align: center;">
+            <h2 style="margin: 0;">Verifikasi Akun Admin</h2>
+          </div>
+          <div style="padding: 30px; background-color: #ffffff; text-align: center;">
+            <p style="font-size: 16px; color: #333;">Halo <strong>${username}</strong>,</p>
+            <p style="font-size: 16px; color: #333;">Selamat datang! Gunakan kode OTP di bawah ini untuk memverifikasi akun Admin Anda:</p>
+            <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0; display: inline-block;">
+              <h1 style="margin: 0; font-size: 36px; letter-spacing: 5px; color: #1f2937;">${result.data.otpCode}</h1>
+            </div>
+            <p style="font-size: 14px; color: #6b7280;">Kode ini berlaku selama 10 menit. Jangan berikan kode ini kepada siapapun.</p>
+          </div>
+          <div style="background-color: #f9fafb; padding: 15px; text-align: center; font-size: 12px; color: #9ca3af; border-top: 1px solid #e1e1e1;">
+            <p>&copy; ${new Date().getFullYear()} Aplikasi Keuangan Santri</p>
+          </div>
+        </div>
+      `;
+
       await sendEmail({
         to: result.data.email,
-        subject: "OTP Verification",
-        html: `
-          <h2>OTP Verification</h2>
-          <h1>${result.data.otpCode}</h1>
-          <p>Berlaku 10 menit</p>
-        `,
+        subject: "Kode Verifikasi OTP Admin",
+        html: styledHtml,
       });
     }
 
@@ -62,14 +74,29 @@ export class AuthService {
     const result = await this.authRepo.requestReset(email);
 
     if (result.success && result.otpCode) {
+      const styledHtml = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e1e1e1; border-radius: 8px; overflow: hidden;">
+          <div style="background-color: #f59e0b; color: white; padding: 20px; text-align: center;">
+            <h2 style="margin: 0;">Reset Password</h2>
+          </div>
+          <div style="padding: 30px; background-color: #ffffff; text-align: center;">
+            <p style="font-size: 16px; color: #333;">Halo,</p>
+            <p style="font-size: 16px; color: #333;">Kami menerima permintaan untuk mereset password akun Anda. Gunakan kode OTP berikut:</p>
+            <div style="background-color: #fff7ed; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #fdba74; display: inline-block;">
+              <h1 style="margin: 0; font-size: 36px; letter-spacing: 5px; color: #9a3412;">${result.otpCode}</h1>
+            </div>
+            <p style="font-size: 14px; color: #6b7280;">Kode ini berlaku selama 10 menit. Jika Anda tidak merasa melakukan permintaan ini, silakan abaikan email ini.</p>
+          </div>
+          <div style="background-color: #f9fafb; padding: 15px; text-align: center; font-size: 12px; color: #9ca3af; border-top: 1px solid #e1e1e1;">
+            <p>&copy; ${new Date().getFullYear()} Aplikasi Keuangan Santri</p>
+          </div>
+        </div>
+      `;
+
       await sendEmail({
         to: email,
-        subject: "Reset Password OTP",
-        html: `
-          <h2>Reset Password</h2>
-          <h1>${result.otpCode}</h1>
-          <p>Berlaku 10 menit</p>
-        `,
+        subject: "Kode OTP Reset Password",
+        html: styledHtml,
       });
     }
 
