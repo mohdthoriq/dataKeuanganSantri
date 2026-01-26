@@ -32,6 +32,11 @@ class MidtransRepository {
         first_name: payload.name ?? 'User',
         email: payload.email ?? 'user@mail.com',
       },
+      callback: {
+        success_url: 'http://localhost:3000/payment/success',
+        fail_url: 'http://localhost:3000/payment/fail',
+        pending_url: 'http://localhost:3000/payment/pending',
+      },
     };
 
     const transaction = await this.snap.createTransaction(parameter);

@@ -51,6 +51,8 @@ export class PaymentService {
             gross_amount: payload.gross_amount,
             signature_key: payload.signature_key,
         });
+        
+        console.log("IS VALID:", isValid);
 
         if (!isValid) {
             throw new Error("Invalid Midtrans signature");
