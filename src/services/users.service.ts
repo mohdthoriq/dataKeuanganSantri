@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import type { IUserRepository, ICreateUserPayload, IUpdateUserPayload, IUserListParams } from "../repository/users.repository";
+import { NotificationUtil } from "../utils/notification.util";
 
 export class UserService {
   constructor(private userRepo: IUserRepository) { }
@@ -14,7 +15,16 @@ export class UserService {
 
   async create(payload: ICreateUserPayload, admin: { institutionId: string }) {
     // hashing is handled in repository
-    return this.userRepo.create(payload, admin);
+    const user = await this.userRepo.create(payload, admin);
+
+    if (payload.role === 'WALI_SANTRI') {
+      NotificationUtil.notifyAdminWaliCreated(user.email!, user.username!, admin.institutionId).catch(err => {
+        console.error("Failed to send wali creation notification:", err);
+        throw new Error("Failed to send wali creation notification");
+      });
+    }
+
+    return user;
   }
 
   async update(id: string, payload: IUpdateUserPayload) {

@@ -2,6 +2,7 @@
 import type { Santri } from "../database";
 import type { SantriRepository, ICreateSantriPayload } from "../repository/santri.repository";
 import type { IPaginatedResult } from "../types/common";
+import { NotificationUtil } from "../utils/notification.util";
 
 export class SantriService {
   constructor(private santriRepo: SantriRepository) { }
@@ -26,10 +27,17 @@ export class SantriService {
       throw new Error("Invalid gender value");
     }
 
-    return this.santriRepo.create({
+    const santri = await this.santriRepo.create({
       ...payload,
       isActive: true
     });
+
+    // Notify Admin
+    NotificationUtil.notifyAdminSantriCreated(santri.fullname, santri.nis, institutionId).catch(err => {
+      console.error("Failed to send santri creation notification:", err);
+    });
+
+    return santri;
   }
 
 
@@ -56,7 +64,15 @@ export class SantriService {
   }
 
   async updateSantri(id: string, institutionId: string, data: Partial<ICreateSantriPayload>): Promise<Santri> {
-    return this.santriRepo.update(id, institutionId, data);
+    const updated = await this.santriRepo.update(id, institutionId, data);
+
+    // Notify Admin & Wali
+    NotificationUtil.notifySantriUpdated(updated.id, institutionId).catch(err => {
+      console.error("Failed to send santri update notification:", err);
+      throw new Error("Failed to send santri update notification");
+    });
+
+    return updated;
   }
 
   async deleteSantri(id: string, institutionId: string): Promise<boolean> {

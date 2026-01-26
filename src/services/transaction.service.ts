@@ -1,12 +1,21 @@
 // src/services/transaction.service.ts
 import type { Transaction } from "../database";
 import type { ITransactionRepository, ICreateTransactionPayload, ITransactionListParams } from "../repository/transaction.repository";
+import { NotificationUtil } from "../utils/notification.util";
 
 export class TransactionService {
   constructor(private transactionRepo: ITransactionRepository) { }
 
-  createTransaction(payload: ICreateTransactionPayload): Promise<Transaction> {
-    return this.transactionRepo.create(payload);
+  async createTransaction(payload: ICreateTransactionPayload): Promise<Transaction> {
+    const transaction = await this.transactionRepo.create(payload);
+
+    // Notify Admin & Wali
+    NotificationUtil.notifyTransactionCreated(transaction.id).catch(err => {
+      console.error("Failed to send transaction notification:", err);
+      throw new Error("Failed to send transaction notification");
+    });
+
+    return transaction;
   }
 
   getTransactions(params: ITransactionListParams) {
