@@ -4,6 +4,7 @@ import { TransactionRepository } from "../repository/transaction.repository";
 import { TransactionService } from "../services/transaction.service";
 import { TransactionController } from "../controllers/transaction.controller";
 import { InvoiceRepository } from "../repository/invoice.repository";
+import { SantriRepository } from "../repository/santri.repository";
 import { InvoiceService } from "../services/invoice.service";
 import { validate } from "../utils/validator";
 import { createTransactionValidation, getTransactionsValidation, transactionIdValidation, updateTransactionValidation } from "../validations/transaction.validation";
@@ -13,7 +14,8 @@ const router = Router();
 const repo = new TransactionRepository(PrismaInstance)
 const service = new TransactionService(repo)
 const invoiceRepo = new InvoiceRepository(PrismaInstance)
-const invoiceService = new InvoiceService(invoiceRepo)
+const santriRepo = new SantriRepository(PrismaInstance)
+const invoiceService = new InvoiceService(invoiceRepo, santriRepo)
 const controller = new TransactionController(service, invoiceService)
 
 /**

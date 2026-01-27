@@ -3,7 +3,7 @@ import type { Prisma, PrismaClient } from "../database";
 
 
 export class InvoiceRepository {
-  constructor(private prisma: PrismaClient) {}
+  constructor(private prisma: PrismaClient) { }
 
   create(data: Prisma.InvoiceCreateInput) {
     return this.prisma.invoice.create({ data });
@@ -12,6 +12,14 @@ export class InvoiceRepository {
   findByUser(userId: string) {
     return this.prisma.invoice.findMany({
       where: { userId },
+    });
+  }
+
+  findBySantriIds(santriIds: string[]) {
+    return this.prisma.invoice.findMany({
+      where: {
+        santriId: { in: santriIds },
+      },
     });
   }
 
@@ -31,7 +39,7 @@ export class InvoiceRepository {
     });
   }
 
-    update(id: string, data: Prisma.InvoiceUncheckedUpdateInput) {
+  update(id: string, data: Prisma.InvoiceUncheckedUpdateInput) {
     return this.prisma.invoice.update({
       where: { id },
       data,

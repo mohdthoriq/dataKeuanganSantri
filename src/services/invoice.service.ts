@@ -1,9 +1,12 @@
-// invoice.service.ts
 import type { InvoiceRepository } from "../repository/invoice.repository";
-import type { Prisma } from "../database"
+import type { SantriRepository } from "../repository/santri.repository";
+import type { Prisma, Users } from "../database"
 
 export class InvoiceService {
-  constructor(private invoiceRepo: InvoiceRepository) { }
+  constructor(
+    private invoiceRepo: InvoiceRepository,
+    private santriRepo: SantriRepository
+  ) { }
 
   async createInvoice(payload: {
     userId: string;
@@ -36,8 +39,17 @@ export class InvoiceService {
   }
 
 
-  async getUserInvoices(userId: string) {
-    return this.invoiceRepo.findByUser(userId);
+  async getUserInvoices(user: { id: string; role: string }) {
+    if (user.role === 'WALI_SANTRI') {
+      const santriList = await this.santriRepo.getByWali(user.id);
+      const santriIds = santriList.map(s => s.id);
+
+      if (santriIds.length === 0) return [];
+
+      return this.invoiceRepo.findBySantriIds(santriIds);
+    }
+
+    return this.invoiceRepo.findByUser(user.id);
   }
 
   async getInvoiceDetail(invoiceId: string, userId: string) {

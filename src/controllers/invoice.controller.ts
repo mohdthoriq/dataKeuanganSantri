@@ -22,9 +22,9 @@ export class InvoiceController {
     };
 
     getMyInvoices = async (req: Request, res: Response) => {
-        const userId = req.user!.id;
+        const user = req.user!;
 
-        const invoices = await this.invoiceService.getUserInvoices(userId);
+        const invoices = await this.invoiceService.getUserInvoices(user);
 
         successResponse(res, "Invoices retrieved successfully", invoices);
     };
