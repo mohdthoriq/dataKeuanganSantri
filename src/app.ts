@@ -52,10 +52,10 @@ app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 
 app.get('/', (_req: Request, res: Response) => {
-    successResponse(
-        res,
-        "Selamat datang di API E-Commerce!"
-    )
+  successResponse(
+    res,
+    "Selamat datang di API E-Commerce!"
+  )
 })
 
 app.use('/api/auth', authRouter)
@@ -68,14 +68,14 @@ app.use('/api/santri', authenticate, santriRouter)
 app.use('/api/transaction', authenticate, transactionRouter)
 app.use('/api/subscription-plan', authenticate, subscriptionPlanRouter)
 app.use('/api/invoice', authenticate, invoiceRouter)
-app.use('api/subscription', authenticate, subscriptionRouter)
+app.use('/api/subscription', authenticate, subscriptionRouter)
 app.use('/api/payment', paymentRouter)
 app.use('/api/category', authenticate, categoryRouter)
 app.use('/api/notification', authenticate, notificationRouter)
 
 
 app.get(/.*/, (req: Request, res: Response) => {
-    throw new Error(`Route ${req.originalUrl} tidak ada di API E-Commerce`);
+  throw new Error(`Route ${req.originalUrl} tidak ada di API E-Commerce`);
 })
 
 app.use(errorHandler)

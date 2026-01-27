@@ -19,14 +19,14 @@ export class InvoiceService {
       santri: {
         connect: { id: payload.santriId },
       },
-      totalAmount: payload.amount,
+      totalAmount: Number(payload.amount),
       paidAmount: 0,
       status: "UNPAID",
       dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       description: payload.description ?? null,
     };
 
-    if (payload.categoryId) {
+    if (payload.categoryId && typeof payload.categoryId === 'string' && payload.categoryId.trim() !== '') {
       data.category = {
         connect: { id: payload.categoryId },
       };
