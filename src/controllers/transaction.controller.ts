@@ -2,6 +2,7 @@
 import type { Request, Response } from "express";
 import { successResponse } from "../utils/response";
 import type { TransactionService } from "../services/transaction.service";
+import type { InvoiceService } from "../services/invoice.service";
 import type { ITransactionListParams } from "../repository/transaction.repository";
 import type { Decimal } from "../generated/runtime/client";
 
@@ -16,16 +17,30 @@ export interface ICreateTransactionPayload {
 
 
 export class TransactionController {
-    constructor(private transactionService: TransactionService) { }
+    constructor(
+        private transactionService: TransactionService,
+        private invoiceService: InvoiceService
+    ) { }
 
     createTransaction = async (req: Request, res: Response) => {
-        const { santriId, categoryId, type, amount, description, transactionDate } = req.body;
+        const { santriId, categoryId, type, amount, description, transactionDate, isPending } = req.body;
         const user = req.user;
 
         if (!user || !user.id || !user.institutionId) {
             throw new Error("Unauthorized: Missing institution context");
         }
-        
+
+        if (isPending && type === "PEMASUKAN") {
+            const invoice = await this.invoiceService.createInvoice({
+                userId: user.id,
+                santriId,
+                categoryId,
+                amount,
+                description,
+            });
+            return successResponse(res, "Invoice created successfully (Tertunda)", invoice);
+        }
+
         const transaction = await this.transactionService.createTransaction({
             santriId,
             categoryId,

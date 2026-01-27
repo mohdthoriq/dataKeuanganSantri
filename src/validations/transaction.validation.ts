@@ -20,6 +20,11 @@ export const createTransactionValidation = [
   body("transactionDate")
     .isISO8601()
     .withMessage("transactionDate harus format tanggal valid"),
+
+  body("isPending")
+    .optional()
+    .isBoolean()
+    .withMessage("isPending harus boolean"),
 ];
 
 export const updateTransactionValidation = [
