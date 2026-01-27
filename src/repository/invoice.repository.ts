@@ -20,6 +20,15 @@ export class InvoiceRepository {
       where: {
         santriId: { in: santriIds },
       },
+      include: {
+        santri: {
+          select: {
+            id: true,
+            fullname: true,
+            nis: true,
+          },
+        }
+      }
     });
   }
 
