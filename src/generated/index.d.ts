@@ -7214,7 +7214,7 @@ export namespace Prisma {
     id: string
     userId: string
     santriId: string
-    categoryId: string
+    categoryId: string | null
     description: string | null
     totalAmount: Decimal
     paidAmount: Decimal
@@ -7254,7 +7254,7 @@ export namespace Prisma {
     dueDate?: boolean
     createdAt?: boolean
     santri?: boolean | SantriDefaultArgs<ExtArgs>
-    category?: boolean | CategoryDefaultArgs<ExtArgs>
+    category?: boolean | Invoice$categoryArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
     payments?: boolean | Invoice$paymentsArgs<ExtArgs>
     _count?: boolean | InvoiceCountOutputTypeDefaultArgs<ExtArgs>
@@ -7272,7 +7272,7 @@ export namespace Prisma {
     dueDate?: boolean
     createdAt?: boolean
     santri?: boolean | SantriDefaultArgs<ExtArgs>
-    category?: boolean | CategoryDefaultArgs<ExtArgs>
+    category?: boolean | Invoice$categoryArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["invoice"]>
 
@@ -7288,7 +7288,7 @@ export namespace Prisma {
     dueDate?: boolean
     createdAt?: boolean
     santri?: boolean | SantriDefaultArgs<ExtArgs>
-    category?: boolean | CategoryDefaultArgs<ExtArgs>
+    category?: boolean | Invoice$categoryArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["invoice"]>
 
@@ -7308,19 +7308,19 @@ export namespace Prisma {
   export type InvoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "santriId" | "categoryId" | "description" | "totalAmount" | "paidAmount" | "status" | "dueDate" | "createdAt", ExtArgs["result"]["invoice"]>
   export type InvoiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     santri?: boolean | SantriDefaultArgs<ExtArgs>
-    category?: boolean | CategoryDefaultArgs<ExtArgs>
+    category?: boolean | Invoice$categoryArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
     payments?: boolean | Invoice$paymentsArgs<ExtArgs>
     _count?: boolean | InvoiceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type InvoiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     santri?: boolean | SantriDefaultArgs<ExtArgs>
-    category?: boolean | CategoryDefaultArgs<ExtArgs>
+    category?: boolean | Invoice$categoryArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
   }
   export type InvoiceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     santri?: boolean | SantriDefaultArgs<ExtArgs>
-    category?: boolean | CategoryDefaultArgs<ExtArgs>
+    category?: boolean | Invoice$categoryArgs<ExtArgs>
     user?: boolean | UsersDefaultArgs<ExtArgs>
   }
 
@@ -7328,7 +7328,7 @@ export namespace Prisma {
     name: "Invoice"
     objects: {
       santri: Prisma.$SantriPayload<ExtArgs>
-      category: Prisma.$CategoryPayload<ExtArgs>
+      category: Prisma.$CategoryPayload<ExtArgs> | null
       user: Prisma.$UsersPayload<ExtArgs>
       payments: Prisma.$PaymentPayload<ExtArgs>[]
     }
@@ -7336,7 +7336,7 @@ export namespace Prisma {
       id: string
       userId: string
       santriId: string
-      categoryId: string
+      categoryId: string | null
       description: string | null
       totalAmount: Prisma.Decimal
       paidAmount: Prisma.Decimal
@@ -7738,7 +7738,7 @@ export namespace Prisma {
   export interface Prisma__InvoiceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     santri<T extends SantriDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SantriDefaultArgs<ExtArgs>>): Prisma__SantriClient<$Result.GetResult<Prisma.$SantriPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    category<T extends CategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoryDefaultArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    category<T extends Invoice$categoryArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$categoryArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     user<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     payments<T extends Invoice$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -8173,6 +8173,25 @@ export namespace Prisma {
      * Limit how many Invoices to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Invoice.category
+   */
+  export type Invoice$categoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    where?: CategoryWhereInput
   }
 
   /**
@@ -20513,7 +20532,7 @@ export namespace Prisma {
     id?: StringFilter<"Invoice"> | string
     userId?: StringFilter<"Invoice"> | string
     santriId?: StringFilter<"Invoice"> | string
-    categoryId?: StringFilter<"Invoice"> | string
+    categoryId?: StringNullableFilter<"Invoice"> | string | null
     description?: StringNullableFilter<"Invoice"> | string | null
     totalAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
@@ -20521,7 +20540,7 @@ export namespace Prisma {
     dueDate?: DateTimeFilter<"Invoice"> | Date | string
     createdAt?: DateTimeFilter<"Invoice"> | Date | string
     santri?: XOR<SantriScalarRelationFilter, SantriWhereInput>
-    category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
+    category?: XOR<CategoryNullableScalarRelationFilter, CategoryWhereInput> | null
     user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
     payments?: PaymentListRelationFilter
   }
@@ -20530,7 +20549,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     santriId?: SortOrder
-    categoryId?: SortOrder
+    categoryId?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     totalAmount?: SortOrder
     paidAmount?: SortOrder
@@ -20550,7 +20569,7 @@ export namespace Prisma {
     NOT?: InvoiceWhereInput | InvoiceWhereInput[]
     userId?: StringFilter<"Invoice"> | string
     santriId?: StringFilter<"Invoice"> | string
-    categoryId?: StringFilter<"Invoice"> | string
+    categoryId?: StringNullableFilter<"Invoice"> | string | null
     description?: StringNullableFilter<"Invoice"> | string | null
     totalAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
@@ -20558,7 +20577,7 @@ export namespace Prisma {
     dueDate?: DateTimeFilter<"Invoice"> | Date | string
     createdAt?: DateTimeFilter<"Invoice"> | Date | string
     santri?: XOR<SantriScalarRelationFilter, SantriWhereInput>
-    category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
+    category?: XOR<CategoryNullableScalarRelationFilter, CategoryWhereInput> | null
     user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
     payments?: PaymentListRelationFilter
   }, "id">
@@ -20567,7 +20586,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     santriId?: SortOrder
-    categoryId?: SortOrder
+    categoryId?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     totalAmount?: SortOrder
     paidAmount?: SortOrder
@@ -20588,7 +20607,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Invoice"> | string
     userId?: StringWithAggregatesFilter<"Invoice"> | string
     santriId?: StringWithAggregatesFilter<"Invoice"> | string
-    categoryId?: StringWithAggregatesFilter<"Invoice"> | string
+    categoryId?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
     description?: StringNullableWithAggregatesFilter<"Invoice"> | string | null
     totalAmount?: DecimalWithAggregatesFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalWithAggregatesFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
@@ -21686,7 +21705,7 @@ export namespace Prisma {
     dueDate: Date | string
     createdAt?: Date | string
     santri: SantriCreateNestedOneWithoutInvoicesInput
-    category: CategoryCreateNestedOneWithoutInvoicesInput
+    category?: CategoryCreateNestedOneWithoutInvoicesInput
     user: UsersCreateNestedOneWithoutInvoicesInput
     payments?: PaymentCreateNestedManyWithoutInvoiceInput
   }
@@ -21695,7 +21714,7 @@ export namespace Prisma {
     id?: string
     userId: string
     santriId: string
-    categoryId: string
+    categoryId?: string | null
     description?: string | null
     totalAmount: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
@@ -21714,7 +21733,7 @@ export namespace Prisma {
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     santri?: SantriUpdateOneRequiredWithoutInvoicesNestedInput
-    category?: CategoryUpdateOneRequiredWithoutInvoicesNestedInput
+    category?: CategoryUpdateOneWithoutInvoicesNestedInput
     user?: UsersUpdateOneRequiredWithoutInvoicesNestedInput
     payments?: PaymentUpdateManyWithoutInvoiceNestedInput
   }
@@ -21723,7 +21742,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     santriId?: StringFieldUpdateOperationsInput | string
-    categoryId?: StringFieldUpdateOperationsInput | string
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -21737,7 +21756,7 @@ export namespace Prisma {
     id?: string
     userId: string
     santriId: string
-    categoryId: string
+    categoryId?: string | null
     description?: string | null
     totalAmount: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
@@ -21760,7 +21779,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     santriId?: StringFieldUpdateOperationsInput | string
-    categoryId?: StringFieldUpdateOperationsInput | string
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -22975,9 +22994,9 @@ export namespace Prisma {
     isNot?: SantriWhereInput
   }
 
-  export type CategoryScalarRelationFilter = {
-    is?: CategoryWhereInput
-    isNot?: CategoryWhereInput
+  export type CategoryNullableScalarRelationFilter = {
+    is?: CategoryWhereInput | null
+    isNot?: CategoryWhereInput | null
   }
 
   export type PaymentListRelationFilter = {
@@ -23378,6 +23397,11 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPlanIntervalFilter<$PrismaModel>
     _max?: NestedEnumPlanIntervalFilter<$PrismaModel>
+  }
+
+  export type CategoryScalarRelationFilter = {
+    is?: CategoryWhereInput
+    isNot?: CategoryWhereInput
   }
 
   export type TransactionCountOrderByAggregateInput = {
@@ -23980,10 +24004,12 @@ export namespace Prisma {
     update?: XOR<XOR<SantriUpdateToOneWithWhereWithoutInvoicesInput, SantriUpdateWithoutInvoicesInput>, SantriUncheckedUpdateWithoutInvoicesInput>
   }
 
-  export type CategoryUpdateOneRequiredWithoutInvoicesNestedInput = {
+  export type CategoryUpdateOneWithoutInvoicesNestedInput = {
     create?: XOR<CategoryCreateWithoutInvoicesInput, CategoryUncheckedCreateWithoutInvoicesInput>
     connectOrCreate?: CategoryCreateOrConnectWithoutInvoicesInput
     upsert?: CategoryUpsertWithoutInvoicesInput
+    disconnect?: CategoryWhereInput | boolean
+    delete?: CategoryWhereInput | boolean
     connect?: CategoryWhereUniqueInput
     update?: XOR<XOR<CategoryUpdateToOneWithWhereWithoutInvoicesInput, CategoryUpdateWithoutInvoicesInput>, CategoryUncheckedUpdateWithoutInvoicesInput>
   }
@@ -25527,7 +25553,7 @@ export namespace Prisma {
     id?: StringFilter<"Invoice"> | string
     userId?: StringFilter<"Invoice"> | string
     santriId?: StringFilter<"Invoice"> | string
-    categoryId?: StringFilter<"Invoice"> | string
+    categoryId?: StringNullableFilter<"Invoice"> | string | null
     description?: StringNullableFilter<"Invoice"> | string | null
     totalAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFilter<"Invoice"> | Decimal | DecimalJsLike | number | string
@@ -26429,7 +26455,7 @@ export namespace Prisma {
     dueDate: Date | string
     createdAt?: Date | string
     santri: SantriCreateNestedOneWithoutInvoicesInput
-    category: CategoryCreateNestedOneWithoutInvoicesInput
+    category?: CategoryCreateNestedOneWithoutInvoicesInput
     user: UsersCreateNestedOneWithoutInvoicesInput
   }
 
@@ -26437,7 +26463,7 @@ export namespace Prisma {
     id?: string
     userId: string
     santriId: string
-    categoryId: string
+    categoryId?: string | null
     description?: string | null
     totalAmount: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
@@ -26471,7 +26497,7 @@ export namespace Prisma {
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     santri?: SantriUpdateOneRequiredWithoutInvoicesNestedInput
-    category?: CategoryUpdateOneRequiredWithoutInvoicesNestedInput
+    category?: CategoryUpdateOneWithoutInvoicesNestedInput
     user?: UsersUpdateOneRequiredWithoutInvoicesNestedInput
   }
 
@@ -26479,7 +26505,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     santriId?: StringFieldUpdateOperationsInput | string
-    categoryId?: StringFieldUpdateOperationsInput | string
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -26800,7 +26826,7 @@ export namespace Prisma {
     status: $Enums.InvoiceStatus
     dueDate: Date | string
     createdAt?: Date | string
-    category: CategoryCreateNestedOneWithoutInvoicesInput
+    category?: CategoryCreateNestedOneWithoutInvoicesInput
     user: UsersCreateNestedOneWithoutInvoicesInput
     payments?: PaymentCreateNestedManyWithoutInvoiceInput
   }
@@ -26808,7 +26834,7 @@ export namespace Prisma {
   export type InvoiceUncheckedCreateWithoutSantriInput = {
     id?: string
     userId: string
-    categoryId: string
+    categoryId?: string | null
     description?: string | null
     totalAmount: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
@@ -27369,14 +27395,14 @@ export namespace Prisma {
     dueDate: Date | string
     createdAt?: Date | string
     santri: SantriCreateNestedOneWithoutInvoicesInput
-    category: CategoryCreateNestedOneWithoutInvoicesInput
+    category?: CategoryCreateNestedOneWithoutInvoicesInput
     payments?: PaymentCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceUncheckedCreateWithoutUserInput = {
     id?: string
     santriId: string
-    categoryId: string
+    categoryId?: string | null
     description?: string | null
     totalAmount: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
@@ -28363,7 +28389,7 @@ export namespace Prisma {
   export type InvoiceCreateManySantriInput = {
     id?: string
     userId: string
-    categoryId: string
+    categoryId?: string | null
     description?: string | null
     totalAmount: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
@@ -28455,7 +28481,7 @@ export namespace Prisma {
     status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category?: CategoryUpdateOneRequiredWithoutInvoicesNestedInput
+    category?: CategoryUpdateOneWithoutInvoicesNestedInput
     user?: UsersUpdateOneRequiredWithoutInvoicesNestedInput
     payments?: PaymentUpdateManyWithoutInvoiceNestedInput
   }
@@ -28463,7 +28489,7 @@ export namespace Prisma {
   export type InvoiceUncheckedUpdateWithoutSantriInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    categoryId?: StringFieldUpdateOperationsInput | string
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -28476,7 +28502,7 @@ export namespace Prisma {
   export type InvoiceUncheckedUpdateManyWithoutSantriInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    categoryId?: StringFieldUpdateOperationsInput | string
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -28553,7 +28579,7 @@ export namespace Prisma {
   export type InvoiceCreateManyUserInput = {
     id?: string
     santriId: string
-    categoryId: string
+    categoryId?: string | null
     description?: string | null
     totalAmount: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
@@ -28708,14 +28734,14 @@ export namespace Prisma {
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     santri?: SantriUpdateOneRequiredWithoutInvoicesNestedInput
-    category?: CategoryUpdateOneRequiredWithoutInvoicesNestedInput
+    category?: CategoryUpdateOneWithoutInvoicesNestedInput
     payments?: PaymentUpdateManyWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     santriId?: StringFieldUpdateOperationsInput | string
-    categoryId?: StringFieldUpdateOperationsInput | string
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -28728,7 +28754,7 @@ export namespace Prisma {
   export type InvoiceUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     santriId?: StringFieldUpdateOperationsInput | string
-    categoryId?: StringFieldUpdateOperationsInput | string
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
