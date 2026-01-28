@@ -20,7 +20,7 @@ class MidtransRepository {
   async createSnapToken(payload: {
     orderId: string;
     amount: number;
-    name?: string;
+    username?: string;
     email?: string;
   }) {
     const parameter = {
@@ -29,8 +29,8 @@ class MidtransRepository {
         gross_amount: payload.amount,
       },
       customer_details: {
-        first_name: payload.name ?? 'User',
-        email: payload.email ?? 'user@mail.com',
+        fullname: payload.username ?? null,
+        email: payload.email ?? null,
       },
       callback: {
         finish_url: 'http://localhost:3000/payment/success',
