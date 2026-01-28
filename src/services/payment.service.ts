@@ -62,7 +62,7 @@ export class PaymentService {
         const payment = await this.paymentRepo.findByOrderId(payload.order_id);
 
         if (!payment) {
-            throw new Error("Payment not found");
+            return { received: true };
         }
 
         const paymentStatus = mapMidtransStatus(payload.transaction_status);
