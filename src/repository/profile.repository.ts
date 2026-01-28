@@ -3,6 +3,7 @@ import type { PrismaClient, Profile, Prisma } from "../database";
 export interface IProfileRepository {
   findByUserId(userId: string): Promise<Profile | null>;
   findById(id: string): Promise<Profile | null>;
+  findByUserIdWithInclude(userId: string): Promise<Profile | null>;
   create(data: {
     name: string;
     gender: string;
@@ -27,6 +28,15 @@ export class ProfileRepository implements IProfileRepository {
   async findByUserId(userId: string): Promise<Profile | null> {
     return this.prisma.profile.findUnique({
       where: { userId },
+    });
+  }
+
+  async findByUserIdWithInclude(userId: string): Promise<Profile | null> {
+    return this.prisma.profile.findUnique({
+      where: { userId },
+      include: {
+        user: true,
+      },
     });
   }
 

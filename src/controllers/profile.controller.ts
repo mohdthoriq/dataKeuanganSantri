@@ -43,12 +43,21 @@ export class ProfileController {
     successResponse(res, "Profile retrieved successfully", profile);
   };
 
-// update profile
-updateProfile = async (req: Request, res: Response) => {
-  const id = req.params.id as string;
-  if (!id) throw new Error("Invalid profile ID");
+  // get profile by userId with include
+  getProfileByUserIdWithInclude = async (req: Request, res: Response) => {
+    if (!req.user) throw new Error("Unauthorized");
 
-  const data: Partial<{
+    const profile = await this.profileService.getByUserIdWithInclude(req.user.id);
+
+    successResponse(res, "Profile retrieved successfully", profile);
+  };
+
+  // update profile
+  updateProfile = async (req: Request, res: Response) => {
+    const id = req.params.id as string;
+    if (!id) throw new Error("Invalid profile ID");
+
+    const data: Partial<{
     name: string;
     gender: string;
     address: string;

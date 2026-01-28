@@ -12,6 +12,8 @@ export interface IProfileService {
     userId: string;
   }): Promise<Profile>;
 
+  getByUserIdWithInclude(userId: string): Promise<Profile>;
+
   getByUserId(userId: string): Promise<Profile>;
   getById(id: string): Promise<Profile>;
 
@@ -45,6 +47,12 @@ export class ProfileService implements IProfileService {
 
   async getByUserId(userId: string): Promise<Profile> {
     const profile = await this.profileRepo.findByUserId(userId);
+    if (!profile) throw new Error("Profile tidak ditemukan");
+    return profile;
+  }
+
+  async getByUserIdWithInclude(userId: string): Promise<Profile> {
+    const profile = await this.profileRepo.findByUserIdWithInclude(userId);
     if (!profile) throw new Error("Profile tidak ditemukan");
     return profile;
   }

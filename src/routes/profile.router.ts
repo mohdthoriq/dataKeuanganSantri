@@ -152,6 +152,7 @@ const controller = new ProfileController(service)
  */
 
 router.get('/:id', validate(getProfileByIdValidation), controller.getProfileById)
+router.get('/me', authenticate, controller.getProfileByUserIdWithInclude)
 router.post('/', authenticate, upload.single('profile_picture'), validate(createProfileValidation), controller.createProfile)
 router.put("/:id", authenticate, upload.single("profile_picture"), validate(updateProfileValidation), controller.updateProfile);
 router.delete('/:id', controller.deleteProfile)
