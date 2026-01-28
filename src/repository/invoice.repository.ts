@@ -54,4 +54,8 @@ export class InvoiceRepository {
       data,
     });
   }
+
+  delete(id: string) {
+    return this.prisma.invoice.delete({ where: { id } });
+  }
 }

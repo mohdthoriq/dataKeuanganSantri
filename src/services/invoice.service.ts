@@ -65,5 +65,19 @@ export class InvoiceService {
 
     return invoice;
   }
+
+  async deleteInvoice(invoiceId: string, userId: string) {
+    const invoice = await this.invoiceRepo.findById(invoiceId);
+
+    if (!invoice) {
+      throw new Error("Invoice not found");
+    }
+
+    if (invoice.userId !== userId) {
+      throw new Error("Forbidden");
+    }
+
+    return this.invoiceRepo.delete(invoiceId);
+  }
 }
 

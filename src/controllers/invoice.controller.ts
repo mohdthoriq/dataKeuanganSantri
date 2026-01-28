@@ -44,4 +44,20 @@ export class InvoiceController {
 
         successResponse(res, "Invoice retrieved successfully", invoice);
     };
+
+    deleteInvoice = async (req: Request, res: Response) => {
+        const userId = req.user!.id;
+        const invoiceId = req.params.id;
+
+        if (!invoiceId || Array.isArray(invoiceId)) {
+            throw new Error("Invalid invoice id");
+        }
+
+        const invoice = await this.invoiceService.deleteInvoice(
+            invoiceId,
+            userId
+        );
+
+        successResponse(res, "Invoice deleted successfully", invoice);
+    };
 }

@@ -20,4 +20,6 @@ router.get("/", controller.getMyInvoices)
 
 router.get("/:id", controller.getInvoiceDetail)
 
+router.delete("/:id", controller.deleteInvoice)
+
 export default router
