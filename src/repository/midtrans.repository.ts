@@ -33,9 +33,9 @@ class MidtransRepository {
         email: payload.email ?? 'user@mail.com',
       },
       callback: {
-        finish_url: 'ttp://localhost:5173/payment/success',
-        error_url: 'http://localhost:5173/payment/failed',
-        pending_url: 'http://localhost:5173/payment/pending'
+        finish_url: 'http://localhost:3000/payment/success',
+        error_url: 'http://localhost:3000/payment/failed',
+        pending_url: 'http://localhost:3000/payment/pending'
       },
     };
 
