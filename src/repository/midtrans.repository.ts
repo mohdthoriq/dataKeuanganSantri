@@ -32,10 +32,10 @@ class MidtransRepository {
         fullname: payload.username ?? null,
         email: payload.email ?? null,
       },
-      callback: {
-        finish_url: 'http://localhost:3000/payment/success',
-        error_url: 'http://localhost:3000/payment/failed',
-        pending_url: 'http://localhost:3000/payment/pending'
+      callbacks: {  
+        finish: 'https://pesantrenlink.vercel.app/payment/success',    
+        error: 'https://pesantrenlink.vercel.app/payment/failed',      
+        unfinish: 'https://pesantrenlink.vercel.app/payment/pending'   
       },
     };
 
