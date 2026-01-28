@@ -151,8 +151,8 @@ const controller = new ProfileController(service)
  *         description: Profile tidak ditemukan
  */
 
-router.get('/:id', validate(getProfileByIdValidation), controller.getProfileById)
 router.get('/me', authenticate, controller.getProfileByUserIdWithInclude)
+router.get('/:id', validate(getProfileByIdValidation), controller.getProfileById)
 router.post('/', authenticate, upload.single('profile_picture'), validate(createProfileValidation), controller.createProfile)
 router.put("/:id", authenticate, upload.single("profile_picture"), validate(updateProfileValidation), controller.updateProfile);
 router.delete('/:id', controller.deleteProfile)
