@@ -43,6 +43,7 @@ export interface IAuthRepository {
     login(email: string, password: string): Promise<LoginResult>;
     requestReset(email: string): Promise<RequestResetResult>;
     resetPassword(userId: string, otpCode: string, newPassword: string): Promise<RequestResetResult>;
+    changePassword(userId: string, currentPassword: string, newPassword: string): Promise<void>;
 }
 
 export class AuthRepository implements IAuthRepository {
@@ -167,5 +168,19 @@ export class AuthRepository implements IAuthRepository {
         await this.prisma.users.update({ where: { id: userId }, data: { password: hashedPassword } });
 
         return { success: true, message: "Password reset successfully" };
+    }
+
+    async changePassword(userId: string, currentPassword: string, newPassword: string): Promise<void> {
+        const user = await this.prisma.users.findUnique({ where: { id: userId } });
+        if (!user) throw new Error("User not found");
+
+        const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
+        if (!isPasswordValid) throw new Error("Invalid current password");
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        await this.prisma.users.update({
+            where: { id: userId },
+            data: { password: hashedPassword },
+        });
     }
 }

@@ -2,13 +2,13 @@
 import type { Request, Response } from "express";
 import { successResponse } from "../utils/response";
 import type { AuthService } from "../services/auth.service";
-import { EmailVerificationService } from "../services/emailVerification.service";
 
 export interface IAuthController {
   registerAdmin(req: Request, res: Response): Promise<void>;
   login(req: Request, res: Response): Promise<void>;
   requestReset(req: Request, res: Response): Promise<void>;
   resetPassword(req: Request, res: Response): Promise<void>;
+  changePassword(req: Request, res: Response): Promise<void>;
 }
 
 export class AuthController implements IAuthController {
@@ -28,7 +28,7 @@ export class AuthController implements IAuthController {
     const { email, password } = req.body;
     const result = await this.authService.login({ email, password });
 
-    successResponse(res, "Login successfully", result); 
+    successResponse(res, "Login successfully", result);
   };
 
   requestReset = async (req: Request, res: Response) => {
@@ -47,5 +47,16 @@ export class AuthController implements IAuthController {
     await this.authService.resetPassword(userId, otpCode, newPassword);
 
     successResponse(res, "Reset password successfully", null);
+  };
+
+  changePassword = async (req: Request, res: Response) => {
+    const { currentPassword, newPassword } = req.body;
+    const userId = (req as any).user.id;
+
+    if (!currentPassword || !newPassword) throw new Error("Missing parameters");
+
+    await this.authService.changePassword(userId, currentPassword, newPassword);
+
+    successResponse(res, "Change password successfully", null);
   };
 }

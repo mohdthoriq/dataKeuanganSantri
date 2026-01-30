@@ -23,7 +23,7 @@ export class AuthService {
       password,
       institution,
     });
-  // Selalu kirim email jika ada otpCode
+    // Selalu kirim email jika ada otpCode
     if (result.data.otpCode) {
       const styledHtml = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e1e1e1; border-radius: 8px; overflow: hidden;">
@@ -105,5 +105,9 @@ export class AuthService {
 
   async resetPassword(userId: string, otpCode: string, newPassword: string) {
     return this.authRepo.resetPassword(userId, otpCode, newPassword);
+  }
+
+  async changePassword(userId: string, currentPassword: string, newPassword: string) {
+    return this.authRepo.changePassword(userId, currentPassword, newPassword);
   }
 }

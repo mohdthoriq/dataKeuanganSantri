@@ -9,6 +9,7 @@ import { EmailVerificationController } from "../controllers/emailVerification.co
 import { validate } from "../utils/validator";
 import { loginValidation, registerAdminValidation, requestResetValidation, resetPasswordValidation } from "../validations/auth.validation";
 import { requestOtpValidation } from "../validations/emailVerification.validation";
+import { authenticate } from "../middlewares/auth.middleware";
 
 const router = Router();
 
@@ -155,6 +156,7 @@ router.post("/resend-otp", validate(requestOtpValidation), evController.resendOt
 
 router.post("/request-reset", validate(requestResetValidation), controller.requestReset);
 router.post("/reset-password", validate(resetPasswordValidation), controller.resetPassword);
+router.patch("/change-password", authenticate, controller.changePassword);
 
 
 export default router;
