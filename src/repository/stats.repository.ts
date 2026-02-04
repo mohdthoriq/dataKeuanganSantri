@@ -16,6 +16,18 @@ export class StatsRepository {
         return { total, active };
     }
 
+    async getWaliStats(institutionId: string) {
+        const total = await this.prisma.users.count({
+            where: { institutionId, role: "WALI_SANTRI" },
+        });
+
+        const active = await this.prisma.users.count({
+            where: { institutionId, role: "WALI_SANTRI", isActive: true },
+        });
+
+        return { total, active };
+    }
+
     async getTransactionStats(institutionId: string) {
         const transactions = await this.prisma.transaction.findMany({
             where: {
