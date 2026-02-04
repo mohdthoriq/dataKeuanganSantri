@@ -23,6 +23,8 @@ import profileInstitutionRouter from "./routes/profileInstitution.router";
 import subscriptionPlanRouter from "./routes/subscriptionPlan.router";
 import invoiceRouter from "./routes/invoice.router";
 import subscriptionRouter from "./routes/userSubscription.router";
+import statsRouter from "./routes/stats.router";
+
 
 
 const app: Application = express()
@@ -72,6 +74,8 @@ app.use('/api/subscription', authenticate, subscriptionRouter)
 app.use('/api/payment', paymentRouter)
 app.use('/api/category', authenticate, categoryRouter)
 app.use('/api/notification', authenticate, notificationRouter)
+app.use('/api/stats', authenticate, statsRouter)
+
 
 
 app.get(/.*/, (req: Request, res: Response) => {
