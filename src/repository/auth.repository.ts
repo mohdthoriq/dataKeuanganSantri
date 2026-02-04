@@ -125,8 +125,7 @@ export class AuthRepository implements IAuthRepository {
 
         const token = jwt.sign(
             { id: user.id, role: user.role, institutionId: user.institutionId, institutionName: user.institution?.name },
-            config.JWT_SECRET!,
-            { expiresIn: "1h" }
+            config.JWT_SECRET!
         );
 
         return {
