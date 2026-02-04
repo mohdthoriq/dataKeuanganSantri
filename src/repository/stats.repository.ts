@@ -28,8 +28,8 @@ export class StatsRepository {
         const totalNonAktif = total - active;
 
         return {
-            total,
-            active,
+            totalWali: total,
+            totalAktif: active,
             totalNonAktif,
         };
     }
