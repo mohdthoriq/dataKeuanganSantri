@@ -25,7 +25,13 @@ export class StatsRepository {
             where: { institutionId, role: "WALI_SANTRI", isActive: true },
         });
 
-        return { total, active };
+        const totalNonAktif = total - active;
+
+        return {
+            total,
+            active,
+            totalNonAktif,
+        };
     }
 
     async getTransactionStats(institutionId: string) {
