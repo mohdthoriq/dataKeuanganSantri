@@ -27,6 +27,7 @@ export type LoginResult = {
         username: string;
         role: string;
         institutionName?: string | null;
+        institutionId?: string | null;
     };
 };
 
@@ -114,7 +115,7 @@ export class AuthRepository implements IAuthRepository {
     async login(email: string, password: string): Promise<LoginResult> {
         const user = await this.prisma.users.findUnique({
             where: { email },
-            include: { institution: { select: { name: true } } }
+            include: { institution: { select: { name: true, id: true } } }
         });
         if (!user) throw new Error("User not found");
 
@@ -134,6 +135,7 @@ export class AuthRepository implements IAuthRepository {
                 username: user.username,
                 role: user.role,
                 institutionName: user.institution?.name ?? null,
+                institutionId: user.institution?.id ?? null,
             },
         };
     }
