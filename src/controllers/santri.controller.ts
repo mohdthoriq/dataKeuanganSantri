@@ -18,9 +18,9 @@ export class SantriController {
     }
 
     // STRICT: Ignore body institutionId, force use of user's institutionId
-    const { nis, fullname, kelas, gender, waliName } = req.body;
+    const { nis, fullname, kelas, gender, waliId } = req.body;
 
-    if (!nis || !fullname || !kelas || !gender || !waliName) {
+    if (!nis || !fullname || !kelas || !gender || !waliId) {
       throw new Error("Missing required fields");
     }
 
@@ -29,7 +29,7 @@ export class SantriController {
       fullname,
       kelas,
       gender,
-      waliName,
+      waliId,
       institutionId: user.institutionId,
       // institutionName is not needed if we pass valid ID, repo handles it or we pass name of auth user's institution if known
       // For now, passing ID is enough for the Repo if it looks up by ID.
