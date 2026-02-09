@@ -19,9 +19,9 @@ export const createSantriValidation = [
     .notEmpty().withMessage("Gender wajib diisi")
     .isIn(["Laki-laki", "Perempuan"]).withMessage("Gender harus Laki-laki atau Perempuan"),
 
-  body("waliName")
+  body("waliId")
     .trim()
-    .notEmpty().withMessage("Nama wali wajib diisi"),
+    .notEmpty().withMessage("ID wali wajib diisi"),
 ];
 
 export const updateSantriValidation = [
